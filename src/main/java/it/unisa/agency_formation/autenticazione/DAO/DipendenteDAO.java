@@ -1,5 +1,8 @@
 package it.unisa.agency_formation.autenticazione.DAO;
 
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.utils.DatabaseManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +22,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @pre dip!=null
      */
-    public void doSaveDipendente(Dipendente dip) throws SQLException {
+    public void doSaveDipendente(Dipendente dipendente) throws SQLException {
         PreparedStatement save = null;
         String query = "insert into " + TABLE_DIPENDENTE + " (idUtente, Residenza,Telefono,Stato,AnnoNascita,idTeam)" +
                 " values(?,?,?,?,?,?)";
@@ -65,7 +68,7 @@ public class DipendenteDAO {
             if (result.next()) {
                 user.setIdUtente(result.getInt("IdUtente"));
                 user.setResidenza(result.getString("Residenza"));
-                user.setTelefono(result.getInt("Telefono"));
+                user.setTelefono(result.getString("Telefono"));
                 user.setStato(result.getBoolean("Stato"));
                 user.setAnnoNascita(result.getInt("AnnoNascita"));
                 user.setIdTeam(result.getInt("IdTeam"));
@@ -96,13 +99,12 @@ public class DipendenteDAO {
         ArrayList<Dipendente> dipendenti = new ArrayList<Dipendente>();
         try {
             retrieve = connection.getConnection().prepareStatement(query);
-            retrieve.setInt(1, ruolo);
             result = retrieve.executeQuery();
             while (result.next()) {
                 Dipendente dip = new Dipendente();
                 dip.setIdUtente(result.getInt("IdUtente"));
                 dip.setResidenza(result.getString("Residenza"));
-                dip.setTelefono(result.getInt("Telefono"));
+                dip.setTelefono(result.getString("Telefono"));
                 dip.setStato(result.getBoolean("Stato"));
                 dip.setAnnoNascita(result.getInt("AnnoNascita"));
                 dip.setIdTeam(result.getInt("IdTeam"));
@@ -169,7 +171,7 @@ public class DipendenteDAO {
                 Dipendente dip = new Dipendente();
                 dip.setIdUtente(result.getInt("IdUtente"));
                 dip.setResidenza(result.getString("Residenza"));
-                dip.setTelefono(result.getInt("Telefono"));
+                dip.setTelefono(result.getString("Telefono"));
                 dip.setStato(result.getBoolean("Stato"));
                 dip.setAnnoNascita(result.getInt("AnnoNascita"));
                 dip.setIdTeam(result.getInt("IdTeam"));
