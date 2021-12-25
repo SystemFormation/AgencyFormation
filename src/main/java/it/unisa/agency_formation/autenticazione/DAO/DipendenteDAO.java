@@ -90,7 +90,7 @@ public class DipendenteDAO {
 
     /**
      * Questa funzionalità permette di recuperare tutti i dipendenti
-     *
+     * @return arraylist di dipendenti
      * @throws SQLException
      */
     public ArrayList<Dipendente> doRetrieveAll() throws SQLException {
