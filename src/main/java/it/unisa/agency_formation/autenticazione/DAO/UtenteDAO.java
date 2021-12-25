@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class UtenteDAO {
     private static final String TABLE_UTENTE = "utenti";
     private DatabaseManager connection;
+    private ResultSet result;
 
     /**
      * Questo metodo permette di salvare un utente
@@ -52,7 +53,6 @@ public class UtenteDAO {
      * @pre pwd!=null
      */
     public Utente doRetrieveUser(String email, String pwd) throws SQLException {
-        ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_UTENTE + " where Mail=? and Pwd=?";
         Utente user = new Utente();
@@ -92,7 +92,6 @@ public class UtenteDAO {
      * @pre id!=null
      */
     public Utente doRetrieveByID(int id)throws SQLException{
-        ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_UTENTE + " where IdUtente=?";
         Utente user = new Utente();
@@ -134,10 +133,8 @@ public class UtenteDAO {
 
 
     public ArrayList<Utente> doRetrieveUserByRuolo(int ruolo)throws SQLException{
-        ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from "+TABLE_UTENTE+" Where Ruolo=?";
-
         ArrayList<Utente> utenti = new ArrayList<>();
         try{
             retrieve = connection.getConnection().prepareStatement(query);

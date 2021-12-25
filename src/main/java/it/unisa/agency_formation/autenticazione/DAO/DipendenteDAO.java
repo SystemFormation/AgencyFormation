@@ -22,7 +22,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @pre dip!=null
      */
-    public void doSaveDipendente(Dipendente dipendente) throws SQLException {
+    public void doSaveEmploye(Dipendente dipendente) throws SQLException {
         PreparedStatement save = null;
         String query = "insert into " + TABLE_DIPENDENTE + " (idUtente, Residenza,Telefono,Stato,AnnoNascita,idTeam)" +
                 " values(?,?,?,?,?,?)";
@@ -135,9 +135,11 @@ public class DipendenteDAO {
      */
     public void updateState(int idUtente, boolean stato) throws SQLException {
         PreparedStatement retrieve = null;
-        String query = "update " + TABLE_DIPENDENTE + " set Stato= " + stato + " where IdUtente=" + idUtente;
+        String query = "update " + TABLE_DIPENDENTE + " set Stato= ? where IdUtente=?";
         try {
             retrieve = connection.getConnection().prepareStatement(query);
+            retrieve.setBoolean(1,stato);
+            retrieve.setInt(2,idUtente);
             result = retrieve.executeQuery();
         } finally {
             try {
@@ -154,10 +156,10 @@ public class DipendenteDAO {
 
     /**
      * Questa funzionalità permette di recuperare un dipendente attraverso lo stato
-     * @param state
+     * @param stato
      * @return arraylist di dipendenti
      * @throws SQLException
-     * @pre stato!= isEmpty()
+     * @pre stato!= null
      */
     public ArrayList<Dipendente> doRetrieveBySatate(boolean stato) throws SQLException{
         PreparedStatement retrieve = null;
