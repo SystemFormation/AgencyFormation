@@ -43,7 +43,7 @@ public class RegistrazioneControl extends HttpServlet {
         }else{
             String error = "Formato campi errato";
             request.setAttribute("Error", error);
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/nameJSPRegistration");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Registrazione.jsp");
             dispatcher.forward(request, response);
         }
 

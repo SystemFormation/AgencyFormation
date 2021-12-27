@@ -1,0 +1,87 @@
+@charset "ISO-8859-1";
+
+
+@font-face {
+    font-family: 'Sometype Mono', regular;
+    src: url('SometypeMono-Regular.ttf') format('truetype');
+}
+
+body {
+    width: auto;
+
+}
+
+.block {
+    width: 650px;
+    height: 900px;
+    background: url(./img/Cartella.png);
+    position: absolute;
+    top: 5%;
+    left: 55%;
+}
+
+.block img {
+    position: absolute;
+    z-index: -1;
+}
+
+.block h1 {
+    position: relative;
+    text-align: center;
+    margin-top: 90px;
+    font-family: 'Sometype Mono', regular;
+    font-size: 70px;
+    z-index: 1;
+}
+
+.form {
+    text-align: center;
+    width: 90%;
+    margin-left: 5%; margin-right: 5%;
+}
+
+.form input {
+    width: 60%;
+    margin: 25px 5% 25px 5%;
+    text-align: center;
+    font-family: 'Sometype Mono', regular;
+    font-size: 30px;
+    height: 40px;
+    color: #1E1E24; /Raisin Black/
+border: none;
+    border-bottom: 2px solid;
+    background-color: rgba(0,0,0,.0);
+}
+
+.form input::placeholder {
+    color: #1E1E24;
+}
+
+input:focus {
+    outline: none;
+}
+
+.form-button {
+    text-align: center;
+    width: 90%;
+    margin-left: 5%; margin-right: 5%;
+}
+
+.form-button input {
+    width: 190px;
+    height: 45px;
+    font-family: 'Sometype Mono', regular;
+    font-size: 28px;
+    color: #1E1E24; /Raisin Black/
+background-color: rgba(0,0,0,.0);
+    margin-top: 80px;
+}
+
+#logo {
+    float: right;
+    position: relative;
+    top: -25px;
+    margin-right: 10px;
+    width: 180px;
+    height: 180px;
+}

@@ -1,6 +1,6 @@
 @charset "ISO-8859-1";
 
-<meta name="viewport" content="width=device-width, initial-scale=1"
+
 @font-face {
     font-family: 'Sometype Mono', regular;
     src: url('SometypeMono-Regular.ttf') format('truetype');
@@ -8,6 +8,7 @@
 
 body {
     margin: 0;
+    background: url(../img/AF_Login.jpg) no-repeat center center fixed;
 }
 
 .content {
@@ -25,7 +26,7 @@ body {
     height: 500px;
     position: absolute;
     top: 50%; left: 50%;
-    transform: translate(-50%, 40%);
+    transform: translate(-50%, 35%);
     background-color: rgba(126, 171, 202, 0.7); /*Air Superiority Blue*/
     border: solid black 2px;
     box-shadow: 20px 20px 20px rgb(11,11,11); /*Rich Black FOGRA 39*/

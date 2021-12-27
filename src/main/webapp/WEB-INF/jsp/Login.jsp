@@ -5,11 +5,12 @@
 <head>
     <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
     <link rel="stylesheet" href="css/Login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="ISO-8859-1">
     <title>Login</title>
 </head>
 
-<body style="background: url(/img/AF_Login.jpg) no-repeat center center fixed;">
+<body>
 
     <div class="content">
         <div class="block">
