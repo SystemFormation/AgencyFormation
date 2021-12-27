@@ -10,16 +10,16 @@
     <meta charset="ISO-8859-1">
     <title>Registrazione</title>
 </head>
-<body style="background: url(../../img/AF_Registrazione.jpg) no-repeat;">
+<body>
 <div class="block">
-    <img src="./img/Cartella.png">
+    <img src="img/Cartella.png">
     <h1>Registrazione</h1>
-    <form action="Registrazione" method="post" id="Registrazione">
+    <form action="RegistrazioneControl" method="post" id="Registrazione">
         <div class="form">
             <input type="email" id="email" name="email" placeholder="Email" autocomplete="off" required>
-            <input type="password" id="password" name="password" placeholder="Password" required>
-            <input type="text" id="name" name="name" placeholder="Nome" autocomplete="off" required>
-            <input type="text" id="surname" name="surname" placeholder="Cognome" autocomplete="off" required>
+            <input type="password" id="password" name="pwd" placeholder="Password" required>
+            <input type="text" id="name" name="nome" placeholder="Nome" autocomplete="off" required>
+            <input type="text" id="surname" name="cognome" placeholder="Cognome" autocomplete="off" required>
         </div>
         <div class="form-button">
             <input type="submit" value="Registrati" id="Registrati">

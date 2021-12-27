@@ -8,8 +8,6 @@ import java.sql.SQLException;
 public class AutenticazioneManagerImpl implements AutenticazioneManager{
         UtenteDAO utDAO = new UtenteDAO();
 
-
-
         @Override
         public boolean registration(Utente user) throws SQLException {
             return utDAO.doSaveUser(user);

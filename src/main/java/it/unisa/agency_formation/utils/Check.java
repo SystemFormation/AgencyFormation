@@ -6,12 +6,13 @@ public class Check {
     }
 
     public static boolean checkEmail(String email){
-        String regular = "^(.+)@(\\S+) $";
+        String regular = "^[A-z0-9\\.\\+_-]+@[A-z0-9\\._-]+\\.[A-z]{2,6}$";
         return email.matches(regular);
     }
     public static boolean checkPwd(String pwd){
-        String regular = "^.(?=.[a-z A-Z])(?=.\\d)(?=.[!#$%&? \"]).*$";
-        return pwd.matches(regular);
+        //String regular = "^.*(?=.*[a-z A-Z])(?=.*\\d)(?=.*[!#$%&? \"]).*$";
+        String regularSimple="^[A-Za-z0-9]+$";
+        return pwd.matches(regularSimple);
     }
 
     public static boolean checkName(String name){
