@@ -1,6 +1,8 @@
-package it.unisa.agency_formation.autenticazione.manager.DAO;
+package it.unisa.agency_formation.autenticazione.DAO;
 import it.unisa.agency_formation.utils.DatabaseManager;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +10,17 @@ import java.util.ArrayList;
 
 public class UtenteDAO {
     private static final String TABLE_UTENTE = "utenti";
-    private DatabaseManager connection;
+    private static Connection connection;
+
+    static{
+        try {
+            connection = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Questo metodo permette di salvare un utente
@@ -23,7 +35,7 @@ public class UtenteDAO {
         String query = "insert into " + TABLE_UTENTE + "(Nome,Cognome,Pwd,Mail,Ruolo)"
                 + " values(?,?,?,?,?)";
         try {
-            save = connection.getConnection().prepareStatement(query);
+            save = connection.prepareStatement(query);
             save.setString(1, user.getName());
             save.setString(2, user.getSurname());
             save.setString(3, user.getPwd());
@@ -38,8 +50,8 @@ public class UtenteDAO {
                     save.close();
                 }
             } finally {
-                if (connection.getConnection() != null) {
-                    connection.getConnection().close();
+                if (connection!= null) {
+                    connection.close();
                 }
             }
         }
@@ -55,13 +67,18 @@ public class UtenteDAO {
      * @pre pwd!=null
      */
     public Utente login(String email, String pwd) throws SQLException {
+
+
         if(email == null || pwd == null){return null;}
         ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_UTENTE + " where Mail=? and Pwd=?";
         Utente user = new Utente();
         try {
-            retrieve = connection.getConnection().prepareStatement(query);
+            retrieve = connection.prepareStatement(query);
+
+                System.out.println(connection.toString());
+
             retrieve.setString(1, email);
             retrieve.setString(2, pwd);
             result = retrieve.executeQuery();
@@ -80,8 +97,8 @@ public class UtenteDAO {
                     retrieve.close();
                 }
             } finally {
-                if (connection.getConnection() != null) {
-                    connection.getConnection().close();
+                if (connection!= null) {
+                    connection.close();
                 }
             }
         }
@@ -102,7 +119,7 @@ public class UtenteDAO {
         String query = "Select * from " + TABLE_UTENTE + " where IdUtente=?";
         Utente user = new Utente();
         try {
-            retrieve = connection.getConnection().prepareStatement(query);
+            retrieve = connection.prepareStatement(query);
             retrieve.setInt(1, id);
             result = retrieve.executeQuery();
             if (result.next()) {
@@ -120,8 +137,8 @@ public class UtenteDAO {
                     retrieve.close();
                 }
             } finally {
-                if (connection.getConnection() != null) {
-                    connection.getConnection().close();
+                if (connection!= null) {
+                    connection.close();
                 }
             }
         }
@@ -147,7 +164,7 @@ public class UtenteDAO {
 
         ArrayList<Utente> utenti = new ArrayList<>();
         try{
-            retrieve = connection.getConnection().prepareStatement(query);
+            retrieve = connection.prepareStatement(query);
             retrieve.setInt(1,ruolo);
             result = retrieve.executeQuery();
             while(result.next()){
@@ -169,8 +186,8 @@ public class UtenteDAO {
                     retrieve.close();
                 }
             } finally {
-                if (connection.getConnection() != null) {
-                    connection.getConnection().close();
+                if (connection!= null) {
+                    connection.close();
                 }
             }
         }

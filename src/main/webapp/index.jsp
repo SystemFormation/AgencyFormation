@@ -11,7 +11,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  <a href="/LoginControl"> Login</a>
-  <a href="/RegistrazioneControl"> Registrazione</a>
+  <a href="LoginControl"> Login</a>
+  <a href="RegistrazioneControl"> Registrazione</a>
   </body>
 </html>

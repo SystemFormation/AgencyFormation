@@ -1,16 +1,14 @@
 package it.unisa.agency_formation.autenticazione.manager;
 
-import it.unisa.agency_formation.autenticazione.manager.DAO.UtenteDAO;
+import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
 import java.sql.SQLException;
 
 public class AutenticazioneManagerImpl implements AutenticazioneManager{
-        UtenteDAO utDAO;
+        UtenteDAO utDAO = new UtenteDAO();
 
-        public AutenticazioneManagerImpl(UtenteDAO dao){
-                this.utDAO = dao;
-        }
+
 
         @Override
         public boolean registration(Utente user) throws SQLException {
@@ -19,7 +17,10 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager{
 
         @Override
         public Utente login(String email, String password) throws SQLException {
-                return utDAO.login(email,password);
+
+                Utente user = utDAO.login(email,password);
+                System.out.println(user.getName());
+                return user;
         }
 
         @Override

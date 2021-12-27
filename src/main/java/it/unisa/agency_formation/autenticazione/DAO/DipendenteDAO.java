@@ -1,4 +1,4 @@
-package it.unisa.agency_formation.autenticazione.manager.DAO;
+package it.unisa.agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.utils.DatabaseManager;
@@ -11,8 +11,18 @@ import java.util.ArrayList;
 
 public class DipendenteDAO {
     private static final String TABLE_DIPENDENTE = "Dipendente";
-    private DatabaseManager connection;
     private ResultSet result;
+    private static Connection connection;
+
+    static{
+        try {
+            connection = DatabaseManager.getInstance().getConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Questa funzionalità permette di salvare un dipendente
@@ -30,7 +40,7 @@ public class DipendenteDAO {
         String query = "insert into " + TABLE_DIPENDENTE + " (idUtente, Residenza,Telefono,Stato,AnnoNascita,idTeam)" +
                 " values(?,?,?,?,?,?)";
         try {
-            save = connection.getConnection().prepareStatement(query);
+            save = connection.prepareStatement(query);
             save.setInt(1, dipendente.getIdUtente());
             save.setString(2, dipendente.getResidenza());
             save.setString(3, dipendente.getTelefono());
@@ -45,8 +55,8 @@ public class DipendenteDAO {
                 if (save != null)
                     save.close();
             } finally {
-                if (connection.getConnection() != null)
-                    connection.getConnection().close();
+                if (connection!= null)
+                    connection.close();
             }
         }
 
@@ -66,7 +76,7 @@ public class DipendenteDAO {
         String query = "Select * from " + TABLE_DIPENDENTE + " where IdUtente=?";
         Dipendente user = new Dipendente();
         try {
-            retrieve = connection.getConnection().prepareStatement(query);
+            retrieve = connection.prepareStatement(query);
             retrieve.setInt(1, id);
             result = retrieve.executeQuery();
             if (result.next()) {
@@ -84,8 +94,8 @@ public class DipendenteDAO {
                     retrieve.close();
                 }
             } finally {
-                if (connection.getConnection() != null) {
-                    connection.getConnection().close();
+                if (connection!= null) {
+                    connection.close();
                 }
             }
         }
@@ -103,7 +113,7 @@ public class DipendenteDAO {
         String query = "Select * from " + TABLE_DIPENDENTE;
         ArrayList<Dipendente> dipendenti = new ArrayList<Dipendente>();
         try {
-            retrieve = connection.getConnection().prepareStatement(query);
+            retrieve = connection.prepareStatement(query);
             result = retrieve.executeQuery();
             while (result.next()) {
                 Dipendente dip = new Dipendente();
@@ -123,8 +133,8 @@ public class DipendenteDAO {
                     retrieve.close();
                 }
             } finally {
-                if (connection.getConnection() != null) {
-                    connection.getConnection().close();
+                if (connection!= null) {
+                    connection.close();
                 }
             }
         }
@@ -144,7 +154,7 @@ public class DipendenteDAO {
         PreparedStatement retrieve = null;
         String query = "update " + TABLE_DIPENDENTE + " set Stato= ? where IdUtente=?";
         try {
-            retrieve = connection.getConnection().prepareStatement(query);
+            retrieve = connection.prepareStatement(query);
             retrieve.setBoolean(1,stato);
             retrieve.setInt(2,idUtente);
             int result = retrieve.executeUpdate();
@@ -157,8 +167,8 @@ public class DipendenteDAO {
                     retrieve.close();
                 }
             } finally {
-                if (connection.getConnection() != null) {
-                    connection.getConnection().close();
+                if (connection!= null) {
+                    connection.close();
                 }
             }
         }
@@ -176,7 +186,7 @@ public class DipendenteDAO {
         String query = "Select * from "+TABLE_DIPENDENTE+" Where Stato=?";
         ArrayList<Dipendente> dipendenti= new ArrayList<Dipendente>();
         try{
-            retrieve = connection.getConnection().prepareStatement(query);
+            retrieve = connection.prepareStatement(query);
             retrieve.setBoolean(1,stato);
             result = retrieve.executeQuery();
             while (result.next()) {
@@ -197,8 +207,8 @@ public class DipendenteDAO {
                     retrieve.close();
                 }
             } finally {
-                if (connection.getConnection() != null) {
-                    connection.getConnection().close();
+                if (connection!= null) {
+                    connection.close();
                 }
             }
         }

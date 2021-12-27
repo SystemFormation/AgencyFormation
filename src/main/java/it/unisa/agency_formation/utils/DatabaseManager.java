@@ -2,6 +2,8 @@ package it.unisa.agency_formation.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.TimeZone;
+
 public class DatabaseManager {
 
         private static DatabaseManager instance;
@@ -10,11 +12,11 @@ public class DatabaseManager {
         private String username = "root";
         private String password = "root11";
 
-        private DatabaseManager() throws SQLException{
+        private DatabaseManager(){
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
                 this.conn = DriverManager.getConnection(url,username,password);
-            }catch (ClassNotFoundException e){
+            }
+            catch (SQLException e) {
                 e.printStackTrace();
             }
         }
@@ -23,7 +25,7 @@ public class DatabaseManager {
             return this.conn;
         }
 
-        public static DatabaseManager getInstance() throws SQLException{
+        public static DatabaseManager getInstance() throws SQLException, ClassNotFoundException {
             if(instance == null){
                 instance = new DatabaseManager();
             }else if (instance.getConnection().isClosed()){
