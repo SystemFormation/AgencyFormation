@@ -1,6 +1,6 @@
 package it.unisa.agency_formation.autenticazione.manager;
 
-import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
+import it.unisa.agency_formation.autenticazione.manager.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
 import java.sql.SQLException;

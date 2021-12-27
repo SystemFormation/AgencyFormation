@@ -48,7 +48,7 @@ public class LoginControl extends HttpServlet {
                 //Da raffinare
                 String error = "Email o Password errati";
                 request.setAttribute("Error",error);
-                dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/nameJSPLogin");
+                dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Login.jsp");
                 dispatcher.forward(request,response);
             }
         }catch (SQLException e){
