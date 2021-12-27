@@ -18,11 +18,11 @@ public class Utente {
         return id;
     }
 
-    public String getNome() {
+    public String getName() {
         return nome;
     }
 
-    public String getCognome() {
+    public String getSurname() {
         return cognome;
     }
 
@@ -34,7 +34,7 @@ public class Utente {
         return pwd;
     }
 
-    public int getRuolo() {
+    public int getRole() {
         return ruolo;
     }
 
@@ -42,11 +42,11 @@ public class Utente {
         this.id = id;
     }
 
-    public void setNome(String nome) {
+    public void setName(String nome) {
         this.nome = nome;
     }
 
-    public void setCognome(String cognome) {
+    public void setSurname(String cognome) {
         this.cognome = cognome;
     }
 
@@ -58,7 +58,7 @@ public class Utente {
         this.pwd = pwd;
     }
 
-    public void setRuolo(int ruolo) {
+    public void setRole(int ruolo) {
         this.ruolo = ruolo;
     }
 }

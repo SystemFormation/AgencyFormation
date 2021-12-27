@@ -2,6 +2,7 @@ package it.unisa.agency_formation.autenticazione.control;
 
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.utils.Check;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,19 +18,35 @@ public class RegistrazioneControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = new Utente();
-        user.setNome(request.getParameter("nome"));
-        user.setCognome(request.getParameter("cognome"));
-        user.setEmail(request.getParameter("email"));
-        user.setPwd(request.getParameter("pwd"));
-        user.setRuolo(1);//il ruolo = 1 perchè il candidato è l'unico che si registra
-        try {
-            aut.registration(user);
-        }catch(SQLException e){
-            e.printStackTrace();
+        boolean check = false;
+        if(Check.checkName(request.getParameter("nome"))
+                && Check.checkSurname(request.getParameter("cognome"))
+                && Check.checkEmail(request.getParameter("email"))
+                && Check.checkPwd(request.getParameter("pwd"))) {
+            check = true;
         }
-        request.getSession().setAttribute("user",user);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/nameJSPCandidate");
-        dispatcher.forward(request,response);
+        if(check) {
+            user.setName(request.getParameter("nome"));
+            user.setSurname(request.getParameter("cognome"));
+            user.setEmail(request.getParameter("email"));
+            user.setPwd(request.getParameter("pwd"));
+            user.setRole(1);//il ruolo = 1 perchè il candidato è l'unico che si registra
+
+            try {
+                aut.registration(user);
+                request.getSession().setAttribute("user", user);
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/nameJSPCandidate");
+                dispatcher.forward(request, response);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else{
+            String error = "Formato campi errato";
+            request.setAttribute("Error", error);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/nameJSPRegistration");
+            dispatcher.forward(request, response);
+        }
+
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

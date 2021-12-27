@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class UtenteDAO {
     private static final String TABLE_UTENTE = "utenti";
     private DatabaseManager connection;
-    private ResultSet result;
 
     /**
      * Questo metodo permette di salvare un utente
@@ -18,18 +17,21 @@ public class UtenteDAO {
      * @throws SQLException
      * @pre user!=null
      */
-    public void doSaveUser(Utente user) throws SQLException {
+    public boolean doSaveUser(Utente user) throws SQLException {
+        if(user==null){return false;}
         PreparedStatement save = null;
         String query = "insert into " + TABLE_UTENTE + "(Nome,Cognome,Pwd,Mail,Ruolo)"
                 + " values(?,?,?,?,?)";
         try {
             save = connection.getConnection().prepareStatement(query);
-            save.setString(1, user.getNome());
-            save.setString(2, user.getCognome());
+            save.setString(1, user.getName());
+            save.setString(2, user.getSurname());
             save.setString(3, user.getPwd());
             save.setString(4, user.getEmail());
-            save.setInt(5, user.getRuolo());
-            save.executeUpdate();
+            save.setInt(5, user.getRole());
+            int result = save.executeUpdate();
+            if(result!=-1){return true;}
+            else{return false;}
         } finally {
             try {
                 if (save != null) {
@@ -52,7 +54,9 @@ public class UtenteDAO {
      * @pre email!=null
      * @pre pwd!=null
      */
-    public Utente doRetrieveUser(String email, String pwd) throws SQLException {
+    public Utente login(String email, String pwd) throws SQLException {
+        if(email == null || pwd == null){return null;}
+        ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_UTENTE + " where Mail=? and Pwd=?";
         Utente user = new Utente();
@@ -63,11 +67,11 @@ public class UtenteDAO {
             result = retrieve.executeQuery();
             if (result.next()) {
                 user.setId(result.getInt("IdUtente"));
-                user.setNome(result.getString("Nome"));
-                user.setCognome(result.getString("Cognome"));
+                user.setName(result.getString("Nome"));
+                user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Email"));
-                user.setRuolo(result.getInt("Ruolo"));
+                user.setRole(result.getInt("Ruolo"));
                 return user;
             }
         } finally {
@@ -89,9 +93,11 @@ public class UtenteDAO {
      * @param id
      * @return Utente
      * @throws SQLException
-     * @pre id!=null
+     * @pre id>0
      */
     public Utente doRetrieveByID(int id)throws SQLException{
+        if(id<=0){return null;}
+        ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_UTENTE + " where IdUtente=?";
         Utente user = new Utente();
@@ -101,11 +107,11 @@ public class UtenteDAO {
             result = retrieve.executeQuery();
             if (result.next()) {
                 user.setId(result.getInt("IdUtente"));
-                user.setNome(result.getString("Nome"));
-                user.setCognome(result.getString("Cognome"));
+                user.setName(result.getString("Nome"));
+                user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Email"));
-                user.setRuolo(result.getInt("Ruolo"));
+                user.setRole(result.getInt("Ruolo"));
                 return user;
             }
         } finally {
@@ -128,13 +134,17 @@ public class UtenteDAO {
      * @param ruolo
      * @return arraylist di utenti
      * @throws SQLException
-     * @pre ruolo== 3 || ruolo == 4 || ruolo == 2|| ruolo == 1
+     * @pre ruolo>0 and ruolo<=4
+     * @post utenti.size()>0
      */
 
 
     public ArrayList<Utente> doRetrieveUserByRuolo(int ruolo)throws SQLException{
+        if(ruolo<=0 && ruolo>4){return null;}
+        ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from "+TABLE_UTENTE+" Where Ruolo=?";
+
         ArrayList<Utente> utenti = new ArrayList<>();
         try{
             retrieve = connection.getConnection().prepareStatement(query);
@@ -143,13 +153,16 @@ public class UtenteDAO {
             while(result.next()){
                 Utente user = new Utente();
                 user.setId(result.getInt("IdUtente"));
-                user.setNome(result.getString("Nome"));
-                user.setCognome(result.getString("Cognome"));
+                user.setName(result.getString("Nome"));
+                user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                user.setRuolo(result.getInt("Ruolo"));
+                user.setRole(result.getInt("Ruolo"));
                 utenti.add(user);
             }
+            if(utenti.size()>0){
+                return utenti;
+            }else{return null;}
         }finally {
             try {
                 if (retrieve != null) {
@@ -161,7 +174,7 @@ public class UtenteDAO {
                 }
             }
         }
-        return utenti;
+
 
     }
 }

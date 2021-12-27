@@ -26,7 +26,7 @@ public class LoginControl extends HttpServlet {
             if(user!=null){
                 HttpSession session = request.getSession(true);
                 session.setAttribute("User",user);
-                switch (user.getRuolo()){
+                switch (user.getRole()){
                     case 1:
                         dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/nameJSPCandidate");
                         dispatcher.forward(request,response);

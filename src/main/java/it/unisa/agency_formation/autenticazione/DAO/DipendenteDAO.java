@@ -22,7 +22,10 @@ public class DipendenteDAO {
      * @throws SQLException
      * @pre dip!=null
      */
-    public void doSaveEmploye(Dipendente dipendente) throws SQLException {
+    public boolean doSaveEmploye(Dipendente dipendente) throws SQLException {
+        if(dipendente == null){
+            return false;
+        }
         PreparedStatement save = null;
         String query = "insert into " + TABLE_DIPENDENTE + " (idUtente, Residenza,Telefono,Stato,AnnoNascita,idTeam)" +
                 " values(?,?,?,?,?,?)";
@@ -34,9 +37,9 @@ public class DipendenteDAO {
             save.setBoolean(4, dipendente.isStato());
             save.setInt(5, dipendente.getAnnoNascita());
             save.setInt(6, dipendente.getIdTeam());
-
-            save.executeUpdate();
-
+            int result = save.executeUpdate();
+            if(result !=-1){return true;}
+            else{return false;}
         } finally {
             try {
                 if (save != null)
@@ -55,9 +58,10 @@ public class DipendenteDAO {
      * @param id è l'Id del dipendente che vogliamo recuperare
      * @return Dipendente
      * @throw SQLException
-     * @pre id=! null
+     * @pre id>0
      */
     public Dipendente doRetrieveById(int id) throws SQLException {
+        if(id<=0){return null;}
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_DIPENDENTE + " where IdUtente=?";
         Dipendente user = new Dipendente();
@@ -92,6 +96,7 @@ public class DipendenteDAO {
      * Questa funzionalità permette di recuperare tutti i dipendenti
      * @return arraylist di dipendenti
      * @throws SQLException
+     * @post dipendenti.size()>0
      */
     public ArrayList<Dipendente> doRetrieveAll() throws SQLException {
         PreparedStatement retrieve = null;
@@ -110,6 +115,8 @@ public class DipendenteDAO {
                 dip.setIdTeam(result.getInt("IdTeam"));
                 dipendenti.add(dip);
             }
+            if(dipendenti.size()>0){return dipendenti;}
+            else{return null;}
         } finally {
             try {
                 if (retrieve != null) {
@@ -121,7 +128,6 @@ public class DipendenteDAO {
                 }
             }
         }
-        return dipendenti;
     }
 
     /**
@@ -130,17 +136,21 @@ public class DipendenteDAO {
      * @param idUtente
      * @param stato
      * @throws SQLException
-     * @pre idUtente!=null
-     * @pre stato!=null
+     * @pre idUtente>0
+     *
      */
-    public void updateState(int idUtente, boolean stato) throws SQLException {
+    public boolean updateState(int idUtente, boolean stato) throws SQLException {
+        if(idUtente<=0){return false;}
         PreparedStatement retrieve = null;
         String query = "update " + TABLE_DIPENDENTE + " set Stato= ? where IdUtente=?";
         try {
             retrieve = connection.getConnection().prepareStatement(query);
             retrieve.setBoolean(1,stato);
             retrieve.setInt(2,idUtente);
-            result = retrieve.executeQuery();
+            int result = retrieve.executeUpdate();
+            if(result != -1){
+                return true;
+            }else{return false;}
         } finally {
             try {
                 if (retrieve != null) {
@@ -159,7 +169,7 @@ public class DipendenteDAO {
      * @param stato
      * @return arraylist di dipendenti
      * @throws SQLException
-     * @pre stato!= null
+     * @post dipendenti.size()>0
      */
     public ArrayList<Dipendente> doRetrieveBySatate(boolean stato) throws SQLException{
         PreparedStatement retrieve = null;
@@ -179,6 +189,8 @@ public class DipendenteDAO {
                 dip.setIdTeam(result.getInt("IdTeam"));
                 dipendenti.add(dip);
             }
+            if(dipendenti.size()>0){return dipendenti;}
+            else{return null;}
         } finally {
             try {
                 if (retrieve != null) {
@@ -190,7 +202,6 @@ public class DipendenteDAO {
                 }
             }
         }
-        return dipendenti;
     }
 
 }
