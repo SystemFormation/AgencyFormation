@@ -1,36 +1,45 @@
 package it.unisa.agency_formation.utils;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.TimeZone;
 
 public class DatabaseManager {
+    private static Connection conn;
+    String url = "jdbc:mysql://localhost:3306/af_db?serverTimezone=UTC";
+    String name = "root";
+    String pwd = "root11";
 
-        private static DatabaseManager instance;
-        private Connection conn;
-        private String url = "jdbc:mysql://localhost:3306/af_db";
-        private String username = "root";
-        private String password = "root11";
+    private static Connection connect;
+    private static DatabaseManager instance;
 
-        private DatabaseManager(){
-            try{
-                this.conn = DriverManager.getConnection(url,username,password);
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
+    private DatabaseManager()
+    {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            //connect DB
+            connect = DriverManager.getConnection(url,name,pwd);
         }
-
-        public Connection getConnection(){
-            return this.conn;
+        catch(SQLException e)
+        {
+            System.err.println(e.getMessage()+" problema sql");
         }
-
-        public static DatabaseManager getInstance() throws SQLException, ClassNotFoundException {
-            if(instance == null){
-                instance = new DatabaseManager();
-            }else if (instance.getConnection().isClosed()){
-                instance = new DatabaseManager();
-            }
-            return instance;
+        catch(ClassNotFoundException e)
+        {
+            System.err.println(e.getMessage()+" problema class not found");
         }
+    }
+
+    public static DatabaseManager getInstance()
+    {
+        if(instance == null) {
+            instance = new DatabaseManager();
+        }
+        return instance;
+    }
+    public Connection getConnection(){
+        return this.connect;
+    }
 }
+

@@ -10,17 +10,7 @@ import java.util.ArrayList;
 
 public class UtenteDAO {
     private static final String TABLE_UTENTE = "utenti";
-    private static Connection connection;
-
-    static{
-        try {
-            connection = DatabaseManager.getInstance().getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+    Connection connection = DatabaseManager.getInstance().getConnection();
 
     /**
      * Questo metodo permette di salvare un utente
@@ -77,7 +67,7 @@ public class UtenteDAO {
         try {
             retrieve = connection.prepareStatement(query);
 
-                System.out.println(connection.toString());
+
 
             retrieve.setString(1, email);
             retrieve.setString(2, pwd);
@@ -87,7 +77,7 @@ public class UtenteDAO {
                 user.setName(result.getString("Nome"));
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
-                user.setEmail(result.getString("Email"));
+                user.setEmail(result.getString("Mail"));
                 user.setRole(result.getInt("Ruolo"));
                 return user;
             }

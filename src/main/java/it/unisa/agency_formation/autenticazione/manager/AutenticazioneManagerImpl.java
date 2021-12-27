@@ -17,10 +17,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager{
 
         @Override
         public Utente login(String email, String password) throws SQLException {
-
-                Utente user = utDAO.login(email,password);
-                System.out.println(user.getName());
-                return user;
+                return utDAO.login(email,password);
         }
 
         @Override

@@ -12,18 +12,7 @@ import java.util.ArrayList;
 public class DipendenteDAO {
     private static final String TABLE_DIPENDENTE = "Dipendente";
     private ResultSet result;
-    private static Connection connection;
-
-    static{
-        try {
-            connection = DatabaseManager.getInstance().getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
+    Connection connection = DatabaseManager.getInstance().getConnection();
     /**
      * Questa funzionalità permette di salvare un dipendente
      *
