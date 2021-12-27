@@ -1,4 +1,4 @@
-package it.unisa.agency_formation.autenticazione.DAO;
+package it.unisa.agency_formation.autenticazione.manager.DAO;
 import it.unisa.agency_formation.utils.DatabaseManager;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import java.sql.PreparedStatement;

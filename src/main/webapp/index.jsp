@@ -11,6 +11,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  <a href="/LoginControl"> Login</a>
+  <a href="/RegistrazioneControl"> Registrazione</a>
   </body>
 </html>
