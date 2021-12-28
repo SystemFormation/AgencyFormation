@@ -22,7 +22,7 @@ public class RegistrazioneControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("nome")==null||request.getParameter("cognome")==null
         ||request.getParameter("email")==null||request.getParameter("pwd")==null){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Registrazione.jsp");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Registrazione.html");
             dispatcher.forward(request,response);
             return;
         }else{
@@ -48,7 +48,7 @@ public class RegistrazioneControl extends HttpServlet {
             } else {
                 String error = "Formato campi errato";
                 request.setAttribute("Error", error);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Registrazione.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Registrazione.html");
                 dispatcher.forward(request, response);
                 return;
             }

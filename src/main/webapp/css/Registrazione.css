@@ -1,35 +1,24 @@
 @charset "ISO-8859-1";
 
-
-@font-face {
-    font-family: 'Sometype Mono', regular;
-    src: url('SometypeMono-Regular.ttf') format('truetype');
-}
-
 body {
     width: auto;
     background: url(../img/AF_Registrazione.jpg) no-repeat;
+    font-family: monospace;
 }
 
 .block {
     width: 650px;
     height: 900px;
-    background: url(./img/Cartella.png);
     position: absolute;
     top: 5%;
     left: 55%;
-}
-
-.block img {
-    position: absolute;
-    z-index: -1;
+    background: url(../img/Cartella.png) no-repeat;
 }
 
 .block h1 {
     position: relative;
     text-align: center;
     margin-top: 90px;
-    font-family: 'Sometype Mono', regular;
     font-size: 70px;
     z-index: 1;
 }
@@ -44,15 +33,17 @@ body {
     width: 60%;
     margin: 25px 5% 25px 5%;
     text-align: center;
-    font-family: 'Sometype Mono', regular;
     font-size: 30px;
     height: 40px;
-    color: #1E1E24; /Raisin Black/
-border: none;
+    color: #1E1E24; /*Raisin Black*/
+    border: none;
     border-bottom: 2px solid;
     background-color: rgba(0,0,0,.0);
 }
 
+.form span{
+    height: 0;
+}
 .form input::placeholder {
     color: #1E1E24;
 }
@@ -70,10 +61,9 @@ input:focus {
 .form-button input {
     width: 190px;
     height: 45px;
-    font-family: 'Sometype Mono', regular;
     font-size: 28px;
-    color: #1E1E24; /Raisin Black/
-background-color: rgba(0,0,0,.0);
+    color: #1E1E24; /*Raisin Black*/
+    background-color: rgba(0,0,0,.0);
     margin-top: 80px;
 }
 
