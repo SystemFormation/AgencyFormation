@@ -24,10 +24,7 @@ public class RegistrazioneControlTest extends Mockito {
     public void setup(){
          request = mock(HttpServletRequest.class);
          response = mock(HttpServletResponse.class);
-         dispatcher = mock(RequestDispatcher.class);
-         context = mock(ServletContext.class);
-         dao = mock(UtenteDAO.class);
-         aut = mock(AutenticazioneManagerImpl.class);
+
 
     }
 

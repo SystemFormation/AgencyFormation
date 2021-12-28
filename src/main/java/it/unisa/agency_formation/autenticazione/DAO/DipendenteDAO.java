@@ -1,7 +1,7 @@
 package it.unisa.agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-import it.unisa.agency_formation.autenticazione.manager.utils.DatabaseManager;
+import it.unisa.agency_formation.utils.DatabaseManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 public class DipendenteDAO {
     private static final String TABLE_DIPENDENTE = "Dipendenti";
-    private ResultSet result;
-
 
     /**
      * Questa funzionalità permette di salvare un dipendente
@@ -22,7 +20,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @pre dip!=null
      */
-    public boolean doSaveEmploye(Dipendente dipendente) throws SQLException {
+    public static boolean doSaveEmploye(Dipendente dipendente) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if(dipendente == null){
             return false;
@@ -62,7 +60,7 @@ public class DipendenteDAO {
      * @throws SQLException
      */
 
-    public boolean updateRole(int id)throws SQLException{
+    public static boolean updateRole(int id)throws SQLException{
         if(id<=0){return false;}
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement update = null;
@@ -96,8 +94,9 @@ public class DipendenteDAO {
      * @pre id>0
      */
 
-    public Dipendente doRetrieveById(int id) throws SQLException {
+    public static Dipendente doRetrieveById(int id) throws SQLException {
         if(id<=0){return null;}
+        ResultSet result;
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_DIPENDENTE + " where IdUtente=?";
@@ -129,8 +128,9 @@ public class DipendenteDAO {
      * @throws SQLException
      * @post dipendenti.size()>0
      */
-    public ArrayList<Dipendente> doRetrieveAll() throws SQLException {
+    public static ArrayList<Dipendente> doRetrieveAll() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
+        ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_DIPENDENTE;
         ArrayList<Dipendente> dipendenti = new ArrayList<Dipendente>();
@@ -171,8 +171,9 @@ public class DipendenteDAO {
      * @pre idUtente>0
      *
      */
-    public boolean updateState(int idUtente, boolean stato) throws SQLException {
+    public static boolean updateState(int idUtente, boolean stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
+        ResultSet result;
         if(idUtente<=0){return false;}
         PreparedStatement retrieve = null;
         String query = "update " + TABLE_DIPENDENTE + " set Stato= ? where IdUtente=?";
@@ -180,8 +181,8 @@ public class DipendenteDAO {
             retrieve = connection.prepareStatement(query);
             retrieve.setBoolean(1,stato);
             retrieve.setInt(2,idUtente);
-            int result = retrieve.executeUpdate();
-            if(result != -1){
+            int res = retrieve.executeUpdate();
+            if(res != -1){
                 return true;
             }else{return false;}
         } finally {
@@ -204,8 +205,9 @@ public class DipendenteDAO {
      * @throws SQLException
      * @post dipendenti.size()>0
      */
-    public ArrayList<Dipendente> doRetrieveByState(boolean stato) throws SQLException{
+    public static ArrayList<Dipendente> doRetrieveByState(boolean stato) throws SQLException{
         Connection connection = DatabaseManager.getInstance().getConnection();
+        ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from "+TABLE_DIPENDENTE+" Where Stato=?";
         ArrayList<Dipendente> dipendenti= new ArrayList<Dipendente>();

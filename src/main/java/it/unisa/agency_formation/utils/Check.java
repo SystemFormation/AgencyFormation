@@ -1,4 +1,4 @@
-package it.unisa.agency_formation.autenticazione.manager.utils;
+package it.unisa.agency_formation.utils;
 
 public class Check {
 

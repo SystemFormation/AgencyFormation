@@ -31,26 +31,11 @@ public class LoginControl extends HttpServlet {
                 Utente user = aut.login(email, pwd);
                 if (user != null) {
                     HttpSession session = request.getSession(true);
-                    session.setAttribute("User", user);
-                    switch (user.getRole()) {
-                        case 1:
-                            dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-                            dispatcher.forward(request, response);
-                            break;
-                        case 2:
-                            dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/nameJSPEmployee");
-                            dispatcher.forward(request, response);
-                            break;
-                        case 3:
-                            dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/nameJSPTM");
-                            dispatcher.forward(request, response);
-                            break;
-                        case 4:
-                            dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/nameJSPHR");
-                            dispatcher.forward(request, response);
-                            break;
+                    session.setAttribute("user", user);
+                    dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                    dispatcher.forward(request, response);
                     }
-                } else {
+                else {
                     //Da raffinare
                     String error = "Email o Password errati";
                     request.setAttribute("Error", error);
@@ -60,10 +45,10 @@ public class LoginControl extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
-                dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Login.html");
+                /*
+                dispatcher = getServletContext().getRequestDispatcher("/");
                 dispatcher.forward(request,response);
-
+                */
     }
 
     @Override

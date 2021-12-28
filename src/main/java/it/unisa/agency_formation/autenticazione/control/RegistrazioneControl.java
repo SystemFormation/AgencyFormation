@@ -3,7 +3,7 @@ package it.unisa.agency_formation.autenticazione.control;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
-import it.unisa.agency_formation.autenticazione.manager.utils.Check;
+import it.unisa.agency_formation.utils.Check;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,12 +20,6 @@ public class RegistrazioneControl extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getParameter("nome")==null||request.getParameter("cognome")==null
-        ||request.getParameter("email")==null||request.getParameter("pwd")==null){
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Registrazione.html");
-            dispatcher.forward(request,response);
-            return;
-        }else{
             Utente user = new Utente();
             if (Check.checkName(request.getParameter("nome"))
                     && Check.checkSurname(request.getParameter("cognome"))
@@ -48,11 +42,11 @@ public class RegistrazioneControl extends HttpServlet {
             } else {
                 String error = "Formato campi errato";
                 request.setAttribute("Error", error);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Registrazione.html");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/html/Registrazione.html");
                 dispatcher.forward(request, response);
                 return;
             }
-        }
+
     }
 
 

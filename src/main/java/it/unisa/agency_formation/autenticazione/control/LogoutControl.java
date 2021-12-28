@@ -11,10 +11,10 @@ import java.io.IOException;
 @WebServlet("/LogoutControl")
 public class LogoutControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         HttpSession session=request.getSession();
         session.invalidate();
-        request.getRequestDispatcher("/index.jsp").include(request, response);
+        response.sendRedirect("./html/Login.html");
+
     }
 
     /**

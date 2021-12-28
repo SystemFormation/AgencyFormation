@@ -1,4 +1,4 @@
-package it.unisa.agency_formation.autenticazione.manager.utils;
+package it.unisa.agency_formation.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,7 +7,7 @@ public class DatabaseManager {
     private static Connection conn;
     String url = "jdbc:mysql://localhost:3306/af_db?serverTimezone=UTC";
     String name = "root";
-    String pwd = "password";
+    String pwd = "root11";
 
     private static Connection connect;
     private static DatabaseManager instance;
