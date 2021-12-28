@@ -1,15 +1,13 @@
-package it.unisa.agency_formation.utils;
-import javax.sql.DataSource;
+package it.unisa.agency_formation.autenticazione.manager.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.TimeZone;
 
 public class DatabaseManager {
     private static Connection conn;
     String url = "jdbc:mysql://localhost:3306/af_db?serverTimezone=UTC";
     String name = "root";
-    String pwd = "root11";
+    String pwd = "password";
 
     private static Connection connect;
     private static DatabaseManager instance;

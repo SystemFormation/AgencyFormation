@@ -2,9 +2,8 @@ package it.unisa.agency_formation.autenticazione.control;
 
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
-import it.unisa.agency_formation.utils.Check;
+import it.unisa.agency_formation.autenticazione.manager.utils.Check;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
