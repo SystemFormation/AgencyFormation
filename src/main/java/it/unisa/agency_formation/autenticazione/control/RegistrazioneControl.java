@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.autenticazione.control;
 
+import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
@@ -15,7 +16,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 @WebServlet("/RegistrazioneControl")
 public class RegistrazioneControl extends HttpServlet {
-    private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
+    private UtenteDAO dao = new UtenteDAO();
+    private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dao);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("nome")==null||request.getParameter("cognome")==null
@@ -52,14 +55,6 @@ public class RegistrazioneControl extends HttpServlet {
             }
         }
     }
-
-
-
-
-
-
-
-
 
 
 

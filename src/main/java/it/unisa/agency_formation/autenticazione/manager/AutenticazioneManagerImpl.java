@@ -6,11 +6,19 @@ import it.unisa.agency_formation.autenticazione.domain.Utente;
 import java.sql.SQLException;
 
 public class AutenticazioneManagerImpl implements AutenticazioneManager{
-        UtenteDAO utDAO = new UtenteDAO();
+        private UtenteDAO utDAO;
+
+        public AutenticazioneManagerImpl(UtenteDAO utDAO) {
+                this.utDAO = utDAO;
+        }
 
         @Override
         public boolean registration(Utente user) throws SQLException {
-            return utDAO.doSaveUser(user);
+                if(!alreadyRegisteredUser(user)) {
+                        return utDAO.doSaveUser(user);
+                }else{
+                        return false;
+                }
         }
 
         @Override
@@ -21,5 +29,16 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager{
         @Override
         public Utente getAllData(int idUser) throws SQLException {
                 return utDAO.doRetrieveByID(idUser);
+        }
+
+        private boolean alreadyRegisteredUser(Utente user) throws SQLException {
+                Utente result = utDAO.login(user.getEmail(),user.getPwd());
+                if(result == null){
+                        return false;
+                }
+                else{
+                        return true;
+                }
+
         }
 }

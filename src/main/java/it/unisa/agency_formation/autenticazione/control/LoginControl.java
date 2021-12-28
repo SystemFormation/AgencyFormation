@@ -17,9 +17,12 @@ import java.sql.SQLException;
 
 @WebServlet("/LoginControl")
 public class LoginControl extends HttpServlet {
-    private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
+    private UtenteDAO dao = new UtenteDAO();
+    private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dao);
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.err.println(System.getProperty("user.home"));
+
         String email = request.getParameter("email");
         String pwd = request.getParameter("password");
         RequestDispatcher dispatcher;
@@ -57,6 +60,7 @@ public class LoginControl extends HttpServlet {
                 e.printStackTrace();
             }
         }
+
                 dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Login.jsp");
                 dispatcher.forward(request,response);
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class UtenteDAO {
     private static final String TABLE_UTENTE = "utenti";
-    Connection connection = DatabaseManager.getInstance().getConnection();
+
 
     /**
      * Questo metodo permette di salvare un utente
@@ -21,6 +21,7 @@ public class UtenteDAO {
      */
     public boolean doSaveUser(Utente user) throws SQLException {
         if(user==null){return false;}
+        Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
         String query = "insert into " + TABLE_UTENTE + "(Nome,Cognome,Pwd,Mail,Ruolo)"
                 + " values(?,?,?,?,?)";
@@ -57,18 +58,14 @@ public class UtenteDAO {
      * @pre pwd!=null
      */
     public Utente login(String email, String pwd) throws SQLException {
-
-
         if(email == null || pwd == null){return null;}
+        Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_UTENTE + " where Mail=? and Pwd=?";
         Utente user = new Utente();
         try {
             retrieve = connection.prepareStatement(query);
-
-
-
             retrieve.setString(1, email);
             retrieve.setString(2, pwd);
             result = retrieve.executeQuery();
@@ -104,6 +101,7 @@ public class UtenteDAO {
      */
     public Utente doRetrieveByID(int id)throws SQLException{
         if(id<=0){return null;}
+        Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_UTENTE + " where IdUtente=?";
@@ -117,7 +115,7 @@ public class UtenteDAO {
                 user.setName(result.getString("Nome"));
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
-                user.setEmail(result.getString("Email"));
+                user.setEmail(result.getString("Mail"));
                 user.setRole(result.getInt("Ruolo"));
                 return user;
             }
@@ -148,6 +146,7 @@ public class UtenteDAO {
 
     public ArrayList<Utente> doRetrieveUserByRuolo(int ruolo)throws SQLException{
         if(ruolo<=0 && ruolo>4){return null;}
+        Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from "+TABLE_UTENTE+" Where Ruolo=?";

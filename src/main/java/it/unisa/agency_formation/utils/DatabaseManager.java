@@ -14,32 +14,31 @@ public class DatabaseManager {
     private static Connection connect;
     private static DatabaseManager instance;
 
-    private DatabaseManager()
-    {
+    private DatabaseManager() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            //connect DB
-            connect = DriverManager.getConnection(url,name,pwd);
-        }
-        catch(SQLException e)
-        {
-            System.err.println(e.getMessage()+" problema sql");
-        }
-        catch(ClassNotFoundException e)
-        {
-            System.err.println(e.getMessage()+" problema class not found");
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage() + " problema class not found");
         }
     }
 
-    public static DatabaseManager getInstance()
-    {
-        if(instance == null) {
+    public static DatabaseManager getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new DatabaseManager();
+        } else if (connect.isClosed()) {
             instance = new DatabaseManager();
         }
         return instance;
     }
-    public Connection getConnection(){
-        return this.connect;
+
+    public Connection getConnection() {
+        try {
+            return this.connect = DriverManager.getConnection(url, name, pwd);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+
 }
 
