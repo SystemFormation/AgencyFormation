@@ -12,7 +12,7 @@ function checkEmail(){
     else if(input.value.match(check)){
         $('#email').css("border-bottom","2px solid green");
         $('#rsEmail').css("display","none");
-        $('#email').css("color","black");
+        $('#email').css("color","#1E1E24");
         esito = true;
     }
     return esito;
@@ -32,7 +32,7 @@ function checkPassword(){
     else if(input.value.match(check)){
         $('#pwd').css("border-bottom","2px solid green");
         $('#rsPassword').css("display","none");
-        $('#pwd').css("color","black");
+        $('#pwd').css("color","#1E1E24");
         esito = true;
     }
     return esito;
@@ -52,7 +52,7 @@ function checkNome(){
     else if(input.value.match(check)){
         $('#name').css("border-bottom","2px solid green");
         $('#rsNome').css("display","none");
-        $('#name').css("color","black");
+        $('#name').css("color","#1E1E24");
         esito = true;
     }
     return esito;
@@ -72,7 +72,7 @@ function checkCognome(){
     else if(input.value.match(check)){
         $('#surname').css("border-bottom","2px solid green");
         $('#rsCognome').css("display","none");
-        $('#surname').css("color","black");
+        $('#surname').css("color","#1E1E24");
         esito = true;
     }
     return esito;
