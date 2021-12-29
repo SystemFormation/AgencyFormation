@@ -16,7 +16,7 @@ public class DipendenteDAO {
      * Questa funzionalità permette di salvare un dipendente
      *
      * @param dipendente è il dipendente da registrare
-     * @return void
+     * @return boolean
      * @throws SQLException
      * @pre dip!=null
      */
@@ -26,17 +26,16 @@ public class DipendenteDAO {
             return false;
         }
         PreparedStatement save = null;
-        String query = "insert into " + TABLE_DIPENDENTE + " (idUtente, Residenza,Telefono,Stato,AnnoDiNascita,idTeam)" +
+        String query = "insert into " + TABLE_DIPENDENTE + " (Residenza,Telefono,Stato,AnnoDiNascita,idTeam)" +
                 " values(?,?,?,?,?,?)";
-        updateRole(dipendente.getIdUtente());
+
         try {
             save = connection.prepareStatement(query);
-            save.setInt(1, dipendente.getIdUtente());
-            save.setString(2, dipendente.getResidenza());
-            save.setString(3, dipendente.getTelefono());
-            save.setBoolean(4, dipendente.isStato());
-            save.setInt(5, dipendente.getAnnoNascita());
-            save.setInt(6, dipendente.getIdTeam());
+            save.setString(1, dipendente.getResidenza());
+            save.setString(2, dipendente.getTelefono());
+            save.setBoolean(3, dipendente.isStato());
+            save.setInt(4, dipendente.getAnnoNascita());
+            save.setInt(5, dipendente.getIdTeam());
             int result = save.executeUpdate();
             if(result !=-1){return true;}
             else{return false;}
@@ -106,7 +105,6 @@ public class DipendenteDAO {
             retrieve.setInt(1, id);
             result = retrieve.executeQuery();
             if (result.next()) {
-                user.setIdUtente(result.getInt("IdUtente"));
                 user.setResidenza(result.getString("Residenza"));
                 user.setTelefono(result.getString("Telefono"));
                 user.setStato(result.getBoolean("Stato"));
@@ -139,7 +137,6 @@ public class DipendenteDAO {
             result = retrieve.executeQuery();
             while (result.next()) {
                 Dipendente dip = new Dipendente();
-                dip.setIdUtente(result.getInt("IdUtente"));
                 dip.setResidenza(result.getString("Residenza"));
                 dip.setTelefono(result.getString("Telefono"));
                 dip.setStato(result.getBoolean("Stato"));
@@ -150,15 +147,15 @@ public class DipendenteDAO {
             if(dipendenti.size()>0){return dipendenti;}
             else{return null;}
         } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
+                try {
+                    if (retrieve != null) {
+                        retrieve.close();
+                    }
+                } finally {
+                    if (connection!= null) {
+                        connection.close();
+                    }
                 }
-            } finally {
-                if (connection!= null) {
-                    connection.close();
-                }
-            }
         }
     }
 
@@ -169,7 +166,8 @@ public class DipendenteDAO {
      * @param stato
      * @throws SQLException
      * @pre idUtente>0
-     *
+     * @return boolean for confirm
+     * @post setStato(stato)
      */
     public static boolean updateState(int idUtente, boolean stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -217,7 +215,6 @@ public class DipendenteDAO {
             result = retrieve.executeQuery();
             while (result.next()) {
                 Dipendente dip = new Dipendente();
-                dip.setIdUtente(result.getInt("IdUtente"));
                 dip.setResidenza(result.getString("Residenza"));
                 dip.setTelefono(result.getString("Telefono"));
                 dip.setStato(result.getBoolean("Stato"));
@@ -239,6 +236,4 @@ public class DipendenteDAO {
             }
         }
     }
-
-
 }

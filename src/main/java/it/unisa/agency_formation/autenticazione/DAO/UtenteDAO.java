@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class UtenteDAO {
     private static final String TABLE_UTENTE = "utenti";
 
-
     /**
      * Questo metodo permette di salvare un utente
      * @param user è l'utente da registrare
@@ -180,7 +179,5 @@ public class UtenteDAO {
                 }
             }
         }
-
-
     }
 }
