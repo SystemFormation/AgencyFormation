@@ -14,9 +14,9 @@ public class TeamManagerImpl implements TeamManager{
     private int idTeam=0;
 
     @Override
-    public boolean createTeam(String name, String projectName, String description, int maxEmpl, String competence, int idUtente) throws SQLException {
+    public boolean createTeam(String name, String projectName, String description, int maxEmpl, String competence, int idTM) throws SQLException {
        idTeam++;
-       return tdao.doSaveTeam(new Team(idTeam, projectName, maxEmpl, name, description, competence, idUtente));
+       return tdao.doSaveTeam(new Team(projectName, maxEmpl, name, description, competence, idTM));
     }
 
     @Override
@@ -26,7 +26,7 @@ public class TeamManagerImpl implements TeamManager{
 
     @Override
     public void addEmployee(int idTeam, Dipendente dip) throws SQLException {
-        tdao.addEmployee(idTeam,dip.getIdUtente());
+        tdao.addEmployee(idTeam,dip.getIdDipendente());
     }
 
     @Override

@@ -1,12 +1,12 @@
 package it.unisa.agency_formation.autenticazione.domain;
 
 public class Dipendente {
-    private int idUtente, idTeam, annoNascita;
+    private int idDipendente, idTeam, annoNascita;
     private String residenza,telefono;
     private boolean stato;
 
-    public Dipendente(int idUtente, int idTeam, int annoNascita, String residenza, String telefono, boolean stato) {
-        this.idUtente = idUtente;
+    public Dipendente(int idDipendente, int idTeam, int annoNascita, String residenza, String telefono, boolean stato) {
+        this.idDipendente = idDipendente;
         this.idTeam = idTeam;
         this.annoNascita = annoNascita;
         this.residenza = residenza;
@@ -16,12 +16,12 @@ public class Dipendente {
 
     public Dipendente(){}
 
-    public int getIdUtente() {
-        return idUtente;
+    public int getIdDipendente() {
+        return idDipendente;
     }
 
-    public void setIdUtente(int idUtente) {
-        this.idUtente = idUtente;
+    public void setIdDipendente(int idUtente) {
+        this.idDipendente= idUtente;
     }
 
     public int getIdTeam() {

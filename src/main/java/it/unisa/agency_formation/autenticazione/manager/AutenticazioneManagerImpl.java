@@ -6,7 +6,7 @@ import it.unisa.agency_formation.autenticazione.domain.Utente;
 import java.sql.SQLException;
 
 public class AutenticazioneManagerImpl implements AutenticazioneManager{
-        private UtenteDAO utDAO;
+        private final UtenteDAO utDAO;
 
         public AutenticazioneManagerImpl(UtenteDAO utDAO) {
                 this.utDAO = utDAO;

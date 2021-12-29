@@ -32,7 +32,10 @@ public class RegistrazioneControlTest extends Mockito {
         when(request.getParameter("cognome")).thenReturn("Rossi");
         when(request.getParameter("email")).thenReturn("albe@gmail.com");
         when(request.getParameter("password")).thenReturn("lol");
-
+         dispatcher = mock(RequestDispatcher.class);
+         context = mock(ServletContext.class);
+         dao = mock(UtenteDAO.class);
+         aut = mock(AutenticazioneManagerImpl.class);
 
     }
 }
