@@ -41,5 +41,4 @@ public class Check {
         return competence.matches(regular);
     }
 
-
 }

@@ -11,11 +11,9 @@ import java.util.ArrayList;
 public class TeamManagerImpl implements TeamManager{
     private TeamDAO tdao;
     private DipendenteDAO dipdao;
-    private int idTeam=0;
 
     @Override
     public boolean createTeam(String name, String projectName, String description, int maxEmpl, String competence, int idTM) throws SQLException {
-       idTeam++;
        return tdao.doSaveTeam(new Team(projectName, maxEmpl, name, description, competence, idTM));
     }
 
