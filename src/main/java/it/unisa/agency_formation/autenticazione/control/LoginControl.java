@@ -21,8 +21,6 @@ public class LoginControl extends HttpServlet {
     private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dao);
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.err.println(System.getProperty("user.home"));
-
         String email = request.getParameter("email");
         String pwd = request.getParameter("password");
         RequestDispatcher dispatcher;
@@ -36,9 +34,7 @@ public class LoginControl extends HttpServlet {
                     dispatcher.forward(request, response);
                     }
                 else {
-                    //Da raffinare
-                    String error = "Email o Password errati";
-                    request.setAttribute("Error", error);
+                    response.sendRedirect("./html/Login.html");
                 }
 
             } catch (SQLException e) {

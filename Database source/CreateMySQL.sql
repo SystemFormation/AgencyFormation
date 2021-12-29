@@ -14,14 +14,14 @@ Ruolo int not null
 use af_db;
 
 create table Team(
-IdTeam int primary key not null, 
+IdTeam int primary key not null auto_increment,
 NomeProgetto varchar(32) not null, 
 NumeroDipendenti int not null,
 NomeTeam varchar(32) not null,
 Descrizione varchar(128) not null,
 Competenza varchar(512) null,
-IdUtente int not null,
-foreign key(IdUtente) references Utenti(IdUtente)
+IdTM int not null,
+foreign key(IdTM) references Utenti(IdUtente)
 on update cascade
 on delete cascade
 );
@@ -29,7 +29,7 @@ on delete cascade
 use af_db;
 
 create table Dipendenti(
-IdUtente int primary key not null, 
+IdDipendente int primary key not null,
 Residenza varchar(128) null, 
 Telefono varchar(20) null,
 Stato boolean not null,
@@ -38,7 +38,7 @@ IdTeam int null,
 foreign key(IdTeam) references Team(IdTeam)
 on update cascade
 on delete cascade,
-foreign key(IdUtente) references Utenti(IdUtente)
+foreign key(IdDipendente) references Utenti(IdUtente)
 on update cascade
 on delete cascade
 
@@ -47,7 +47,7 @@ on delete cascade
 use af_db;
 
 create table Skill(
-IdSkill int primary key not null, 
+IdSkill int primary key not null auto_increment,
 NomeSkill varchar(64) not null, 
 DescrizioneSkill varchar(512) not null
 );
@@ -55,11 +55,11 @@ DescrizioneSkill varchar(512) not null
 use af_db;
 
 create table SkillsDipendenti(
-IdUtente int not null, 
+IdDipendente int not null,
 IdSkill int not null, 
 Livello int not null,
-primary key(IdUtente,IdSkill),
-foreign key(IdUtente) references dipendenti(IdUtente)
+primary key(IdDipendente,IdSkill),
+foreign key(IdDipendente) references dipendenti(IdDipendente)
 on update cascade
 on delete cascade,
 foreign key(IdSkill) references Skill(IdSkill)
@@ -70,11 +70,11 @@ on delete cascade
 use af_db;
 
 create table Documenti(
-IdDocumento int primary key not null, 
+IdDocumento int primary key not null auto_increment,
 MaterialeDiFormazione varchar(32) not null, 
 IdUtente int not null,
 IdTeam int not null,
-foreign key(IdUtente) references dipendenti(IdUtente)
+foreign key(IdUtente) references dipendenti(IdDipendente)
 on update cascade
 on delete cascade,
 foreign key(IdTeam) references team(IdTeam)
@@ -85,7 +85,7 @@ on delete cascade
 use af_db;
 
 create table Candidature(
-IdCandidatura int primary key not null, 
+IdCandidatura int primary key not null auto_increment,
 Cv varchar(32) not null, 
 Attestati varchar(32) null,
 Certificazioni varchar(32) null,

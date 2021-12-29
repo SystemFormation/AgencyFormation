@@ -1,10 +1,8 @@
 package it.unisa.agency_formation.autenticazione.control;
-
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.utils.Check;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,17 +38,9 @@ public class RegistrazioneControl extends HttpServlet {
                     e.printStackTrace();
                 }
             } else {
-                String error = "Formato campi errato";
-                request.setAttribute("Error", error);
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/html/Registrazione.html");
-                dispatcher.forward(request, response);
-                return;
+                response.sendRedirect("./html/Registrazione.html");
             }
-
     }
-
-
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req,resp);

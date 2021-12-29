@@ -1,6 +1,5 @@
 package agency_formation.autenticazione.control;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
-import it.unisa.agency_formation.autenticazione.control.LoginControl;
 import it.unisa.agency_formation.autenticazione.control.RegistrazioneControl;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import org.junit.Before;
@@ -24,8 +23,6 @@ public class RegistrazioneControlTest extends Mockito {
     public void setup(){
          request = mock(HttpServletRequest.class);
          response = mock(HttpServletResponse.class);
-
-
     }
 
 
