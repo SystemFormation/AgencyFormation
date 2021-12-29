@@ -9,10 +9,10 @@ body {
 .block {
     width: 650px;
     height: 900px;
+    background: url(../img/Cartella.png);
     position: absolute;
     top: 5%;
     left: 55%;
-    background: url(../img/Cartella.png) no-repeat;
 }
 
 .block h1 {
@@ -41,9 +41,6 @@ body {
     background-color: rgba(0,0,0,.0);
 }
 
-.form span{
-    height: 0;
-}
 .form input::placeholder {
     color: #1E1E24;
 }
