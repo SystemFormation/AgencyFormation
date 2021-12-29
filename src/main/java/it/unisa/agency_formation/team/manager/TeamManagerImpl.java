@@ -26,7 +26,7 @@ public class TeamManagerImpl implements TeamManager{
 
     @Override
     public void addEmployee(int idTeam, Dipendente dip) throws SQLException {
-        tdao.addEmployee(idTeam,dip.getIdUtente());
+        tdao.addEmployee(idTeam,dip.getIdDipendente());
     }
 
     @Override

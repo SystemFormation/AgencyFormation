@@ -6,7 +6,7 @@ public class Team {
     private String NomeTeam, Descrizione, Competenza;
     private int idTM;
 
-    public Team( String nomeProgetto, int numeroDipendenti, String nomeTeam, String descrizione, String competenza, int idTM) {
+    public Team(String nomeProgetto, int numeroDipendenti, String nomeTeam, String descrizione, String competenza, int idTM) {
         this.NomeProgetto = nomeProgetto;
         this.NumeroDipendenti = numeroDipendenti;
         this.NomeTeam = nomeTeam;

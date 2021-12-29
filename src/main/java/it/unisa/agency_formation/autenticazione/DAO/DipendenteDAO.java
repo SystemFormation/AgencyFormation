@@ -26,16 +26,17 @@ public class DipendenteDAO {
             return false;
         }
         PreparedStatement save = null;
-        String query = "insert into " + TABLE_DIPENDENTE + " (Residenza,Telefono,Stato,AnnoDiNascita,idTeam)" +
+        String query = "insert into " + TABLE_DIPENDENTE + " (IdDipendente,Residenza,Telefono,Stato,AnnoDiNascita,idTeam)" +
                 " values(?,?,?,?,?,?)";
 
         try {
             save = connection.prepareStatement(query);
-            save.setString(1, dipendente.getResidenza());
-            save.setString(2, dipendente.getTelefono());
-            save.setBoolean(3, dipendente.isStato());
-            save.setInt(4, dipendente.getAnnoNascita());
-            save.setInt(5, dipendente.getIdTeam());
+            save.setInt(1,dipendente.getIdDipendente());
+            save.setString(2, dipendente.getResidenza());
+            save.setString(3, dipendente.getTelefono());
+            save.setBoolean(4, dipendente.isStato());
+            save.setInt(5, dipendente.getAnnoNascita());
+            save.setInt(6, dipendente.getIdTeam());
             int result = save.executeUpdate();
             if(result !=-1){return true;}
             else{return false;}
@@ -98,13 +99,14 @@ public class DipendenteDAO {
         ResultSet result;
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement retrieve = null;
-        String query = "Select * from " + TABLE_DIPENDENTE + " where IdUtente=?";
+        String query = "Select * from " + TABLE_DIPENDENTE + " where IdDipendente=?";
         Dipendente user = new Dipendente();
         try {
             retrieve = connection.prepareStatement(query);
             retrieve.setInt(1, id);
             result = retrieve.executeQuery();
             if (result.next()) {
+                user.setIdDipendente(result.getInt("IdDipendente"));
                 user.setResidenza(result.getString("Residenza"));
                 user.setTelefono(result.getString("Telefono"));
                 user.setStato(result.getBoolean("Stato"));
@@ -137,6 +139,7 @@ public class DipendenteDAO {
             result = retrieve.executeQuery();
             while (result.next()) {
                 Dipendente dip = new Dipendente();
+                dip.setIdDipendente(result.getInt("IdDipendente"));
                 dip.setResidenza(result.getString("Residenza"));
                 dip.setTelefono(result.getString("Telefono"));
                 dip.setStato(result.getBoolean("Stato"));
@@ -174,7 +177,7 @@ public class DipendenteDAO {
         ResultSet result;
         if(idUtente<=0){return false;}
         PreparedStatement retrieve = null;
-        String query = "update " + TABLE_DIPENDENTE + " set Stato= ? where IdUtente=?";
+        String query = "update " + TABLE_DIPENDENTE + " set Stato= ? where IdDipendente=?";
         try {
             retrieve = connection.prepareStatement(query);
             retrieve.setBoolean(1,stato);
@@ -215,6 +218,7 @@ public class DipendenteDAO {
             result = retrieve.executeQuery();
             while (result.next()) {
                 Dipendente dip = new Dipendente();
+                dip.setIdDipendente(result.getInt("IdDipendente"));
                 dip.setResidenza(result.getString("Residenza"));
                 dip.setTelefono(result.getString("Telefono"));
                 dip.setStato(result.getBoolean("Stato"));

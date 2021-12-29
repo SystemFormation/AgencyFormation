@@ -305,7 +305,7 @@ public class TeamDAO {
             result = stmt.executeQuery();
             while (result.next()) {
                 Dipendente dip = new Dipendente();
-                dip.setIdUtente(result.getInt("IdUtente"));
+                dip.setIdDipendente(result.getInt("IdDipendente"));
                 dip.setResidenza(result.getString("Residenza"));
                 dip.setTelefono(result.getString("Telefono"));
                 dip.setStato(result.getBoolean("Stato"));
