@@ -26,7 +26,7 @@ public class TeamDAO {
             return false;
         }
         PreparedStatement save = null;
-        String query = "insert into " + TABLE_TEAM + " (NomeProgetto, NumeroDipendenti, NomeTeam, Descrizione, Competenze, IdUtente,)" +
+        String query = "insert into " + TABLE_TEAM + " (NomeProgetto, NumeroDipendenti, NomeTeam, Descrizione, Competenze, IdTM)" +
                 " values(?,?,?,?,?,?)";
 
         try {

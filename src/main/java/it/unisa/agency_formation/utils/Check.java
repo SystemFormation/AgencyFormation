@@ -23,6 +23,23 @@ public class Check {
         String regular = "^[A-Za-z ’]+$";
         return surname.matches(regular);
     }
+    /*----------check per la creazione di un team----------*/
+    public static boolean checkProjectName(String projectName){
+        String regular = "^[A-Za-z0-9 ’]+$";
+        return projectName.matches(regular);
+    }
+    public static boolean checkDescription(String desc){
+        String regular = "^[A-Za-z ’]+$";
+        return desc.matches(regular);
+    }
+    public static boolean checkTeamName(String teamName){
+        String regular = "^[A-Za-z ’]+$";
+        return teamName.matches(regular);
+    }
+    public static boolean checkCompetence(String competence){
+        String regular = "^[A-Za-z]+^[#+.]+$";
+        return competence.matches(regular);
+    }
 
 
 }
