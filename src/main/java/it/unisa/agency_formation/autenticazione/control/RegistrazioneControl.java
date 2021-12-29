@@ -38,11 +38,12 @@ public class RegistrazioneControl extends HttpServlet {
                     e.printStackTrace();
                 }
             } else {
+                response.getWriter().write("1");//qualche campo è vuoto
                 response.sendRedirect("./html/Registrazione.html");
             }
     }
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req,resp);
     }
 }

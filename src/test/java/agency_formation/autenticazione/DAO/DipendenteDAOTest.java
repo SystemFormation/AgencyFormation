@@ -2,12 +2,14 @@ package agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class DipendenteDAOTest {
@@ -16,25 +18,25 @@ public class DipendenteDAOTest {
     @Test
     public void doSaveEmployeeFail() throws SQLException {
         Dipendente dip = null;
-        Assert.assertFalse(dao.doSaveEmploye(dip));
+        assertFalse(dao.doSaveEmploye(dip));
     }
 
     @Test
     public void doSaveEmployeeOk() throws SQLException {
         Dipendente dip = new Dipendente(6, 1, 2000, "Fisciano", "118", true);
-        Assert.assertTrue(dao.doSaveEmploye(dip));
+        assertTrue(dao.doSaveEmploye(dip));
     }
 
     @Test
     public void doRetrieveByIdLessZero() throws SQLException {
         int id = -1;
-        Assert.assertNull(dao.doRetrieveById(id));
+        assertNull(dao.doRetrieveById(id));
     }
 
     @Test
     public void doRetrieveByIdFail() throws SQLException {
         int id=4845684; //queso id non esiste
-        Assert.assertNull(dao.doRetrieveById(id));
+        assertNull(dao.doRetrieveById(id));
     }
 
 
@@ -42,7 +44,7 @@ public class DipendenteDAOTest {
     public void doRetrieveByIdPass() throws SQLException {
         int id = 4;
         Dipendente dip = dao.doRetrieveById(id);
-        Assert.assertNotNull(dip);
+        assertNotNull(dip);
     }
 
     @Test
@@ -50,7 +52,7 @@ public class DipendenteDAOTest {
         ArrayList<Dipendente> dipendenti = new ArrayList<>();
         DipendenteDAO dao = Mockito.mock(DipendenteDAO.class);
         Mockito.when(dao.doRetrieveAll()).thenReturn(dipendenti);
-        Assert.assertEquals(0,dao.doRetrieveAll().size());
+        assertEquals(0,dao.doRetrieveAll().size());
     }
     @Test
     public void doRetrieveAllPass() throws SQLException {
@@ -63,12 +65,12 @@ public class DipendenteDAOTest {
         dipendenti.add(dip3);
         DipendenteDAO dao = Mockito.mock(DipendenteDAO.class);
         Mockito.when(dao.doRetrieveAll()).thenReturn(dipendenti);
-        Assert.assertEquals(3,dao.doRetrieveAll().size());
+        assertEquals(3,dao.doRetrieveAll().size());
     }
     @Test
     public void updateStateFailIdLessOne() throws SQLException {
         int id = -1;
-        Assert.assertFalse(dao.updateState(id,true));
+        assertFalse(dao.updateState(id,true));
     }
 
 
@@ -76,7 +78,7 @@ public class DipendenteDAOTest {
     public void updateStatePass() throws SQLException {
         int id = 4;
         boolean ver = false;
-        Assert.assertTrue(dao.updateState(id,ver));
+        assertTrue(dao.updateState(id,ver));
     }
     //test per dim array minore di uno
     @Test
@@ -84,7 +86,7 @@ public class DipendenteDAOTest {
         ArrayList<Dipendente> dipendenti = new ArrayList<>();
         DipendenteDAO dao = Mockito.mock(DipendenteDAO.class);
         Mockito.when(dao.doRetrieveByState(true)).thenReturn(dipendenti);
-        Assert.assertEquals(0,dao.doRetrieveByState(true).size());
+        assertEquals(0,dao.doRetrieveByState(true).size());
     }
     @Test
     public void doRetrieveByStateSizeMoreOne()throws SQLException{
@@ -97,7 +99,7 @@ public class DipendenteDAOTest {
         dipendenti.add(dip3);
         DipendenteDAO dao = Mockito.mock(DipendenteDAO.class);
         Mockito.when(dao.doRetrieveByState(true)).thenReturn(dipendenti);
-        Assert.assertEquals(3,dao.doRetrieveByState(true).size());
+        assertEquals(3,dao.doRetrieveByState(true).size());
     }
     // testa il retreve dei dipendenti con stato true
     @Test
@@ -105,7 +107,7 @@ public class DipendenteDAOTest {
         ArrayList<Dipendente> dipendenti = new ArrayList<>();
         DipendenteDAO dao = Mockito.mock(DipendenteDAO.class);
         Mockito.when(dao.doRetrieveByState(false)).thenReturn(dipendenti);
-        Assert.assertEquals(0,dao.doRetrieveByState(false).size());
+        assertEquals(0,dao.doRetrieveByState(false).size());
 
 
     }
@@ -120,14 +122,14 @@ public class DipendenteDAOTest {
         dipendenti.add(dip3);
         DipendenteDAO dao = Mockito.mock(DipendenteDAO.class);
         Mockito.when(dao.doRetrieveByState(true)).thenReturn(dipendenti);
-        Assert.assertEquals(3,dao.doRetrieveByState(true).size());
+        assertEquals(3,dao.doRetrieveByState(true).size());
     }
     @Test
     public void doRetrieveByStateFalseNotPass()throws SQLException{
         ArrayList<Dipendente> dipendenti = new ArrayList<>();
         DipendenteDAO dao = Mockito.mock(DipendenteDAO.class);
         Mockito.when(dao.doRetrieveByState(true)).thenReturn(dipendenti);
-        Assert.assertEquals(0,dao.doRetrieveByState(true).size());
+        assertEquals(0,dao.doRetrieveByState(true).size());
     }
     @Test
     public void doRetrieveByStateFalsePass()throws SQLException{
@@ -140,7 +142,7 @@ public class DipendenteDAOTest {
         dipendenti.add(dip3);
         DipendenteDAO dao = Mockito.mock(DipendenteDAO.class);
         Mockito.when(dao.doRetrieveByState(true)).thenReturn(dipendenti);
-        Assert.assertEquals(3,dao.doRetrieveByState(true).size());
+        assertEquals(3,dao.doRetrieveByState(true).size());
     }
 
 }

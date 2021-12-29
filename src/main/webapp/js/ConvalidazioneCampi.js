@@ -19,7 +19,7 @@ function checkEmail(){
 }
 
 function checkPassword(){
-    var input = document.getElementsByName("pwd")[0];
+    var input = document.getElementsByName("password")[0];
     var check = /^[A-Za-z0-9]{3,16}$/;
     var esito;
     if(!input.value.match(check)){

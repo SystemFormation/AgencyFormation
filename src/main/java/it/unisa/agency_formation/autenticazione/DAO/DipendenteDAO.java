@@ -20,7 +20,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @pre dip!=null
      */
-    public static boolean doSaveEmploye(Dipendente dipendente) throws SQLException {
+    public boolean doSaveEmploye(Dipendente dipendente) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if(dipendente == null){
             return false;
@@ -60,7 +60,7 @@ public class DipendenteDAO {
      * @throws SQLException
      */
 
-    public static boolean updateRole(int id)throws SQLException{
+    public boolean updateRole(int id)throws SQLException{
         if(id<=0){return false;}
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement update = null;
@@ -94,7 +94,7 @@ public class DipendenteDAO {
      * @pre id>0
      */
 
-    public static Dipendente doRetrieveById(int id) throws SQLException {
+    public Dipendente doRetrieveById(int id) throws SQLException {
         if(id<=0){return null;}
         ResultSet result;
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -128,7 +128,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @post dipendenti.size()>0
      */
-    public static ArrayList<Dipendente> doRetrieveAll() throws SQLException {
+    public ArrayList<Dipendente> doRetrieveAll() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -172,7 +172,7 @@ public class DipendenteDAO {
      * @return boolean for confirm
      * @post setStato(stato)
      */
-    public static boolean updateState(int idUtente, boolean stato) throws SQLException {
+    public boolean updateState(int idUtente, boolean stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         if(idUtente<=0){return false;}
@@ -206,7 +206,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @post dipendenti.size()>0
      */
-    public static ArrayList<Dipendente> doRetrieveByState(boolean stato) throws SQLException{
+    public ArrayList<Dipendente> doRetrieveByState(boolean stato) throws SQLException{
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
