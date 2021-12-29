@@ -1,0 +1,45 @@
+body{
+    font-family: monospace;
+    margin:0;
+}
+
+h1{
+    text-align: center;
+    font-size: 50px;
+}
+
+.content-all {
+    box-shadow: 15px 15px 30px rgb(71,71,71);
+    border-radius: 2rem;
+    border-style: double;
+    height: 250px;
+    background-color: #9CC9E8;
+}
+
+ul {
+    list-style-type: none;
+}
+.identity {
+    margin: 8px 0px 0px -25px;
+    float: left;
+    height: 100%;
+    font-size: 35px;
+}
+
+.form-button {
+    float: right;
+    text-align: center;
+    margin: 100px 10px;
+}
+
+.form-button button {
+    padding: 10px;
+    text-decoration: none;
+    margin-bottom: 30px;
+    font-size: 18px;
+    border-radius: 1rem;
+}
+
+.form-button a:hover {
+    font-weight: bold;
+}
