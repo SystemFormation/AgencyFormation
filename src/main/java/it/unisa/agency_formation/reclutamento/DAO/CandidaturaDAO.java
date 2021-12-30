@@ -24,18 +24,15 @@ public class CandidaturaDAO {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
         String query = "insert into " + TABLE_CANDIDATURA +
-                "(Cv, Attestati, Certificazioni, Stato, DataCandidatura, DataOraColloquio, IdCandidato, IdHR) "
-                + "VALUES(?,?,?,?,?,?,?,?)";
+                "(Curriculum,DocumentiAggiuntivi, Stato, DataCandidatura,IdCandidato) "
+                + "VALUES(?,?,?,?,?)";
         try {
             save = connection.prepareStatement(query);
             save.setString(1, candidatura.getCv());
-            save.setString(2, candidatura.getAttestati());
-            save.setString(3, candidatura.getCertificazioni());
-            save.setString(4, candidatura.getStato());
-            save.setDate(5, (Date) candidatura.getDataCandidatura());
-            save.setDate(6, (Date) candidatura.getDataOraColloquio());
-            save.setInt(7, candidatura.getIdCandidato());
-            save.setInt(8, candidatura.getIdHR());
+            save.setString(2, candidatura.getDocumentiAggiuntivi());
+            save.setString(3, candidatura.getStato());
+            save.setDate(4, (Date) candidatura.getDataCandidatura());
+            save.setInt(5, candidatura.getIdCandidato());
             int result = save.executeUpdate();
             if (result != -1) {
                 return true;
@@ -77,10 +74,10 @@ public class CandidaturaDAO {
             retrieve.setInt(1, idCandidato);
             result = retrieve.executeQuery();
             if (result.next()) {
+                System.out.println("dentro if dao");
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
-                cand.setCv(result.getString("CV"));
-                cand.setAttestati(result.getString("Attestati"));
-                cand.setCertificazioni(result.getString("Certificazioni"));
+                cand.setCv(result.getString("Curriculum"));
+                cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
                 cand.setStato(result.getString("Stato"));
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
@@ -115,9 +112,8 @@ public class CandidaturaDAO {
             while (result.next()) {
                 Candidatura cand = new Candidatura();
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
-                cand.setCv(result.getString("CV"));
-                cand.setAttestati(result.getString("Attestati"));
-                cand.setCertificazioni(result.getString("Certificazioni"));
+                cand.setCv(result.getString("Curriculum"));
+                cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
                 cand.setStato(result.getString("Stato"));
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
@@ -167,9 +163,8 @@ public class CandidaturaDAO {
             while (result.next()) {
                 Candidatura cand = new Candidatura();
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
-                cand.setCv(result.getString("CV"));
-                cand.setAttestati(result.getString("Attestati"));
-                cand.setCertificazioni(result.getString("Certificazioni"));
+                cand.setCv(result.getString("Curriculum"));
+                cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
                 cand.setStato(result.getString("Stato"));
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));

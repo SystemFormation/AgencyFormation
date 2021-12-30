@@ -6,7 +6,7 @@
   <title>HomePage</title>
 </head>
 <body>
-<%@include file="WEB-INF/jsp/Header.jsp"%>
+<%@include file="/WEB-INF/jsp/Header.jsp"%>
 <div class="content">
   <h1>BENVENUTO IN AF CONSULTING</h1>
   <div class="wrap">
