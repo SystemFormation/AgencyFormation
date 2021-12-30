@@ -34,8 +34,7 @@ public class UploadCandidatureControl extends HttpServlet {
         File file = new File(pathAbsolute + "\\" + "IdUtente-" + user.getId());
         Candidatura cand = new Candidatura();
         String cv = null;
-        String attestati = null;
-        String certificazioni = null;
+        String documentiAggiuntivi = null;
         String stato = "Non Revisionato";
         file.mkdirs();
         ArrayList<Part> parts = (ArrayList<Part>) request.getParts();
@@ -47,7 +46,7 @@ public class UploadCandidatureControl extends HttpServlet {
         Date date = new Date();
         java.sql.Date data = new java.sql.Date(date.getTime());
         cand.setCv(cv);
-        cand.setDocumentiAggiuntivi(attestati);
+        cand.setDocumentiAggiuntivi(documentiAggiuntivi);
 
         cand.setStato(stato);
         cand.setDataCandidatura(data);

@@ -7,16 +7,16 @@ import java.util.Date;
 
 public class Candidatura {
     private int idCandidatura;
-    private String cv;
-    private String attestati;
-    private String certificazioni;
+    private String curriculum;
+    private String documentiAggiuntivi;
     private String stato;
     private Date dataCandidatura;
     private int idCandidato;
     private int idHR;
     private Timestamp dataOraColloquio;
 
-    public Candidatura() {}
+    public Candidatura() {
+    }
 
 
     public int getIdCandidatura() {
@@ -28,27 +28,11 @@ public class Candidatura {
     }
 
     public String getCv() {
-        return cv;
+        return curriculum;
     }
 
     public void setCv(String cv) {
-        this.cv = cv;
-    }
-
-    public String getAttestati() {
-        return attestati;
-    }
-
-    public void setAttestati(String attestati) {
-        this.attestati = attestati;
-    }
-
-    public String getCertificazioni() {
-        return certificazioni;
-    }
-
-    public void setCertificazioni(String certificazioni) {
-        this.certificazioni = certificazioni;
+        this.curriculum = cv;
     }
 
     public String getStato() {
@@ -89,5 +73,21 @@ public class Candidatura {
 
     public void setIdHR(int idHR) {
         this.idHR = idHR;
+    }
+
+    public String getCurriculum() {
+        return curriculum;
+    }
+
+    public void setCurriculum(String curriculum) {
+        this.curriculum = curriculum;
+    }
+
+    public String getDocumentiAggiuntivi() {
+        return documentiAggiuntivi;
+    }
+
+    public void setDocumentiAggiuntivi(String documentiAggiuntivi) {
+        this.documentiAggiuntivi = documentiAggiuntivi;
     }
 }
