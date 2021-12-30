@@ -6,6 +6,7 @@ import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AutenticazioneManagerImpl implements AutenticazioneManager {
     private UtenteDAO utDAO;  //Rimosso final
@@ -42,6 +43,17 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     @Override
     public Dipendente getAllDataDip(int idUser) throws SQLException {
         return dipDAO.doRetrieveById(idUser);
+    }
+
+    @Override
+    public ArrayList<Utente> getCandidates() throws SQLException {
+        ArrayList<Utente> candidati = utDAO.doRetrieveUserByRuolo(1);
+        if(candidati!=null){
+            return candidati;
+        }
+        else{
+            return null;
+        }
     }
 
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {

@@ -45,8 +45,8 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
 
     @Override
-    public Candidatura getCandidaturaById(int idUtente) throws SQLException {
-        Candidatura result = dao.doRetrieveById(idUtente);
+    public Candidatura getCandidaturaById(int idCandidato) throws SQLException {
+        Candidatura result = dao.doRetrieveById(idCandidato);
         if (result != null) {
             return result;
         } else {
