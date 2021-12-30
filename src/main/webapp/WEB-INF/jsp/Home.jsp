@@ -8,10 +8,8 @@
 <body>
 <%@include file="Header.jsp"%>
 
-<h1>Bentornato <c:out value=user.getName() ></h1>
+<h1>Bentornato ${user.getName()}</h1>
 </body>
 <a href="ProfiloControl"> Profilo </a>
-<br><br><br><br><br><br>
-
 
 </html>

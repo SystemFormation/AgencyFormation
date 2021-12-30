@@ -33,6 +33,7 @@ body {
     display: inline-block;
     color: #FBFFF1; /*Ivory*/
     width: 120px;
+    margin: 0px 10px;
     line-height: 90px;
     font-size: 30px;
 
@@ -49,4 +50,8 @@ body {
 
 .header-right {
     float: right;
+}
+
+.header-right li{
+    margin: 0px 30px;
 }

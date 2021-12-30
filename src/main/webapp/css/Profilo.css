@@ -11,33 +11,33 @@ h1{
 .content-all {
     box-shadow: 15px 15px 30px rgb(71,71,71);
     border-radius: 2rem;
-    border-style: double;
-    height: 250px;
+    border-style: groove;
+    height: 450px;
     background-color: #9CC9E8;
+    width: 40%;
 }
 
-ul {
+.identity ul {
     list-style-type: none;
+    margin-left: -40px;
 }
 .identity {
-    margin: 8px 0px 0px -25px;
-    float: left;
     height: 100%;
     font-size: 35px;
+    text-align: center;
 }
 
-.form-button {
-    float: right;
-    text-align: center;
-    margin: 100px 10px;
+.identity li{
+    margin-bottom: 20px;
+    border-bottom: solid 3px #101D42;
 }
 
 .form-button button {
-    padding: 10px;
+    padding: 15px;
     text-decoration: none;
-    margin-bottom: 30px;
-    font-size: 18px;
-    border-radius: 1rem;
+    margin-bottom: 20px;
+    font-size: 28px;
+    border-radius: 7rem;
 }
 
 .form-button a:hover {
