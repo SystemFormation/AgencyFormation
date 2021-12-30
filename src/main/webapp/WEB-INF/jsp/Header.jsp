@@ -16,20 +16,35 @@
     </div>
     <ul>
         <li><a href="../AgencyFormation">Home</a></li>
-        <% if(user!=null && user.getRole()>1 && user.getRole()<=4) {%>
+        <c:if test="${(user!=null && user.getRole()>1 && user.getRole()<=4)}">
         <li>Team</li>
-        <%}%>
-        <li><a href="WEB-INF/jsp/Upload.jsp">Upload</a></li>
+        </c:if>
     </ul>
     <div class="header-right">
         <ul>
-            <% if(user==null) {%>
+            <c:if test="${user == null}">
             <li><a href="html/Login.html">Accedi</a></li>
             <li><a href="html/Registrazione.html">Registrati</a></li>
-                <% } else if (user!=null) {%>
-            <li><a href="LogoutControl">Logout</a></li>
-                <% } %>
-        </ul>
+            </c:if>
+                <c:choose>
+                    <c:when test="${user.getRole() == 1}">
+                        <li>Candidato</li>
+                    </c:when>
+                    <c:when test="${user.getRole() == 2}">
+                        <li>Dipendente</li>
+                    </c:when>
+                    <c:when test="${user.getRole() == 3}">
+                        <li>TM</li>
+                    </c:when>
+                    <c:when test="${user.getRole() == 4}">
+                        <li>HR</li>
+                    </c:when>
+                </c:choose>
+
+                <c:if test="${user != null}">
+                <li><a href="LogoutControl">Logout</a></li>
+                </c:if>
+            </ul>
     </div>
 </div>
 </body>
