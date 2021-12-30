@@ -19,17 +19,18 @@ import java.sql.SQLException;
 public class LoginControl extends HttpServlet {
     private UtenteDAO dao = new UtenteDAO();
     private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dao);
+
     @Override
     //da parlare oggi
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String pwd = request.getParameter("password");
         RequestDispatcher dispatcher;
-        if(email != null && pwd != null) {
-            if(email.trim().length()==0){
+        if (email != null && pwd != null) {
+            if (email.trim().length() == 0) {
                 response.getWriter().write("1");//email vuota
             }
-            if(pwd.trim().length()==0){
+            if (pwd.trim().length() == 0) {
                 response.getWriter().write("2");//password vuota;
             }
             try {
@@ -41,8 +42,7 @@ public class LoginControl extends HttpServlet {
                     dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
                     dispatcher.forward(request, response);
                     response.getWriter().write("3");//utente loggato
-                    }
-                else {
+                } else {
                     response.getWriter().write("4");//utente non loggato
                     response.sendRedirect("./html/Login.html");
                 }
@@ -50,7 +50,7 @@ public class LoginControl extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             response.getWriter().write("5");//email e password null
             response.sendRedirect("./html/Login.html");
         }
@@ -58,6 +58,6 @@ public class LoginControl extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req,resp);
+        doGet(req, resp);
     }
 }

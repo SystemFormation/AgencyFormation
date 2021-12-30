@@ -2,7 +2,7 @@ package it.unisa.agency_formation.autenticazione.domain;
 
 public class Dipendente {
     private int idDipendente, idTeam, annoNascita;
-    private String residenza,telefono;
+    private String residenza, telefono;
     private boolean stato;
 
     public Dipendente(int idDipendente, int idTeam, int annoNascita, String residenza, String telefono, boolean stato) {
@@ -14,14 +14,15 @@ public class Dipendente {
         this.stato = stato;
     }
 
-    public Dipendente(){}
+    public Dipendente() {
+    }
 
     public int getIdDipendente() {
         return idDipendente;
     }
 
     public void setIdDipendente(int idUtente) {
-        this.idDipendente= idUtente;
+        this.idDipendente = idUtente;
     }
 
     public int getIdTeam() {

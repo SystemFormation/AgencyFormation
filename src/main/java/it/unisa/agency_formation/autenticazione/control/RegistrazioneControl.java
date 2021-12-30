@@ -31,7 +31,7 @@ public class RegistrazioneControl extends HttpServlet {
                 try {
                     aut.registration(user);
                     request.getSession().setAttribute("user", user);
-                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/index.jsp");
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
                     dispatcher.forward(request, response);
                     return;
                 } catch (SQLException e) {

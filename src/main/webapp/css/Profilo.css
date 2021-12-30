@@ -1,15 +1,15 @@
-body{
+body {
     font-family: monospace;
-    margin:0;
+    margin: 0;
 }
 
-h1{
+h1 {
     text-align: center;
     font-size: 50px;
 }
 
 .content-all {
-    box-shadow: 15px 15px 30px rgb(71,71,71);
+    box-shadow: 15px 15px 30px rgb(71, 71, 71);
     border-radius: 2rem;
     border-style: double;
     height: 250px;
@@ -19,6 +19,7 @@ h1{
 ul {
     list-style-type: none;
 }
+
 .identity {
     margin: 8px 0px 0px -25px;
     float: left;
@@ -43,6 +44,7 @@ ul {
 .form-button a:hover {
     font-weight: bold;
 }
+
 .addSkill {
     font-size: 20px;
 }

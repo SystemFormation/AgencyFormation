@@ -1,4 +1,5 @@
 package it.unisa.agency_formation.autenticazione.DAO;
+
 import it.unisa.agency_formation.utils.DatabaseManager;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
@@ -13,13 +14,16 @@ public class UtenteDAO {
 
     /**
      * Questo metodo permette di salvare un utente
+     *
      * @param user è l'utente da registrare
      * @return boolean
      * @throws SQLException
      * @pre user!=null
      */
     public boolean doSaveUser(Utente user) throws SQLException {
-        if(user==null){return false;}
+        if (user == null) {
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
         String query = "insert into " + TABLE_UTENTE + "(Nome,Cognome,Pwd,Mail,Ruolo)"
@@ -32,15 +36,18 @@ public class UtenteDAO {
             save.setString(4, user.getEmail());
             save.setInt(5, user.getRole());
             int result = save.executeUpdate();
-            if(result!=-1){return true;}
-            else{return false;}
+            if (result != -1) {
+                return true;
+            } else {
+                return false;
+            }
         } finally {
             try {
                 if (save != null) {
                     save.close();
                 }
             } finally {
-                if (connection!= null) {
+                if (connection != null) {
                     connection.close();
                 }
             }
@@ -49,6 +56,7 @@ public class UtenteDAO {
 
     /**
      * Questo metodo permette di recuperare un utente
+     *
      * @param email è l'email dell'utente
      * @param pwd   è la password dell'utente
      * @return Utente l'utente loggato
@@ -57,7 +65,9 @@ public class UtenteDAO {
      * @pre pwd!=null
      */
     public Utente login(String email, String pwd) throws SQLException {
-        if(email == null || pwd == null){return null;}
+        if (email == null || pwd == null) {
+            return null;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -83,7 +93,7 @@ public class UtenteDAO {
                     retrieve.close();
                 }
             } finally {
-                if (connection!= null) {
+                if (connection != null) {
                     connection.close();
                 }
             }
@@ -93,13 +103,16 @@ public class UtenteDAO {
 
     /**
      * Questo medoto ritorna l'utente con l'id indicato
+     *
      * @param id
      * @return Utente
      * @throws SQLException
      * @pre id>0
      */
-    public Utente doRetrieveByID(int id)throws SQLException{
-        if(id<=0){return null;}
+    public Utente doRetrieveByID(int id) throws SQLException {
+        if (id <= 0) {
+            return null;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -124,7 +137,7 @@ public class UtenteDAO {
                     retrieve.close();
                 }
             } finally {
-                if (connection!= null) {
+                if (connection != null) {
                     connection.close();
                 }
             }
@@ -135,6 +148,7 @@ public class UtenteDAO {
 
     /**
      * Questo metodo permette di recuperare degli utenti attraverso il ruolo
+     *
      * @param ruolo
      * @return arraylist di utenti
      * @throws SQLException
@@ -143,19 +157,21 @@ public class UtenteDAO {
      */
 
 
-    public ArrayList<Utente> doRetrieveUserByRuolo(int ruolo)throws SQLException{
-        if(ruolo<=0 && ruolo>4){return null;}
+    public ArrayList<Utente> doRetrieveUserByRuolo(int ruolo) throws SQLException {
+        if (ruolo <= 0 && ruolo > 4) {
+            return null;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
-        String query = "Select * from "+TABLE_UTENTE+" Where Ruolo=?";
+        String query = "Select * from " + TABLE_UTENTE + " Where Ruolo=?";
 
         ArrayList<Utente> utenti = new ArrayList<>();
-        try{
+        try {
             retrieve = connection.prepareStatement(query);
-            retrieve.setInt(1,ruolo);
+            retrieve.setInt(1, ruolo);
             result = retrieve.executeQuery();
-            while(result.next()){
+            while (result.next()) {
                 Utente user = new Utente();
                 user.setId(result.getInt("IdUtente"));
                 user.setName(result.getString("Nome"));
@@ -165,16 +181,18 @@ public class UtenteDAO {
                 user.setRole(result.getInt("Ruolo"));
                 utenti.add(user);
             }
-            if(utenti.size()>0){
+            if (utenti.size() > 0) {
                 return utenti;
-            }else{return null;}
-        }finally {
+            } else {
+                return null;
+            }
+        } finally {
             try {
                 if (retrieve != null) {
                     retrieve.close();
                 }
             } finally {
-                if (connection!= null) {
+                if (connection != null) {
                     connection.close();
                 }
             }

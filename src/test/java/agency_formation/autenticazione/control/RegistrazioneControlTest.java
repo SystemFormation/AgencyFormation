@@ -1,8 +1,10 @@
 package agency_formation.autenticazione.control;
+
 import it.unisa.agency_formation.autenticazione.control.RegistrazioneControl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +28,7 @@ public class RegistrazioneControlTest extends Mockito {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         when(response.getWriter()).thenReturn(writer);
-        new RegistrazioneControl().doPost(request,response);
+        new RegistrazioneControl().doPost(request, response);
         Assertions.assertTrue(stringWriter.toString().contains("1"));
     }
 }

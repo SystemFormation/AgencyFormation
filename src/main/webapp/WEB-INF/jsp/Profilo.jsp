@@ -9,26 +9,34 @@
     <title>Profilo</title>
 </head>
 <body>
-<%@include file="Header.jsp"%>
+<%@include file="Header.jsp" %>
 <h1> PROFILO PERSONALE</h1>
 <div class="content-all">
     <div class="identity">
         <ul>
-            <li> <%=user.getName()%> <%=user.getSurname()%> </li>
-            <li> Residenza: <%=dip.getResidenza()%> </li>
-            <li> Telefono: <%=dip.getTelefono()%> </li>
-            <li> Anno di Nascita: <%=dip.getAnnoNascita()%> </li>
+            <li><%=user.getName()%> <%=user.getSurname()%>
+            </li>
+            <li> Residenza: <%=dip.getResidenza()%>
+            </li>
+            <li> Telefono: <%=dip.getTelefono()%>
+            </li>
+            <li> Anno di Nascita: <%=dip.getAnnoNascita()%>
+            </li>
         </ul>
     </div>
 
     <div class="form-button">
-        <a href="jsp/GestioneSkill.jsp"><button> Gestione Skill </button></a>
+        <a href="jsp/GestioneSkill.jsp">
+            <button> Gestione Skill</button>
+        </a>
         <br>
-        <a href="jsp/Profilo.jsp"><button> Modifica Dati Personali </button></a>
+        <a href="jsp/Profilo.jsp">
+            <button> Modifica Dati Personali</button>
+        </a>
     </div>
 </div>
 
-<div class = "addSkill">
+<div class="addSkill">
     <h2> Aggiunta Skill </h2>
     <form action="SkillControl" method="post" id="formLogin">
         <input type="text" id="skillName" name="skillName" placeholder="Nome Skill">

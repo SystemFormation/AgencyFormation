@@ -1,8 +1,6 @@
 package it.unisa.agency_formation.formazione.control.reclutamento.domain;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class Candidatura {
@@ -14,9 +12,10 @@ public class Candidatura {
     private Date dataCandidatura;
     private int idCandidato;
     private int idHR;
-    private Timestamp dataOraColloquio;
+    private Date dataOraColloquio;
 
-    public Candidatura() {}
+    public Candidatura() {
+    }
 
 
     public int getIdCandidatura() {
@@ -71,7 +70,7 @@ public class Candidatura {
         return dataOraColloquio;
     }
 
-    public void setDataOraColloquio(Timestamp dataOraColloquio) {
+    public void setDataOraColloquio(Date dataOraColloquio) {
         this.dataOraColloquio = dataOraColloquio;
     }
 
