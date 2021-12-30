@@ -11,7 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeamDAO {
-    private static final String TABLE_DIPENDENTE = "Dipendenti", TABLE_TEAM = "Team";
+    private static final String TABLE_DIPENDENTE = "Dipendenti";
+    private static final String TABLE_TEAM = "Team";
 
     /**
      * Questa funzionalità permette di salvare un team
@@ -21,38 +22,34 @@ public class TeamDAO {
      * @throws SQLException
      * @pre team!=null
      */
-    public static boolean doSaveTeam(Team team) throws SQLException {
+    public void doSaveTeam(Team team, int idUtente) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (team == null) {
-            return false;
-        }
-        PreparedStatement save = null;
-        String query = "insert into " + TABLE_TEAM + " (NomeProgetto, NumeroDipendenti, NomeTeam, Descrizione, Competenze, IdTM)" +
-                " values(?,?,?,?,?,?)";
+        if (team != null) {
+            PreparedStatement save = null;
+            String query = "insert into " + TABLE_TEAM + "(NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM)"
+                    + " values(?,?,?,?,?,?)";
 
-        try {
-            save = connection.prepareStatement(query);
-            save.setString(1, team.getNomeProgetto());
-            save.setInt(2, team.getNumeroDipendenti());
-            save.setString(3, team.getNomeTeam());
-            save.setString(4, team.getDescrizione());
-            save.setString(5, team.getCompetenza());
-            save.setInt(6, team.getIdTM());
-            int result = save.executeUpdate();
-            if (result != -1) {
-                return true;
-            } else {
-                return false;
-            }
-        } finally {
             try {
-                if (save != null)
-                    save.close();
+                save = connection.prepareStatement(query);
+                save.setString(1,team.getNomeTeam());
+                save.setInt(2, team.getNumeroDipendenti());
+                save.setString(3, team.getNomeTeam());
+                save.setString(4, team.getDescrizione());
+                save.setString(5, null);
+                save.setInt(6, idUtente);
+                save.executeUpdate();
             } finally {
-                if (connection != null)
-                    connection.close();
+                try {
+                    if (save != null)
+                        save.close();
+                } finally {
+                    if (connection != null)
+                        connection.close();
+                }
             }
         }
+
+
     }
 
     /**
@@ -355,7 +352,7 @@ public class TeamDAO {
      * @param idTeam
      * @return
      * @throws SQLException
-     * @pre idTeam!=null
+     * @pre idTeam>0
      */
     public static int doRetrieveNTMember(int idTeam) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
