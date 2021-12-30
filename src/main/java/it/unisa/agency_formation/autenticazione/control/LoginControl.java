@@ -39,6 +39,8 @@ public class LoginControl extends HttpServlet {
 
                     HttpSession session = request.getSession(true);
                     session.setAttribute("user", user);
+                    request.setAttribute("curriculum",false);
+                    request.setAttribute("document",false);
                     dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
                     dispatcher.forward(request, response);
                     response.getWriter().write("3");//utente loggato

@@ -17,7 +17,8 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre canididatura!=null
      */
-    public boolean doSaveCandidatura(Candidatura candidatura) throws SQLException {
+    /*
+    public boolean doSaveCandidaturaComplete(Candidatura candidatura) throws SQLException {
         if (candidatura == null) {
             return false;
         }
@@ -46,6 +47,89 @@ public class CandidaturaDAO {
                 }
             } finally {
                 if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
+    }
+*/
+    /**
+     * Questa funzionalità permette di salvare una candidatura
+     * senza gli attestati e le certificazioni
+     *
+     * @param candidatura
+     * @pre candidatura!=null
+     * @return
+     * @throws SQLException
+     */
+    public boolean doSaveCandidaturaWithoutDocument(Candidatura candidatura) throws SQLException {
+        if (candidatura == null) {
+            return false;
+        }
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement save = null;
+        String query = "insert into " + TABLE_CANDIDATURA +
+                "(Curriculum, Stato, DataCandidatura,IdCandidato) "
+                + "VALUES(?,?,?,?)";
+        try {
+            save = connection.prepareStatement(query);
+            save.setString(1, candidatura.getCv());
+            save.setString(2, candidatura.getStato());
+            save.setDate(3, (Date) candidatura.getDataCandidatura());
+            save.setInt(4, candidatura.getIdCandidato());
+            int result = save.executeUpdate();
+            if (result != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            try {
+                if (save != null) {
+                    save.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
+    }
+
+    /**
+     * Questa funzionalità permette di aggiungere attestati e vertificazioni
+     * @param document
+     * @param idUtente
+     * @pre document!=null and idUtente>0
+     * @return
+     * @throws SQLException
+     */
+
+    public boolean addDocument(String document,int idUtente) throws SQLException {
+        if(document==null ||idUtente<1){
+            return false;
+        }
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement update = null;
+        String query = "update " + TABLE_CANDIDATURA + " set DocumentiAggiuntivi= ? where IdCandidato=?";
+        try{
+             update = connection.prepareStatement(query);
+            update.setString(1, document);
+            update.setInt(2, idUtente);
+            int result = update.executeUpdate();
+            if (result != -1) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }finally{
+            try{
+                if(update!=null){
+                    update.close();
+                }
+            }finally{
+                if(connection!=null){
                     connection.close();
                 }
             }
@@ -233,72 +317,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre certificazione!=null and idCandidatura>0
      */
-    public boolean updateCertificazioni(String certificazione, int idCandidatura) throws SQLException {
-        if (idCandidatura < 1 || certificazione == null) {
-            return false;
-        }
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement retrieve = null;
-        String query = "update " + TABLE_CANDIDATURA + " set Stato= ? where IdCandidatura=?";
-        try {
-            retrieve = connection.prepareStatement(query);
-            retrieve.setString(1, certificazione);
-            retrieve.setInt(2, idCandidatura);
-            int result = retrieve.executeUpdate();
-            if (result != -1) {
-                return true;
-            } else {
-                return false;
-            }
-        } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
-        }
-    }
 
-    /**
-     * Questa funzionalità permette di modificare gli attestati di una candidatura
-     *
-     * @param attestati
-     * @throws SQLException
-     * @pre attestati!=null and idCandidatura>0
-     */
-    public boolean updateAttestati(String attestati, int idCandidatura) throws SQLException {
-        if (idCandidatura < 1 || attestati == null) {
-            return false;
-        }
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement retrieve = null;
-        String query = "update " + TABLE_CANDIDATURA + " set Stato= ? where IdCandidatura=?";
-        try {
-            retrieve = connection.prepareStatement(query);
-            retrieve.setString(1, attestati);
-            retrieve.setInt(2, idCandidatura);
-            int result = retrieve.executeUpdate();
-            if (result != -1) {
-                return true;
-            } else {
-                return false;
-            }
-        } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
-        }
-    }
 
     /**
      * Questa funzionalità permette di rimuovere una candidatura
