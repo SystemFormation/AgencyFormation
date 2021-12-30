@@ -112,7 +112,7 @@ public class DocumentoDAO {
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
-            result= stmt.executeQuery();
+            result = stmt.executeQuery();
             return result.getString("MaterialeDiFormazione");
         } finally {
             try {

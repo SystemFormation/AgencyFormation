@@ -10,11 +10,31 @@ public class SkillDipendente {
         this.idSkill = idSkill;
         this.livello = livello;
     }
-    public SkillDipendente(){}
-    public int getIdDipendente(){return idDipendente;}
-    public void setIdDipendente(int idDipendente) {this.idDipendente = idDipendente;}
-    public int getIdSkill() {return idSkill;}
-    public void setIdSkill(int idSkill) {this.idSkill = idSkill;}
-    public int getLivello() {return livello;}
-    public void setLivello(int livello) {this.livello = livello;}
+
+    public SkillDipendente() {
+    }
+
+    public int getIdDipendente() {
+        return idDipendente;
+    }
+
+    public void setIdDipendente(int idDipendente) {
+        this.idDipendente = idDipendente;
+    }
+
+    public int getIdSkill() {
+        return idSkill;
+    }
+
+    public void setIdSkill(int idSkill) {
+        this.idSkill = idSkill;
+    }
+
+    public int getLivello() {
+        return livello;
+    }
+
+    public void setLivello(int livello) {
+        this.livello = livello;
+    }
 }

@@ -1,15 +1,15 @@
-body{
+body {
     font-family: monospace;
-    margin:0;
+    margin: 0;
 }
 
-h1{
+h1 {
     text-align: center;
     font-size: 50px;
 }
 
 .content-all {
-    box-shadow: 15px 15px 30px rgb(71,71,71);
+    box-shadow: 15px 15px 30px rgb(71, 71, 71);
     border-radius: 2rem;
     border-style: groove;
     height: 450px;
@@ -21,6 +21,7 @@ h1{
     list-style-type: none;
     margin-left: -40px;
 }
+
 .identity {
     height: 100%;
     font-size: 35px;
@@ -43,6 +44,7 @@ h1{
 .form-button a:hover {
     font-weight: bold;
 }
+
 .addSkill {
     font-size: 20px;
 }

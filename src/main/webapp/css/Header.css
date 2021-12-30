@@ -5,7 +5,8 @@ body {
 
 .header {
     position: sticky;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     height: 90px;
     width: 100%;
     background-color: #101D42;
@@ -24,7 +25,9 @@ body {
     list-style-type: none;
     display: inline-block;
     line-height: 90px;
-    margin-top: 0; margin-bottom: 0; margin-right: 65px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 65px;
     box-sizing: border-box;
     color: #FBFFF1; /*Ivory*/
 }

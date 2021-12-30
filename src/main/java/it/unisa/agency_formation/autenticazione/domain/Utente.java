@@ -1,10 +1,10 @@
 package it.unisa.agency_formation.autenticazione.domain;
 
 public class Utente {
-    private String nome,cognome, email, pwd;
+    private String nome, cognome, email, pwd;
     private int ruolo, id;
 
-    public Utente(String nome,String cognome, String email,String pwd,int ruolo){
+    public Utente(String nome, String cognome, String email, String pwd, int ruolo) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
@@ -12,7 +12,8 @@ public class Utente {
         this.ruolo = ruolo;
     }
 
-    public Utente(){}
+    public Utente() {
+    }
 
     public int getId() {
         return id;

@@ -22,17 +22,17 @@ public class ProfiloControl extends HttpServlet {
     private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dipendenteDAO);
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         int id = user.getId();
         try {
-            if(user != null) {
+            if (user != null) {
                 Dipendente dip = aut.getAllDataDip(id);
-                if(id == dip.getIdDipendente()) {
+                if (id == dip.getIdDipendente()) {
                     request.setAttribute("dip", dip);
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Profilo.jsp");
                     dispatcher.forward(request, response);
-                }else{
+                } else {
                     // roba da fare
                 }
             }
@@ -43,6 +43,6 @@ public class ProfiloControl extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req,resp);
+        doGet(req, resp);
     }
 }

@@ -11,18 +11,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeamDAO {
-    private static final String TABLE_DIPENDENTE = "Dipendenti", TABLE_TEAM="Team";
+    private static final String TABLE_DIPENDENTE = "Dipendenti", TABLE_TEAM = "Team";
 
     /**
      * Questa funzionalità permette di salvare un team
+     *
      * @param team
      * @return boolean
      * @throws SQLException
      * @pre team!=null
      */
-    public static boolean doSaveTeam(Team team)  throws SQLException{
+    public static boolean doSaveTeam(Team team) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if(team == null){
+        if (team == null) {
             return false;
         }
         PreparedStatement save = null;
@@ -38,14 +39,17 @@ public class TeamDAO {
             save.setString(5, team.getCompetenza());
             save.setInt(6, team.getIdTM());
             int result = save.executeUpdate();
-            if(result !=-1){return true;}
-            else{return false;}
+            if (result != -1) {
+                return true;
+            } else {
+                return false;
+            }
         } finally {
             try {
                 if (save != null)
                     save.close();
             } finally {
-                if (connection!= null)
+                if (connection != null)
                     connection.close();
             }
         }
@@ -53,30 +57,31 @@ public class TeamDAO {
 
     /**
      * Questa funzionalità permette di eliminare un dipendente
+     *
      * @param idTeam
      * @throws SQLException
      * @pre idTeam!=null
      */
     /* ---------DA CONTROLLARE ----------*/
-    public static void doRemoveTeam(int idTeam) throws SQLException{
+    public static void doRemoveTeam(int idTeam) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
 
-        String query= "DELETE FROM " + TABLE_TEAM + "WHERE idTeam=?";
-        String upd="UPDATE " + TABLE_DIPENDENTE + " SET Stato=0 WHERE IdTeam=?";
-        PreparedStatement  stmt = null;
+        String query = "DELETE FROM " + TABLE_TEAM + "WHERE idTeam=?";
+        String upd = "UPDATE " + TABLE_DIPENDENTE + " SET Stato=0 WHERE IdTeam=?";
+        PreparedStatement stmt = null;
         ResultSet result;
-        try{
-            stmt= connection.prepareStatement(upd);
-            stmt.setInt(1,idTeam);
-            stmt= connection.prepareStatement(query);
-            stmt.setInt(1,idTeam);
-            result= stmt.executeQuery();
+        try {
+            stmt = connection.prepareStatement(upd);
+            stmt.setInt(1, idTeam);
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, idTeam);
+            result = stmt.executeQuery();
         } finally {
             try {
                 if (stmt != null)
                     stmt.close();
             } finally {
-                if (connection!= null)
+                if (connection != null)
                     connection.close();
             }
         }
@@ -84,28 +89,29 @@ public class TeamDAO {
 
     /**
      * questa funzionalità permette di aggiungere un dipendente in un team
+     *
      * @param idTeam
      * @param idDipendente
      * @throws SQLException
      * @pre idTeam!=null && idDipendente!=null
      */
-    public static void addEmployee(int idTeam, int idDipendente) throws SQLException{
+    public static void addEmployee(int idTeam, int idDipendente) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query= "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=1 WHERE IdDipendente=?";
-        PreparedStatement  stmt = null;
+        String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=1 WHERE IdDipendente=?";
+        PreparedStatement stmt = null;
         ResultSet result;
-        try{
-            stmt= connection.prepareStatement(query);
-            stmt.setInt(1,idTeam);
-            stmt.setInt(2,idDipendente);
-            result= stmt.executeQuery();
-        }finally {
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, idTeam);
+            stmt.setInt(2, idDipendente);
+            result = stmt.executeQuery();
+        } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
             } finally {
-                if (connection!= null) {
+                if (connection != null) {
                     connection.close();
                 }
             }
@@ -113,30 +119,31 @@ public class TeamDAO {
     }
 
     /**
-     *questa funzionalità permette di rimuovere un dipendente da un team
+     * questa funzionalità permette di rimuovere un dipendente da un team
+     *
      * @param idTeam
      * @param idDipendente
      * @throws SQLException
      * @pre idTeam!=null
      * @pre idDipendente!=null
      */
-    public static void removeEmployee(int idTeam, int idDipendente)throws SQLException{
+    public static void removeEmployee(int idTeam, int idDipendente) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query= "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=1 WHERE IdDipendente=?";
+        String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=1 WHERE IdDipendente=?";
         PreparedStatement stmt = null;
         ResultSet result;
-        try{
-            stmt= connection.prepareStatement(query);
-            stmt.setInt(1,idTeam);
-            stmt.setInt(2,idDipendente);
-            result= stmt.executeQuery();
-        }finally {
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, idTeam);
+            stmt.setInt(2, idDipendente);
+            result = stmt.executeQuery();
+        } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
             } finally {
-                if (connection!= null) {
+                if (connection != null) {
                     connection.close();
                 }
             }
@@ -144,22 +151,24 @@ public class TeamDAO {
     }
 
     /**
-     *Questa funzionalità permette di recuperare tutti i team presenti nella piattaforma
+     * Questa funzionalità permette di recuperare tutti i team presenti nella piattaforma
+     *
      * @return arraylist di team
      * @throws SQLException
      * @post teams.size>0
      */
     public static ArrayList<Team> doRetrieveAllTeam() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        ArrayList<Team> teams= new ArrayList<>();
-        String query= "SELECT * FROM" + TABLE_TEAM;
-        PreparedStatement  stmt = null;
+        ArrayList<Team> teams = new ArrayList<>();
+        String query = "SELECT * FROM" + TABLE_TEAM;
+        PreparedStatement stmt = null;
         ResultSet result;
-        try{
-            stmt= connection.prepareStatement(query);
-            result= stmt.executeQuery();
-            while(result.next()){
-                Team team= new Team(); team.setNomeProgetto(result.getString("NomeProgetto"));
+        try {
+            stmt = connection.prepareStatement(query);
+            result = stmt.executeQuery();
+            while (result.next()) {
+                Team team = new Team();
+                team.setNomeProgetto(result.getString("NomeProgetto"));
                 team.setNumeroDipendenti(result.getInt("NumeroDipendenti"));
                 team.setNomeTeam(result.getString("NomeTeam"));
                 team.setDescrizione(result.getString("Descrizione"));
@@ -167,15 +176,18 @@ public class TeamDAO {
                 team.setIdTM(result.getInt("IdTM"));
                 teams.add(team);
             }
-            if(teams.size()>0){return teams;}
-            else{return null;}
-        }finally {
+            if (teams.size() > 0) {
+                return teams;
+            } else {
+                return null;
+            }
+        } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
             } finally {
-                if (connection!= null) {
+                if (connection != null) {
                     connection.close();
                 }
             }
@@ -183,24 +195,25 @@ public class TeamDAO {
     }
 
     /**
-     *Questa funzionalità permette di recuperare la lista dei team di un TM
+     * Questa funzionalità permette di recuperare la lista dei team di un TM
+     *
      * @param idUtente
      * @return arraylist di team
      * @throws SQLException
      * @pre idTM=null
      */
-    public static ArrayList<Team> doRetrieveTMTeam(int idUtente) throws SQLException{
+    public static ArrayList<Team> doRetrieveTMTeam(int idUtente) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        ArrayList<Team> teams= new ArrayList<>();
-        PreparedStatement  stmt = null;
+        ArrayList<Team> teams = new ArrayList<>();
+        PreparedStatement stmt = null;
         ResultSet result;
-        String query= "SELECT * FROM" + TABLE_TEAM + "WHERE IdUtente=?";
-        try{
-            stmt= connection.prepareStatement(query);
-            stmt.setInt(1,idUtente);
-            result= stmt.executeQuery();
-            while(result.next()){
-                Team team= new Team();
+        String query = "SELECT * FROM" + TABLE_TEAM + "WHERE IdUtente=?";
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, idUtente);
+            result = stmt.executeQuery();
+            while (result.next()) {
+                Team team = new Team();
                 team.setNomeProgetto(result.getString("NomeProgetto"));
                 team.setNumeroDipendenti(result.getInt("NumeroDIpendenti"));
                 team.setNomeTeam(result.getString("NomeTeam"));
@@ -209,15 +222,18 @@ public class TeamDAO {
                 team.setIdTM(result.getInt("IdTM"));
                 teams.add(team);
             }
-            if(teams.size()>0){return teams;}
-            else{return null;}
-        }finally {
+            if (teams.size() > 0) {
+                return teams;
+            } else {
+                return null;
+            }
+        } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
             } finally {
-                if (connection!= null) {
+                if (connection != null) {
                     connection.close();
                 }
             }
@@ -225,29 +241,30 @@ public class TeamDAO {
     }
 
     /**
-     *Questa funzionalità permette di modificare le competenze di un team
+     * Questa funzionalità permette di modificare le competenze di un team
+     *
      * @param competence
      * @param idTeam
      * @throws SQLException
      * @pre competence!=null && idTeam!=null
      */
-    public static void updateCompetence(String competence, int idTeam)throws SQLException{
+    public static void updateCompetence(String competence, int idTeam) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query= "UPDATE " + TABLE_TEAM + " SET Competenza=? WHERE IdTeam=?";
-        PreparedStatement  stmt = null;
+        String query = "UPDATE " + TABLE_TEAM + " SET Competenza=? WHERE IdTeam=?";
+        PreparedStatement stmt = null;
         ResultSet result;
-        try{
-            stmt= connection.prepareStatement(query);
-            stmt.setString(1,competence);
-            stmt.setInt(2,idTeam);
-            result= stmt.executeQuery();
-        }finally {
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, competence);
+            stmt.setInt(2, idTeam);
+            result = stmt.executeQuery();
+        } finally {
             try {
                 if (stmt != null) {
                     stmt.close();
                 }
             } finally {
-                if (connection!= null) {
+                if (connection != null) {
                     connection.close();
                 }
             }
@@ -255,17 +272,17 @@ public class TeamDAO {
     }
 
     /**
-     *Questa funzionalità permette di recuperare le competenze specificate di un team
+     * Questa funzionalità permette di recuperare le competenze specificate di un team
+     *
      * @param idTeam
      * @return Stringa contenente le competenze specificate
      * @throws SQLException
      * @pre idTeam!=null
-     *
      */
-    public static String doRetrieveCompetence(int idTeam)throws SQLException {
+    public static String doRetrieveCompetence(int idTeam) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "SELECT Competenza FROM" + TABLE_TEAM + "WHERE IdTeam=?";
-        PreparedStatement  stmt = null;
+        PreparedStatement stmt = null;
         ResultSet result;
         try {
             stmt = connection.prepareStatement(query);
@@ -286,7 +303,8 @@ public class TeamDAO {
     }
 
     /**
-     *Questa funzionalità permette di recuperare la lista di tutti i membri di un team
+     * Questa funzionalità permette di recuperare la lista di tutti i membri di un team
+     *
      * @param idTeam
      * @return arraylist di dipendenti
      * @throws SQLException
@@ -297,7 +315,7 @@ public class TeamDAO {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ArrayList<Dipendente> dipendenti = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_DIPENDENTE + " WHERE IdTeam=?";
-        PreparedStatement  stmt = null;
+        PreparedStatement stmt = null;
         ResultSet result;
         try {
             stmt = connection.prepareStatement(query);
@@ -330,22 +348,24 @@ public class TeamDAO {
             }
         }
     }
+
     /**
-     *Questa funzionalità permette di recuperare il numero massimo di membri in un team
+     * Questa funzionalità permette di recuperare il numero massimo di membri in un team
+     *
      * @param idTeam
      * @return
      * @throws SQLException
      * @pre idTeam!=null
      */
-    public static int doRetrieveNTMember(int idTeam)throws SQLException{
+    public static int doRetrieveNTMember(int idTeam) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query= "SELECT NumeroDipendenti FROM " + TABLE_TEAM + " WHERE IdTeam=?";
-        PreparedStatement  stmt = null;
+        String query = "SELECT NumeroDipendenti FROM " + TABLE_TEAM + " WHERE IdTeam=?";
+        PreparedStatement stmt = null;
         ResultSet result;
-        try{
-            stmt= connection.prepareStatement(query);
-            stmt.setInt(1,idTeam);
-            result= stmt.executeQuery();
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, idTeam);
+            result = stmt.executeQuery();
             return result.getInt(query);
         } finally {
             try {
@@ -353,7 +373,7 @@ public class TeamDAO {
                     stmt.close();
                 }
             } finally {
-                if (connection!= null) {
+                if (connection != null) {
                     connection.close();
                 }
             }

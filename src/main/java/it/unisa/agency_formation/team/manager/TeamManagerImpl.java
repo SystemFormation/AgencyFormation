@@ -8,28 +8,28 @@ import it.unisa.agency_formation.team.domain.Team;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TeamManagerImpl implements TeamManager{
+public class TeamManagerImpl implements TeamManager {
     private TeamDAO tdao;
     private DipendenteDAO dipdao;
 
     @Override
     public boolean createTeam(String name, String projectName, String description, int maxEmpl, String competence, int idTM) throws SQLException {
-       return tdao.doSaveTeam(new Team(projectName, maxEmpl, name, description, competence, idTM));
+        return tdao.doSaveTeam(new Team(projectName, maxEmpl, name, description, competence, idTM));
     }
 
     @Override
-    public ArrayList<Dipendente> getEmployee(boolean state) throws SQLException{
+    public ArrayList<Dipendente> getEmployee(boolean state) throws SQLException {
         return dipdao.doRetrieveByState(state);
     }
 
     @Override
     public void addEmployee(int idTeam, Dipendente dip) throws SQLException {
-        tdao.addEmployee(idTeam,dip.getIdDipendente());
+        tdao.addEmployee(idTeam, dip.getIdDipendente());
     }
 
     @Override
     public void removeEmployee(int idTeam, int idDip) throws SQLException {
-        tdao.removeEmployee(idTeam,idDip);
+        tdao.removeEmployee(idTeam, idDip);
     }
 
     @Override

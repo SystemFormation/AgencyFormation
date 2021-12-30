@@ -5,7 +5,9 @@ public class Skill {
     private String nomeSkill;
     private String descrizioneSkill;
 
-    public Skill(){}
+    public Skill() {
+    }
+
     public Skill(String nomeSkill, String descrizioneSkill) {
         this.nomeSkill = nomeSkill;
         this.descrizioneSkill = descrizioneSkill;

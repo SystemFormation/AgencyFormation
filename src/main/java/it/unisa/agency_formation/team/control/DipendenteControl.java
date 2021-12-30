@@ -25,7 +25,7 @@ public class DipendenteControl extends HttpServlet {
             try {
                 ArrayList<Dipendente> dipendenti= dao.doRetrieveAll();
                 req.setAttribute("dipendenti", dipendenti);
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/fileDipendenti.jsp");
+                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
                 dispatcher.forward(req,resp);
 
 
@@ -41,7 +41,7 @@ public class DipendenteControl extends HttpServlet {
             try {
                 ArrayList<Dipendente> dipendenti = dao.doRetrieveByState(state);
                 req.setAttribute("dipendenti", dipendenti);
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/fileDipendenti.jsp");
+                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
                 dispatcher.forward(req, resp);
             } catch (SQLException e) {
                 e.printStackTrace();

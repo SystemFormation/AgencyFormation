@@ -14,7 +14,7 @@
 }
 
 .text-block {
-    box-shadow: 15px 15px 30px rgb(71,71,71); /*Rich Black FOGRA 39*/
+    box-shadow: 15px 15px 30px rgb(71, 71, 71); /*Rich Black FOGRA 39*/
     padding: 10px 10px 15px 10px;
     background-color: #9CC9E8;
     border-radius: 2rem;
@@ -42,7 +42,7 @@
 }
 
 .image {
-    box-shadow: 15px 15px 30px rgb(71,71,71); /*Rich Black FOGRA 39*/
+    box-shadow: 15px 15px 30px rgb(71, 71, 71); /*Rich Black FOGRA 39*/
     float: right;
     background: url(../img/AF_Home.png) center no-repeat;
     width: 1007px;

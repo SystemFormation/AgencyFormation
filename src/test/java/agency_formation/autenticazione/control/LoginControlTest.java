@@ -37,10 +37,11 @@ public class LoginControlTest {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
-        new LoginControl().doPost(request,response);
+        new LoginControl().doPost(request, response);
         writer.flush();
         assertTrue(stringWriter.toString().contains("5"));
     }
+
     @Test
     public void loginPasswordNull() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
@@ -50,10 +51,11 @@ public class LoginControlTest {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
-        new LoginControl().doPost(request,response);
+        new LoginControl().doPost(request, response);
         writer.flush();
         assertTrue(stringWriter.toString().contains("5"));
     }
+
     @Test
     public void loginEmailEmpty() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
@@ -63,10 +65,11 @@ public class LoginControlTest {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
-        new LoginControl().doPost(request,response);
+        new LoginControl().doPost(request, response);
         writer.flush();
         assertTrue(stringWriter.toString().contains("1"));
     }
+
     @Test
     public void loginPasswordEmpty() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
@@ -76,10 +79,11 @@ public class LoginControlTest {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
-        new LoginControl().doPost(request,response);
+        new LoginControl().doPost(request, response);
         writer.flush();
         assertTrue(stringWriter.toString().contains("2"));
     }
+
     @Test
     //da controllare
     public void loginPass() throws IOException, ServletException {
@@ -97,10 +101,10 @@ public class LoginControlTest {
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
-        new LoginControl().doPost(request,response);
+        new LoginControl().doPost(request, response);
         writer.flush();
-        Mockito.verify(session).setAttribute("user",user);
-        Mockito.verify(dispatcher).forward(request,response);
+        Mockito.verify(session).setAttribute("user", user);
+        Mockito.verify(dispatcher).forward(request, response);
         assertTrue(stringWriter.toString().contains("3"));
     }
 }
