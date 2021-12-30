@@ -25,9 +25,9 @@
 
 
         <div class="form-button">
-            <a href="jsp/GestioneSkill.jsp"><button> Gestione Skill </button></a>
+            <a href="GestioneSkill.jsp"><button> Gestione Skill </button></a>
             <br>
-            <a href="jsp/Profilo.jsp"><button> Modifica Dati Personali </button></a>
+            <a href="Profilo.jsp"><button> Modifica Dati Personali </button></a>
         </div>
     </div>
 </div>
