@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class SkillDAO {
     private static final String TABLE_SKILL = "skill";
-    private static final String TABLE_SKILLDIPENDENTE = "skillsdipendente";
+    private static final String TABLE_SKILLDIPENDENTE = "skillsdipendenti";
 
     /**
      * Questa funzionalità permette di salvare una nuova skill
@@ -25,31 +25,21 @@ public class SkillDAO {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if (skill != null) {
             PreparedStatement save = null;
-            PreparedStatement save2 = null;
 
             String query = "insert into " + TABLE_SKILL + " (NomeSkill, DescrizioneSkill)" +
                     " values(?,?)";
 
-            String query2 = "insert into" + TABLE_SKILLDIPENDENTE + " (idDipendente, idSkill, Livello) "+
-                    " values(?,?,?)";
             try {
                 save = connection.prepareStatement(query);
                 save.setString(1, skill.getNomeSkill());
                 save.setString(2, skill.getDescrizioneSkill());
                 save.executeUpdate();
-
-                save2 = connection.prepareStatement(query2);
-                save2.setInt(1,dip.getIdDipendente());
-                save2.setInt(2,skill.getIdSkill());
-                save2.setInt(3,1);
-                save2.executeUpdate();
                 return true;
             } finally {
                 try {
                     if (save != null)
                         save.close();
-                    if (save2 != null)
-                        save2.close();
+
                 } finally {
                     if (connection != null)
                         connection.close();
@@ -104,20 +94,21 @@ public class SkillDAO {
             }
         }
     }
+
     public Skill doRetrieveByName(String nomeSkill) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
+        ResultSet result;
         PreparedStatement stmt = null;
-        String query = "Select From " + TABLE_SKILL + " where NomeSkill = ?";
+        String query = "Select * From " + TABLE_SKILL + " where NomeSkill=?";
 
         Skill skill = new Skill();
 
-        ResultSet result;
 
         try {
             stmt = connection.prepareStatement(query);
-            stmt.setString(1,nomeSkill);
+            stmt.setString(1, nomeSkill);
             result = stmt.executeQuery();
-           if(result.next()) {
+            if (result.next()) {
                 skill.setNomeSkill(result.getString("NomeSkill"));
                 return skill;
             }
@@ -133,4 +124,55 @@ public class SkillDAO {
         }
         return null;
     }
+
+  public void doSaveSkillDip(int idSkill, Dipendente dip) throws SQLException {
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        if (dip != null) {
+            PreparedStatement save = null;
+
+            String query = "insert into " + TABLE_SKILLDIPENDENTE + " (idDipendente, idSkill, Livello) " +
+                    " values(?,?,?)";
+            try {
+                save = connection.prepareStatement(query);
+                save.setInt(1, dip.getIdDipendente());
+                save.setInt(2, idSkill);
+                save.setInt(3, 1);
+                save.executeUpdate();
+
+            } finally {
+                try {
+                    if (save != null)
+                        save.close();
+                } finally {
+                    if (connection != null)
+                        connection.close();
+                }
+            }
+        }
+    }
+
+  public int doRetrieveLastId() throws SQLException {
+      Connection connection = DatabaseManager.getInstance().getConnection();
+      ResultSet result;
+      PreparedStatement stmt = null;
+      String query = " SELECT max(skill.IdSkill)  FROM " + TABLE_SKILL;
+      int n = 0;
+      try {
+          stmt = connection.prepareStatement(query);
+          result = stmt.executeQuery();
+          if (result.next()) {
+              n = result.getInt(1);
+          }
+
+      } finally {
+          try {
+              if (stmt != null)
+                  stmt.close();
+          } finally {
+              if (connection != null)
+                  connection.close();
+          }
+      }
+      return n;
+  }
 }

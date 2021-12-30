@@ -30,8 +30,8 @@
 
 <div class = "addSkill">
     <h2> Aggiunta Skill </h2>
-    <form action="../LoginControl" method="post" id="formLogin">
-        <textarea id="skillName" name="skillName" rows="1" cols="30" placeholder="Nome Skill"></textarea>
+    <form action="SkillControl" method="post" id="formLogin">
+        <input type="text" id="skillName" name="skillName" placeholder="Nome Skill">
         <textarea id="skillDescr" name="skillDescr" rows="15" cols="70" placeholder="Descrizione Skill"></textarea>
         <input type="submit" value="Aggiungi" id="Aggiungi">
     </form>

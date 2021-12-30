@@ -76,7 +76,7 @@ public class TeamControl extends HttpServlet {
                 if (save = true) {
                     HttpSession session = req.getSession(true);
                     //session.setAttribute("user", save);
-                    dispatcher = getServletContext().getRequestDispatcher("/fileTeam.jsp");
+                    dispatcher = req.getServletContext().getRequestDispatcher("/fileTeam.jsp");
                     dispatcher.forward(req, resp);
                 } else {
                     resp.sendRedirect("./WEB-INF/jsp/fileTeam.jsp");

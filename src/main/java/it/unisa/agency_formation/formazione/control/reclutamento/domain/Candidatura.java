@@ -1,4 +1,4 @@
-package it.unisa.agency_formation.reclutamento.domain;
+package it.unisa.agency_formation.formazione.control.reclutamento.domain;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;

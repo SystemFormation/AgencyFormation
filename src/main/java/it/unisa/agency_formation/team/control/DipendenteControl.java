@@ -25,7 +25,7 @@ public class DipendenteControl extends HttpServlet {
             try {
                 ArrayList<Dipendente> dipendenti= dao.doRetrieveAll();
                 req.setAttribute("dipendenti", dipendenti);
-                dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/fileDipendenti.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/fileDipendenti.jsp");
                 dispatcher.forward(req,resp);
 
 

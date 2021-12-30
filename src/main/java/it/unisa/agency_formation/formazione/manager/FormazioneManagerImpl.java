@@ -11,6 +11,10 @@ import java.sql.SQLException;
 public class FormazioneManagerImpl implements FormazioneManager{
     private SkillDAO skDao;
 
+    public FormazioneManagerImpl(SkillDAO dao) {
+        this.skDao = dao;
+    }
+
     @Override
     public void createCompetence(int idTeam, String competenza) {
 
@@ -25,7 +29,8 @@ public class FormazioneManagerImpl implements FormazioneManager{
     public void uploadDocument(String MaterialeDiFormazione) {
 
     }
-
+    //Aggiungere doRetrieveLastId();
+    //aggiungere doSaveSkillDip(x,dip);
     @Override
     public boolean addSkill(Skill skill, Dipendente dip) throws SQLException {
         if(!alreadyInsertSkill(skill)){

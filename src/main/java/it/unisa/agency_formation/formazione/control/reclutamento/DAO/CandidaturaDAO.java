@@ -1,7 +1,6 @@
-package it.unisa.agency_formation.reclutamento.DAO;
+package it.unisa.agency_formation.formazione.control.reclutamento.DAO;
 
-import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.formazione.control.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
 import java.sql.*;
