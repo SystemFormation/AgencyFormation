@@ -12,9 +12,13 @@ public class TeamManagerImpl implements TeamManager {
     private TeamDAO tdao;
     private DipendenteDAO dipdao;
 
+    public TeamManagerImpl(TeamDAO tdao){
+        this.tdao = tdao;
+    }
+
     @Override
-    public boolean createTeam(String name, String projectName, String description, int maxEmpl, String competence, int idTM) throws SQLException {
-        return tdao.doSaveTeam(new Team(projectName, maxEmpl, name, description, competence, idTM));
+    public void createTeam(Team team, int idUtente) throws SQLException {
+        tdao.doSaveTeam(team, idUtente);
     }
 
     @Override

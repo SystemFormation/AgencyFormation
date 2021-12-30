@@ -27,8 +27,6 @@ public class DipendenteControl extends HttpServlet {
                 req.setAttribute("dipendenti", dipendenti);
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
                 dispatcher.forward(req,resp);
-
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
