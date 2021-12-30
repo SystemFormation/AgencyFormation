@@ -17,9 +17,17 @@
 <%@include file="Header.jsp"%>
 <h1>LISTA DIPENDENTI</h1>
 <div class="content">
+        <div class="found">
+            <form action="DipendenteControl" method="post" id="formDip">
+                <select name="subject" id="subject">
+                    <option value="null" selected="selected">---</option>
+                    <option value="occupati">Occupati</option>
+                    <option value="disponibili">Disponibili</option>
+                </select>
+            </form>
+        </div>
     <div class="information">
-
-            <table>
+        <table>
             <tr>
                 <th>IdDipendente</th>
                 <th>IdTeam</th>
@@ -28,33 +36,105 @@
                 <th>Telefono</th>
                 <th>Stato</th>
             </tr>
-                <div/>
-          <c:forEach var="dip"
-                    items="${dipendenti}">
-              <tr>
-                  <td>${dip.getIdDipendente()}</td>
-                  <td>${dip.getIdTeam()}</td>
-                  <td>${dip.getAnnoNascita()}</td>
-                  <td>${dip.getResidenza()}</td>
-                  <td>${dip.getTelefono()}</td>
-                  <td>
+                <!--if (value==null) {-->
+              <c:forEach var="dip"
+                         items="${dipendenti}">
+                  <tr>
+                      <td>${dip.getIdDipendente()}</td>
+                      <td>${dip.getIdTeam()}</td>
+                      <td>${dip.getAnnoNascita()}</td>
+                      <td>${dip.getResidenza()}</td>
+                      <td>${dip.getTelefono()}</td>
+                      <td> Occupato </td>
+                  </tr>
+              </c:forEach>
+                <!-- } else if (value==disponibli)
+                APRI IL FOR EACH
+                IF (dip.isStato() == true)
+                    fa la tabella, altri,enti non entra nella tabella
+                CHIUDI IL FOR EACH -->
 
-                      <form action="DipendenteControl" method="post" id="formDip">
-                          <select name="subject" id="subject">
+                <!-- else if (value==occupati)
+                APRI IL FOR EACH
+                IF (dip.isStato() == true)
+                    fa la tabella, altri,enti non entra nella tabella
+                CHIUDI IL FOR EACH -->
 
-                          <option value="occupati" selected="selected">Occupati</option>
-                          <option value="disponibili" selected="selected">Disponibili</option>
-                      </select>
-                          <div class="searchButton">
-                          <input type="submit" value="Cerca" id="Cerca">
-                          </div>
-                      </form>
-                  </td>
-              </tr>
-          </c:forEach>
-        </table>
+                    <tr>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>1998</td>
+                        <td>Pompei</td>
+                        <td>334680</td>
+                        <td> Disponibile </td>
+                    </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>4</td>
+                      <td>1998</td>
+                      <td>Pompei</td>
+                      <td>334680</td>
+                      <td> Disponibile </td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>4</td>
+                      <td>1998</td>
+                      <td>Pompei</td>
+                      <td>334680</td>
+                      <td> Occupato </td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>4</td>
+                      <td>1998</td>
+                      <td>Pompei</td>
+                      <td>334680</td>
+                      <td> Occupato </td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>4</td>
+                      <td>1998</td>
+                      <td>Pompei</td>
+                      <td>334680</td>
+                      <td> Disponibile </td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>4</td>
+                      <td>1998</td>
+                      <td>Pompei</td>
+                      <td>334680</td>
+                      <td> Disponibile </td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>4</td>
+                      <td>1998</td>
+                      <td>Pompei</td>
+                      <td>334680</td>
+                      <td> Occupato </td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>4</td>
+                      <td>1998</td>
+                      <td>Pompei</td>
+                      <td>334680</td>
+                      <td> Occupato </td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>4</td>
+                      <td>1998</td>
+                      <td>Pompei</td>
+                      <td>334680</td>
+                      <td> Disponibile </td>
+                  </tr>
+            </table>
 
-        <div/>
-
+    </div>
+</div>
 </body>
 </html>

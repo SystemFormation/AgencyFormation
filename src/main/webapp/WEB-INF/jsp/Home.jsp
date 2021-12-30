@@ -12,4 +12,21 @@
 </body>
 <a href="ProfiloControl"> Profilo </a>
 <a href="UploadDispatch"> Upload </a>
+<a href="DipendenteControl">Ciao Peter</a>
+
+
+<table>
+    <tr>
+        <th> Nome </th>
+        <td> Pasquale </td>
+        <td> Emanuele </td>
+        <td> Luigi </td>
+    </tr>
+    <tr>
+        <th> Cognome </th>
+        <td> Severino </td>
+        <td> Scarpa </td>
+        <td> Giacchetti </td>
+    </tr>
+</table>
 </html>

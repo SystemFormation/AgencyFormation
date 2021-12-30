@@ -10,28 +10,23 @@ h1{
 
 .content{
     box-shadow: 15px 15px 30px rgb(71,71,71);
-    border-radius: 2rem;
+    border-radius: 1rem;
     border-style: groove;
-    height: 450px;
+    height: auto;
     background-color: #9CC9E8;
-    width: 40%;
+    margin: auto 10%;
 }
 
-.information{
-    height: 100%;
-    font-size: 35px;
+.information {
+    width: 90%;
+}
+.information table{
     text-align: center;
 }
 
 .information th{
-    list-style-type: none;
-    margin-left: -40px;
-}
-
-.information tr{
-    font-size: 20px;
-    list-style-type: none;
-    margin-left: -60px;
+    font-size: 30px;
+    padding: 20px 45px;
 }
 
 .searchButton{
@@ -44,6 +39,25 @@ h1{
 
 .searchButton a:hover{
     font-weight: bold;
+}
+
+.found {
+    width: 10%;
+    float: right;
+}
+
+.found select {
+    border: groove;
+    background-color: #9cc9e8;
+    font-size: 20px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 8px;
+}
+
+.information td{
+    font-size: 25px;
+    padding: 10px;
 }
 
 
