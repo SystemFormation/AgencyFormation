@@ -29,9 +29,11 @@ public class TeamControl extends HttpServlet {
         int idTM = Integer.parseInt(req.getParameter("IdTM"));
         String descrizione = req.getParameter("Descrizione");
         String competenza = req.getParameter("Competenza");
+
         RequestDispatcher dispatcher;
         ArrayList<Team> teams = new ArrayList<>();
         Team createTeam = new Team();
+
         // check delle variabili per la creazione del team
         if (Check.checkProjectName(nomeProgetto) && Check.checkTeamName(nomeTeam)
                 && Check.checkDescription(descrizione) && Check.checkCompetence(competenza)) {
@@ -41,6 +43,7 @@ public class TeamControl extends HttpServlet {
             createTeam.setIdTM(idTM);
             createTeam.setNomeTeam(nomeTeam);
             createTeam.setNumeroDipendenti(numeroDipendenti);
+
             // ArrayList dei team esistenti
             try {
                 teams = dao.doRetrieveAllTeam();
@@ -76,10 +79,10 @@ public class TeamControl extends HttpServlet {
                     if (save = true) {
                         HttpSession session = req.getSession(true);
                         //session.setAttribute("user", save);
-                        dispatcher = req.getServletContext().getRequestDispatcher("/fileTeam.jsp");
+                        dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
                         dispatcher.forward(req, resp);
                     } else {
-                        resp.sendRedirect("/WEB-INF/jsp/fileTeam.jsp");
+                        resp.sendRedirect("/WEB-INF/jsp/Team.jsp");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

@@ -1,6 +1,7 @@
 package it.unisa.agency_formation.team.domain;
 
 public class Team {
+    private int idTeam;
     private String NomeProgetto;
     private int NumeroDipendenti;
     private String NomeTeam, Descrizione, Competenza;
@@ -14,8 +15,15 @@ public class Team {
         this.Competenza = competenza;
         this.idTM = idTM;
     }
-
     public Team() {
+    }
+
+    public int getIdTeam() {
+        return idTeam;
+    }
+
+    public void setIdTeam(int idTeam) {
+        this.idTeam = idTeam;
     }
 
     public String getNomeProgetto() {

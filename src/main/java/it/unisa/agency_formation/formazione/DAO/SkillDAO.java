@@ -53,12 +53,33 @@ public class SkillDAO {
      * Questa funzionalità permette di rimuovere una skill persa
      *
      * @param IdSkill
+     * @param idDipendente
      * @throws SQLException
-     * @pre idSkill!=null
+     * @pre idSkill>1 && idDipendente>1
      */
-    public void doRemoveSkill(int IdSkill) throws SQLException {
+    public void doRemoveSkill(int IdSkill, int idDipendente) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
+        PreparedStatement stmt1 = null;
+        String query = "DELETE FROM " + TABLE_SKILL + " WHERE IdSkill=?";
+        String q2 = "DELETE FROM " + TABLE_SKILLDIPENDENTE + " WHERE IdSkill=? AND IdDipendente=?";
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, IdSkill);
+            stmt.executeQuery();
+
+            stmt1 = connection.prepareStatement(q2);
+            stmt1.setInt(1, IdSkill);
+            stmt1.setInt(2, idDipendente);
+            stmt1.executeQuery();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (stmt1 != null) stmt1.close();
+            } finally {
+                if (connection != null) connection.close();
+            }
+        }
     }
 
     /**
@@ -175,4 +196,5 @@ public class SkillDAO {
       }
       return n;
   }
+
 }
