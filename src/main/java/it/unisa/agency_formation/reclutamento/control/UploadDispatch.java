@@ -12,7 +12,6 @@ import java.io.IOException;
 
 @WebServlet("/UploadDispatch")
 public class UploadDispatch extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente)request.getSession().getAttribute("user");

@@ -19,7 +19,6 @@
         <c:if test="${(user!=null && user.getRole()>1 && user.getRole()<=4)}">
         <li>Team</li>
         </c:if>
-        <li><a href="WEB-INF/jsp/Upload.jsp">Upload</a></li>
     </ul>
     <div class="header-right">
         <ul>
