@@ -1,0 +1,49 @@
+body{
+    font-family: monospace;
+    margin:0;
+}
+
+h1{
+    text-align: center;
+    font-size: 50px;
+}
+
+.content{
+    box-shadow: 15px 15px 30px rgb(71,71,71);
+    border-radius: 2rem;
+    border-style: groove;
+    height: 450px;
+    background-color: #9CC9E8;
+    width: 40%;
+}
+
+.information{
+    height: 100%;
+    font-size: 35px;
+    text-align: center;
+}
+
+.information th{
+    list-style-type: none;
+    margin-left: -40px;
+}
+
+.information tr{
+    font-size: 20px;
+    list-style-type: none;
+    margin-left: -60px;
+}
+
+.searchButton{
+    padding: 15px;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 28px;
+    border-radius: 7rem;
+}
+
+.searchButton a:hover{
+    font-weight: bold;
+}
+
+
