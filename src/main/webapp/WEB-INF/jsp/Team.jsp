@@ -17,6 +17,7 @@
 <div class="container">
     <div class="project">
         <form action="TeamControl" method="post" id="formTeam">
+            <input type="hidden" name="action" value="crea">
             <label for="formTeam">Nome del Team</label>
             <input type="text" id="fname" name="fname" value="John"><br>
             <label for="formTeam">Nome del Progetto</label><br>
@@ -28,7 +29,7 @@
 
 
             <textarea id="teamDescr" name="teamDescr" rows="15" cols="70" placeholder="Descrizione "></textarea>
-            <input type="submit" value="Cerca" id="Cerca">
+            <input type="submit" name="Crea" value="Crea" id="Cerca">
 
 
 
