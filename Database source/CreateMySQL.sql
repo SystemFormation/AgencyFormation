@@ -10,9 +10,7 @@ Pwd varchar(16) not null,
 Mail varchar(32) not null,
 Ruolo int not null
 );
-
 use af_db;
-
 create table Team(
 IdTeam int primary key not null auto_increment,
 NomeProgetto varchar(32) not null, 
@@ -25,9 +23,7 @@ foreign key(IdTM) references Utenti(IdUtente)
 on update cascade
 on delete cascade
 );
-
 use af_db;
-
 create table Dipendenti(
 IdDipendente int primary key not null,
 Residenza varchar(128) null, 
@@ -90,7 +86,7 @@ Cv varchar(32) not null,
 Attestati varchar(32) null,
 Certificazioni varchar(32) null,
 Stato varchar(32) not null,
-DataCandidatura datetime not null,
+DataCandidatura date not null,
 DataOraColloquio datetime null,
 IdCandidato int not null,
 IdHR int null,

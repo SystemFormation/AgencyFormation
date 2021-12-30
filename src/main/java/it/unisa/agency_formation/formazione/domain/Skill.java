@@ -1,12 +1,22 @@
 package it.unisa.agency_formation.formazione.domain;
 
 public class Skill {
+    private int idSkill;
     private String nomeSkill;
     private String descrizioneSkill;
 
     public Skill(){}
     public Skill(String nomeSkill, String descrizioneSkill) {
         this.nomeSkill = nomeSkill;
+        this.descrizioneSkill = descrizioneSkill;
+    }
+
+    public int getIdSkill() {
+        return idSkill;
+    }
+
+    public void setIdSkill(int idSkill) {
+        this.idSkill = idSkill;
     }
 
     public String getNomeSkill() {

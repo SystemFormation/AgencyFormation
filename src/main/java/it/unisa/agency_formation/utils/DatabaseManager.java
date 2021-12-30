@@ -7,7 +7,7 @@ public class DatabaseManager {
     private static Connection conn;
     String url = "jdbc:mysql://localhost:3306/af_db?serverTimezone=UTC";
     String name = "root";
-    String pwd = "Emapas11";
+    String pwd = "root11";
 
     private static Connection connect;
     private static DatabaseManager instance;
