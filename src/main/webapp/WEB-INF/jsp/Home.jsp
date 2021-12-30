@@ -11,5 +11,5 @@
 <h1>Bentornato ${user.getName()}</h1>
 </body>
 <a href="ProfiloControl"> Profilo </a>
-
+<a href="UploadDispatch"> Upload </a>
 </html>
