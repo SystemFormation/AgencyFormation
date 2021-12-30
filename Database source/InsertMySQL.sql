@@ -11,4 +11,4 @@ INSERT INTO dipendenti (`IdDipendente`,`Residenza`, `Telefono`, `Stato`, `AnnoDi
 INSERT INTO skillsdipendenti (`IdDipendente`, `IdSkill`, `Livello`) VALUES ('2', '1', '5');
 INSERT INTO skillsdipendenti (`IdDipendente`, `IdSkill`, `Livello`) VALUES ('2', '2', '3');
 INSERT INTO documenti (`MaterialeDiFormazione`, `IdUtente`, `IdTeam`) VALUES ('\\', '2', '1');
-INSERT INTO candidature (`Cv`, `Attestati`, `Certificazioni`, `Stato`, `DataCandidatura`, `DataOraColloquio`, `IdCandidato`, `IdHR`) VALUES ('\\', '\\', '\\', 'Non visionato', '2021-12-21 21:48:30', '2021-12-31 17:30:00', '1', '4');
+INSERT INTO candidature (`Cv`, `Attestati`, `Certificazioni`, `Stato`, `DataCandidatura`, `DataOraColloquio`, `IdCandidato`, `IdHR`) VALUES ('\\', '\\', '\\', 'Non visionato', '2021-12-21', '2021-12-31 17:30:00', '1', '4');

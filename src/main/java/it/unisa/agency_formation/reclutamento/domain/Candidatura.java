@@ -1,45 +1,93 @@
 package it.unisa.agency_formation.reclutamento.domain;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Candidatura {
-    private String Cv;
-    private String Attestati;
-    private String Certificazioni;
-    private String Stato;
-    private Date DataCandidatura;
-    private Date DataOraColloquio;
-    private int IdCandidato;
-    private int IdHR;
+    private int idCandidatura;
+    private String cv;
+    private String attestati;
+    private String certificazioni;
+    private String stato;
+    private Date dataCandidatura;
+    private int idCandidato;
+    private int idHR;
+    private Timestamp dataOraColloquio;
 
     public Candidatura() {}
-    public Candidatura(String cv, String attestati, String certificazioni, String stato, Date dataCandidatura, Date dataOraColloquio, int idCandidato, int idHR) {
-        this.Cv = cv;
-        this.Attestati = attestati;
-        this.Certificazioni = certificazioni;
-        this.Stato = stato;
-        this.DataCandidatura = dataCandidatura;
-        this.DataOraColloquio = dataOraColloquio;
-        this.IdCandidato = idCandidato;
-        this.IdHR = idHR;
+
+
+    public int getIdCandidatura() {
+        return idCandidatura;
     }
 
-    public String getCv() {return Cv;}
-    public void setCv(String cv) {Cv = cv;}
-    public String getAttestati() {return Attestati;}
-    public void setAttestati(String attestati) {Attestati = attestati;}
-    public String getCertificazioni() {return Certificazioni;}
-    public void setCertificazioni(String certificazioni) {Certificazioni = certificazioni;}
-    public String getStato() {return Stato;}
-    public void setStato(String stato) {Stato = stato;}
-    public Date getDataCandidatura() {return DataCandidatura;}
-    public void setDataCandidatura(Date dataCandidatura) {DataCandidatura = dataCandidatura;}
-    public Date getDataOraColloquio() {return DataOraColloquio;}
-    public void setDataOraColloquio(Date dataOraColloquio) {DataOraColloquio = dataOraColloquio;}
-    public int getIdCandidato() {return IdCandidato;}
-    public void setIdCandidato(int idCandidato) {IdCandidato = idCandidato;}
-    public int getIdHR() {return IdHR;}
-    public void setIdHR(int idHR) {IdHR = idHR;}
+    public void setIdCandidatura(int idCandidatura) {
+        this.idCandidatura = idCandidatura;
+    }
 
+    public String getCv() {
+        return cv;
+    }
 
+    public void setCv(String cv) {
+        this.cv = cv;
+    }
+
+    public String getAttestati() {
+        return attestati;
+    }
+
+    public void setAttestati(String attestati) {
+        this.attestati = attestati;
+    }
+
+    public String getCertificazioni() {
+        return certificazioni;
+    }
+
+    public void setCertificazioni(String certificazioni) {
+        this.certificazioni = certificazioni;
+    }
+
+    public String getStato() {
+        return stato;
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
+
+    public Date getDataCandidatura() {
+        return dataCandidatura;
+    }
+
+    public void setDataCandidatura(Date dataCandidatura) {
+        this.dataCandidatura = dataCandidatura;
+    }
+
+    public Date getDataOraColloquio() {
+        return dataOraColloquio;
+    }
+
+    public void setDataOraColloquio(Timestamp dataOraColloquio) {
+        this.dataOraColloquio = dataOraColloquio;
+    }
+
+    public int getIdCandidato() {
+        return idCandidato;
+    }
+
+    public void setIdCandidato(int idCandidato) {
+        this.idCandidato = idCandidato;
+    }
+
+    public int getIdHR() {
+        return idHR;
+    }
+
+    public void setIdHR(int idHR) {
+        this.idHR = idHR;
+    }
 }
