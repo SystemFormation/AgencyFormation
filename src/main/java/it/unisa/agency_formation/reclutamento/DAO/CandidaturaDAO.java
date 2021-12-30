@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.reclutamento.DAO;
 
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
@@ -16,30 +17,36 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre canididatura!=null
      */
-    public static void doSaveCandidatura(Candidatura candidatura) throws SQLException {
+    public boolean doSaveCandidatura(Candidatura candidatura) throws SQLException {
+        if (candidatura == null) {
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (candidatura != null) {
-            PreparedStatement save = null;
-            String query = "insert into " + TABLE_CANDIDATURA + "(Cv, Attestati, Certificazioni, Stato, DataCandidatura, DataOraColloquio, IdCandidato, IdHR) "
-                    + "VALUES(?,?,?,?,?,?,?,?)";
+        PreparedStatement save = null;
+        String query = "insert into " + TABLE_CANDIDATURA +
+                "(Curriculum,DocumentiAggiuntivi, Stato, DataCandidatura,IdCandidato) "
+                + "VALUES(?,?,?,?,?)";
+        try {
+            save = connection.prepareStatement(query);
+            save.setString(1, candidatura.getCv());
+            save.setString(2, candidatura.getDocumentiAggiuntivi());
+            save.setString(3, candidatura.getStato());
+            save.setDate(4, (Date) candidatura.getDataCandidatura());
+            save.setInt(5, candidatura.getIdCandidato());
+            int result = save.executeUpdate();
+            if (result != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
             try {
-                save = connection.prepareStatement(query);
-                save.setString(1, candidatura.getCv());
-                save.setString(2, candidatura.getAttestati());
-                save.setString(3, candidatura.getCertificazioni());
-                save.setString(4, candidatura.getStato());
-                save.setDate(5, (Date) candidatura.getDataCandidatura());
-                save.setDate(6, (Date) candidatura.getDataOraColloquio());
-                save.setInt(7, candidatura.getIdCandidato());
-                save.setInt(8, candidatura.getIdHR());
-                save.executeUpdate();
+                if (save != null) {
+                    save.close();
+                }
             } finally {
-                try {
-                    if (save != null)
-                        save.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
+                if (connection != null) {
+                    connection.close();
                 }
             }
         }
@@ -51,10 +58,10 @@ public class CandidaturaDAO {
      * @param idCandidato
      * @return Candidatura
      * @throws SQLException
-     * @pre idCandidato !=null
+     * @pre idCandidato >0
      */
-    public static Candidatura doRetrieveById(int idCandidato) throws SQLException {
-        if (idCandidato <= 0) {
+    public Candidatura doRetrieveById(int idCandidato) throws SQLException {
+        if (idCandidato < 1) {
             return null;
         }
         ResultSet result;
@@ -67,12 +74,13 @@ public class CandidaturaDAO {
             retrieve.setInt(1, idCandidato);
             result = retrieve.executeQuery();
             if (result.next()) {
-                cand.setCv(result.getString("CV"));
-                cand.setAttestati(result.getString("Attestati"));
-                cand.setCertificazioni(result.getString("Certificazioni"));
+                System.out.println("dentro if dao");
+                cand.setIdCandidatura(result.getInt("IdCandidatura"));
+                cand.setCv(result.getString("Curriculum"));
+                cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
                 cand.setStato(result.getString("Stato"));
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
-                cand.setDataOraColloquio(result.getDate("DataOraColloquio"));
+                cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
                 cand.setIdCandidato(result.getInt("IdCandidato"));
                 cand.setIdHR(result.getInt("IdHR"));
                 return cand;
@@ -92,7 +100,7 @@ public class CandidaturaDAO {
      * @return arrraylist di candidature
      * @throws SQLException
      */
-    public static ArrayList<Candidatura> doRetrieveAll() throws SQLException {
+    public ArrayList<Candidatura> doRetrieveAll() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -103,18 +111,21 @@ public class CandidaturaDAO {
             result = retrieve.executeQuery();
             while (result.next()) {
                 Candidatura cand = new Candidatura();
-                cand.setCv(result.getString("CV"));
-                cand.setAttestati(result.getString("Attestati"));
-                cand.setCertificazioni(result.getString("Certificazioni"));
+                cand.setIdCandidatura(result.getInt("IdCandidatura"));
+                cand.setCv(result.getString("Curriculum"));
+                cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
                 cand.setStato(result.getString("Stato"));
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
-                cand.setDataOraColloquio(result.getDate("DataOraColloquio"));
+                cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
                 cand.setIdCandidato(result.getInt("IdCandidato"));
                 cand.setIdHR(result.getInt("IdHR"));
                 candidature.add(cand);
             }
-            if (candidature.size() > 0) return candidature;
-            else return null;
+            if (candidature.size() > 0) {
+                return candidature;
+            } else {
+                return null;
+            }
         } finally {
             try {
                 if (retrieve != null) {
@@ -136,7 +147,10 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre stato!=null
      */
-    public static ArrayList<Candidatura> doRetrieveByState(String stato) throws SQLException {
+    public ArrayList<Candidatura> doRetrieveByState(String stato) throws SQLException {
+        if (stato == null) {
+            return null;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -148,12 +162,12 @@ public class CandidaturaDAO {
             result = retrieve.executeQuery();
             while (result.next()) {
                 Candidatura cand = new Candidatura();
-                cand.setCv(result.getString("CV"));
-                cand.setAttestati(result.getString("Attestati"));
-                cand.setCertificazioni(result.getString("Certificazioni"));
+                cand.setIdCandidatura(result.getInt("IdCandidatura"));
+                cand.setCv(result.getString("Curriculum"));
+                cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
                 cand.setStato(result.getString("Stato"));
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
-                cand.setDataOraColloquio(result.getDate("DataOraColloquio"));
+                cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
                 cand.setIdCandidato(result.getInt("IdCandidato"));
                 cand.setIdHR(result.getInt("IdHR"));
                 candidature.add(cand);
@@ -177,19 +191,27 @@ public class CandidaturaDAO {
      * Questa funzionalità permette di modificare lo stato della candidatura
      *
      * @param stato
+     * @param idCandidatura
      * @throws SQLException
-     * @pre stato!=null
+     * @pre stato!=null and idCandidatura>0
      */
-    public static void updateState(int idCandidatura, String stato) throws SQLException {
+    public boolean updateState(int idCandidatura, String stato) throws SQLException {
+        if (idCandidatura < 1 || stato == null) {
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        ResultSet result;
         PreparedStatement retrieve = null;
         String query = "update " + TABLE_CANDIDATURA + " set Stato= ? where IdCandidatura=?";
         try {
             retrieve = connection.prepareStatement(query);
             retrieve.setString(1, stato);
             retrieve.setInt(2, idCandidatura);
-            retrieve.executeUpdate();
+            int result = retrieve.executeUpdate();
+            if (result != -1) {
+                return true;
+            } else {
+                return false;
+            }
         } finally {
             try {
                 if (retrieve != null) {
@@ -207,11 +229,38 @@ public class CandidaturaDAO {
      * Questa funzionalità permette di modificare le certificazioni di una candidatura
      *
      * @param certificazione
+     * @param idCandidatura
      * @throws SQLException
-     * @pre certificazione!=null
+     * @pre certificazione!=null and idCandidatura>0
      */
-    public static void updateCertificazioni(String certificazione) throws SQLException {
-        //
+    public boolean updateCertificazioni(String certificazione, int idCandidatura) throws SQLException {
+        if (idCandidatura < 1 || certificazione == null) {
+            return false;
+        }
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement retrieve = null;
+        String query = "update " + TABLE_CANDIDATURA + " set Stato= ? where IdCandidatura=?";
+        try {
+            retrieve = connection.prepareStatement(query);
+            retrieve.setString(1, certificazione);
+            retrieve.setInt(2, idCandidatura);
+            int result = retrieve.executeUpdate();
+            if (result != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            try {
+                if (retrieve != null) {
+                    retrieve.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
     }
 
     /**
@@ -219,10 +268,36 @@ public class CandidaturaDAO {
      *
      * @param attestati
      * @throws SQLException
-     * @pre attestati!=null
+     * @pre attestati!=null and idCandidatura>0
      */
-    public static void updateAttestati(String attestati) throws SQLException {
-        //
+    public boolean updateAttestati(String attestati, int idCandidatura) throws SQLException {
+        if (idCandidatura < 1 || attestati == null) {
+            return false;
+        }
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement retrieve = null;
+        String query = "update " + TABLE_CANDIDATURA + " set Stato= ? where IdCandidatura=?";
+        try {
+            retrieve = connection.prepareStatement(query);
+            retrieve.setString(1, attestati);
+            retrieve.setInt(2, idCandidatura);
+            int result = retrieve.executeUpdate();
+            if (result != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        } finally {
+            try {
+                if (retrieve != null) {
+                    retrieve.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
     }
 
     /**
@@ -230,16 +305,24 @@ public class CandidaturaDAO {
      *
      * @param idCandidatura
      * @throws SQLException
-     * @pre idCandidatura!=null
+     * @pre idCandidatura>0
      */
-    public static void doRemoveCandidatura(int idCandidatura) throws SQLException {
+    public boolean doRemoveCandidatura(int idCandidatura) throws SQLException {
+        if (idCandidatura < 1) {
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = "DELETE FROM " + TABLE_CANDIDATURA + " WHERE idCandidatura=?";
+        String query = "DELETE FROM " + TABLE_CANDIDATURA + "WHERE idCandidatura=?";
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idCandidatura);
-            stmt.executeQuery();
+            int result = stmt.executeUpdate();
+            if (result != -1) {
+                return true;
+            } else {
+                return false;
+            }
         } finally {
             try {
                 if (stmt != null)
@@ -247,23 +330,6 @@ public class CandidaturaDAO {
             } finally {
                 if (connection != null)
                     connection.close();
-            }
-        }
-    }
-
-    public static void doRejectCandidate(int idUtente) throws SQLException {
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = " DELETE FROM " + TABLE_CANDIDATURA + " WHERE IdCandidato= ?";
-        PreparedStatement stmt = null;
-        try {
-            stmt = connection.prepareStatement(query);
-            stmt.setInt(1, idUtente);
-            stmt.executeQuery();
-        } finally {
-            try {
-                if (stmt != null) stmt.close();
-            } finally {
-                if (connection != null) connection.close();
             }
         }
     }

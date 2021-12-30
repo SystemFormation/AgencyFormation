@@ -18,7 +18,7 @@ public class RegistrazioneControl extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            Utente user = new Utente();
+        Utente user = new Utente();
             if (Check.checkName(request.getParameter("nome"))
                     && Check.checkSurname(request.getParameter("cognome"))
                     && Check.checkEmail(request.getParameter("email"))
@@ -30,8 +30,9 @@ public class RegistrazioneControl extends HttpServlet {
                 user.setRole(1);//il ruolo = 1 perchè il candidato è l'unico che si registra
                 try {
                     aut.registration(user);
-                    request.getSession().setAttribute("user", user);
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+                    Utente result = aut.login(user.getEmail(), user.getPwd());
+                    request.getSession().setAttribute("user", result);
+                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
                     dispatcher.forward(request, response);
                     return;
                 } catch (SQLException e) {
