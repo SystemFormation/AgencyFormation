@@ -28,7 +28,7 @@ public class DipendenteDAO {
         PreparedStatement save = null;
         String query = "insert into " + TABLE_DIPENDENTE + " (IdDipendente,Residenza,Telefono,Stato,AnnoDiNascita,idTeam)" +
                 " values(?,?,?,?,?,?)";
-
+        updateRole(dipendente.getIdDipendente());
         try {
             save = connection.prepareStatement(query);
             save.setInt(1,dipendente.getIdDipendente());
