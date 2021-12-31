@@ -22,33 +22,13 @@
             <input type="text" id="fname" name="fname" value="John"><br>
             <label for="formTeam">Nome del Progetto</label><br>
             <input type="text" id="lname" name="lname" value="Doe">
-
             <label for="quantity">Numero Dipendenti:</label>
             <input type="number" id="quantity" name="quantity" min="1" max="">
             <input type="submit">
-
-
             <textarea id="teamDescr" name="teamDescr" rows="15" cols="70" placeholder="Descrizione "></textarea>
             <input type="submit" name="Crea" value="Crea" id="Cerca">
-
-
-
         </form>
-
-
-
-
-
-
-
-
     </div>
-
-
-
-
-
 </div>
-
 </body>
 </html>

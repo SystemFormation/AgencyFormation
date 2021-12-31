@@ -37,3 +37,32 @@ h1 {
     width: 90%;
     margin: auto 5%;
 }
+
+.dropdown-content {
+    display: flex;
+    margin: 10px auto;
+    width: 260px;
+    height: 155px;
+    border: 2px solid #1E1E24;
+}
+
+.dropdown-content img {
+    display: inline-block;
+    width: 128px;
+    height: 128px;
+}
+
+.dropdown-content p {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #1E1E24;
+}
+
+a:hover {
+    font-weight: bold;
+}

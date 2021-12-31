@@ -25,11 +25,10 @@ public class UtenteControl extends HttpServlet {
         AutenticazioneManagerImpl aut2 = new AutenticazioneManagerImpl(dao2);
         RequestDispatcher dispatcher;
         try {
-            ArrayList<Dipendente> listaDipendenti = aut2.getEmployees();
+            ArrayList<Dipendente> listaDipendenti = aut2.getAllEmploye();
             ArrayList<Utente> listaUtenti = aut.getCandidates();
             request.setAttribute("dipendenti",listaDipendenti);
             request.setAttribute("utenti",listaUtenti);
-            System.out.println("Sto dentro UtenteControl");
             dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/DipendentiDispo.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException e) {

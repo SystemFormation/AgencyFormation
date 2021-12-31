@@ -8,17 +8,17 @@ function viewLink(id){
             var cv =data1.substr(0,data1.indexOf('.'));
             var doc = data1.substr(data1.indexOf('.')+1,data1.length);
             if(doc.length>0){
-                var x = document.getElementById("hrefDocumenti");
+                var x = document.getElementsByName("hrefDocumenti")[0];
                 x.style.display = "block";
             }else{
-                var x = document.getElementById("hrefDocumenti");
+                var x = document.getElementsByName("hrefDocumenti")[0];
                 x.style.display = "none";
             }
             if(cv.length>0){
-                var x = document.getElementById("hrefCurriculum");
+                var x = document.getElementsByName("hrefCurriculum")[0];
                 x.style.display = "block";
             }else{
-                var x = document.getElementById("hrefCurriculum");
+                var x = document.getElementsByName("hrefCurriculum")[0];
                 x.style.display = "none";
             }
 
@@ -27,11 +27,14 @@ function viewLink(id){
 }
 
 function view(){
-    var x = document.getElementById("drop");
-    if(window.getComputedStyle(x).display==="none"){
-        x.style.display = "block";
+    var x = document.getElementsByName("drop")[0];
+    var settings = x.style.display;
+    if(settings == 'none'){
+        x.style.display = "flex";
     }
     else{
         x.style.display = "none";
     }
 }
+
+//window.getComputedStyle(x).display==="none"

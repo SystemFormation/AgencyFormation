@@ -28,11 +28,12 @@
             <div id="flex"><%=cand.getName()%></div>
             <div id="flex"><%=cand.getSurname()%></div>
             <div id="flex"><%=cand.getEmail()%></div>
-            <div id="flex"><button onclick="test(<%=cand.getId()%>);view()">Mostra file</button></div>
+            <div id="flex"><button onclick="viewLink(<%=cand.getId()%>);view()">Mostra file</button></div>
         <div id="drop" class="dropdown-content" style="display: none;">
-            <a id="hrefCurriculum" href="DownloadControl?toDownload=curriculum&idCandidato=<%=cand.getId()%>"style="display: none;">Curriculum</a>
-            <a  href="DownloadControl?toDownload=documenti&idCandidato=<%=cand.getId()%>" id="hrefDocumenti" style="display: none;">Documenti</a>
+            <a href="DownloadControl?toDownload=curriculum&idCandidato=<%=cand.getId()%>" name="hrefCurriculum" style="display: none;"><img src="img/Curriculum.png"><p>Curriculum</p></a>
+            <a href="DownloadControl?toDownload=documenti&idCandidato=<%=cand.getId()%>" name="hrefDocumenti" style="display: none;"><img src="img/Documenti.png"><p>Documenti</p></a>
         </div>
+        <%}%>
     </div>
 </div>
 </body>
