@@ -2,6 +2,7 @@ package it.unisa.agency_formation.team.manager;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 
@@ -18,7 +19,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public void createTeam(Team team, int idUtente) throws SQLException {
-        tdao.doSaveTeam(team, idUtente);
+         tdao.doSaveTeam(team, idUtente);
     }
 
     @Override

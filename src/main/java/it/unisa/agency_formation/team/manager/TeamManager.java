@@ -5,19 +5,19 @@ import it.unisa.agency_formation.team.domain.Team;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
- public interface TeamManager {
-        void createTeam(Team team, int idUser) throws SQLException;
 
-        ArrayList<Dipendente> getEmployee(boolean state) throws SQLException;
+public interface TeamManager {
+    void createTeam(Team team, int idUser) throws SQLException;
 
-        void addEmployee(int idTeam, Dipendente dip) throws SQLException;
+    ArrayList<Dipendente> getEmployee(boolean state) throws SQLException;
 
-        void removeEmployee(int idTeam, int idDip) throws SQLException;
+    void addEmployee(int idTeam, Dipendente dip) throws SQLException;
 
-        ArrayList<Team> viewTeams(int idUtente) throws SQLException;
+    void removeEmployee(int idTeam, int idDip) throws SQLException;
 
-        ArrayList<Team> viewAllTeams() throws SQLException;
+    ArrayList<Team> viewTeams(int idUtente) throws SQLException;
 
-        void disbandTeam(int idTeam) throws SQLException;
+    ArrayList<Team> viewAllTeams() throws SQLException;
 
+    void disbandTeam(int idTeam) throws SQLException;
 }

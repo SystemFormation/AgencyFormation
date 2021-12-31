@@ -39,7 +39,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
         return utDAO.doRetrieveByID(idUser);
     }
 
-    //Aggiunto questo metodo
+
     @Override
     public Dipendente getAllDataDip(int idUser) throws SQLException {
         return dipDAO.doRetrieveById(idUser);
@@ -54,6 +54,11 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
         else{
             return null;
         }
+    }
+
+    @Override
+    public ArrayList<Dipendente> getEmployees() throws SQLException {
+        return dipDAO.doRetrieveAll();
     }
 
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {

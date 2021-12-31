@@ -12,7 +12,7 @@
 </body>
 <a href="ProfiloControl"> Profilo </a>
 <a href="UploadDispatch"> Upload </a>
-<a href="ProfiloControl"> Profilo </a>
+<a href="TeamControl"> Team </a>
 <a href="DipendenteControl">Dipendenti</a>
 <a href="ViewCandidatiControl">Candidati</a>
 
