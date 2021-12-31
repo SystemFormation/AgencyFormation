@@ -24,17 +24,20 @@ public class ViewCandidatureControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
-
         RequestDispatcher dispatcher;
         Candidatura candidatura = null;
         try {
             candidatura = reclutamento.getCandidaturaById(idCandidato);
             if(candidatura!=null){
-                String cv = candidatura.getCv();
+                String cv = "curriculum.";
                 request.setAttribute("curriculum",cv);
+                response.getWriter().write(cv);
                 String documenti  = candidatura.getDocumentiAggiuntivi();
                 if(documenti!=null){
-                    request.setAttribute("documenti",documenti);
+                    documenti = "documenti";
+                    //request.setAttribute("documenti",documenti);
+                    response.getWriter().write(documenti);
+                    response.getWriter().close();
                 }
             }
         } catch (SQLException e) {

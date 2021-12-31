@@ -8,12 +8,12 @@
 %>
 <html>
 <head>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" href="css/Candidati.css">
     <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
     <title>Candidati</title>
 </head>
 <body>
-<%@include file="Header.jsp"%>
 <h1>Lista candidati</h1>
 <div class="content-wrap">
     <div class="content">
