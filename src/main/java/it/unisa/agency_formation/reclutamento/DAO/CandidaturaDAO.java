@@ -158,7 +158,6 @@ public class CandidaturaDAO {
             retrieve.setInt(1, idCandidato);
             result = retrieve.executeQuery();
             if (result.next()) {
-                System.out.println("dentro if dao");
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
                 cand.setCv(result.getString("Curriculum"));
                 cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
