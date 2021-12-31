@@ -9,6 +9,7 @@
 <html>
 <head>
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="js/Candidature.js"></script>
     <link rel="stylesheet" href="css/Candidati.css">
     <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
     <title>Candidati</title>
@@ -27,8 +28,11 @@
             <div id="flex"><%=cand.getName()%></div>
             <div id="flex"><%=cand.getSurname()%></div>
             <div id="flex"><%=cand.getEmail()%></div>
-            <div id="flex"><button>Mostra file</button></div>
-        <%}%>
+            <div id="flex"><button onclick="test(<%=cand.getId()%>);view()">Mostra file</button></div>
+        <div id="drop" class="dropdown-content" style="display: none;">
+            <a id="hrefCurriculum" href="DownloadControl?toDownload=curriculum&idCandidato=<%=cand.getId()%>"style="display: none;">Curriculum</a>
+            <a  href="DownloadControl?toDownload=documenti&idCandidato=<%=cand.getId()%>" id="hrefDocumenti" style="display: none;">Documenti</a>
+        </div>
     </div>
 </div>
 </body>

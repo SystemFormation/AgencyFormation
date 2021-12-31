@@ -34,6 +34,7 @@ public class UploadCandidatureControl extends HttpServlet {
         //se scelta = 1 curriculum caricato
         //se scelta = 2 documenti aggiuntivi caricati
         int scelta = Integer.parseInt(request.getParameter("sceltaUpload"));
+
         File file = new File(pathAbsolute + "\\" + "IdUtente-" + user.getId());
         Candidatura cand = new Candidatura();
         if(scelta==1){
