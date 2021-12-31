@@ -15,9 +15,11 @@
         <img src="img/Logo Team 4-5.png">
     </div>
     <ul>
+        <c:if test="${user == null}">
         <li><a href="../AgencyFormation">Home</a></li>
+        </c:if>
         <c:if test="${(user!=null && user.getRole()>1 && user.getRole()<=4)}">
-        <li>Team</li>
+        <li><a href="LoginControl">Home</a></li>
         </c:if>
     </ul>
     <div class="header-right">

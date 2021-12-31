@@ -12,24 +12,28 @@ h1 {
     box-shadow: 15px 15px 30px rgb(71,71,71);
     border-radius: 1rem;
     border-style: groove;
-    height: auto;
     background-color: #9CC9E8;
-    margin: auto 10%;
-}
-
-table {
-    width: auto;
     text-align: center;
-    margin: auto;
     padding: 10px;
 }
 
-th {
-    font-size: 35px;
-    margin: auto 10px;
+#flex {
+    width: 18%;
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    padding-top: 10px;
+    word-wrap: break-word;
 }
 
-tr {
+#flex-head {
+    width: 18%;
+    display: inline-block;
     font-size: 25px;
-    margin: auto 10px;
+    font-weight: bold;
+}
+
+.content-wrap {
+    width: 90%;
+    margin: auto 5%;
 }

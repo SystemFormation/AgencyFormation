@@ -13,26 +13,23 @@
     <title>Candidati</title>
 </head>
 <body>
+<%@include file="Header.jsp"%>
 <h1>Lista candidati</h1>
-<div class="content">
-<table>
-    <tr>
-        <th>IdCandidato</th>
-        <th>Nome</th>
-        <th>Cognome</th>
-        <th>Email</th>
-        <th>Operazione</th>
-    </tr>
-    <%for(Utente cand:list){%>
-        <tr>
-            <td><%=cand.getId()%></td>
-            <td><%=cand.getName()%></td>
-            <td><%=cand.getSurname()%></td>
-            <td><%=cand.getEmail()%></td>
-            <td><button>Mostra file</button></td>
-        </tr>
-    <%}%>
-</table>
+<div class="content-wrap">
+    <div class="content">
+            <div id="flex-head">ID</div>
+            <div id="flex-head">Nome</div>
+            <div id="flex-head">Cognome</div>
+            <div id="flex-head">Email</div>
+            <div id="flex-head">Azione</div>
+        <%for(Utente cand:list){%>
+            <div id="flex"><%=cand.getId()%></div>
+            <div id="flex"><%=cand.getName()%></div>
+            <div id="flex"><%=cand.getSurname()%></div>
+            <div id="flex"><%=cand.getEmail()%></div>
+            <div id="flex"><button>Mostra file</button></div>
+        <%}%>
+    </div>
 </div>
 </body>
 </html>
