@@ -17,19 +17,19 @@
 <h1>LISTA DIPENDENTI DISPONIBILI</h1>
 <div class="information">
     <table>
-        <%for(int i = 0; i<listaUtenti.size(); i++){%>
+
         <tr>
             <th>Nome</th>
             <th>Cognome</th>
             <th>Stato</th>
         </tr>
-
+        <%for(int i = 0; i<listDipendenti.size(); i++){%>
         <tr>
             <td><%=listaUtenti.get(i).getName()%></td>
             <td><%=listaUtenti.get(i).getSurname()%></td>
             <td><%=listDipendenti.get(i).isStato()%></td>
 
-            <%if(user.getRole() == 3 && listDipendenti.get(i).isStato() == false){%>
+            <%if(user.getRole() == 3 && listDipendenti.get(i).isStato() == true){%>
             <td><form action="TeamControl" method="post" id="formTeam">
                 <input type="hidden" name="action" value="aggiungi">
                 <input type="submit" name="aggiungi" value="aggiungi" id="Aggiungi">

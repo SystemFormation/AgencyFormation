@@ -55,7 +55,14 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
             return null;
         }
     }
-
+    public ArrayList<Utente> getCandidatesDip() throws SQLException {
+        ArrayList<Utente> candidati = utDAO.doRetrieveUserByRuolo(2);
+        if (candidati != null) {
+            return candidati;
+        } else {
+            return null;
+        }
+    }
     @Override
     public ArrayList<Dipendente> getAllEmploye() throws SQLException {
         return dipDAO.doRetrieveAll();

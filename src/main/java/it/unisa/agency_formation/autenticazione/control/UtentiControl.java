@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet("/UtenteControl")
-public class UtenteControl extends HttpServlet {
+@WebServlet("/UtentiControl")
+public class UtentiControl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UtenteDAO dao = new UtenteDAO();
         DipendenteDAO dao2 = new DipendenteDAO();
@@ -26,7 +26,7 @@ public class UtenteControl extends HttpServlet {
         RequestDispatcher dispatcher;
         try {
             ArrayList<Dipendente> listaDipendenti = aut2.getAllEmploye();
-            ArrayList<Utente> listaUtenti = aut.getCandidates();
+            ArrayList<Utente> listaUtenti = aut.getCandidatesDip();
             request.setAttribute("dipendenti",listaDipendenti);
             request.setAttribute("utenti",listaUtenti);
             dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/DipendentiDispo.jsp");

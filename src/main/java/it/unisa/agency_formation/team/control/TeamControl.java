@@ -46,8 +46,11 @@ public class TeamControl extends HttpServlet {
                     team.setNumeroDipendenti(numeroDipendenti);
                     teamManager.createTeam(team,z);
 
-                    dispatcher = req.getServletContext().getRequestDispatcher("/UtenteControl");
+                    dispatcher = req.getServletContext().getRequestDispatcher("/UtentiControl");
                     dispatcher.forward(req, resp);
+                }
+                else{
+                    // Errore Non sei Tm
                 }
 
 
