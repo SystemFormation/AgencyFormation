@@ -39,9 +39,9 @@ public class SkillControl extends HttpServlet {
         try{
             //Da raffinare
             Dipendente dip = dao2.doRetrieveById(user.getId());
-            aut.addSkill(skill,dip);               //da rivedere
-            int x = dao.doRetrieveLastId();  //da rivedere
-            dao.doSaveSkillDip(x,dip);                  //da rivedere
+            aut.addSkill(skill,dip);
+            int idSkill = aut.getLastIdSkillCreated();
+            aut.addSkillDip(idSkill,dip);
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
             dispatcher.forward(request,response);
         } catch (SQLException e) {

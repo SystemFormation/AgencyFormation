@@ -116,39 +116,56 @@ public class SkillDAO {
         }
     }
 
-    public Skill doRetrieveByName(String nomeSkill) throws SQLException {
+    /**
+     * Questa funzionalità permette di prendere una skill in base al nome
+     * @param nomeSkill
+     * @throws SQLException
+     * @pre nomeSkill != null
+     * @return Skill
+     */
+   public Skill doRetrieveByName(String nomeSkill) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;
-        String query = "Select * From " + TABLE_SKILL + " where NomeSkill=?";
 
-        Skill skill = new Skill();
+        if(nomeSkill!=null) {
+            String query = "Select * From " + TABLE_SKILL + " where NomeSkill=?";
+
+            Skill skill = new Skill();
 
 
-        try {
-            stmt = connection.prepareStatement(query);
-            stmt.setString(1, nomeSkill);
-            result = stmt.executeQuery();
-            if (result.next()) {
-                skill.setNomeSkill(result.getString("NomeSkill"));
-                return skill;
-            }
-
-        } finally {
             try {
-                if (stmt != null)
-                    stmt.close();
+                stmt = connection.prepareStatement(query);
+                stmt.setString(1, nomeSkill);
+                result = stmt.executeQuery();
+                if (result.next()) {
+                    skill.setNomeSkill(result.getString("NomeSkill"));
+                    return skill;
+                }
+
             } finally {
-                if (connection != null)
-                    connection.close();
+                try {
+                    if (stmt != null)
+                        stmt.close();
+                } finally {
+                    if (connection != null)
+                        connection.close();
+                }
             }
         }
         return null;
     }
-
+    /**
+     * Questa funzionalità permette di rimuovere una skill persa
+     *
+     * @param idSkill
+     * @param dip
+     * @throws SQLException
+     * @pre dip != null && idSkill != 0
+     */
   public void doSaveSkillDip(int idSkill, Dipendente dip) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (dip != null) {
+        if (dip != null && idSkill != 0) {
             PreparedStatement save = null;
 
             String query = "insert into " + TABLE_SKILLDIPENDENTE + " (idDipendente, idSkill, Livello) " +
@@ -172,6 +189,11 @@ public class SkillDAO {
         }
     }
 
+    /**
+     * Questa funzionalità permette di prendere l'id dell'ultima skill inserita nel db.
+     * @throws SQLException
+     * @return int IdSkill
+     */
   public int doRetrieveLastId() throws SQLException {
       Connection connection = DatabaseManager.getInstance().getConnection();
       ResultSet result;

@@ -18,4 +18,8 @@ public interface FormazioneManager {
     void removeSkill(Skill skill);
 
     void viewSkill(int idSkill);
+
+    int getLastIdSkillCreated() throws SQLException;
+
+    void addSkillDip(int idSkill, Dipendente dip) throws SQLException;
 }
