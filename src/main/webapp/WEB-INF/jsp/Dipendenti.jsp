@@ -54,7 +54,10 @@
             <c:if test="${dip.isStato() == false}">
                 <td>Occupato</td>
             </c:if>
+            <script>
 
+
+            </script>
             <c:if test="${dip.isStato() == true}">
                 <td>Disponibile</td>
             </c:if>

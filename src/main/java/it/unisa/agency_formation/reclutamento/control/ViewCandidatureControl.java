@@ -24,7 +24,6 @@ public class ViewCandidatureControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
-        RequestDispatcher dispatcher;
         Candidatura candidatura = null;
         try {
             candidatura = reclutamento.getCandidaturaById(idCandidato);
@@ -35,7 +34,6 @@ public class ViewCandidatureControl extends HttpServlet {
                 String documenti  = candidatura.getDocumentiAggiuntivi();
                 if(documenti!=null){
                     documenti = "documenti";
-                    //request.setAttribute("documenti",documenti);
                     response.getWriter().write(documenti);
                     response.getWriter().close();
                 }
@@ -43,8 +41,6 @@ public class ViewCandidatureControl extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override

@@ -23,16 +23,22 @@
             <div id="flex-head">Cognome</div>
             <div id="flex-head">Email</div>
             <div id="flex-head">Azione</div>
+        <%int i=0;%>
         <%for(Utente cand:list){%>
             <div id="flex"><%=cand.getId()%></div>
             <div id="flex"><%=cand.getName()%></div>
             <div id="flex"><%=cand.getSurname()%></div>
             <div id="flex"><%=cand.getEmail()%></div>
-            <div id="flex"><button onclick="viewLink(<%=cand.getId()%>);view()">Mostra file</button></div>
-        <div id="drop" class="dropdown-content" style="display: none;">
-            <a href="DownloadControl?toDownload=curriculum&idCandidato=<%=cand.getId()%>" name="hrefCurriculum" style="display: none;"><img src="img/Curriculum.png"><p>Curriculum</p></a>
-            <a href="DownloadControl?toDownload=documenti&idCandidato=<%=cand.getId()%>" name="hrefDocumenti" style="display: none;"><img src="img/Documenti.png"><p>Documenti</p></a>
+            <div id="flex"><button onclick="view(<%=i%>);viewLink(<%=cand.getId()%>,<%=i%>)">Mostra file</button></div>
+        <div name="drop" class="dropdown-content" style="display: none">
+            <a href="DownloadControl?toDownload=curriculum&idCandidato=<%=cand.getId()%>" name="hrefCurriculum" style="display: none">
+                <img src="img/Curriculum.png"><p>Curriculum</p>
+            </a>
+            <a href="DownloadControl?toDownload=documenti&idCandidato=<%=cand.getId()%>" style="display: none" name="hrefDocumenti">
+                <img src="img/Documenti.png"><p>Documenti</p>
+            </a>
         </div>
+        <%i++;%>
         <%}%>
     </div>
 </div>
