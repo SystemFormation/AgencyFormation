@@ -9,6 +9,7 @@
 <html>
 <head>
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="js/Candidature.js"></script>
     <link rel="stylesheet" href="css/Candidati.css">
     <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
     <title>Candidati</title>
@@ -30,7 +31,7 @@
             <td><%=cand.getName()%></td>
             <td><%=cand.getSurname()%></td>
             <td><%=cand.getEmail()%></td>
-            <td><button onclick="test(<%=cand.getId()%>);view()">Mostra file</button></td>
+            <td><button onclick="viewLink(<%=cand.getId()%>);view()">Mostra file</button></td>
         </tr>
     <div id="drop" class="dropdown-content" style="display: none;">
         <a id="hrefCurriculum" href="DownloadControl?toDownload=curriculum&idCandidato=<%=cand.getId()%>"style="display: none;">Curriculum</a>
@@ -40,47 +41,6 @@
     <%}%>
 </table>
 
-    <script>
-        function test(id){
-            var id = id;
-            $.ajax({
-                type: 'GET',
-                data:{"idCandidato":id},
-                url: 'ViewCandidaturaControl',
-                success: function (data1){
-                   var cv =data1.substr(0,data1.indexOf('.'));
-                   var doc = data1.substr(data1.indexOf('.')+1,data1.length);
-                   if(doc.length>0){
-                       var x = document.getElementById("hrefDocumenti");
-                       x.style.display = "block";
-                   }else{
-                       var x = document.getElementById("hrefDocumenti");
-                       x.style.display = "none";
-                   }
-                    if(cv.length>0){
-                        var x = document.getElementById("hrefCurriculum");
-                        x.style.display = "block";
-                    }else{
-                        var x = document.getElementById("hrefCurriculum");
-                        x.style.display = "none";
-                    }
-
-                }
-            })
-        }
-    </script>
-    <script>
-        function view(){
-            var x = document.getElementById("drop");
-            if(window.getComputedStyle(x).display==="none"){
-                x.style.display = "block";
-            }
-            else{
-                x.style.display = "none";
-            }
-
-        }
-    </script>
 </div>
 </body>
 </html>
