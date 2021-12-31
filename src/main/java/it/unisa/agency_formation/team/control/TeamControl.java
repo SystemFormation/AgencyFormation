@@ -20,14 +20,12 @@ import java.util.ArrayList;
 @WebServlet("/TeamControl")
 public class TeamControl extends HttpServlet {
     private TeamDAO dao = new TeamDAO();
-    private TeamManagerImpl team = new TeamManagerImpl(dao);
+    private TeamManagerImpl teamManager = new TeamManagerImpl(dao);
 
     //da raffinare
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        TeamManagerImpl teamManager = new TeamManagerImpl(dao);
         Team team = new Team();
-
         RequestDispatcher dispatcher;
         String action = req.getParameter("action");
         Utente d = (Utente) req.getSession().getAttribute("user");

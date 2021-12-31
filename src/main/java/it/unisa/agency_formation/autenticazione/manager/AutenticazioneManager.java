@@ -12,5 +12,6 @@ public interface AutenticazioneManager {
     Utente getAllData(int idUser) throws SQLException;
     Dipendente getAllDataDip(int idUser) throws SQLException; //aggiunto questo
     ArrayList<Utente> getCandidates() throws SQLException;
-    ArrayList<Dipendente> getEmployees() throws  SQLException;
+    ArrayList<Dipendente> getAllEmploye() throws SQLException;
+    ArrayList<Dipendente> getEmployeByState( boolean state) throws SQLException;
 }
