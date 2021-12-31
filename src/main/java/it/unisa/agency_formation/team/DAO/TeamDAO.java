@@ -31,7 +31,7 @@ public class TeamDAO {
 
             try {
                 save = connection.prepareStatement(query);
-                save.setString(1,team.getNomeTeam());
+                save.setString(1,team.getNomeProgetto());
                 save.setInt(2, team.getNumeroDipendenti());
                 save.setString(3, team.getNomeTeam());
                 save.setString(4, team.getDescrizione());
@@ -92,7 +92,7 @@ public class TeamDAO {
      * @throws SQLException
      * @pre idTeam!=null && idDipendente!=null
      */
-    public static void addEmployee(int idTeam, int idDipendente) throws SQLException {
+    public void addEmployee(int idTeam, int idDipendente) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=1 WHERE IdDipendente=?";
         PreparedStatement stmt = null;
@@ -101,7 +101,7 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             stmt.setInt(2, idDipendente);
-            result = stmt.executeQuery();
+            stmt.executeQuery();
         } finally {
             try {
                 if (stmt != null) {
@@ -352,7 +352,7 @@ public class TeamDAO {
      * @param idTeam
      * @return
      * @throws SQLException
-     * @pre idTeam>0
+     * @pre idTeam!=null
      */
     public static int doRetrieveNTMember(int idTeam) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
