@@ -17,6 +17,10 @@ public class TeamManagerImpl implements TeamManager {
         this.tdao = tdao;
     }
 
+    public TeamManagerImpl(DipendenteDAO dipdao) {
+        this.dipdao = dipdao;
+    }
+
     @Override
     public void createTeam(Team team, int idUtente) throws SQLException {
          tdao.doSaveTeam(team, idUtente);
@@ -51,4 +55,16 @@ public class TeamManagerImpl implements TeamManager {
     public void disbandTeam(int idTeam) throws SQLException {
         tdao.doRemoveTeam(idTeam);
     }
+
+    @Override
+    public int viewLastIdTeam() throws SQLException {
+        return tdao.doRetrieveLastIDTeam();
+    }
+
+    @Override
+    public void updateDipOnTeam(int idDip, int idTeam) throws SQLException {
+            dipdao.updateDipTeamAndState(idDip, idTeam);
+    }
+
+
 }

@@ -30,89 +30,11 @@
             <td><%=listDipendenti.get(i).isStato()%></td>
 
             <%if(user.getRole() == 3 && listDipendenti.get(i).isStato() == true){%>
-            <td><form action="TeamControl" method="post" id="formTeam">
-                <input type="hidden" name="action" value="aggiungi">
-                <input type="submit" name="aggiungi" value="aggiungi" id="Aggiungi">
-            </form>
-            </td>
+            <td><a href="TeamControl?action=aggiungi&id=<%=listDipendenti.get(i).getIdDipendente()%>">Aggiungi</a></td>
             <%}%>
         </tr>
         <%}%>
 
-
-        <!-- <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Disponibile </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Disponibile </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Occupato </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Occupato </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Disponibile </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Disponibile </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Occupato </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Occupato </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Disponibile </td>
-        </tr>
-        -->
     </table>
 
 </div>

@@ -1,6 +1,8 @@
 package it.unisa.agency_formation.team.control;
 
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
@@ -21,7 +23,8 @@ import java.util.ArrayList;
 public class TeamControl extends HttpServlet {
     private TeamDAO dao = new TeamDAO();
     private TeamManagerImpl teamManager = new TeamManagerImpl(dao);
-
+    private DipendenteDAO dao2 = new DipendenteDAO();
+    private TeamManagerImpl teamManager2 = new TeamManagerImpl(dao2);
     //da raffinare
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -55,8 +58,11 @@ public class TeamControl extends HttpServlet {
 
 
             } else if(action.equalsIgnoreCase("aggiungi")){
-
-
+                int idDip = Integer.parseInt(req.getParameter("id"));
+                int idTeam = teamManager.viewLastIdTeam();
+                teamManager2.updateDipOnTeam(idDip,idTeam);
+                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
+                dispatcher.forward(req, resp);
             }
         } catch (SQLException e) {
             e.printStackTrace();

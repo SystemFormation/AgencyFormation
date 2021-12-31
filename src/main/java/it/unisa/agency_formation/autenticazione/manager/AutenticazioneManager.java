@@ -16,4 +16,6 @@ public interface AutenticazioneManager {
     ArrayList<Utente> getCandidatesDip() throws SQLException;
     ArrayList<Dipendente> getAllEmploye() throws SQLException;
     ArrayList<Dipendente> getEmployeByState( boolean state) throws SQLException;
+
+
 }

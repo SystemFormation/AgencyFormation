@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DipendenteDAO {
-    private static final String TABLE_DIPENDENTE = "Dipendenti";
+    private static final String TABLE_DIPENDENTE = "dipendenti";
 
     /**
      * Questa funzionalità permette di salvare un dipendente
@@ -253,6 +253,39 @@ public class DipendenteDAO {
             try {
                 if (retrieve != null) {
                     retrieve.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
+
+    }
+    /**
+     * Questa funzionalità di aggiornare idTeam quando un dipendente viene aggiunto
+     *
+     * @param idDip,idTeam
+     * @return void
+     * @throws SQLException
+     *
+     */
+
+    public void updateDipTeamAndState(int idDip,int idTeam) throws SQLException{
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        ResultSet result;
+        PreparedStatement stm = null;
+        String query = "update " + TABLE_DIPENDENTE + " set IdTeam = ?, Stato = ? where IdDipendente = ?";
+        try {
+            stm = connection.prepareStatement(query);
+            stm.setInt(1, idTeam);
+            stm.setInt(2, 0);
+            stm.setInt(3, idDip);
+            stm.executeUpdate();
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
                 }
             } finally {
                 if (connection != null) {

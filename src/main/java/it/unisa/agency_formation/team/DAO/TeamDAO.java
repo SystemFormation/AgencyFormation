@@ -376,4 +376,29 @@ public class TeamDAO {
             }
         }
     }
+    public int doRetrieveLastIDTeam() throws SQLException{
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        ResultSet result;
+        PreparedStatement stmt = null;
+        String query = " SELECT max(team.IdTeam)  FROM " + TABLE_TEAM;
+        int idTeam = 0;
+        try {
+            stmt = connection.prepareStatement(query);
+            result = stmt.executeQuery();
+            if (result.next()) {
+                idTeam = result.getInt(1);
+            }
+
+        } finally {
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } finally {
+                if (connection != null)
+                    connection.close();
+            }
+        }
+        return idTeam;
+    }
+
 }

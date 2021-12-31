@@ -20,4 +20,8 @@ public interface TeamManager {
     ArrayList<Team> viewAllTeams() throws SQLException;
 
     void disbandTeam(int idTeam) throws SQLException;
+
+    int viewLastIdTeam() throws SQLException;
+
+    void updateDipOnTeam(int idDip,int idTeam) throws SQLException;
 }
