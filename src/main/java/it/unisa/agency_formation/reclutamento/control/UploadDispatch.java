@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//TODO-r: questa classe è inutile, siccome non passate nulla di dinamico alla jsp, allora non serve la servlet, basta un semplice <a href=''> di html
 @WebServlet("/UploadDispatch")
 public class UploadDispatch extends HttpServlet {
     @Override
