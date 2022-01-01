@@ -168,12 +168,17 @@ public class CandidaturaDAO {
                 cand.setIdHR(result.getInt("IdHR"));
                 return cand;
             }
+            if(cand!=null){
+                return cand;
+            }
+            else{
+                return null;
+            }
         } finally {
             if (retrieve != null) {
                 retrieve.close();
             }
         }
-        return null;
     }
 
 
