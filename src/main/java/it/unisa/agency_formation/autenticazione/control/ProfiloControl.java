@@ -27,6 +27,7 @@ public class ProfiloControl extends HttpServlet {
         int id = user.getId();
         try {
             if (user != null) {
+                //TODO-r: fate controllo sul ruolo. Chi è che può eseguire questa servlet? solo il dipendente? quindi fa fatto il controllo su RuoliUtenti.Dipendente
                 Dipendente dip = aut.getAllDataDip(id);
                 if (id == dip.getIdDipendente()) {
                     request.setAttribute("dip", dip);

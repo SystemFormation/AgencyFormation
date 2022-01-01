@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+//TODO-r: il nome di questa servlet non mi è chiaro. cosa fa? Scegliete un nome migliore. Anche perché rendirizza a DipendentiDispo.jsp che penso siano i dipendenti disponibili, o no?
 @WebServlet("/UtentiControl")
 public class UtentiControl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
