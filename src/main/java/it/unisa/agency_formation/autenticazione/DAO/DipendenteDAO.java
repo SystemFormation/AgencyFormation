@@ -271,9 +271,9 @@ public class DipendenteDAO {
      *
      */
 
-    public void updateDipTeamAndState(int idDip,int idTeam) throws SQLException{
+    public boolean updateDipTeamAndState(int idDip,int idTeam) throws SQLException{
+        if(idDip<0 || idTeam<0){return false;}
         Connection connection = DatabaseManager.getInstance().getConnection();
-        ResultSet result;
         PreparedStatement stm = null;
         String query = "update " + TABLE_DIPENDENTE + " set IdTeam = ?, Stato = ? where IdDipendente = ?";
         try {
@@ -281,7 +281,12 @@ public class DipendenteDAO {
             stm.setInt(1, idTeam);
             stm.setInt(2, 0);
             stm.setInt(3, idDip);
-            stm.executeUpdate();
+            int result=stm.executeUpdate();
+            if(result!=-1){
+                return true;
+            }else{
+                return false;
+            }
         } finally {
             try {
                 if (stm != null) {

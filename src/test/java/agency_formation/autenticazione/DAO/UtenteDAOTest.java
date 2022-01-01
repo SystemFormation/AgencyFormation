@@ -46,16 +46,14 @@ public class UtenteDAOTest {
     @Test
     //da rivedere
     public void loginPass() throws SQLException {
-        Utente user = new Utente("Gennaro", "Cecco", "gennaro@gmail.com", "lol", 1);
-        String email = "gennaro@gmail.com";
+        String email = "genny@libero.it";
         String pwd = "lol";
-        Utente result = dao.login(email, pwd);
-        assertEquals(user.toString(), result.toString());
+        assertNotNull(dao.login(email,pwd));
     }
 
     @Test
     public void loginFail() throws SQLException {
-        String email = "genny@libero.it";
+        String email = "genny@gmail.it";
         String pwd = "lol";
         assertNull(dao.login(email, pwd));
     }
@@ -86,27 +84,14 @@ public class UtenteDAOTest {
 
     @Test
     public void retrieveByRuoloSizeLessOne() throws SQLException {
-        ArrayList<Utente> utenti = new ArrayList<>();
-        int ruolo = 1;
-        UtenteDAO mock = Mockito.mock(UtenteDAO.class);
-        Mockito.when(mock.doRetrieveUserByRuolo(ruolo)).thenReturn(utenti);
-        assertEquals(0, mock.doRetrieveUserByRuolo(ruolo).size());
+        assertNull(dao.doRetrieveUserByRuolo(4));
 
     }
 
     @Test
     public void retrieveByRuoloPass() throws SQLException {
-        ArrayList<Utente> utenti = new ArrayList<>();
-        Utente user1 = new Utente("Gennaro", "Cecco", "gennaro@gmail.com", "lol", 1);
-        Utente user2 = new Utente("Manuel", "Nocerino", "manuel@gmail.com", "lol", 1);
-        Utente user3 = new Utente("Domenico", "Pagliuca", "domenico@gmail.com", "lol", 1);
         int ruolo = 1;
-        utenti.add(user1);
-        utenti.add(user2);
-        utenti.add(user3);
-        UtenteDAO mock = Mockito.mock(UtenteDAO.class);
-        Mockito.when(mock.doRetrieveUserByRuolo(ruolo)).thenReturn(utenti);
-        assertEquals(3, mock.doRetrieveUserByRuolo(ruolo).size());
+        assertNotNull(dao.doRetrieveUserByRuolo(ruolo));
 
     }
 }

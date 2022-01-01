@@ -23,5 +23,5 @@ public interface TeamManager {
 
     int viewLastIdTeam() throws SQLException;
 
-    void updateDipOnTeam(int idDip,int idTeam) throws SQLException;
+    boolean updateDipOnTeam(int idDip,int idTeam) throws SQLException;
 }

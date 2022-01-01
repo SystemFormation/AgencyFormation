@@ -238,6 +238,4 @@ public class RegistrazioneControlTest extends Mockito {
         servlet.doGet(request,response);
         assertTrue(stringWriter.toString().equals("5"));
     }
-
-
 }

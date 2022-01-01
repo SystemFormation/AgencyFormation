@@ -62,8 +62,8 @@ public class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public void updateDipOnTeam(int idDip, int idTeam) throws SQLException {
-            dipdao.updateDipTeamAndState(idDip, idTeam);
+    public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException {
+            return dipdao.updateDipTeamAndState(idDip, idTeam);
     }
 
 
