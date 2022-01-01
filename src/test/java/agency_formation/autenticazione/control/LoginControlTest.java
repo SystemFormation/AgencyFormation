@@ -2,6 +2,7 @@ package agency_formation.autenticazione.control;
 
 import it.unisa.agency_formation.autenticazione.control.LoginControl;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -19,13 +20,14 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
 
 public class LoginControlTest {
     private HttpServletRequest request;
     private HttpServletResponse response;
     private HttpSession session;
     private RequestDispatcher dispatcher;
-    private ServletConfig config;
+
 
 
     @Test
@@ -85,26 +87,87 @@ public class LoginControlTest {
     }
 
     @Test
-    //da controllare
     public void loginPass() throws IOException, ServletException {
-        Utente user = new Utente();
-        config = Mockito.mock(ServletConfig.class);
+        ServletConfig config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
-        Mockito.when(request.getParameter("email")).thenReturn("genny@gmail.com");
+        LoginControl servlet = new LoginControl();
+        Mockito.when(request.getParameter("email")).thenReturn("mario@gmail.com");
         Mockito.when(request.getParameter("password")).thenReturn("lol");
         Mockito.when(request.getSession(true)).thenReturn(session);
-        Mockito.when(new LoginControl().getServletConfig()).thenReturn(config);
-        Mockito.when(request.getRequestDispatcher("/Home.jsp")).thenReturn(dispatcher);
+        ServletContext context = Mockito.mock(ServletContext.class);
+        Mockito.when(request.getServletContext()).thenReturn(context);
+        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
-        new LoginControl().doPost(request, response);
-        writer.flush();
-        Mockito.verify(session).setAttribute("user", user);
-        Mockito.verify(dispatcher).forward(request, response);
-        assertTrue(stringWriter.toString().contains("3"));
+        servlet.init(config);
+        servlet.doGet(request,response);
+        assertTrue(stringWriter.toString().equals("3"));
+    }
+    @Test
+    public void loginFailEmailWrong() throws IOException, ServletException {
+        ServletConfig config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        LoginControl servlet = new LoginControl();
+        Mockito.when(request.getParameter("email")).thenReturn("genny@gmail.com");
+        Mockito.when(request.getParameter("password")).thenReturn("lol");
+        Mockito.when(request.getSession(true)).thenReturn(session);
+        ServletContext context = Mockito.mock(ServletContext.class);
+        Mockito.when(request.getServletContext()).thenReturn(context);
+        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
+        Mockito.when(response.getWriter()).thenReturn(writer);
+        servlet.init(config);
+        servlet.doGet(request,response);
+        assertTrue(stringWriter.toString().equals("4"));
+    }
+    @Test
+    public void loginFailPasswordWrong() throws IOException, ServletException {
+        ServletConfig config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        LoginControl servlet = new LoginControl();
+        Mockito.when(request.getParameter("email")).thenReturn("mario@gmail.com");
+        Mockito.when(request.getParameter("password")).thenReturn("lol123");
+        Mockito.when(request.getSession(true)).thenReturn(session);
+        ServletContext context = Mockito.mock(ServletContext.class);
+        Mockito.when(request.getServletContext()).thenReturn(context);
+        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
+        Mockito.when(response.getWriter()).thenReturn(writer);
+        servlet.init(config);
+        servlet.doGet(request,response);
+        assertTrue(stringWriter.toString().equals("4"));
+    }
+    @Test
+    public void loginFailEmailPasswordWrong() throws IOException, ServletException {
+        ServletConfig config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        LoginControl servlet = new LoginControl();
+        Mockito.when(request.getParameter("email")).thenReturn("pippo@gmail.com");
+        Mockito.when(request.getParameter("password")).thenReturn("lol123");
+        Mockito.when(request.getSession(true)).thenReturn(session);
+        ServletContext context = Mockito.mock(ServletContext.class);
+        Mockito.when(request.getServletContext()).thenReturn(context);
+        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
+        Mockito.when(response.getWriter()).thenReturn(writer);
+        servlet.init(config);
+        servlet.doGet(request,response);
+        assertTrue(stringWriter.toString().equals("4"));
     }
 }

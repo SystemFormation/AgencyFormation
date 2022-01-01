@@ -82,7 +82,7 @@ use af_db;
 
 create table Candidature(
 IdCandidatura int primary key not null auto_increment,
-Curriculum varchar(64) not null,
+Curriculum varchar(128) not null,
 DocumentiAggiuntivi varchar(64) null,
 Stato varchar(32) not null,
 DataCandidatura date not null,

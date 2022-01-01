@@ -32,14 +32,26 @@ public class RegistrazioneControl extends HttpServlet {
                     aut.registration(user);
                     Utente result = aut.login(user.getEmail(), user.getPwd());
                     request.getSession().setAttribute("user", result);
-                    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
+                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
                     dispatcher.forward(request, response);
+                    response.getWriter().write("5");//registrazione avvenuta con successo
                     return;
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             } else {
-                response.getWriter().write("1");//qualche campo è vuoto
+                if(!Check.checkName(request.getParameter("nome"))){
+                    response.getWriter().write("1");//nome non corretto
+                }
+                if(!Check.checkSurname(request.getParameter("cognome"))){
+                    response.getWriter().write("2");//cognome non corretto
+                }
+                if(!Check.checkEmail(request.getParameter("email"))){
+                    response.getWriter().write("3");//email non corretto
+                }
+                if(!Check.checkPwd(request.getParameter("pwd"))){
+                    response.getWriter().write("4");//password non corretto
+                }
                 response.sendRedirect("./html/Registrazione.html");
             }
     }

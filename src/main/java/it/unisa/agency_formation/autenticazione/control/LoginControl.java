@@ -17,11 +17,12 @@ import java.sql.SQLException;
 
 @WebServlet("/LoginControl")
 public class LoginControl extends HttpServlet {
+
+
     private UtenteDAO dao = new UtenteDAO();
     private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dao);
 
     @Override
-    //da parlare oggi
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         String pwd = request.getParameter("password");
@@ -36,14 +37,11 @@ public class LoginControl extends HttpServlet {
             try {
                 Utente user = aut.login(email, pwd);
                 if (user != null) {
-
                     HttpSession session = request.getSession(true);
                     session.setAttribute("user", user);
-                    request.setAttribute("curriculum",false);
-                    request.setAttribute("document",false);
-                    dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
-                    dispatcher.forward(request, response);
                     response.getWriter().write("3");//utente loggato
+                    dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
+                    dispatcher.forward(request,response);
                 } else {
                     response.getWriter().write("4");//utente non loggato
                     response.sendRedirect("./html/Login.html");
