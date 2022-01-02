@@ -39,7 +39,7 @@ h1 {
 }
 
 .dropdown-content {
-    display: flex;
+    display: none;
     margin: 10px auto;
     width: 260px;
     height: 155px;
@@ -65,4 +65,8 @@ a {
 
 a:hover {
     font-weight: bold;
+}
+
+.dropdown-content a{
+    display: none;
 }

@@ -21,10 +21,10 @@ public class DipendenteControl extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String stato= req.getParameter("stato");
+       //String stato= req.getParameter("stato");
         RequestDispatcher dispatcher;
         /*visualizzo tutti i dipendenti*/
-        if(stato.equalsIgnoreCase("null")){
+        //if(stato.equalsIgnoreCase("null")){
             try {
                 ArrayList<Dipendente> dipendenti= aut.getAllEmploye();
                 req.setAttribute("dipendenti", dipendenti);
@@ -33,7 +33,7 @@ public class DipendenteControl extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
+        //}
     }
 
     @Override

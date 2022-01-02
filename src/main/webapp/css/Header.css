@@ -57,4 +57,5 @@ body {
 
 .header-right li{
     margin: 0px 30px;
+    text-align: right;
 }

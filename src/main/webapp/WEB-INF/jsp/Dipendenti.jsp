@@ -28,19 +28,33 @@
         </form>
     </div>
     <div class="information">
-    <div id="flex-head">ID Dipendente</div>
-    <div id="flex-head">ID Team</div>
-    <div id="flex-head">Anno di nascita</div>
-    <div id="flex-head">Residenza</div>
-    <div id="flex-head">Telefono</div>
-    <div id="flex-head">Stato</div>
-<c:if test="${(value == null)}">
+        <div id="flex-head">ID Dipendente</div>
+        <div id="flex-head">ID Team</div>
+        <div id="flex-head">Competenze</div>
+        <div id="flex-head">Azione</div>
+        <div id="flex-head">Stato</div>
+    <c:choose>
+    <c:when test="${value == null}">
     <c:forEach var="dip" items="${dipendenti}">
         <div id="flex">${dip.getIdDipendente()}</div>
         <div id="flex">${dip.getIdTeam()}</div>
-        <div id="flex">${dip.getAnnoNascita()}</div>
-        <div id="flex">${dip.getResidenza()}</div>
-        <div id="flex">${dip.getTelefono()}</div>
+        <div id="flex"><button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra file</button></div>
+        <div name="drop" class="dropdown-content">
+            <a href="DownloadControl?toDownload=curriculum&idCandidato=${cand.getId()}" name="hrefCurriculum">
+                <img src="img/Curriculum.png"><p>Curriculum</p>
+            </a>
+            <a href="DownloadControl?toDownload=documenti&idCandidato=${cand.getId()}" name="hrefDocumenti">
+                <img src="img/Documenti.png"><p>Documenti</p>
+            </a>
+        </div>
+        <div id="flex"> <c:if test="(user.getRole() == 3 && dip.isStato() == true)">
+            <a href="TeamControl?action=aggiungi&id=${dip.getIdDipendente()}">Aggiungi</a>
+            </c:if> </div>
+
+        <div id="flex"> <c:if test="(user.getRole() == 3 && dip.isStato() == false)">
+            <p>Richiedi Disponibilità</p> <!-- Da implementare mandando una notifica al TM -->
+        </c:if> </div>
+
         <c:if test="${dip.isStato() == false}">
             <div id="flex">Occupato</div>
         </c:if>
@@ -48,8 +62,9 @@
             <div id="flex">Disponibile</div>
         </c:if>
     </c:forEach>
-</c:if>
-<c:if test="${(value == disponibili) }">
+    </c:when>
+
+    <c:when test="${value == disponibili}">
     <c:forEach var="dip" items="${dipendenti}">
         <c:if test="${dip.isStato() == true}">
             <c:forEach var="dip" items="${dipendenti}">
@@ -62,8 +77,9 @@
             </c:forEach>
         </c:if>
     </c:forEach>
-</c:if>
-<c:if test="${(value == occupati )}">
+    </c:when>
+
+    <c:when test="${value == occupati}">
     <c:forEach var="dip" items="${dipendenti}">
         <c:if test="${dip.isStato() == false}">
             <c:forEach var="dip" items="${dipendenti}">
@@ -76,7 +92,9 @@
             </c:forEach>
         </c:if>
     </c:forEach>
-</c:if>
+    </c:when>
+    </c:choose>
+
     </div>
 </div>
 </body>
