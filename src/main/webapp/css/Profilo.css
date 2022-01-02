@@ -39,7 +39,7 @@ b{
 
 .form-button {
     float: right;
-    margin: 120px 30px 0px 0px;
+    margin: 53px 30px auto 0px;
     text-align: center;
 }
 
@@ -79,6 +79,8 @@ b{
 }
 
 .occupato {
+    width: 23px;
+    margin: 10px auto;
     background-color: red;
     font-size: 20px;
     border-radius: 5rem;
@@ -86,6 +88,8 @@ b{
 }
 
 .disponibile {
+    width: 23px;
+    margin: 10px auto;
     background-color: green;
     font-size: 20px;
     border-radius: 5rem;

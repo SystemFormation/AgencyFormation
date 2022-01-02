@@ -1,4 +1,4 @@
-2<%@ page import="it.unisa.agency_formation.autenticazione.domain.Dipendente" %>
+<%@ page import="it.unisa.agency_formation.autenticazione.domain.Dipendente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
@@ -24,7 +24,7 @@
     </div>
     <div class="form-button">
         <c:if test="${dip.isStato() == false}">
-            <div class ="disponibile"><p>.</p></div>
+            <div class ="disponibile">.</div>
         </c:if>
         <c:if test="${dip.isStato() == true}">
             <div class="occupato"><p>.</p></div>

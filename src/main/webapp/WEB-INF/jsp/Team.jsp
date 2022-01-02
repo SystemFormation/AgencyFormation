@@ -7,6 +7,7 @@
 %>
 <html>
 <head>
+    <link rel="stylesheet" href="css/Common.css">
     <link rel="stylesheet" href="css/Team.css">
     <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
     <title>Creazione Team</title>
@@ -14,20 +15,22 @@
 <body>
 <%@include file="Header.jsp"%>
 <h1>CREAZIONE TEAM</h1>
-<div class="container">
-    <div class="project">
-        <form action="TeamControl" method="post" id="formTeam">
-            <input type="hidden" name="action" value="crea">
-            <label for="formTeam">Nome del Team</label>
-            <input type="text" id="fname" name="fname" value="John"><br>
-            <label for="formTeam">Nome del Progetto</label><br>
-            <input type="text" id="lname" name="lname" value="Doe">
-            <label for="quantity">Numero Dipendenti:</label>
-            <input type="number" id="quantity" name="quantity" min="1" max="">
-            <input type="submit">
-            <textarea id="teamDescr" name="teamDescr" rows="15" cols="70" placeholder="Descrizione "></textarea>
-            <input type="submit" name="Crea" value="Crea" id="Cerca">
-        </form>
+<div class="content-wrap">
+    <div class="content">
+        <div class="form">
+            <form action="TeamControl" method="post" id="formTeam">
+                <input type="hidden" name="action" value="crea">
+                <label for="formTeam">Nome del Team</label><br>
+                <input type="text" id="fname" name="fname" placeholder="Team"><br>
+                <label for="formTeam">Nome del Progetto</label><br>
+                <input type="text" id="lname" name="lname" placeholder="Progetto"><br>
+                <label for="quantity">Numero Dipendenti</label><br>
+                <input type="number" id="quantity" name="quantity" min="1" max=""><br>
+                <label for="quantity">Descrizione</label><br>
+                <textarea id="teamDescr" name="teamDescr" rows="6" cols="70" placeholder="Descrizione"></textarea><br>
+                <input type="submit" name="crea" value="Crea" id="cerca"><br>
+            </form>
+        </div>
     </div>
 </div>
 </body>

@@ -9,184 +9,75 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/Dipendenti.css">
+    <link rel="stylesheet" href="css/Common.css">
     <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
     <title>Dipendenti</title>
-
 </head>
 <body>
 <%@include file="Header.jsp" %>
-<h1>LISTA DIPENDENTI</h1>
-
-
+<h1>Lista Dipendenti</h1>
 
 <div class="content">
-<div class="found">
-    <form action="DipendenteControl" method="post" id="formDip">
-        <select name="subject" id="subject">
-            <option value="null" selected="selected" id=0>---</option>
-
-            <option value="occupati" id=1>Occupati</option>
-
-            <option value="disponibili" id=2>Disponibili</option>
-
-        </select>
-    </form>
-</div>
-<div class="information">
-<table>
-<tr>
-    <th>IdDipendente</th>
-    <th>IdTeam</th>
-    <th>Anno Di Nascita</th>
-    <th>Residenza</th>
-    <th>Telefono</th>
-    <th>Stato</th>
-</tr>
+    <div class="found">
+        <form action="DipendenteControl" method="post" id="formDip">
+            <select name="subject" id="subject">
+                <option value="null" selected="selected" id=0>---</option>
+                <option value="occupati" id=1>Occupati</option>
+                <option value="disponibili" id=2>Disponibili</option>
+            </select>
+        </form>
+    </div>
+    <div class="information">
+    <div id="flex-head">ID Dipendente</div>
+    <div id="flex-head">ID Team</div>
+    <div id="flex-head">Anno di nascita</div>
+    <div id="flex-head">Residenza</div>
+    <div id="flex-head">Telefono</div>
+    <div id="flex-head">Stato</div>
 <c:if test="${(value == null)}">
-    <c:forEach var="dip"
-               items="${dipendenti}">
-        <tr>
-            <td>${dip.getIdDipendente()}</td>
-            <td>${dip.getIdTeam()}</td>
-            <td>${dip.getAnnoNascita()}</td>
-            <td>${dip.getResidenza()}</td>
-            <td>${dip.getTelefono()}</td>
-            <c:if test="${dip.isStato() == false}">
-                <td>Occupato</td>
-            </c:if>
-            <script>
-
-
-            </script>
-            <c:if test="${dip.isStato() == true}">
-                <td>Disponibile</td>
-            </c:if>
-        </tr>
+    <c:forEach var="dip" items="${dipendenti}">
+        <div id="flex">${dip.getIdDipendente()}</div>
+        <div id="flex">${dip.getIdTeam()}</div>
+        <div id="flex">${dip.getAnnoNascita()}</div>
+        <div id="flex">${dip.getResidenza()}</div>
+        <div id="flex">${dip.getTelefono()}</div>
+        <c:if test="${dip.isStato() == false}">
+            <div id="flex">Occupato</div>
+        </c:if>
+        <c:if test="${dip.isStato() == true}">
+            <div id="flex">Disponibile</div>
+        </c:if>
     </c:forEach>
 </c:if>
 <c:if test="${(value == disponibili) }">
-
-    <c:forEach var="dip"
-               items="${dipendenti}">
+    <c:forEach var="dip" items="${dipendenti}">
         <c:if test="${dip.isStato() == true}">
-
-            <c:forEach var="dip"
-                       items="${dipendenti}">
-                <tr>
-                    <td>${dip.getIdDipendente()}</td>
-                    <td>${dip.getIdTeam()}</td>
-                    <td>${dip.getAnnoNascita()}</td>
-                    <td>${dip.getResidenza()}</td>
-                    <td>${dip.getTelefono()}</td>
-                    <td>Disponibile</td>
-                </tr>
+            <c:forEach var="dip" items="${dipendenti}">
+                <div id="flex">${dip.getIdDipendente()}</div>
+                <div id="flex">${dip.getIdTeam()}</div>
+                <div id="flex">${dip.getAnnoNascita()}</div>
+                <div id="flex">${dip.getResidenza()}</div>
+                <div id="flex">${dip.getTelefono()}</div>
+                <div id="flex">Disponibile</div>
             </c:forEach>
         </c:if>
     </c:forEach>
 </c:if>
-
-
-        <c:if test="${(value == occupati )}">
-
-            <c:forEach var="dip"
-                       items="${dipendenti}">
-                <c:if test="${dip.isStato() == false}">
-
-                    <c:forEach var="dip"
-                               items="${dipendenti}">
-                        <tr>
-                            <td>${dip.getIdDipendente()}</td>
-                            <td>${dip.getIdTeam()}</td>
-                            <td>${dip.getAnnoNascita()}</td>
-                            <td>${dip.getResidenza()}</td>
-                            <td>${dip.getTelefono()}</td>
-                            <td> Occupato</td>
-                        </tr>
-                    </c:forEach>
-                </c:if>
-
+<c:if test="${(value == occupati )}">
+    <c:forEach var="dip" items="${dipendenti}">
+        <c:if test="${dip.isStato() == false}">
+            <c:forEach var="dip" items="${dipendenti}">
+                <div id="flex">${dip.getIdDipendente()}</div>
+                <div id="flex">${dip.getIdTeam()}</div>
+                <div id="flex">${dip.getAnnoNascita()}</div>
+                <div id="flex">${dip.getResidenza()}</div>
+                <div id="flex">${dip.getTelefono()}</div>
+                <div id="flex">Occupato</div>
             </c:forEach>
         </c:if>
-
-
-
-
-        <!-- <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Disponibile </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Disponibile </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Occupato </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Occupato </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Disponibile </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Disponibile </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Occupato </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Occupato </td>
-        </tr>
-        <tr>
-        <td>2</td>
-        <td>4</td>
-        <td>1998</td>
-        <td>Pompei</td>
-        <td>334680</td>
-        <td> Disponibile </td>
-        </tr>
-        -->
-        </table>
-
-        </div>
-        </div>
-        </body>
-        </html>
+    </c:forEach>
+</c:if>
+    </div>
+</div>
+</body>
+</html>

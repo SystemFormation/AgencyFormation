@@ -15,7 +15,8 @@
     <title>Candidati</title>
 </head>
 <body>
-<h1>Lista candidati</h1>
+<%@include file="Header.jsp" %>
+<h1>Lista Candidati</h1>
 <div class="content-wrap">
     <div class="content">
             <div id="flex-head">ID</div>

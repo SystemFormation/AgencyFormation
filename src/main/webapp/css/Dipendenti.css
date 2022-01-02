@@ -1,14 +1,14 @@
-body{
+body {
     font-family: monospace;
     margin:0;
 }
 
-h1{
+h1 {
     text-align: center;
     font-size: 50px;
 }
 
-.content{
+.content {
     box-shadow: 15px 15px 30px rgb(71,71,71);
     border-radius: 1rem;
     border-style: groove;
@@ -20,16 +20,16 @@ h1{
 .information {
     width: 90%;
 }
-.information table{
+.information table {
     text-align: center;
 }
 
-.information th{
+.information th {
     font-size: 30px;
     padding: 20px 45px;
 }
 
-.searchButton{
+.searchButton {
     padding: 15px;
     text-decoration: none;
     margin-bottom: 20px;
@@ -37,12 +37,13 @@ h1{
     border-radius: 7rem;
 }
 
-.searchButton a:hover{
+.searchButton a:hover {
     font-weight: bold;
 }
 
 .found {
     width: 10%;
+    margin-left: 90%;
     float: right;
 }
 
@@ -55,9 +56,20 @@ h1{
     margin-left: 8px;
 }
 
-.information td{
+#flex {
+    width: 16%;
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    padding-top: 10px;
+    word-wrap: break-word;
+}
+
+#flex-head {
+    width: 16%;
+    display: inline-block;
     font-size: 25px;
-    padding: 10px;
+    font-weight: bold;
 }
 
 

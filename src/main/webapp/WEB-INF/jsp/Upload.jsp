@@ -8,7 +8,7 @@
 </head>
 <body>
 <%@include file="Header.jsp"%>
-<h1>CARICAMENTO DOCUMENTI</h1>
+<h1>Caricamento Documenti</h1>
 <div class="content">
     <div class="text-block">
         Carica qui il tuo Curriculum, attestati o certificazioni per farli revisionare da un HR.
