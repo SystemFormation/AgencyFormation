@@ -106,16 +106,17 @@ public class CandidaturaDAO {
      */
 
     public boolean addDocument(String document,int idUtente) throws SQLException {
-        if(document==null ||idUtente<1){
+        if(document==null || idUtente<1){
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement update = null;
         String query = "update " + TABLE_CANDIDATURA + " set DocumentiAggiuntivi= ? where IdCandidato=?";
         try{
-             update = connection.prepareStatement(query);
+            update = connection.prepareStatement(query);
             update.setString(1, document);
             update.setInt(2, idUtente);
+
             int result = update.executeUpdate();
             if (result != -1) {
                 return true;
@@ -187,6 +188,7 @@ public class CandidaturaDAO {
      *
      * @return arrraylist di candidature
      * @throws SQLException
+     * @post candidature.size()>0
      */
     public ArrayList<Candidatura> doRetrieveAll() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();

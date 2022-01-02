@@ -17,13 +17,14 @@ public class SkillDAO {
     /**
      * Questa funzionalità permette di salvare una nuova skill
      *
+     * return verifica
      * @param skill
      * @throws SQLException
-     * @pre skill!=null
+     * @pre skill!=null && dip!=null
      */
     public boolean doSaveSkill(Skill skill, Dipendente dip) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (skill != null) {
+        if (skill != null && dip!=null) {
             PreparedStatement save = null;
 
             String query = "insert into " + TABLE_SKILL + " (NomeSkill, DescrizioneSkill)" +
@@ -85,8 +86,9 @@ public class SkillDAO {
     /**
      * Questa funzionalità permette di recuperare tutte le skill
      *
-     * @return
+     * @return arraylist di skill
      * @throws SQLException
+     * @post skills.size()>0
      */
     public ArrayList<Skill> doRetrieveAll() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -117,55 +119,52 @@ public class SkillDAO {
     }
 
     /**
-     * Questa funzionalità permette di prendere una skill in base al nome
+     *
      * @param nomeSkill
+     * @return skill
      * @throws SQLException
-     * @pre nomeSkill != null
-     * @return Skill
+     * @pre nomeSKill!=null
      */
-   public Skill doRetrieveByName(String nomeSkill) throws SQLException {
+    public Skill doRetrieveByName(String nomeSkill) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;
+        String query = "Select * From " + TABLE_SKILL + " where NomeSkill=?";
 
-        if(nomeSkill!=null) {
-            String query = "Select * From " + TABLE_SKILL + " where NomeSkill=?";
-
-            Skill skill = new Skill();
+        Skill skill = new Skill();
 
 
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1, nomeSkill);
+            result = stmt.executeQuery();
+            if (result.next()) {
+                skill.setNomeSkill(result.getString("NomeSkill"));
+                return skill;
+            }
+
+        } finally {
             try {
-                stmt = connection.prepareStatement(query);
-                stmt.setString(1, nomeSkill);
-                result = stmt.executeQuery();
-                if (result.next()) {
-                    skill.setNomeSkill(result.getString("NomeSkill"));
-                    return skill;
-                }
-
+                if (stmt != null)
+                    stmt.close();
             } finally {
-                try {
-                    if (stmt != null)
-                        stmt.close();
-                } finally {
-                    if (connection != null)
-                        connection.close();
-                }
+                if (connection != null)
+                    connection.close();
             }
         }
         return null;
     }
+
     /**
-     * Questa funzionalità permette di rimuovere una skill persa
      *
      * @param idSkill
      * @param dip
      * @throws SQLException
-     * @pre dip != null && idSkill != 0
+     * @pre idSkill>0 && dip!=null
      */
   public void doSaveSkillDip(int idSkill, Dipendente dip) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (dip != null && idSkill != 0) {
+        if (dip != null) {
             PreparedStatement save = null;
 
             String query = "insert into " + TABLE_SKILLDIPENDENTE + " (idDipendente, idSkill, Livello) " +
@@ -190,15 +189,15 @@ public class SkillDAO {
     }
 
     /**
-     * Questa funzionalità permette di prendere l'id dell'ultima skill inserita nel db.
+     *
+     * @return ultima skill
      * @throws SQLException
-     * @return int IdSkill
      */
   public int doRetrieveLastId() throws SQLException {
       Connection connection = DatabaseManager.getInstance().getConnection();
       ResultSet result;
       PreparedStatement stmt = null;
-      String query = " SELECT max(skill.IdSkill)  FROM " + TABLE_SKILL;
+      String query = " SELECT max(IdSkill)  FROM " + TABLE_SKILL;
       int n = 0;
       try {
           stmt = connection.prepareStatement(query);
