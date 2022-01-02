@@ -13,7 +13,7 @@
     <title>Dipendenti Disponibili</title>
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="../../static/Header.jsp" %>
 <h1>LISTA DIPENDENTI DISPONIBILI</h1>
 <div class="information">
     <table>

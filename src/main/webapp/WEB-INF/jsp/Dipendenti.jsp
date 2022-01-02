@@ -14,7 +14,7 @@
     <title>Dipendenti</title>
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="../../static/Header.jsp" %>
 <h1>Lista Dipendenti</h1>
 
 <div class="content">

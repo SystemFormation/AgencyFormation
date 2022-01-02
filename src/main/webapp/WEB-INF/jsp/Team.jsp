@@ -12,7 +12,7 @@
     <title>Creazione Team</title>
 </head>
 <body>
-<%@include file="Header.jsp"%>
+<%@include file="../../static/Header.jsp"%>
 <h1>CREAZIONE TEAM</h1>
 <div class="content-team">
     <div class="content">

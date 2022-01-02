@@ -15,7 +15,7 @@
     <title>Candidati</title>
 </head>
 <body>
-<%@include file="Header.jsp" %>
+<%@include file="../../static/Header.jsp" %>
 <h1>Lista Candidati</h1>
 <div class="content-wrap">
     <div class="content">
