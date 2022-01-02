@@ -3,25 +3,25 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/Common.css">
-    <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
+    <link rel="icon" type="image/png" href="../img/Logo Team 4-5.png"/>
     <title>Home</title>
 </head>
 <body>
-<%@include file="Header.jsp"%>
+<c:import url="Header.jsp"/>
 
 <h1>Bentornato ${user.getName()}</h1>
 </body>
 <div class="home">
-    <div class="content" style="display:flex;">
+    <div class="content flex">
          <c:choose>
              <c:when test="${user.getRole() == 1}">
-                 <div id="home"><a href="UploadDispatch"><h2> Caricamento Documenti </h2></a><br></div>
+                 <div id="home"><a href="static/Upload.jsp"><h2> Caricamento Documenti </h2></a><br></div>
              </c:when>
              <c:when test="${user.getRole() == 2}">
                  <div id="home"><a href="ProfiloControl"><h2> Profilo </h2></a><br></div>
              </c:when>
              <c:when test="${user.getRole() == 3}">
-                 <div id="home"><a href="TeamControl">
+                 <div id="home"><a href="CreateTeamControl">
                      <h2> Creazione Team </h2></a>
                      <p>Crea un team specificando: nome del team, nome del progetto,
                          numero dipendenti e la relativa descrizione</p>

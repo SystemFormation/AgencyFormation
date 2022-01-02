@@ -24,13 +24,13 @@ public class AddTeamControl extends HttpServlet {
         String action = req.getParameter("action");
         try {
             if (action == null) {
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
+                dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
                 dispatcher.forward(req, resp);
             } else if (action.equalsIgnoreCase("aggiungi")) {
                 int idDip = Integer.parseInt(req.getParameter("id"));
                 int idTeam = teamManager.viewLastIdTeam();
                 teamManager.updateDipOnTeam(idDip, idTeam);
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
+                dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
                 dispatcher.forward(req, resp);
             }
         }catch (SQLException e) {

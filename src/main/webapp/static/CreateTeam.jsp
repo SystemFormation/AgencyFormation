@@ -2,9 +2,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
-<%
-    Dipendente dip = (Dipendente) request.getAttribute("dip");
-%>
 <html>
 <head>
     <link rel="stylesheet" href="css/Common.css">
@@ -12,12 +9,12 @@
     <title>Creazione Team</title>
 </head>
 <body>
-<%@include file="../../static/Header.jsp"%>
+<c:import url="/static/Header.jsp"/>
 <h1>CREAZIONE TEAM</h1>
 <div class="content-team">
     <div class="content">
         <div class="form">
-            <form action="TeamControl" method="post" id="formTeam">
+            <form action="CreateTeamControl" method="post" id="formTeam">
                 <input type="hidden" name="action" value="crea">
                 <label for="formTeam">Nome del Team</label><br>
                 <input type="text" id="fname" name="fname" placeholder="Team"><br>

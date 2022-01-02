@@ -1,13 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
-    <link rel="stylesheet" href="css/Upload.css">
+    <link rel="icon" type="image/png" href="../img/Logo Team 4-5.png"/>
+    <link rel="stylesheet" href="../css/Upload.css">
     <meta charset="ISO-8859-1">
     <title>Caricamento</title>
 </head>
 <body>
-<%@include file="Header.jsp"%>
+<c:import url="Header.jsp"/>
 <h1>Caricamento Documenti</h1>
 <div class="content">
     <div class="text-block">

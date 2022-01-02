@@ -49,7 +49,7 @@ public class LoginControl extends HttpServlet {
                         dispatcher.forward(request,response);
                     } else {
                         response.getWriter().write("4");//utente non loggato
-                        response.sendRedirect("./html/Login.html"); //TODO-r: magari potreste aggiungere un parametro tipo errore=1, in questo modo nella pagina potete far visualizzare errore di user o password non corretti (potete usare jstl per leggere il parametro, o js)
+                        response.sendRedirect("./static/Login.html"); //TODO-r: magari potreste aggiungere un parametro tipo errore=1, in questo modo nella pagina potete far visualizzare errore di user o password non corretti (potete usare jstl per leggere il parametro, o js)
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

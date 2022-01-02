@@ -15,7 +15,7 @@
       in cui verrano svolti progetti agevolati dal materiale di formazione fornito dalle Risorse Umane.
       Infatti l'azienda intende fornire ai propri dipendenti una formazione ed un orientamento sempre
       più di qualità, per rendere più facile per il nuovo dipendente adattarsi alle esigenze dell'azienda.<br>
-      <button><a href="html/Registrazione.html">Lavora con noi</a></button>
+      <button><a href="static/Registrazione.html">Lavora con noi</a></button>
     </div>
     <div class="image"></div>
   </div>

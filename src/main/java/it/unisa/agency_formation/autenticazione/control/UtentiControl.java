@@ -27,7 +27,7 @@ public class UtentiControl extends HttpServlet {
             ArrayList<Utente> listaUtenti = aut.getCandidatesDip();
             request.setAttribute("dipendenti",listaDipendenti);
             request.setAttribute("utenti",listaUtenti);
-            dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/DipendentiDispo.jsp");
+            dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();

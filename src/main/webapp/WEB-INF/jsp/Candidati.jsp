@@ -15,7 +15,7 @@
     <title>Candidati</title>
 </head>
 <body>
-<%@include file="../../static/Header.jsp" %>
+<c:import url="/static/Header.jsp"/>
 <h1>Lista Candidati</h1>
 <div class="content-wrap">
     <div class="content">
@@ -33,7 +33,6 @@
             <div id="flex"><button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra file</button></div>
         <div name="drop" class="dropdown-content">
             <a href="DownloadControl?toDownload=curriculum&idCandidato=${cand.getId()}" name="hrefCurriculum">
-
                 <img src="img/Curriculum.png"><p>Curriculum</p>
             </a>
             <a href="DownloadControl?toDownload=documenti&idCandidato=${cand.getId()}" name="hrefDocumenti">

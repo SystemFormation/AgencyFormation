@@ -19,14 +19,14 @@
         <li><a href="../AgencyFormation">Home</a></li>
         </c:if>
         <c:if test="${(user!=null && user.getRole()>=1 && user.getRole()<=4)}">
-        <li><a href="LoginControl">Home</a></li>
+        <li><a href="static/Home.jsp">Home</a></li>
         </c:if>
     </ul>
     <div class="header-right">
         <ul>
             <c:if test="${user == null}">
-            <li><a href="html/Login.html">Accedi</a></li>
-            <li><a href="html/Registrazione.html">Registrati</a></li>
+            <li><a href="static/Login.html">Accedi</a></li>
+            <li><a href="static/Registrazione.html">Registrati</a></li>
             </c:if>
                 <c:choose>
                     <c:when test="${user.getRole() == 1}">

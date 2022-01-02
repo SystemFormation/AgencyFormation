@@ -1,12 +1,8 @@
 package it.unisa.agency_formation.team.control;
 
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
-import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
-import it.unisa.agency_formation.utils.Check;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,13 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-@WebServlet("/TeamControl")
-public class TeamControl extends HttpServlet {
+@WebServlet("/CreateTeamControl")
+public class CreateTeamControl extends HttpServlet {
     private TeamManagerImpl teamManager = new TeamManagerImpl();
     //da raffinare
     @Override
@@ -32,7 +26,7 @@ public class TeamControl extends HttpServlet {
         int z = d.getId();
         try {
             if (action == null) {
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
+                dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
                 dispatcher.forward(req, resp);
             } else if (action.equalsIgnoreCase("crea")) {
                 String nomeProgetto = req.getParameter("lname");

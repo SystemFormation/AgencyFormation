@@ -10,7 +10,7 @@
     <title>Profilo</title>
 </head>
 <body>
-<%@include file="Header.jsp"%>
+<c:import url="Header.jsp"/>
 <h1> PROFILO PERSONALE</h1>
 <div class="content-all">
     <div class="identity">
@@ -23,11 +23,11 @@
 
     </div>
     <div class="form-button">
-        <c:if test="${dip.isStato() == false}">
+        <c:if test="${dip.isStato() == true}">
             <div class ="disponibile">.</div>
         </c:if>
-        <c:if test="${dip.isStato() == true}">
-            <div class="occupato"><p>.</p></div>
+        <c:if test="${dip.isStato() == false}">
+            <div class="occupato">.</div>
         </c:if>
         <a href="jsp/GestioneSkill.jsp"><button> Gestione Skill </button></a>
         <br>

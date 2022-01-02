@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-    ArrayList<Dipendente> list = (ArrayList<Dipendente>) request.getAttribute("dipendenti");
+    ArrayList<Dipendente> dip = (ArrayList<Dipendente>) request.getAttribute("dipendenti");
 %>
 <html>
 <head>
@@ -14,7 +14,7 @@
     <title>Dipendenti</title>
 </head>
 <body>
-<%@include file="../../static/Header.jsp" %>
+<c:import url="/static/Header.jsp"/>
 <h1>Lista Dipendenti</h1>
 
 <div class="content">
@@ -33,67 +33,65 @@
         <div id="flex-head">Competenze</div>
         <div id="flex-head">Azione</div>
         <div id="flex-head">Stato</div>
-    <c:choose>
-    <c:when test="${value == null}">
-    <c:forEach var="dip" items="${dipendenti}">
-        <div id="flex">${dip.getIdDipendente()}</div>
-        <div id="flex">${dip.getIdTeam()}</div>
-        <div id="flex"><button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra file</button></div>
-        <div name="drop" class="dropdown-content">
-            <a href="DownloadControl?toDownload=curriculum&idCandidato=${cand.getId()}" name="hrefCurriculum">
-                <img src="img/Curriculum.png"><p>Curriculum</p>
-            </a>
-            <a href="DownloadControl?toDownload=documenti&idCandidato=${cand.getId()}" name="hrefDocumenti">
-                <img src="img/Documenti.png"><p>Documenti</p>
-            </a>
-        </div>
-        <div id="flex"> <c:if test="(user.getRole() == 3 && dip.isStato() == true)">
-            <a href="TeamControl?action=aggiungi&id=${dip.getIdDipendente()}">Aggiungi</a>
-            </c:if> </div>
+        <c:choose>
+            <c:when test="${value == null}">
 
-        <div id="flex"> <c:if test="(user.getRole() == 3 && dip.isStato() == false)">
-            <p>Richiedi Disponibilità</p> <!-- Da implementare mandando una notifica al TM -->
-        </c:if> </div>
+                <c:forEach var="dip" items="${dipendenti}">
+                    <div id="flex">${dip.getIdDipendente()}</div>
+                    <div id="flex">${dip.getIdTeam()}</div>
+                    <div id="flex">
+                        <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra skill</button>
+                    </div>
 
-        <c:if test="${dip.isStato() == false}">
-            <div id="flex">Occupato</div>
-        </c:if>
-        <c:if test="${dip.isStato() == true}">
-            <div id="flex">Disponibile</div>
-        </c:if>
-    </c:forEach>
-    </c:when>
+                    <div id="flex">
+                        <c:if test="${user.getRole() == 3 && dip.isStato() == true }">
+                        <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}">Aggiungi</a>
+                        </c:if>
+                        <c:if test="${user.getRole() == 4}">
+                            Non Disponibile
+                        </c:if>
+                    </div>
 
-    <c:when test="${value == disponibili}">
-    <c:forEach var="dip" items="${dipendenti}">
-        <c:if test="${dip.isStato() == true}">
-            <c:forEach var="dip" items="${dipendenti}">
-                <div id="flex">${dip.getIdDipendente()}</div>
-                <div id="flex">${dip.getIdTeam()}</div>
-                <div id="flex">${dip.getAnnoNascita()}</div>
-                <div id="flex">${dip.getResidenza()}</div>
-                <div id="flex">${dip.getTelefono()}</div>
-                <div id="flex">Disponibile</div>
-            </c:forEach>
-        </c:if>
-    </c:forEach>
-    </c:when>
+                    <c:if test="${dip.isStato() == false}">
+                        <div id="flex">Occupato</div>
+                    </c:if>
+                    <c:if test="${dip.isStato() == true}">
+                        <div id="flex">Disponibile</div>
+                    </c:if>
 
-    <c:when test="${value == occupati}">
-    <c:forEach var="dip" items="${dipendenti}">
-        <c:if test="${dip.isStato() == false}">
-            <c:forEach var="dip" items="${dipendenti}">
-                <div id="flex">${dip.getIdDipendente()}</div>
-                <div id="flex">${dip.getIdTeam()}</div>
-                <div id="flex">${dip.getAnnoNascita()}</div>
-                <div id="flex">${dip.getResidenza()}</div>
-                <div id="flex">${dip.getTelefono()}</div>
-                <div id="flex">Occupato</div>
-            </c:forEach>
-        </c:if>
-    </c:forEach>
-    </c:when>
-    </c:choose>
+                </c:forEach>
+            </c:when>
+
+            <c:when test="${value == disponibili}">
+                <c:forEach var="dip" items="${dipendenti}">
+                    <c:if test="${dip.isStato() == true}">
+                        <c:forEach var="dip" items="${dipendenti}">
+                            <div id="flex">${dip.getIdDipendente()}</div>
+                            <div id="flex">${dip.getIdTeam()}</div>
+                            <div id="flex">${dip.getAnnoNascita()}</div>
+                            <div id="flex">${dip.getResidenza()}</div>
+                            <div id="flex">${dip.getTelefono()}</div>
+                            <div id="flex">Disponibile</div>
+                        </c:forEach>
+                    </c:if>
+                </c:forEach>
+            </c:when>
+
+            <c:when test="${value == occupati}">
+                <c:forEach var="dip" items="${dipendenti}">
+                    <c:if test="${dip.isStato() == false}">
+                        <c:forEach var="dip" items="${dipendenti}">
+                            <div id="flex">${dip.getIdDipendente()}</div>
+                            <div id="flex">${dip.getIdTeam()}</div>
+                            <div id="flex">${dip.getAnnoNascita()}</div>
+                            <div id="flex">${dip.getResidenza()}</div>
+                            <div id="flex">${dip.getTelefono()}</div>
+                            <div id="flex">Occupato</div>
+                        </c:forEach>
+                    </c:if>
+                </c:forEach>
+            </c:when>
+        </c:choose>
 
     </div>
 </div>
