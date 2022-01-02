@@ -140,7 +140,7 @@ public class SkillDAO {
         PreparedStatement stmt = null;
         String query = "Select * From " + TABLE_SKILL + " where NomeSkill=?";
 
-        Skill skill = new Skill();
+        Skill skill = null;
 
 
         try {
