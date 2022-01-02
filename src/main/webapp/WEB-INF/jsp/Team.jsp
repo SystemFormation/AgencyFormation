@@ -8,14 +8,13 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/Common.css">
-    <link rel="stylesheet" href="css/Team.css">
     <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
     <title>Creazione Team</title>
 </head>
 <body>
 <%@include file="Header.jsp"%>
 <h1>CREAZIONE TEAM</h1>
-<div class="content-wrap">
+<div class="content-team">
     <div class="content">
         <div class="form">
             <form action="TeamControl" method="post" id="formTeam">

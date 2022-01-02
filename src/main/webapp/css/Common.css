@@ -75,3 +75,8 @@ textarea {
 #home {
     width: 50%;
 }
+
+.content-team {
+    width: 70%;
+    margin: auto 15%;
+}
