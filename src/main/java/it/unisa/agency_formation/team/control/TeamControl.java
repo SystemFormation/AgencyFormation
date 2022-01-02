@@ -21,10 +21,7 @@ import java.util.ArrayList;
 
 @WebServlet("/TeamControl")
 public class TeamControl extends HttpServlet {
-    private TeamDAO dao = new TeamDAO();
-    private TeamManagerImpl teamManager = new TeamManagerImpl(dao);
-    private DipendenteDAO dao2 = new DipendenteDAO();
-    private TeamManagerImpl teamManager2 = new TeamManagerImpl(dao2);
+    private TeamManagerImpl teamManager = new TeamManagerImpl();
     //da raffinare
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,7 +57,7 @@ public class TeamControl extends HttpServlet {
             } else if(action.equalsIgnoreCase("aggiungi")){
                 int idDip = Integer.parseInt(req.getParameter("id"));
                 int idTeam = teamManager.viewLastIdTeam();
-                teamManager2.updateDipOnTeam(idDip,idTeam);
+                teamManager.updateDipOnTeam(idDip,idTeam);
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
                 dispatcher.forward(req, resp);
             }

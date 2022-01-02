@@ -9,21 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AutenticazioneManagerImpl implements AutenticazioneManager {
-    private UtenteDAO utDAO;  //Rimosso final
-    private DipendenteDAO dipDAO;
-
-    public AutenticazioneManagerImpl(UtenteDAO utDAO) {
-        this.utDAO = utDAO;
-    }
-
-    public AutenticazioneManagerImpl(DipendenteDAO dipDAO) {
-        this.dipDAO = dipDAO;
-    }
 
     @Override
     public boolean registration(Utente user) throws SQLException {
         if (!alreadyRegisteredUser(user)) {
-            return utDAO.doSaveUser(user);
+            return UtenteDAO.doSaveUser(user);
         } else {
             return false;
         }
@@ -31,23 +21,23 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
 
     @Override
     public Utente login(String email, String password) throws SQLException {
-        return utDAO.login(email, password);
+        return UtenteDAO.login(email, password);
     }
 
     @Override
     public Utente getAllData(int idUser) throws SQLException {
-        return utDAO.doRetrieveByID(idUser);
+        return UtenteDAO.doRetrieveByID(idUser);
     }
 
     //Aggiunto questo metodo
     @Override
     public Dipendente getAllDataDip(int idUser) throws SQLException {
-        return dipDAO.doRetrieveById(idUser);
+        return DipendenteDAO.doRetrieveById(idUser);
     }
 
     @Override
     public ArrayList<Utente> getCandidates() throws SQLException {
-        ArrayList<Utente> candidati = utDAO.doRetrieveUserByRuolo(1);
+        ArrayList<Utente> candidati = UtenteDAO.doRetrieveUserByRuolo(1);
         if(candidati!=null){
             return candidati;
         }
@@ -56,7 +46,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
         }
     }
     public ArrayList<Utente> getCandidatesDip() throws SQLException {
-        ArrayList<Utente> candidati = utDAO.doRetrieveUserByRuolo(2);
+        ArrayList<Utente> candidati = UtenteDAO.doRetrieveUserByRuolo(2);
         if (candidati != null) {
             return candidati;
         } else {
@@ -65,16 +55,16 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     }
     @Override
     public ArrayList<Dipendente> getAllEmploye() throws SQLException {
-        return dipDAO.doRetrieveAll();
+        return DipendenteDAO.doRetrieveAll();
     }
 
     @Override
     public ArrayList<Dipendente> getEmployeByState(boolean state) throws SQLException {
-       return dipDAO.doRetrieveByState(state);
+       return DipendenteDAO.doRetrieveByState(state);
     }
 
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {
-        Utente result = utDAO.login(user.getEmail(), user.getPwd());
+        Utente result = UtenteDAO.login(user.getEmail(), user.getPwd());
         if (result == null) {
             return false;
         } else {

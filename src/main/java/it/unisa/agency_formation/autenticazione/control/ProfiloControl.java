@@ -18,8 +18,7 @@ import java.sql.SQLException;
 
 @WebServlet("/ProfiloControl")
 public class ProfiloControl extends HttpServlet {
-    DipendenteDAO dipendenteDAO = new DipendenteDAO();
-    private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dipendenteDAO);
+    private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -9,16 +9,7 @@ import it.unisa.agency_formation.formazione.domain.Skill;
 import java.sql.SQLException;
 
 public class FormazioneManagerImpl implements FormazioneManager {
-    private SkillDAO skDao;
-    private DipendenteDAO dpDao;
 
-    public FormazioneManagerImpl(SkillDAO dao) {
-        this.skDao = dao;
-    }
-
-    public FormazioneManagerImpl(DipendenteDAO dpDao){
-        this.dpDao = dpDao;
-    }
     @Override
     public void createCompetence(int idTeam, String competenza) {
 
@@ -40,7 +31,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
     @Override
     public boolean addSkill(Skill skill, Dipendente dip) throws SQLException {
         if (!alreadyInsertSkill(skill)) {
-            return skDao.doSaveSkill(skill, dip);
+            return SkillDAO.doSaveSkill(skill, dip);
         } else {
             return false;
         }
@@ -60,16 +51,16 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     @Override
     public int getLastIdSkillCreated() throws  SQLException{
-        return skDao.doRetrieveLastId();
+        return SkillDAO.doRetrieveLastId();
     }
 
     @Override
     public void addSkillDip(int idSkill, Dipendente dip) throws SQLException{
-            skDao.doSaveSkillDip(idSkill,dip);
+            SkillDAO.doSaveSkillDip(idSkill,dip);
     }
 
     private boolean alreadyInsertSkill(Skill skill) throws SQLException {
-        Skill result = skDao.doRetrieveByName(skill.getNomeSkill());
+        Skill result = SkillDAO.doRetrieveByName(skill.getNomeSkill());
         if (result == null) {
             return false;
         } else {

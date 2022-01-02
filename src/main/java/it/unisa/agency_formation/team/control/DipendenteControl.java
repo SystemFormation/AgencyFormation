@@ -17,9 +17,7 @@ import java.util.ArrayList;
 
 @WebServlet("/DipendenteControl")
 public class DipendenteControl extends HttpServlet {
-    private DipendenteDAO dipdao=new DipendenteDAO();
-    private TeamDAO tdao = new TeamDAO();
-    private AutenticazioneManagerImpl aut= new AutenticazioneManagerImpl(dipdao);
+    private AutenticazioneManagerImpl aut= new AutenticazioneManagerImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

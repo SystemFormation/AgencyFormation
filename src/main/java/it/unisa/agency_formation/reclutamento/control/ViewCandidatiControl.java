@@ -17,8 +17,7 @@ import java.util.ArrayList;
 
 @WebServlet("/ViewCandidatiControl")
 public class ViewCandidatiControl extends HttpServlet {
-    private UtenteDAO dao = new UtenteDAO();
-    private AutenticazioneManager aut = new AutenticazioneManagerImpl(dao);
+    private AutenticazioneManager aut = new AutenticazioneManagerImpl();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Utente> candidati;

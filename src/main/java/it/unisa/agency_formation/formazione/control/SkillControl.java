@@ -19,10 +19,7 @@ import java.sql.SQLException;
 
 @WebServlet("/SkillControl")
 public class SkillControl extends HttpServlet {
-   private SkillDAO dao = new SkillDAO();
-   private DipendenteDAO dao2= new DipendenteDAO();
-
-   private FormazioneManagerImpl aut = new FormazioneManagerImpl(dao);
+   private FormazioneManagerImpl aut = new FormazioneManagerImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,7 +35,7 @@ public class SkillControl extends HttpServlet {
         skill.setDescrizioneSkill(skillDescr);
         try{
             //Da raffinare
-            Dipendente dip = dao2.doRetrieveById(user.getId());
+            Dipendente dip = DipendenteDAO.doRetrieveById(user.getId());
             aut.addSkill(skill,dip);
             int idSkill = aut.getLastIdSkillCreated();
             aut.addSkillDip(idSkill,dip);

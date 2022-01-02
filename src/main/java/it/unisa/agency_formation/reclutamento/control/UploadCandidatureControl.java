@@ -26,8 +26,7 @@ import java.util.GregorianCalendar;
 public class UploadCandidatureControl extends HttpServlet {
     private String pathRelative = "\\AgencyFormationFile\\Candidature\\";
     private String pathAbsolute = System.getProperty("user.home") + pathRelative;
-    private CandidaturaDAO dao = new CandidaturaDAO();
-    private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl(dao);
+    private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");

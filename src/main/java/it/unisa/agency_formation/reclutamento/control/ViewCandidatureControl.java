@@ -17,8 +17,7 @@ import java.sql.SQLException;
 
 @WebServlet("/ViewCandidaturaControl")
 public class ViewCandidatureControl extends HttpServlet {
-    private CandidaturaDAO dao = new CandidaturaDAO();
-    private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl(dao);
+    private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
     private String directory = System.getProperty("user.home");
 
     @Override

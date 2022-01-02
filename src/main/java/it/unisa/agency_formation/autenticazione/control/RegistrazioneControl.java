@@ -13,8 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 @WebServlet("/RegistrazioneControl")
 public class RegistrazioneControl extends HttpServlet {
-    private UtenteDAO dao = new UtenteDAO();
-    private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dao);
+    private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

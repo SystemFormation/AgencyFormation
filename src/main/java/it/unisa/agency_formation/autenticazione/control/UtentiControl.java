@@ -20,13 +20,10 @@ import java.util.ArrayList;
 @WebServlet("/UtentiControl")
 public class UtentiControl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UtenteDAO dao = new UtenteDAO();
-        DipendenteDAO dao2 = new DipendenteDAO();
-        AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dao);
-        AutenticazioneManagerImpl aut2 = new AutenticazioneManagerImpl(dao2);
+        AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
         RequestDispatcher dispatcher;
         try {
-            ArrayList<Dipendente> listaDipendenti = aut2.getAllEmploye();
+            ArrayList<Dipendente> listaDipendenti = aut.getAllEmploye();
             ArrayList<Utente> listaUtenti = aut.getCandidatesDip();
             request.setAttribute("dipendenti",listaDipendenti);
             request.setAttribute("utenti",listaUtenti);

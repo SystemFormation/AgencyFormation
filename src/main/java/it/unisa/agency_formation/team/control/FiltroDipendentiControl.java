@@ -16,8 +16,7 @@ import java.util.ArrayList;
 
 @WebServlet("/FitroDipendentiControl")
 public class FiltroDipendentiControl extends HttpServlet {
-    private final DipendenteDAO dao = new DipendenteDAO();
-    private final AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dao);
+    private final AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

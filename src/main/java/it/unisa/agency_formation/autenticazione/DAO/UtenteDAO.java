@@ -20,7 +20,7 @@ public class UtenteDAO {
      * @throws SQLException
      * @pre user!=null
      */
-    public boolean doSaveUser(Utente user) throws SQLException {
+    public static boolean doSaveUser(Utente user) throws SQLException {
         if (user == null) {
             return false;
         }
@@ -64,7 +64,7 @@ public class UtenteDAO {
      * @pre email!=null
      * @pre pwd!=null
      */
-    public Utente login(String email, String pwd) throws SQLException {
+    public static Utente login(String email, String pwd) throws SQLException {
         if (email == null || pwd == null) {
             return null;
         }
@@ -109,7 +109,7 @@ public class UtenteDAO {
      * @throws SQLException
      * @pre id>0
      */
-    public Utente doRetrieveByID(int id) throws SQLException {
+    public static Utente doRetrieveByID(int id) throws SQLException {
         if (id <= 0) {
             return null;
         }
@@ -157,7 +157,7 @@ public class UtenteDAO {
      */
 
 
-    public ArrayList<Utente> doRetrieveUserByRuolo(int ruolo) throws SQLException {
+    public static ArrayList<Utente> doRetrieveUserByRuolo(int ruolo) throws SQLException {
         if (ruolo <= 0 && ruolo > 4) {
             return null;
         }

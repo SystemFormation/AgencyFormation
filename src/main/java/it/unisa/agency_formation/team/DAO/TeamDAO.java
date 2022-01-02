@@ -22,7 +22,10 @@ public class TeamDAO {
      * @throws SQLException
      * @pre team>0
      */
-    public boolean doSaveTeam(Team team, int idUtente) throws SQLException {
+    public static boolean doSaveTeam(Team team, int idUtente) throws SQLException {
+        if(team == null || idUtente <1){
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         if(team==null||idUtente<1) return false;
         if (team != null) {
@@ -62,8 +65,8 @@ public class TeamDAO {
      */
     /* ---------DA CONTROLLARE ----------*/
     public static boolean doRemoveTeam(int idTeam) throws SQLException {
-        Connection connection = DatabaseManager.getInstance().getConnection();
         if(idTeam<1) return false;
+        Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "DELETE FROM " + TABLE_TEAM + "WHERE idTeam=?";
         String upd = "UPDATE " + TABLE_DIPENDENTE + " SET Stato=0 WHERE IdTeam=?";
         PreparedStatement stmt = null;
@@ -74,11 +77,13 @@ public class TeamDAO {
             int res=stmt.executeUpdate();
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
-
-            if (res!=-1){
+            int res2 = stmt.executeUpdate();
+            if(res!=-1 && res2!=-1){
                 return true;
             }
-            else return false;
+            else{
+                return false;
+            }
 
         } finally {
             try {
@@ -99,7 +104,10 @@ public class TeamDAO {
      * @throws SQLException
      * @pre idTeam>0 && idDipendente>0
      */
-    public boolean addEmployee(int idTeam, int idDipendente) throws SQLException {
+    public static boolean addEmployee(int idTeam, int idDipendente) throws SQLException {
+        if(idTeam<1 || idDipendente<1){
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         if(idTeam<1 || idDipendente<1) return false;
         String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=1 WHERE IdDipendente=?";
@@ -133,9 +141,9 @@ public class TeamDAO {
      * @pre idTeam>0
      * @pre idDipendente>0
      */
-    public boolean removeEmployee(int idTeam, int idDipendente) throws SQLException {
-        Connection connection = DatabaseManager.getInstance().getConnection();
+    public static boolean removeEmployee(int idTeam, int idDipendente) throws SQLException {
         if(idTeam<1 || idDipendente<1) return false;
+        Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=1 WHERE IdDipendente=?";
         PreparedStatement stmt = null;
         int result;
@@ -166,7 +174,7 @@ public class TeamDAO {
      * @throws SQLException
      * @post teams.size>0
      */
-    public ArrayList<Team> doRetrieveAllTeam() throws SQLException {
+    public static ArrayList<Team> doRetrieveAllTeam() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ArrayList<Team> teams = new ArrayList<>();
         String query = "SELECT * FROM" + TABLE_TEAM;
@@ -211,7 +219,10 @@ public class TeamDAO {
      * @throws SQLException
      * @pre idTM>0
      */
-    public ArrayList<Team> doRetrieveTMTeam(int idUtente) throws SQLException {
+    public static ArrayList<Team> doRetrieveTMTeam(int idUtente) throws SQLException {
+        if(idUtente<1){
+            return null;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         ArrayList<Team> teams = new ArrayList<>();
         PreparedStatement stmt = null;
@@ -257,9 +268,9 @@ public class TeamDAO {
      * @throws SQLException
      * @pre competence!=null && idTeam>0
      */
-    public boolean updateCompetence(String competence, int idTeam) throws SQLException {
-        Connection connection = DatabaseManager.getInstance().getConnection();
+    public static boolean updateCompetence(String competence, int idTeam) throws SQLException {
         if(competence==null || idTeam<1) return false;
+        Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "UPDATE " + TABLE_TEAM + " SET Competenza=? WHERE IdTeam=?";
         PreparedStatement stmt = null;
         int result;
@@ -291,17 +302,23 @@ public class TeamDAO {
      * @throws SQLException
      * @pre idTeam>0
      */
-    public String doRetrieveCompetence(int idTeam) throws SQLException {
-        Connection connection = DatabaseManager.getInstance().getConnection();
+    public static String doRetrieveCompetence(int idTeam) throws SQLException {
         if(idTeam<1) return null;
+        Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "SELECT Competenza FROM" + TABLE_TEAM + "WHERE IdTeam=?";
         PreparedStatement stmt = null;
+        String path=null;
         ResultSet result;
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             result = (stmt.executeQuery());
-            return result.getString(query);
+            path=result.getString(query);
+            if(path!=null){
+                return path;
+            }else{
+                return null;
+            }
         } finally {
             try {
                 if (stmt != null) {
@@ -324,9 +341,9 @@ public class TeamDAO {
      * @pre idTeam>0
      * @post dipendenti.size>0
      */
-    public ArrayList<Dipendente> doRetrieveAllTMember(int idTeam) throws SQLException {
-        Connection connection = DatabaseManager.getInstance().getConnection();
+    public static ArrayList<Dipendente> doRetrieveAllTMember(int idTeam) throws SQLException {
         if(idTeam<1) return null;
+        Connection connection = DatabaseManager.getInstance().getConnection();
         ArrayList<Dipendente> dipendenti = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_DIPENDENTE + " WHERE IdTeam=?";
         PreparedStatement stmt = null;
@@ -371,17 +388,24 @@ public class TeamDAO {
      * @throws SQLException
      * @pre idTeam!=null
      */
-    public int doRetrieveNTMember(int idTeam) throws SQLException {
-        Connection connection = DatabaseManager.getInstance().getConnection();
+    public static int doRetrieveNTMember(int idTeam) throws SQLException {
         if(idTeam<1) return -1;
+        Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "SELECT NumeroDipendenti FROM " + TABLE_TEAM + " WHERE IdTeam=?";
         PreparedStatement stmt = null;
         ResultSet result;
+        int n;
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             result = stmt.executeQuery();
-            return result.getInt(query);
+            n=result.getInt(query);
+            if(n>0){
+                return n;
+            }
+            else{
+                return -1;
+            }
         } finally {
             try {
                 if (stmt != null) {
@@ -394,7 +418,7 @@ public class TeamDAO {
             }
         }
     }
-    public int doRetrieveLastIDTeam() throws SQLException{
+    public static int doRetrieveLastIDTeam() throws SQLException{
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;
@@ -406,6 +430,12 @@ public class TeamDAO {
             if (result.next()) {
                 idTeam = result.getInt(1);
             }
+            if(idTeam>0){
+                return idTeam;
+            }
+            else{
+                return -1;
+            }
 
         } finally {
             try {
@@ -416,7 +446,6 @@ public class TeamDAO {
                     connection.close();
             }
         }
-        return idTeam;
     }
 
 }

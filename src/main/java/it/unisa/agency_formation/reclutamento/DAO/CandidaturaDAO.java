@@ -10,49 +10,7 @@ import java.util.ArrayList;
 public class CandidaturaDAO {
     private final static String TABLE_CANDIDATURA = "Candidature";
 
-    /**
-     * Questa funzionalità permette di salvare una candidatura
-     *
-     * @param candidatura
-     * @throws SQLException
-     * @pre canididatura!=null
-     */
-    /*
-    public boolean doSaveCandidaturaComplete(Candidatura candidatura) throws SQLException {
-        if (candidatura == null) {
-            return false;
-        }
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement save = null;
-        String query = "insert into " + TABLE_CANDIDATURA +
-                "(Curriculum,DocumentiAggiuntivi, Stato, DataCandidatura,IdCandidato) "
-                + "VALUES(?,?,?,?,?)";
-        try {
-            save = connection.prepareStatement(query);
-            save.setString(1, candidatura.getCv());
-            save.setString(2, candidatura.getDocumentiAggiuntivi());
-            save.setString(3, candidatura.getStato());
-            save.setDate(4, (Date) candidatura.getDataCandidatura());
-            save.setInt(5, candidatura.getIdCandidato());
-            int result = save.executeUpdate();
-            if (result != -1) {
-                return true;
-            } else {
-                return false;
-            }
-        } finally {
-            try {
-                if (save != null) {
-                    save.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
-        }
-    }
-*/
+
     /**
      * Questa funzionalità permette di salvare una candidatura
      * senza gli attestati e le certificazioni
@@ -62,7 +20,7 @@ public class CandidaturaDAO {
      * @return
      * @throws SQLException
      */
-    public boolean doSaveCandidaturaWithoutDocument(Candidatura candidatura) throws SQLException {
+    public static boolean doSaveCandidaturaWithoutDocument(Candidatura candidatura) throws SQLException {
         if (candidatura == null) {
             return false;
         }
@@ -105,7 +63,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      */
 
-    public boolean addDocument(String document,int idUtente) throws SQLException {
+    public static boolean addDocument(String document,int idUtente) throws SQLException {
         if(document==null || idUtente<1){
             return false;
         }
@@ -145,7 +103,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre idCandidato >0
      */
-    public Candidatura doRetrieveById(int idCandidato) throws SQLException {
+    public static Candidatura doRetrieveById(int idCandidato) throws SQLException {
         if (idCandidato < 1) {
             return null;
         }
@@ -190,7 +148,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @post candidature.size()>0
      */
-    public ArrayList<Candidatura> doRetrieveAll() throws SQLException {
+    public static ArrayList<Candidatura> doRetrieveAll() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -237,7 +195,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre stato!=null
      */
-    public ArrayList<Candidatura> doRetrieveByState(String stato) throws SQLException {
+    public static ArrayList<Candidatura> doRetrieveByState(String stato) throws SQLException {
         if (stato == null) {
             return null;
         }
@@ -285,7 +243,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre stato!=null and idCandidatura>0
      */
-    public boolean updateState(int idCandidatura, String stato) throws SQLException {
+    public static boolean updateState(int idCandidatura, String stato) throws SQLException {
         if (idCandidatura < 1 || stato == null) {
             return false;
         }
@@ -332,7 +290,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre idCandidatura>0
      */
-    public boolean doRemoveCandidatura(int idCandidatura) throws SQLException {
+    public static boolean doRemoveCandidatura(int idCandidatura) throws SQLException {
         if (idCandidatura < 1) {
             return false;
         }

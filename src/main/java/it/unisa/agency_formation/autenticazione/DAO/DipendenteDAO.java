@@ -20,7 +20,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @pre dip!=null
      */
-    public boolean doSaveEmploye(Dipendente dipendente) throws SQLException {
+    public static boolean doSaveEmploye(Dipendente dipendente) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if (dipendente == null) {
             return false;
@@ -62,7 +62,7 @@ public class DipendenteDAO {
      * @pre id>0
      */
 
-    public boolean updateRole(int id) throws SQLException {
+    public static boolean updateRole(int id) throws SQLException {
         if (id <= 0) {
             return false;
         }
@@ -101,7 +101,7 @@ public class DipendenteDAO {
      * @pre id>0
      */
 
-    public Dipendente doRetrieveById(int id) throws SQLException {
+    public static Dipendente doRetrieveById(int id) throws SQLException {
         if (id <= 0) {
             return null;
         }
@@ -138,7 +138,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @post dipendenti.size()>0
      */
-    public ArrayList<Dipendente> doRetrieveAll() throws SQLException {
+    public static ArrayList<Dipendente> doRetrieveAll() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -185,7 +185,7 @@ public class DipendenteDAO {
      * @pre idUtente>0
      * @post setStato(stato)
      */
-    public boolean updateState(int idUtente, boolean stato) throws SQLException {
+    public static boolean updateState(int idUtente, boolean stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         if (idUtente <= 0) {
@@ -224,7 +224,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @post dipendenti.size()>0
      */
-    public ArrayList<Dipendente> doRetrieveByState(boolean stato) throws SQLException {
+    public static ArrayList<Dipendente> doRetrieveByState(boolean stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -271,7 +271,7 @@ public class DipendenteDAO {
      *
      */
 
-    public boolean updateDipTeamAndState(int idDip,int idTeam) throws SQLException{
+    public static boolean updateDipTeamAndState(int idDip,int idTeam) throws SQLException{
         if(idDip<0 || idTeam<0){return false;}
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stm = null;

@@ -22,7 +22,7 @@ public class SkillDAO {
      * @throws SQLException
      * @pre skill!=null && dip!=null
      */
-    public boolean doSaveSkill(Skill skill, Dipendente dip) throws SQLException {
+    public static boolean doSaveSkill(Skill skill, Dipendente dip) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if (skill != null && dip!=null) {
             PreparedStatement save = null;
@@ -53,26 +53,32 @@ public class SkillDAO {
     /**
      * Questa funzionalità permette di rimuovere una skill persa
      *
-     * @param IdSkill
+     * @param idSkill
      * @param idDipendente
      * @throws SQLException
      * @pre idSkill>1 && idDipendente>1
      */
-    public void doRemoveSkill(int IdSkill, int idDipendente) throws SQLException {
+    public static boolean doRemoveSkill(int idSkill, int idDipendente) throws SQLException {
+        if(idSkill<1 || idDipendente<0){return false;}
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
         PreparedStatement stmt1 = null;
+        ResultSet result1;
+        ResultSet result2;
         String query = "DELETE FROM " + TABLE_SKILL + " WHERE IdSkill=?";
         String q2 = "DELETE FROM " + TABLE_SKILLDIPENDENTE + " WHERE IdSkill=? AND IdDipendente=?";
         try {
             stmt = connection.prepareStatement(query);
-            stmt.setInt(1, IdSkill);
-            stmt.executeQuery();
+            stmt.setInt(1, idSkill);
+            result1=stmt.executeQuery();
 
             stmt1 = connection.prepareStatement(q2);
-            stmt1.setInt(1, IdSkill);
+            stmt1.setInt(1, idSkill);
             stmt1.setInt(2, idDipendente);
-            stmt1.executeQuery();
+            result2=stmt1.executeQuery();
+            if(result1.next() && result2.next()){
+                return true;
+            }else{return false;}
         } finally {
             try {
                 if (stmt != null) stmt.close();
@@ -90,7 +96,7 @@ public class SkillDAO {
      * @throws SQLException
      * @post skills.size()>0
      */
-    public ArrayList<Skill> doRetrieveAll() throws SQLException {
+    public static ArrayList<Skill> doRetrieveAll() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
         String query = "Select From " + TABLE_SKILL;
@@ -125,7 +131,10 @@ public class SkillDAO {
      * @throws SQLException
      * @pre nomeSKill!=null
      */
-    public Skill doRetrieveByName(String nomeSkill) throws SQLException {
+    public static Skill doRetrieveByName(String nomeSkill) throws SQLException {
+        if(nomeSkill==null){
+            return null;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;
@@ -140,7 +149,13 @@ public class SkillDAO {
             result = stmt.executeQuery();
             if (result.next()) {
                 skill.setNomeSkill(result.getString("NomeSkill"));
+                skill.setDescrizioneSkill(result.getString("DescrizioneSkill"));
+                skill.setIdSkill(result.getInt("IdSkill"));
+            }
+            if(skill!=null){
                 return skill;
+            }else{
+                return null;
             }
 
         } finally {
@@ -152,7 +167,6 @@ public class SkillDAO {
                     connection.close();
             }
         }
-        return null;
     }
 
     /**
@@ -162,11 +176,12 @@ public class SkillDAO {
      * @throws SQLException
      * @pre idSkill>0 && dip!=null
      */
-  public void doSaveSkillDip(int idSkill, Dipendente dip) throws SQLException {
+  public static boolean doSaveSkillDip(int idSkill, Dipendente dip) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (dip != null) {
+        if(idSkill<1 || dip == null){
+            return false;
+        }
             PreparedStatement save = null;
-
             String query = "insert into " + TABLE_SKILLDIPENDENTE + " (idDipendente, idSkill, Livello) " +
                     " values(?,?,?)";
             try {
@@ -174,8 +189,12 @@ public class SkillDAO {
                 save.setInt(1, dip.getIdDipendente());
                 save.setInt(2, idSkill);
                 save.setInt(3, 1);
-                save.executeUpdate();
-
+                int result=save.executeUpdate();
+                if(result!=-1){
+                    return true;
+                }else{
+                    return false;
+                }
             } finally {
                 try {
                     if (save != null)
@@ -186,14 +205,14 @@ public class SkillDAO {
                 }
             }
         }
-    }
+
 
     /**
      *
      * @return ultima skill
      * @throws SQLException
      */
-  public int doRetrieveLastId() throws SQLException {
+  public static int doRetrieveLastId() throws SQLException {
       Connection connection = DatabaseManager.getInstance().getConnection();
       ResultSet result;
       PreparedStatement stmt = null;
@@ -205,6 +224,11 @@ public class SkillDAO {
           if (result.next()) {
               n = result.getInt(1);
           }
+          if(n>0){
+              return n;
+          }else{
+              return -1;
+          }
 
       } finally {
           try {
@@ -215,7 +239,6 @@ public class SkillDAO {
                   connection.close();
           }
       }
-      return n;
   }
 
 }

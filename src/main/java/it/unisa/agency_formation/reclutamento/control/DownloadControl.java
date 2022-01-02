@@ -16,8 +16,7 @@ import java.sql.SQLException;
 
 @WebServlet("/DownloadControl")
 public class DownloadControl extends HttpServlet {
-    private CandidaturaDAO dao = new CandidaturaDAO();
-    private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl(dao);
+    private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
     private String directory = System.getProperty("user.home");
 
     @Override

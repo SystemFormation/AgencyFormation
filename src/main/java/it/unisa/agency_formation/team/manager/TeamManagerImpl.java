@@ -10,60 +10,50 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeamManagerImpl implements TeamManager {
-    private TeamDAO tdao;
-    private DipendenteDAO dipdao;
-
-    public TeamManagerImpl(TeamDAO tdao) {
-        this.tdao = tdao;
-    }
-
-    public TeamManagerImpl(DipendenteDAO dipdao) {
-        this.dipdao = dipdao;
-    }
 
     @Override
     public boolean createTeam(Team team, int idUtente) throws SQLException {
-        return tdao.doSaveTeam(team, idUtente);
+        return TeamDAO.doSaveTeam(team, idUtente);
     }
 
     @Override
     public ArrayList<Dipendente> getEmployee(boolean state) throws SQLException {
-        return dipdao.doRetrieveByState(state);
+        return DipendenteDAO.doRetrieveByState(state);
     }
 
     @Override
     public boolean addEmployee(int idTeam, Dipendente dip) throws SQLException {
-        return tdao.addEmployee(idTeam, dip.getIdDipendente());
+        return TeamDAO.addEmployee(idTeam, dip.getIdDipendente());
     }
 
     @Override
     public boolean removeEmployee(int idTeam, int idDip) throws SQLException {
-        return tdao.removeEmployee(idTeam, idDip);
+        return TeamDAO.removeEmployee(idTeam, idDip);
     }
 
     @Override
     public ArrayList<Team> viewTeams(int idUtente) throws SQLException {
-        return tdao.doRetrieveTMTeam(idUtente);
+        return TeamDAO.doRetrieveTMTeam(idUtente);
     }
 
     @Override
     public ArrayList<Team> viewAllTeams() throws SQLException {
-        return tdao.doRetrieveAllTeam();
+        return TeamDAO.doRetrieveAllTeam();
     }
 
     @Override
     public boolean disbandTeam(int idTeam) throws SQLException {
-        return tdao.doRemoveTeam(idTeam);
+        return TeamDAO.doRemoveTeam(idTeam);
     }
 
     @Override
     public int viewLastIdTeam() throws SQLException {
-        return tdao.doRetrieveLastIDTeam();
+        return TeamDAO.doRetrieveLastIDTeam();
     }
 
     @Override
     public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException {
-            return dipdao.updateDipTeamAndState(idDip, idTeam);
+            return DipendenteDAO.updateDipTeamAndState(idDip, idTeam);
     }
 
 }
