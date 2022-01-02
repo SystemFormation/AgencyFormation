@@ -33,6 +33,7 @@
             <div id="flex"><button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra file</button></div>
         <div name="drop" class="dropdown-content" style="display: none">
             <a href="DownloadControl?toDownload=curriculum&idCandidato=${cand.getId()}" name="hrefCurriculum" style="display: none">
+
                 <img src="img/Curriculum.png"><p>Curriculum</p>
             </a>
             <a href="DownloadControl?toDownload=documenti&idCandidato=${cand.getId()}" style="display: none" name="hrefDocumenti">

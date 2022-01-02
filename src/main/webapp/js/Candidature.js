@@ -1,6 +1,8 @@
 function viewLink(id,i){
     var id = id;
     var index = i;
+    console.log("id="+id);
+    console.log("index="+index);
     $.ajax({
         type: 'GET',
         data:{"idCandidato":id},

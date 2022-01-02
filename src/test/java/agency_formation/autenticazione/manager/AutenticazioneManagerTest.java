@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import java.sql.SQLException;
 
 //Questa classe testa i metodi della classe AutenticazioneManager Impl
+/*
 public class AutenticazioneManagerTest {
     UtenteDAO dao = Mockito.mock(UtenteDAO.class);
     AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl(dao);
@@ -64,3 +65,4 @@ public class AutenticazioneManagerTest {
     }
 
 }
+*/

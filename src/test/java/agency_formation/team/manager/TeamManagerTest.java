@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //Questa classe testa i metodi della classe TeamManagerImpl
+/*
 public class TeamManagerTest {
     TeamDAO dao = Mockito.mock(TeamDAO.class);
     TeamManagerImpl team = new TeamManagerImpl(dao);
@@ -27,3 +28,4 @@ public class TeamManagerTest {
     @Test
     public void disbandTeam() throws SQLException {}
 }
+*/

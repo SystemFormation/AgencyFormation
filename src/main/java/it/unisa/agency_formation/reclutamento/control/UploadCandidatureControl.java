@@ -67,7 +67,7 @@ public class UploadCandidatureControl extends HttpServlet {
             }
         }
 
-        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Profilo.jsp");
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
         dispatcher.forward(request,response);
 
     }

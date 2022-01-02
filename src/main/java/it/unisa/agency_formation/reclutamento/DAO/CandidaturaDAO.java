@@ -16,9 +16,9 @@ public class CandidaturaDAO {
      * senza gli attestati e le certificazioni
      *
      * @param candidatura
-     * @pre candidatura!=null
      * @return
      * @throws SQLException
+     * @pre candidatura!=null
      */
     public static boolean doSaveCandidaturaWithoutDocument(Candidatura candidatura) throws SQLException {
         if (candidatura == null) {
@@ -56,21 +56,22 @@ public class CandidaturaDAO {
 
     /**
      * Questa funzionalità permette di aggiungere attestati e vertificazioni
+     *
      * @param document
      * @param idUtente
-     * @pre document!=null and idUtente>0
      * @return
      * @throws SQLException
+     * @pre document!=null and idUtente>0
      */
 
-    public static boolean addDocument(String document,int idUtente) throws SQLException {
-        if(document==null || idUtente<1){
+    public static boolean addDocument(String document, int idUtente) throws SQLException {
+        if (document == null || idUtente < 1) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement update = null;
         String query = "update " + TABLE_CANDIDATURA + " set DocumentiAggiuntivi= ? where IdCandidato=?";
-        try{
+        try {
             update = connection.prepareStatement(query);
             update.setString(1, document);
             update.setInt(2, idUtente);
@@ -82,13 +83,13 @@ public class CandidaturaDAO {
                 return false;
             }
 
-        }finally{
-            try{
-                if(update!=null){
+        } finally {
+            try {
+                if (update != null) {
                     update.close();
                 }
-            }finally{
-                if(connection!=null){
+            } finally {
+                if (connection != null) {
                     connection.close();
                 }
             }
@@ -111,12 +112,13 @@ public class CandidaturaDAO {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_CANDIDATURA + " where IdCandidato=?";
-        Candidatura cand = new Candidatura();
+        Candidatura cand = null;
         try {
             retrieve = connection.prepareStatement(query);
             retrieve.setInt(1, idCandidato);
             result = retrieve.executeQuery();
             if (result.next()) {
+                cand = new Candidatura();
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
                 cand.setCv(result.getString("Curriculum"));
                 cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
@@ -125,12 +127,10 @@ public class CandidaturaDAO {
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
                 cand.setIdCandidato(result.getInt("IdCandidato"));
                 cand.setIdHR(result.getInt("IdHR"));
-                return cand;
             }
-            if(cand!=null){
+            if (cand != null) {
                 return cand;
-            }
-            else{
+            } else {
                 return null;
             }
         } finally {
@@ -153,7 +153,7 @@ public class CandidaturaDAO {
         ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_CANDIDATURA;
-        ArrayList<Candidatura> candidature = new ArrayList<Candidatura>();
+        ArrayList<Candidatura> candidature = null;
         try {
             retrieve = connection.prepareStatement(query);
             result = retrieve.executeQuery();
@@ -203,7 +203,7 @@ public class CandidaturaDAO {
         ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_CANDIDATURA + " Where Stato=?";
-        ArrayList<Candidatura> candidature = new ArrayList<Candidatura>();
+        ArrayList<Candidatura> candidature = null;
         try {
             retrieve = connection.prepareStatement(query);
             retrieve.setString(1, stato);
