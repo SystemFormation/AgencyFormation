@@ -1,13 +1,11 @@
-package agency_formation.autenticazione.DAO;
+package agency_formation.DAO;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -104,12 +102,14 @@ public class DipendenteDAOTest {
     public void doRetrieveByStateFalsePass() throws SQLException {
         assertNotNull(dao.doRetrieveByState(false));
     }
+
     @Test
-    public void updateDipTeamAndStateFail(){
+    public void updateDipTeamAndStateFail() {
         //TODO
     }
+
     @Test
-    public void updateDipTeamAndStatePass(){
+    public void updateDipTeamAndStatePass() {
         //TODO
     }
 

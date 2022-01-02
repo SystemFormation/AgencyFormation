@@ -39,7 +39,7 @@ public class SkillControl extends HttpServlet {
             aut.addSkill(skill,dip);
             int idSkill = aut.getLastIdSkillCreated();
             aut.addSkillDip(idSkill,dip);
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Home.jsp");
             dispatcher.forward(request,response);
         } catch (SQLException e) {
             e.printStackTrace();

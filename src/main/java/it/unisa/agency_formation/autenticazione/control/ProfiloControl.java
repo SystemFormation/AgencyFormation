@@ -30,7 +30,7 @@ public class ProfiloControl extends HttpServlet {
                 Dipendente dip = aut.getAllDataDip(id);
                 if (id == dip.getIdDipendente()) {
                     request.setAttribute("dip", dip);
-                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Profilo.jsp");
+                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
                     dispatcher.forward(request, response);
                 } else {
                     // roba da fare

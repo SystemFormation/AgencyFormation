@@ -31,7 +31,7 @@ public class RegistrazioneControl extends HttpServlet {
                     aut.registration(user);
                     Utente result = aut.login(user.getEmail(), user.getPwd());
                     request.getSession().setAttribute("user", result);
-                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
+                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Home.jsp");
                     dispatcher.forward(request, response);
                     response.getWriter().write("5");//registrazione avvenuta con successo
                     return;
@@ -51,7 +51,7 @@ public class RegistrazioneControl extends HttpServlet {
                 if(!Check.checkPwd(request.getParameter("pwd"))){
                     response.getWriter().write("4");//password non corretto
                 }
-                response.sendRedirect("./html/Registrazione.html");
+                response.sendRedirect("./static/Registrazione.html");
             }
     }
     @Override

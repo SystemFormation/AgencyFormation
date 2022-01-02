@@ -21,14 +21,15 @@ public class LoginControl extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+       /*
         Utente user = (Utente) session.getAttribute("user");
         if (user != null) {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
             dispatcher.forward(request,response);
-        } else {
+        } else {*/
             String email = request.getParameter("email");
             String pwd = request.getParameter("password");
+            Utente user;
             RequestDispatcher dispatcher;
             if (email != null && pwd != null) {
                 if (email.trim().length() == 0) {
@@ -40,10 +41,11 @@ public class LoginControl extends HttpServlet {
                 try {
                     user = aut.login(email, pwd);
                     if (user != null) {
+                        HttpSession session = request.getSession();
                         session = request.getSession(true);
                         session.setAttribute("user", user);
                         response.getWriter().write("3");//utente loggato
-                        dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
+                        dispatcher = request.getServletContext().getRequestDispatcher("/static/Home.jsp");
                         dispatcher.forward(request,response);
                     } else {
                         response.getWriter().write("4");//utente non loggato
@@ -54,10 +56,10 @@ public class LoginControl extends HttpServlet {
                 }
             } else {
                 response.getWriter().write("5");//email e password null
-                response.sendRedirect("./html/Login.html");
+                response.sendRedirect("./static/Login.html");
             }
         }
-    }
+
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

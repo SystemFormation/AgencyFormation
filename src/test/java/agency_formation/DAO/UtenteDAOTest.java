@@ -1,4 +1,4 @@
-package agency_formation.autenticazione.DAO;
+package agency_formation.DAO;
 
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
@@ -13,32 +13,31 @@ import java.sql.SQLException;
  * Questa classe racchiude tutti i casi di test riguardante UtenteDAO
  */
 public class UtenteDAOTest {
-    private UtenteDAO dao = new UtenteDAO();
 
     @Test
     public void saveUserFail() throws SQLException {
         Utente user = null;
-        assertFalse(dao.doSaveUser(user));
+        assertFalse(UtenteDAO.doSaveUser(user));
     }
 
     @Test
     public void saveUserOK() throws SQLException {
         Utente user = new Utente("Gennaro", "Cecco", "genny@libero.it", "lol", 1);
-        assertTrue(dao.doSaveUser(user));
+        assertTrue(UtenteDAO.doSaveUser(user));
     }
 
     @Test
     public void loginEmailNull() throws SQLException {
         String email = null;
         String pwd = "lol";
-        assertNull(dao.login(email, pwd));
+        assertNull(UtenteDAO.login(email, pwd));
     }
 
     @Test
     public void loginPwdNull() throws SQLException {
         String email = "genny@libero.it";
         String pwd = null;
-        assertNull(dao.login(email, pwd));
+        assertNull(UtenteDAO.login(email, pwd));
     }
 
     @Test
@@ -46,50 +45,49 @@ public class UtenteDAOTest {
     public void loginPass() throws SQLException {
         String email = "genny@libero.it";
         String pwd = "lol";
-        assertNotNull(dao.login(email,pwd));
+        assertNotNull(UtenteDAO.login(email,pwd));
     }
 
     @Test
     public void loginFail() throws SQLException {
         String email = "genny@gmail.it";
         String pwd = "lol";
-        assertNull(dao.login(email, pwd));
+        assertNull(UtenteDAO.login(email, pwd));
     }
 
     @Test
     public void doRetrieveByIDLessZero() throws SQLException {
         int id = -1;
-        assertNull(dao.doRetrieveByID(id));
+        assertNull(UtenteDAO.doRetrieveByID(id));
     }
 
     @Test
     public void doRetrieveByIDPass() throws SQLException {
         int id = 5;
-        assertNotNull(dao.doRetrieveByID(id));
+        assertNotNull(UtenteDAO.doRetrieveByID(id));
     }
 
     @Test
     public void retrieveByRuoloLessZero() throws SQLException {
         int ruolo = -1;
-        assertNull(dao.doRetrieveUserByRuolo(ruolo));
+        assertNull(UtenteDAO.doRetrieveUserByRuolo(ruolo));
     }
 
     @Test
     public void retrieveByRuoloMoreFour() throws SQLException {
         int ruolo = 5;
-        assertNull(dao.doRetrieveUserByRuolo(ruolo));
+        assertNull(UtenteDAO.doRetrieveUserByRuolo(ruolo));
     }
 
     @Test
     public void retrieveByRuoloSizeLessOne() throws SQLException {
-        assertNull(dao.doRetrieveUserByRuolo(4));
-
+        assertNull(UtenteDAO.doRetrieveUserByRuolo(4));
     }
 
     @Test
     public void retrieveByRuoloPass() throws SQLException {
         int ruolo = 1;
-        assertNotNull(dao.doRetrieveUserByRuolo(ruolo));
+        assertNotNull(UtenteDAO.doRetrieveUserByRuolo(ruolo));
 
     }
 }

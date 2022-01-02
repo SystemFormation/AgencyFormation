@@ -76,7 +76,7 @@ public class LoginControlTest {
     public void loginPasswordEmpty() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        Mockito.when(request.getParameter("email")).thenReturn("alberto@gmail.com");
+        Mockito.when(request.getParameter("email")).thenReturn("fra@gmail.com");
         Mockito.when(request.getParameter("password")).thenReturn(" ");
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
@@ -94,7 +94,7 @@ public class LoginControlTest {
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         LoginControl servlet = new LoginControl();
-        Mockito.when(request.getParameter("email")).thenReturn("mario@gmail.com");
+        Mockito.when(request.getParameter("email")).thenReturn("l.giacchetti@studenti.unisa.it");
         Mockito.when(request.getParameter("password")).thenReturn("lol");
         Mockito.when(request.getSession(true)).thenReturn(session);
         ServletContext context = Mockito.mock(ServletContext.class);
