@@ -52,14 +52,6 @@ public class TeamControl extends HttpServlet {
                 else{
                     // Errore Non sei Tm
                 }
-
-
-            } else if(action.equalsIgnoreCase("aggiungi")){
-                int idDip = Integer.parseInt(req.getParameter("id"));
-                int idTeam = teamManager.viewLastIdTeam();
-                teamManager.updateDipOnTeam(idDip,idTeam);
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
-                dispatcher.forward(req, resp);
             }
         } catch (SQLException e) {
             e.printStackTrace();

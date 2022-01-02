@@ -30,7 +30,7 @@
             <td><%=listDipendenti.get(i).isStato()%></td>
 
             <%if(user.getRole() == 3 && listDipendenti.get(i).isStato() == true){%>
-            <td><a href="TeamControl?action=aggiungi&id=<%=listDipendenti.get(i).getIdDipendente()%>">Aggiungi</a></td>
+            <td><a href="AddTeamControl?action=aggiungi&id=<%=listDipendenti.get(i).getIdDipendente()%>">Aggiungi</a></td>
             <%}%>
         </tr>
         <%}%>
