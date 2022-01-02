@@ -148,6 +148,7 @@ public class SkillDAO {
             stmt.setString(1, nomeSkill);
             result = stmt.executeQuery();
             if (result.next()) {
+                skill = new Skill();
                 skill.setNomeSkill(result.getString("NomeSkill"));
                 skill.setDescrizioneSkill(result.getString("DescrizioneSkill"));
                 skill.setIdSkill(result.getInt("IdSkill"));
