@@ -21,7 +21,7 @@
                 <label for="formTeam">Nome del Progetto</label><br>
                 <input type="text" id="lname" name="lname" placeholder="Progetto"><br>
                 <label for="quantity">Numero Dipendenti</label><br>
-                <input type="number" id="quantity" name="quantity" min="1" max=""><br>
+                <input type="number" id="quantity" name="quantity" min="1" max="10"><br>
                 <label for="quantity">Descrizione</label><br>
                 <textarea id="teamDescr" name="teamDescr" rows="6" cols="70" placeholder="Descrizione"></textarea><br>
                 <input type="submit" name="crea" value="Crea" id="cerca"><br>

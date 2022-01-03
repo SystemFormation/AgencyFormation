@@ -40,6 +40,11 @@
                      al proprio team oppure a quale dipendente occupato per un altro progetto effettuare
                      la richiesta di disponbilità</p>
                  </div>
+                 <div id="home"><a href="TeamControl">
+                     <h2> Lista Teams </h2></a>
+                     <p>Ottieni la lista dei tuoi teams con i relativi dati e la gestione per
+                     speficare le competenze richieste</p>
+                 </div>
              </c:when>
              <c:when test="${user.getRole() == 4}">
                  <div id="home"><a href="DipendenteControl">
@@ -52,6 +57,11 @@
                      <h2> Lista Candidati </h2></a>
                      <p>Ottieni la lista candidati per poter controllare: i file caricati da un candidato,
                      il loro rispettivo nome e cognome e la loro email</p>
+                 </div>
+                 <div id="home"><a href="/TeamControl">
+                     <h2> Lista Teams </h2></a>
+                     <p>Ottieni la lista di tutti i teams con i relativi dati e la gestione del
+                     caricamento del materiale di formazione</p>
                  </div>
              </c:when>
          </c:choose>

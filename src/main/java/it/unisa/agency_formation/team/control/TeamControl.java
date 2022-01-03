@@ -22,24 +22,35 @@ public class TeamControl extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         Utente d = (Utente) req.getSession().getAttribute("user");
-        if(d.getRole() == 3){ //sei tm
+        if (d.getRole() == 3) { //sei tm
             try {
                 ArrayList<Team> list = aut.viewTeams(d.getId());
                 req.setAttribute("listTeam", list);
                 resp.getWriter().write("1");
-                dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
+                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
                 dispatcher.forward(req, resp);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else{
-            resp.getWriter().write("2");
-            dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
+        } else if (d.getRole() == 4) {
+            try {
+                ArrayList<Team> list = aut.viewAllTeams();
+                req.setAttribute("listTeam", list);
+                resp.getWriter().write("2");
+                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
+                dispatcher.forward(req, resp);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            resp.getWriter().write("3");
+            dispatcher = req.getServletContext().getRequestDispatcher("/static/Error.html");
             dispatcher.forward(req, resp);
         }
     }
+
     @Override
-    public void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 }
