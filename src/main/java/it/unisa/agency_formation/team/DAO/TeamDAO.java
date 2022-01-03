@@ -228,7 +228,7 @@ public class TeamDAO {
         ArrayList<Team> teams = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet result;
-        String query = "SELECT * FROM " + TABLE_TEAM + " WHERE IdUtente=?";
+        String query = "SELECT * FROM " + TABLE_TEAM + " WHERE IdTM=?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idUtente);

@@ -4,7 +4,7 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 <%
-    ArrayList<Team> listteam = (ArrayList<Team>) request.getAttribute("listTeam");
+    ArrayList<Team> listTeam = (ArrayList<Team>) request.getAttribute("listTeam");
 %>
 <html>
 <head>
@@ -19,20 +19,20 @@
     <div class="team">
     <c:choose>
         <c:when test="${user.getRole()==3}">
-            <c:forEach var="team" items="${listTeam.doRetrieveTMTeam(user.getId)}">
+            <c:forEach var="team" items="${listTeam}">
                 <h2>${team.getNomeTeam()}<h2>
                 <h3>${team.getNomeProgetto()}</h3>
                 ${team.getNumeroDipendenti()}
                 ${team.getDescrizione()}
                     <button><a href="/static/Error.html">Specifica Competenze</a></button>
-                    <c:if test="${team.getNumeroDipendenti()}">
+                    <c:if test="${team.getNumeroDipendenti() < 10}">
                     <button><a href="DipendenteControl">Cerca Dipendenti</a></button>
                     </c:if>
             </c:forEach>
         </c:when>
 
         <c:when test="${user.getRole()==4}">
-            <c:forEach var="team" items="${listTeam.doRetrieveAllTeam()}">
+            <c:forEach var="team" items="${listTeam}">
 
             </c:forEach>
         </c:when>
