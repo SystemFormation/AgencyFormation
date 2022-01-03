@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
 
+//Questa classe testa i metodi della classe FormazioneManagerImpl
 public class FormazioneManagerTest {
     FormazioneManagerImpl aut = new FormazioneManagerImpl();
 

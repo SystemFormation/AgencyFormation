@@ -42,8 +42,6 @@ public class AddTeamControlTest {
         servlet.doGet(request, response);
         assertTrue(stringWriter.toString().equals("1"));
     }
-    //Da rifare TODO
-    /*
     @Test
     public void actionPass() throws IOException, ServletException {
         ServletConfig config = Mockito.mock(ServletConfig.class);
@@ -52,6 +50,7 @@ public class AddTeamControlTest {
         dispatcher = Mockito.mock(RequestDispatcher.class);
         AddTeamControl servlet = new AddTeamControl();
         Mockito.when(request.getParameter("action")).thenReturn("aggiungi");
+        Mockito.when(request.getParameter("id")).thenReturn("2");
         ServletContext context = Mockito.mock(ServletContext.class);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
@@ -61,5 +60,5 @@ public class AddTeamControlTest {
         servlet.init(config);
         servlet.doGet(request, response);
         assertTrue(stringWriter.toString().equals("2"));
-    }*/
+    }
 }
