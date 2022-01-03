@@ -12,12 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CandidaturaDAOTest {
 
     @Test //cand = null
-    public void saveCand1() throws SQLException {
+    public void saveCandFail() throws SQLException {
         Candidatura cand = null;
         assertFalse(CandidaturaDAO.doSaveCandidaturaWithoutDocument(cand));
     }
-    @Test //
-    public void savecand2() throws SQLException {
+
+    @Test //salva il candidato
+    public void savecandOk() throws SQLException {
         Candidatura cand = new Candidatura();
         java.util.Date date = new java.util.Date();
         java.sql.Date data = new java.sql.Date(date.getTime());
@@ -28,73 +29,86 @@ public class CandidaturaDAOTest {
         assertTrue(CandidaturaDAO.doSaveCandidaturaWithoutDocument(cand));
     }
 
-    @Test//document = null
-    public void addDocument1() throws SQLException {
+    @Test //document = null
+    public void addDocumentFail1() throws SQLException {
         String document = null;
-        int id = 1;
-        assertFalse(CandidaturaDAO.addDocument(document,id));
+        int idUtente = 1;
+        assertFalse(CandidaturaDAO.addDocument(document, idUtente));
     }
-    @Test//id = -1
-    public void addDocument2() throws SQLException {
+
+    @Test //id = -1
+    public void addDocumentFail2() throws SQLException {
         String document = "Test";
-        int id = -1;
-        assertFalse(CandidaturaDAO.addDocument(document,id));
+        int idUtente = -1;
+        assertFalse(CandidaturaDAO.addDocument(document, idUtente));
     }
-    @Test
-    public void addDocument3() throws SQLException {
+
+    @Test //aggiunge il document Test con id 1
+    public void addDocumentOk() throws SQLException {
         String document = "Test";
-        int id = 1;
-        assertTrue(CandidaturaDAO.addDocument(document,id));
+        int idUtente = 1;
+        assertTrue(CandidaturaDAO.addDocument(document, idUtente));
     }
 
     @Test //id candidato = -1
-    public void doRetrieveById1() throws SQLException {
+    public void doRetrieveByIdFail() throws SQLException {
         int idCandidato = -1;
         assertNull(CandidaturaDAO.doRetrieveById(idCandidato));
     }
+
     @Test //id candidato = 1
-    public void doRetrieveById2() throws SQLException {
+    public void doRetrieveByIdOk() throws SQLException {
         int idCandidato = 1;
         assertNotNull(CandidaturaDAO.doRetrieveById(idCandidato));
     }
 
     @Test //stato = null
-    public void doRetrieveByState1() throws SQLException {
+    public void doRetrieveByStateFail1() throws SQLException {
         String stato = null;
         assertNull(CandidaturaDAO.doRetrieveByState(stato));
     }
+
     @Test //stato = prova(non esiste)
-    public void doRetrieveByState2() throws SQLException {
+    public void doRetrieveByStateFail2() throws SQLException {
         String stato = "prova";
         assertNull(CandidaturaDAO.doRetrieveByState(stato));
     }
 
+    @Test //stato = test(presente nel DB)
+    public void doRetrieveByStateOk() throws SQLException {
+        String stato = "test";
+        assertNotNull(CandidaturaDAO.doRetrieveByState(stato));
+    }
+
     @Test //id candidatura = -1 stato = null
-    public void updateState1() throws SQLException {
+    public void updateStateFail1() throws SQLException {
         int idCandidatura = -1;
         String stato = null;
         assertFalse(CandidaturaDAO.updateState(idCandidatura, stato));
     }
+
     @Test //id candidatura =  stato = null
-    public void updateState2() throws SQLException {
+    public void updateStateFail2() throws SQLException {
         int idCandidatura = 1;
         String stato = null;
         assertFalse(CandidaturaDAO.updateState(idCandidatura, stato));
     }
+
     @Test //id candidatura = 2(questo id esiste) stato = disponibile
-    public void updateState3() throws SQLException {
+    public void updateStateOk() throws SQLException {
         int idCandidatura = 2;
         String stato = "disponibile";
         assertTrue(CandidaturaDAO.updateState(idCandidatura, stato));
     }
 
     @Test //idCandidatura = -1
-    public void doRemoveCandidatura1() throws SQLException {
+    public void doRemoveCandidaturaFail() throws SQLException {
         int idCandidatura = -1;
         assertFalse(CandidaturaDAO.doRemoveCandidatura(idCandidatura));
     }
+
     @Test //idCandidatura = 2
-    public void doRemoveCandidatura2() throws SQLException {
+    public void doRemoveCandidaturaOk() throws SQLException {
         int idCandidatura = 2;
         assertTrue(CandidaturaDAO.doRemoveCandidatura(idCandidatura));
     }
