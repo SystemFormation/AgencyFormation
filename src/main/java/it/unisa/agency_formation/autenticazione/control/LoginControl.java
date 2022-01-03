@@ -21,15 +21,14 @@ public class LoginControl extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       /*
+        HttpSession session = request.getSession();
         Utente user = (Utente) session.getAttribute("user");
         if (user != null) {
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Home.jsp");
             dispatcher.forward(request,response);
-        } else {*/
+        } else {
             String email = request.getParameter("email");
             String pwd = request.getParameter("password");
-            Utente user;
             RequestDispatcher dispatcher;
             if (email != null && pwd != null) {
                 if (email.trim().length() == 0) {
@@ -41,7 +40,6 @@ public class LoginControl extends HttpServlet {
                 try {
                     user = aut.login(email, pwd);
                     if (user != null) {
-                        HttpSession session = request.getSession();
                         session = request.getSession(true);
                         session.setAttribute("user", user);
                         response.getWriter().write("3");//utente loggato
@@ -49,16 +47,17 @@ public class LoginControl extends HttpServlet {
                         dispatcher.forward(request,response);
                     } else {
                         response.getWriter().write("4");//utente non loggato
-                        response.sendRedirect("./static/Login.html"); //TODO-r: magari potreste aggiungere un parametro tipo errore=1, in questo modo nella pagina potete far visualizzare errore di user o password non corretti (potete usare jstl per leggere il parametro, o js)
+                        response.sendRedirect("/static/Login.html"); //TODO-r: magari potreste aggiungere un parametro tipo errore=1, in questo modo nella pagina potete far visualizzare errore di user o password non corretti (potete usare jstl per leggere il parametro, o js)
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             } else {
                 response.getWriter().write("5");//email e password null
-                response.sendRedirect("./static/Login.html");
+                response.sendRedirect("/static/Login.html");
             }
         }
+    }
 
 
     @Override
