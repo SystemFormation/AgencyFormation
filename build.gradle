@@ -16,7 +16,7 @@ repositories {
 dependencies {
 
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.2.0'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
+    testImplementation('org.junit.jupiter:junit-jupiter:5.8.2')
     testCompileOnly('javax.servlet:javax.servlet-api:4.0.1')
    // testCompileOnly('org.junit.jupiter:junit-jupiter-engine:5.8.2')
 
