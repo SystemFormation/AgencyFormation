@@ -24,7 +24,7 @@ public class LoginControl extends HttpServlet {
         HttpSession session = request.getSession();
         Utente user = (Utente) session.getAttribute("user");
         if (user != null) {
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Home.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
             dispatcher.forward(request,response);
         } else {
             String email = request.getParameter("email");
@@ -43,7 +43,7 @@ public class LoginControl extends HttpServlet {
                         session = request.getSession(true);
                         session.setAttribute("user", user);
                         response.getWriter().write("3");//utente loggato
-                        dispatcher = request.getServletContext().getRequestDispatcher("/static/Home.jsp");
+                        dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
                         dispatcher.forward(request,response);
                     } else {
                         response.getWriter().write("4");//utente non loggato

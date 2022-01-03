@@ -9,8 +9,8 @@
     <title>Creazione Team</title>
 </head>
 <body>
-<c:import url="/static/Header.jsp"/>
-<h1>CREAZIONE TEAM</h1>
+<c:import url="Header.jsp"/>
+<h1>Creazione Team</h1>
 <div class="content-team">
     <div class="content">
         <div class="form">

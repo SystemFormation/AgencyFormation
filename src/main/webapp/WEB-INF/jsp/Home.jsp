@@ -3,11 +3,11 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/Common.css">
-    <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
+    <link rel="icon" type="image/png" href="img/Logo%20Team%204-5.png"/>
     <title>Home</title>
 </head>
 <body>
-<c:import url="Header.jsp"/>
+<c:import url="/static/Header.jsp"/>
 
 <h1>Bentornato ${user.getName()}</h1>
 </body>

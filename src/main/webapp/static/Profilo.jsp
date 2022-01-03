@@ -11,7 +11,7 @@
 </head>
 <body>
 <c:import url="Header.jsp"/>
-<h1> PROFILO PERSONALE</h1>
+<h1> Profilo Personale</h1>
 <div class="content-all">
     <div class="identity">
         <ul>
@@ -29,9 +29,9 @@
         <c:if test="${dip.isStato() == false}">
             <div class="occupato">.</div>
         </c:if>
-        <a href="jsp/GestioneSkill.jsp"><button> Gestione Skill </button></a>
+        <a href="/AgencyFormation/static/Error.html"><button> Gestione Skill </button></a>
         <br>
-        <a href="jsp/Profilo.jsp"><button> Modifica Dati Personali </button></a>
+        <a href="/AgencyFormation/static/Error.html"><button> Modifica Dati Personali </button></a>
     </div>
 
 </div>
