@@ -25,7 +25,8 @@ public class CreateTeamControl extends HttpServlet {
         Utente d = (Utente) req.getSession().getAttribute("user");
         int z = d.getId();
         try {
-            if (action == null) {
+            if (action == null)  {
+                resp.getWriter().write("1");
                 dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
                 dispatcher.forward(req, resp);
             } else if (action.equalsIgnoreCase("crea")) {
@@ -33,17 +34,19 @@ public class CreateTeamControl extends HttpServlet {
                 int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
                 String nomeTeam = req.getParameter("fname");
                 String descrizione = req.getParameter("teamDescr");
-                if (d.getRole() == 3) { //ruolo dell'utente è uguale a 3 può salvare
+                resp.getWriter().write("2");
+                if (d.getRole() == 3) {//ruolo dell'utente è uguale a 3 può salvare
                     team.setNomeProgetto(nomeProgetto);
                     team.setDescrizione(descrizione);
                     team.setNomeTeam(nomeTeam);
                     team.setNumeroDipendenti(numeroDipendenti);
                     teamManager.createTeam(team,z);
-
+                    resp.getWriter().write("3");
                     dispatcher = req.getServletContext().getRequestDispatcher("/UtentiControl");
                     dispatcher.forward(req, resp);
                 }
                 else{
+                    resp.getWriter().write("4");
                     // Errore Non sei Tm
                 }
             }
@@ -52,7 +55,7 @@ public class CreateTeamControl extends HttpServlet {
         }
     }
         @Override
-        protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        public void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             doGet(req, resp);
         }
 }

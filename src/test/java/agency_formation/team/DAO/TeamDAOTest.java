@@ -104,7 +104,7 @@ public class TeamDAOTest {
         assertNull(TeamDAO.doRetrieveCompetence(idTeam));
 
     }
-    @Test // da rivedere
+    @Test
     public void retrieveCompetenceOk() throws SQLException {
         int idTeam = 1;
         assertNotNull(TeamDAO.doRetrieveCompetence(idTeam));
