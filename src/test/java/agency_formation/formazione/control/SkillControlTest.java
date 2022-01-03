@@ -104,5 +104,4 @@ public class SkillControlTest {
         servlet.doGet(request,response);
         assertTrue(stringWriter.toString().equals("3"));
     }
-    //se dip != null , numero 4 TODO
 }

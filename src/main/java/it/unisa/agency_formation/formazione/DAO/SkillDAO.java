@@ -54,35 +54,26 @@ public class SkillDAO {
      * Questa funzionalità permette di rimuovere una skill persa
      *
      * @param idSkill
-     * @param idDipendente
      * @throws SQLException
-     * @pre idSkill>1 && idDipendente>1
+     * @pre idSkill>1
      */
-    public static boolean doRemoveSkill(int idSkill, int idDipendente) throws SQLException {
-        if(idSkill<1 || idDipendente<0){return false;}
+    public static boolean doRemoveSkill(int idSkill) throws SQLException {
+        if(idSkill<1){return false;}
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
-        PreparedStatement stmt1 = null;
-        ResultSet result1;
-        ResultSet result2;
+        int result1;
         String query = "DELETE FROM " + TABLE_SKILL + " WHERE IdSkill=?";
-        String q2 = "DELETE FROM " + TABLE_SKILLDIPENDENTE + " WHERE IdSkill=? AND IdDipendente=?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idSkill);
-            result1=stmt.executeQuery();
+            result1=stmt.executeUpdate();
 
-            stmt1 = connection.prepareStatement(q2);
-            stmt1.setInt(1, idSkill);
-            stmt1.setInt(2, idDipendente);
-            result2=stmt1.executeQuery();
-            if(result1.next() && result2.next()){
+            if(result1 != -1){
                 return true;
             }else{return false;}
         } finally {
             try {
                 if (stmt != null) stmt.close();
-                if (stmt1 != null) stmt1.close();
             } finally {
                 if (connection != null) connection.close();
             }
@@ -99,7 +90,7 @@ public class SkillDAO {
     public static ArrayList<Skill> doRetrieveAll() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
-        String query = "Select From " + TABLE_SKILL;
+        String query = "Select * From " + TABLE_SKILL;
         ArrayList<Skill> skills = new ArrayList<>();
         ResultSet result;
         try {

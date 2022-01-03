@@ -25,16 +25,20 @@ public class ProfiloControl extends HttpServlet {
         Utente user = (Utente) request.getSession().getAttribute("user");
         int id = user.getId();
         try {
-            if (user != null) {
-                //TODO-r: fate controllo sul ruolo. Chi è che può eseguire questa servlet? solo il dipendente? quindi fa fatto il controllo su RuoliUtenti.Dipendente
+            if (user != null && user.getRole() == 2) {
                 Dipendente dip = aut.getAllDataDip(id);
+                response.getWriter().write("1");//
                 if (id == dip.getIdDipendente()) {
+                    response.getWriter().write("2");//
                     request.setAttribute("dip", dip);
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
                     dispatcher.forward(request, response);
                 } else {
-                    // roba da fare
+                    response.getWriter().write("3");//
                 }
+            }
+            else{
+                response.getWriter().write("4");//
             }
         } catch (SQLException e) {
             e.printStackTrace();

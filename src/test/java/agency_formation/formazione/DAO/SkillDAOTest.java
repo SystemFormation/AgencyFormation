@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,6 +28,27 @@ public class SkillDAOTest {
         Skill skill = new Skill("C","Conoscenze base");
         assertTrue(SkillDAO.doSaveSkill(skill));
     }
+
+    @Test
+    public void RemoveSkillOK() throws SQLException{
+        int idSkill= 2;
+        assertTrue(SkillDAO.doRemoveSkill(2));
+    }
+    @Test
+    public void RemoveSkillFail() throws SQLException{
+        int idSkill= 0;
+        assertFalse(SkillDAO.doRemoveSkill(0));
+    }
+
+    @Test
+    public void doRetrieveAllFail() throws SQLException{
+        assertNull(SkillDAO.doRetrieveAll());
+    }
+    @Test
+    public void doRetrieveAllPass() throws SQLException{
+        assertNotNull(SkillDAO.doRetrieveAll());
+    }
+
     @Test
     public void doRetrieveByNameNull() throws SQLException{
         String nomeSkill = null;
