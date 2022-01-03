@@ -17,7 +17,7 @@ public class UploadDispatch extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente)request.getSession().getAttribute("user");
         if(user.getRole()==1){
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Upload.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Upload.jsp");
             dispatcher.forward(request,response);
         }
         else if(user.getRole()==4){
