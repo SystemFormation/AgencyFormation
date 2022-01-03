@@ -40,6 +40,7 @@ public class SkillDAOTest {
         assertFalse(SkillDAO.doRemoveSkill(0));
     }
 
+    // Funziona con il db vuoto
     @Test
     public void doRetrieveAllFail() throws SQLException{
         assertNull(SkillDAO.doRetrieveAll());
