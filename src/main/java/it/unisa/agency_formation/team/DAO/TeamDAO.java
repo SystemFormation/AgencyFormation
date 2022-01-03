@@ -27,7 +27,7 @@ public class TeamDAO {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if(team==null||idUtente<1) return false;
+
         if (team != null) {
             PreparedStatement save = null;
             String query = "insert into " + TABLE_TEAM + "(NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM)"
@@ -67,8 +67,8 @@ public class TeamDAO {
     public static boolean doRemoveTeam(int idTeam) throws SQLException {
         if(idTeam<1) return false;
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = "DELETE FROM " + TABLE_TEAM + "WHERE idTeam=?";
-        String upd = "UPDATE " + TABLE_DIPENDENTE + " SET Stato=0 WHERE IdTeam=?";
+        String query = "DELETE FROM " + TABLE_TEAM + " WHERE idTeam=?";
+        String upd = "UPDATE " + TABLE_DIPENDENTE + " SET Stato=1 WHERE IdTeam=?";
         PreparedStatement stmt = null;
         ResultSet result;
         try {
@@ -177,7 +177,7 @@ public class TeamDAO {
     public static ArrayList<Team> doRetrieveAllTeam() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ArrayList<Team> teams = new ArrayList<>();
-        String query = "SELECT * FROM" + TABLE_TEAM;
+        String query = "SELECT * FROM " + TABLE_TEAM;
         PreparedStatement stmt = null;
         ResultSet result;
         try {
@@ -196,7 +196,8 @@ public class TeamDAO {
             if (teams.size() > 0) {
                 return teams;
             } else {
-                return null;
+                teams = null;
+                return teams;
             }
         } finally {
             try {
@@ -227,7 +228,7 @@ public class TeamDAO {
         ArrayList<Team> teams = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet result;
-        String query = "SELECT * FROM" + TABLE_TEAM + "WHERE IdUtente=?";
+        String query = "SELECT * FROM " + TABLE_TEAM + " WHERE IdUtente=?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idUtente);
@@ -245,7 +246,8 @@ public class TeamDAO {
             if (teams.size() > 0) {
                 return teams;
             } else {
-                return null;
+                teams = null;
+                return teams;
             }
         } finally {
             try {
@@ -305,7 +307,7 @@ public class TeamDAO {
     public static String doRetrieveCompetence(int idTeam) throws SQLException {
         if(idTeam<1) return null;
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = "SELECT Competenza FROM" + TABLE_TEAM + "WHERE IdTeam=?";
+        String query = "SELECT Competenza FROM "  + TABLE_TEAM + " WHERE IdTeam=?";
         PreparedStatement stmt = null;
         String path=null;
         ResultSet result;
