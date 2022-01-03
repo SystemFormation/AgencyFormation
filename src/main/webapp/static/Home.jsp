@@ -3,7 +3,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="css/Common.css">
-    <link rel="icon" type="image/png" href="../img/Logo Team 4-5.png"/>
+    <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
     <title>Home</title>
 </head>
 <body>
@@ -15,10 +15,18 @@
     <div class="content flex">
          <c:choose>
              <c:when test="${user.getRole() == 1}">
-                 <div id="home"><a href="static/Upload.jsp"><h2> Caricamento Documenti </h2></a><br></div>
+                 <div id="home"><a href="UploadDispatch">
+                     <h2> Caricamento Documenti </h2></a>
+                     <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
+                     </p>
+                 </div>
              </c:when>
              <c:when test="${user.getRole() == 2}">
-                 <div id="home"><a href="ProfiloControl"><h2> Profilo </h2></a><br></div>
+                 <div id="home"><a href="ProfiloControl">
+                     <h2> Profilo </h2></a>
+                     <p>Accedi al tuo profilo personale per gestire le tue skill e i tuoi dati personali
+                         e visualizzare il proprio stato</p>
+                 </div>
              </c:when>
              <c:when test="${user.getRole() == 3}">
                  <div id="home"><a href="CreateTeamControl">
@@ -40,7 +48,11 @@
                          al proprio team oppure a quale dipendente occupato per un altro progetto effettuare
                          la richiesta di disponbilità</p>
                  </div>
-                 <div id="home"><a href="ViewCandidatiControl"><h2> Candidati </h2></a><br></div>
+                 <div id="home"><a href="ViewCandidatiControl">
+                     <h2> Lista Candidati </h2></a>
+                     <p>Ottieni la lista candidati per poter controllare: i file caricati da un candidato,
+                     il loro rispettivo nome e cognome e la loro email</p>
+                 </div>
              </c:when>
          </c:choose>
     </div>

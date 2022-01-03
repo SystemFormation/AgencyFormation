@@ -20,8 +20,10 @@ h1 {
 }
 
 .flex {
-    display: flex ;
+    display: flex;
+    justify-content: center;
 }
+
 a {
     text-decoration: none;
     color: #1E1E24;
@@ -82,4 +84,45 @@ textarea {
 .content-team {
     width: 70%;
     margin: auto 15%;
+}
+
+.content-candidati {
+    width: 90%;
+    margin: auto 5%;
+}
+
+#flex {
+    width: 18%;
+    display: inline-block;
+    text-align: center;
+    font-size: 15px;
+    padding-top: 10px;
+    word-wrap: break-word;
+}
+
+#flex-head {
+    width: 18%;
+    display: inline-block;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.dropdown-content {
+    display: none;
+    margin: 10px auto;
+    width: fit-content;
+    height: 155px;
+    border: 2px solid #1E1E24;
+}
+
+.dropdown-content img {
+    display: inline-block;
+    width: 128px;
+    height: 128px;
+}
+
+.dropdown-content p {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
 }

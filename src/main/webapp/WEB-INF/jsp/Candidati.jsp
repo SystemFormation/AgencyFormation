@@ -10,14 +10,14 @@
 <head>
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="js/Candidature.js"></script>
-    <link rel="stylesheet" href="css/Candidati.css">
+    <link rel="stylesheet" href="css/Common.css">
     <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
     <title>Candidati</title>
 </head>
 <body>
 <c:import url="/static/Header.jsp"/>
 <h1>Lista Candidati</h1>
-<div class="content-wrap">
+<div class="content-candidati">
     <div class="content">
             <div id="flex-head">ID</div>
             <div id="flex-head">Nome</div>
