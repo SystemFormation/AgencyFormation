@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Questa classe racchiude tutti i casi di test riguardante SkillDAO
  */
 public class SkillDAOTest {
-
+    //
     @Test
     public void SaveSkillFailSkillNull() throws SQLException{
         Skill skill = null;

@@ -29,7 +29,7 @@ public class SkillControlTest {
     private HttpSession session;
     private RequestDispatcher dispatcher;
 
-
+    //
     @Test
     public void skillNameDescNull() throws IOException, ServletException, SQLException {
         Utente user = UtenteDAO.login("p.severino@studenti.unisa.it","lol");

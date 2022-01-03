@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class AddTeamControl extends HttpServlet {
 
     private TeamManagerImpl teamManager = new TeamManagerImpl();
-
+    //
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
