@@ -184,7 +184,8 @@ public class UtenteDAO {
             if (utenti.size() > 0) {
                 return utenti;
             } else {
-                return null;
+                utenti = null;
+                return utenti;
             }
         } finally {
             try {
