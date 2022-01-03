@@ -203,7 +203,7 @@ public class CandidaturaDAO {
         ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_CANDIDATURA + " Where Stato=?";
-        ArrayList<Candidatura> candidature = null;
+        ArrayList<Candidatura> candidature = new ArrayList<>();
         try {
             retrieve = connection.prepareStatement(query);
             retrieve.setString(1, stato);
@@ -221,7 +221,10 @@ public class CandidaturaDAO {
                 candidature.add(cand);
             }
             if (candidature.size() > 0) return candidature;
-            else return null;
+            else{
+              candidature = null;
+              return candidature;
+            }
         } finally {
             try {
                 if (retrieve != null) {
@@ -295,15 +298,15 @@ public class CandidaturaDAO {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = "DELETE FROM " + TABLE_CANDIDATURA + "WHERE idCandidatura=?";
+        String query = "DELETE FROM " + TABLE_CANDIDATURA + " WHERE idCandidatura=?";
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idCandidatura);
             int result = stmt.executeUpdate();
-            if (result != -1) {
+            if(result!=-1) {
                 return true;
-            } else {
+            }else{
                 return false;
             }
         } finally {

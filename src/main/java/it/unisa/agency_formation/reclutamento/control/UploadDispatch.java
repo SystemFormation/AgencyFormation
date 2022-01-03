@@ -21,7 +21,7 @@ public class UploadDispatch extends HttpServlet {
             dispatcher.forward(request,response);
         }
         else if(user.getRole()==4){
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/UploadMateriale.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/UploadMateriale.jsp");
             dispatcher.forward(request,response);
         }
     }

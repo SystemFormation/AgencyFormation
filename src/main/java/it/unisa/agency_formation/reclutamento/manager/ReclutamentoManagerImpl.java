@@ -10,9 +10,12 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public boolean uploadCandidatureWithoutDocument(Candidatura candidatura) throws SQLException {
-        if (!alreadyLoaded(candidatura.getIdCandidato())) {
-            CandidaturaDAO.doSaveCandidaturaWithoutDocument(candidatura);
-            return true;
+        if(candidatura == null){
+            return false;
+        }
+        else if (!alreadyLoaded(candidatura.getIdCandidato())) {
+            return CandidaturaDAO.doSaveCandidaturaWithoutDocument(candidatura);
+
         } else {
             return false;
         }
