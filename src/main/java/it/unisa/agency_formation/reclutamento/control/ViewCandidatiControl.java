@@ -17,20 +17,18 @@ import java.util.ArrayList;
 
 @WebServlet("/ViewCandidatiControl")
 public class ViewCandidatiControl extends HttpServlet {
-    private AutenticazioneManager aut = new AutenticazioneManagerImpl();
+    private static final AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Utente> candidati;
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //AutenticazioneManagerImpl aut=(AutenticazioneManagerImpl) request.getAttribute("aut");
         try {
-            candidati = aut.getCandidates();
+            ArrayList<Utente> candidati = aut.getCandidates();
             if(candidati!=null && candidati.size()>0) {
                 request.setAttribute("candidati", candidati);
                 response.getWriter().write("1");//ci sono i candidati
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidati.jsp");
                 dispatcher.forward(request, response);
             }else{
-                //TODO
-
                 response.getWriter().write("2");//non ci sono candidati
             }
         } catch (SQLException e) {

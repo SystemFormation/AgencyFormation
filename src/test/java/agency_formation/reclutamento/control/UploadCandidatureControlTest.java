@@ -14,26 +14,7 @@ import javax.servlet.http.HttpSession;
 
 public class UploadCandidatureControlTest {
 
-   /* private HttpServletRequest request;
-    private HttpServletResponse response;
-    private HttpSession session;
-    private RequestDispatcher dispatcher;
-    private ServletConfig config;
-    private ServletContext context;
 
-    @BeforeAll
-    public void setup(){
-        request = Mockito.mock(HttpServletRequest.class);
-        response = Mockito.mock(HttpServletResponse.class);
-        session = Mockito.mock(HttpSession.class);
-        dispatcher = Mockito.mock(RequestDispatcher.class);
-        config = Mockito.mock(ServletConfig.class);
-        context = Mockito.mock(ServletContext.class);
-    }
-    @Test
-    public void viewCandidatiPass(){
-        ViewCandidatiControl servlet = new ViewCandidatiControl()
-    }
 
-*/
+
 }
