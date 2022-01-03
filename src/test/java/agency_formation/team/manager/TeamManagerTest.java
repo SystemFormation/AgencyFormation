@@ -1,24 +1,34 @@
 package agency_formation.team.manager;
 
 
-import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import java.sql.SQLException;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mockStatic;
 
 //Questa classe testa i metodi della classe TeamManagerImpl
-/*
+
 public class TeamManagerTest {
-    TeamDAO dao = Mockito.mock(TeamDAO.class);
-    TeamManagerImpl team = new TeamManagerImpl(dao);
+    TeamManagerImpl aut = new TeamManagerImpl();
 
     @Test
-    public void createTeam() throws SQLException{}
+    public void createTeamPass() throws SQLException{
+        int id = 3;
+        Team team = new Team("Agency Formation",4,"The system errors","i membri sono dei geni",null,3);
+        try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
+            mocked.when(() -> TeamDAO.doSaveTeam(team,id)).thenReturn(true);
+        }
+        assertTrue(aut.createTeam(team,id));
+    }
     @Test
     public void getEmployee() throws SQLException {}
     @Test
@@ -28,4 +38,3 @@ public class TeamManagerTest {
     @Test
     public void disbandTeam() throws SQLException {}
 }
-*/
