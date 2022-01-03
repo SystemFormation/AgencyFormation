@@ -5,6 +5,7 @@ import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mockStatic;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
@@ -18,16 +19,15 @@ public class AutenticazioneManagerTest {
     AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
 
 
+
     @Test
     public void registrationFail() throws SQLException {
         Utente user = new Utente("Francesco", "Cecco", "fra@gmail.com", "lol", 1);
 
-        try (MockedStatic mocked = Mockito.mockStatic(UtenteDAO.class)) {
-            mocked.when(UtenteDAO.doSaveUser(user)).thenReturn(false);
-            assertEquals("bar", Foo.method());
-            mocked.verify(UtenteDAO::doSaveUser);
+        try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
+            mocked.when(() -> UtenteDAO.doSaveUser(user)).thenReturn(false);
+            mocked.verify(() -> UtenteDAO.doSaveUser(user));
         }
-        Mockito.when(dao.doSaveUser(user)).thenReturn(false);
         assertFalse(aut.registration(user));
     }
 

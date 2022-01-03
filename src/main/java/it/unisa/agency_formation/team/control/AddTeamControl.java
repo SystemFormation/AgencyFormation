@@ -19,17 +19,19 @@ public class AddTeamControl extends HttpServlet {
     private TeamManagerImpl teamManager = new TeamManagerImpl();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         String action = req.getParameter("action");
         try {
             if (action == null) {
-                dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
-                dispatcher.forward(req, resp);
+                    resp.getWriter().write("1");//action null
+                    dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
+                    dispatcher.forward(req, resp);
             } else if (action.equalsIgnoreCase("aggiungi")) {
                 int idDip = Integer.parseInt(req.getParameter("id"));
                 int idTeam = teamManager.viewLastIdTeam();
                 teamManager.updateDipOnTeam(idDip, idTeam);
+                resp.getWriter().write("2");//action null
                 dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
                 dispatcher.forward(req, resp);
             }
@@ -39,7 +41,7 @@ public class AddTeamControl extends HttpServlet {
     }
 
     @Override
-    protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 }

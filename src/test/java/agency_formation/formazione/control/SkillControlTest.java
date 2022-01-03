@@ -30,7 +30,6 @@ public class SkillControlTest {
     private RequestDispatcher dispatcher;
 
 
-    //Da rivere //TODO
     @Test
     public void skillNameDescNull() throws IOException, ServletException, SQLException {
         Utente user = UtenteDAO.login("p.severino@studenti.unisa.it","lol");
@@ -49,17 +48,38 @@ public class SkillControlTest {
         assertTrue(stringWriter.toString().contains("5"));
     }
     @Test
-    public void skillNameNull() throws IOException, ServletException{
+    public void skillNameNull() throws IOException, ServletException, SQLException {
+        Utente user = UtenteDAO.login("p.severino@studenti.unisa.it","lol");
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(request.getParameter("skillName")).thenReturn(null);
         Mockito.when(request.getParameter("skillDescr")).thenReturn("Conoscenza base");
+        Mockito.when(session.getAttribute("user")).thenReturn(user);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
         new SkillControl().doPost(request,response);
         writer.flush();
-        assertTrue(stringWriter.toString().contains("1"));
+        assertFalse(stringWriter.toString().contains("1"));
+    }
+    @Test
+    public void skillDescNull() throws IOException, ServletException, SQLException {
+        Utente user = UtenteDAO.login("p.severino@studenti.unisa.it","lol");
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        Mockito.when(request.getSession()).thenReturn(session);
+        Mockito.when(request.getParameter("skillName")).thenReturn("JAVASCRIPT");
+        Mockito.when(request.getParameter("skillDescr")).thenReturn(null);
+        Mockito.when(session.getAttribute("user")).thenReturn(user);
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
+        Mockito.when(response.getWriter()).thenReturn(writer);
+        new SkillControl().doPost(request,response);
+        writer.flush();
+        assertFalse(stringWriter.toString().contains("2"));
     }
     @Test
     public void skillPass() throws IOException, ServletException, SQLException {
@@ -84,4 +104,5 @@ public class SkillControlTest {
         servlet.doGet(request,response);
         assertTrue(stringWriter.toString().equals("3"));
     }
+    //se dip != null , numero 4 TODO
 }
