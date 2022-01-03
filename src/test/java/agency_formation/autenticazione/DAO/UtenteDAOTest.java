@@ -1,4 +1,4 @@
-package agency_formation.DAO;
+package agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
@@ -81,7 +81,7 @@ public class UtenteDAOTest {
 
     @Test
     public void retrieveByRuoloSizeLessOne() throws SQLException {
-        assertNull(UtenteDAO.doRetrieveUserByRuolo(4));
+        assertNull(UtenteDAO.doRetrieveUserByRuolo(0));
     }
 
     @Test

@@ -19,13 +19,11 @@ import java.sql.SQLException;
 
 @WebServlet("/SkillControl")
 public class SkillControl extends HttpServlet {
-   private FormazioneManagerImpl aut = new FormazioneManagerImpl();
+    private FormazioneManagerImpl aut = new FormazioneManagerImpl();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-
         Skill skill = new Skill();
 
         String skillName = request.getParameter("skillName");
@@ -33,22 +31,41 @@ public class SkillControl extends HttpServlet {
 
         skill.setNomeSkill(skillName);
         skill.setDescrizioneSkill(skillDescr);
-        try{
-            //Da raffinare
-            Dipendente dip = DipendenteDAO.doRetrieveById(user.getId());
-            aut.addSkill(skill,dip);
-            int idSkill = aut.getLastIdSkillCreated();
-            aut.addSkillDip(idSkill,dip);
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Home.jsp");
-            dispatcher.forward(request,response);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (skillName != null && skillDescr != null) {
+            if(skillName.trim().equalsIgnoreCase("")) {
+                response.getWriter().write("1");// Skillnome vuoto
+            }
+            if(skillDescr.trim().equalsIgnoreCase("")){
+                response.getWriter().write("2"); //Skilldesc vuoto
+            }
+            try {
+                //Da raffinare
+                Dipendente dip = DipendenteDAO.doRetrieveById(user.getId());
+                if(dip !=null){
+                    aut.addSkill(skill);
+                    int idSkill = aut.getLastIdSkillCreated();
+                    aut.addSkillDip(idSkill, dip);
+                    response.getWriter().write("3"); // aggiunta venuto con successo.
+                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Home.jsp");
+                    dispatcher.forward(request, response);
+                } else {
+                    response.getWriter().write("4");// aggiunta fallita.
+                    response.sendRedirect("./static/Profilo.jsp");
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        }else{
+            response.getWriter().write("5"); //skillNome e skillDescr null
+            response.sendRedirect("./static/Profilo.jsp");
         }
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 }

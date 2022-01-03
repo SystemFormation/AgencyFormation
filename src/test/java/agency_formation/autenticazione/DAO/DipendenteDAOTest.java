@@ -1,4 +1,4 @@
-package agency_formation.DAO;
+package agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
@@ -11,54 +11,52 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class DipendenteDAOTest {
-    private DipendenteDAO dao = new DipendenteDAO();
-
     @Test
     public void doSaveEmployeeFail() throws SQLException {
         Dipendente dip = null;
-        assertFalse(dao.doSaveEmploye(dip));
+        assertFalse(DipendenteDAO.doSaveEmploye(dip));
     }
 
     @Test
     public void doSaveEmployeeOk() throws SQLException {
         Dipendente dip = new Dipendente(4, 1, 2000, "Fisciano", "118", true);
-        assertTrue(dao.doSaveEmploye(dip));
+        assertTrue(DipendenteDAO.doSaveEmploye(dip));
     }
 
     @Test
     public void doRetrieveByIdLessZero() throws SQLException {
         int id = -1;
-        assertNull(dao.doRetrieveById(id));
+        assertNull(DipendenteDAO.doRetrieveById(id));
     }
 
     @Test
     public void doRetrieveByIdFail() throws SQLException {
         int id = 4845684; //queso id non esiste
-        assertNull(dao.doRetrieveById(id));
+        assertNull(DipendenteDAO.doRetrieveById(id));
     }
 
 
     @Test
     public void doRetrieveByIdPass() throws SQLException {
         int id = 4;
-        Dipendente dip = dao.doRetrieveById(id);
+        Dipendente dip = DipendenteDAO.doRetrieveById(id);
         assertNotNull(dip);
     }
 
     @Test
     public void doRetrieveAllSizeLessOne() throws SQLException {
-        assertNull(dao.doRetrieveAll());
+        assertNull(DipendenteDAO.doRetrieveAll());
     }
 
     @Test
     public void doRetrieveAllPass() throws SQLException {
-        assertNotNull(dao.doRetrieveAll().size());
+        assertNotNull(DipendenteDAO.doRetrieveAll().size());
     }
 
     @Test
     public void updateStateFailIdLessOne() throws SQLException {
         int id = -1;
-        assertFalse(dao.updateState(id, true));
+        assertFalse(DipendenteDAO.updateState(id, true));
     }
 
 
@@ -66,41 +64,41 @@ public class DipendenteDAOTest {
     public void updateStatePass() throws SQLException {
         int id = 2;
         boolean ver = true;  //stato=1
-        assertTrue(dao.updateState(id, ver));
+        assertTrue(DipendenteDAO.updateState(id, ver));
     }
 
     //test per dim array minore di uno
     @Test
     public void doRetrieveByStateSizeLessOne() throws SQLException {
-        assertNull(dao.doRetrieveByState(false));
+        assertNull(DipendenteDAO.doRetrieveByState(false));
     }
 
     @Test
     public void doRetrieveByStateSizeMoreZero() throws SQLException {
-        assertNotNull(dao.doRetrieveByState(true));
+        assertNotNull(DipendenteDAO.doRetrieveByState(true));
     }
 
     // testa il retreve dei dipendenti con stato true
     @Test
     public void doRetrieveByStateTrueNotPass() throws SQLException {
-        assertNull(dao.doRetrieveByState(true));
+        assertNull(DipendenteDAO.doRetrieveByState(true));
 
 
     }
 
     @Test
     public void doRetrieveByStateTruePass() throws SQLException {
-        assertNotNull(dao.doRetrieveByState(true));
+        assertNotNull(DipendenteDAO.doRetrieveByState(true));
     }
 
     @Test
     public void doRetrieveByStateFalseNotPass() throws SQLException {
-        assertNull(dao.doRetrieveByState(false));
+        assertNull(DipendenteDAO.doRetrieveByState(false));
     }
 
     @Test
     public void doRetrieveByStateFalsePass() throws SQLException {
-        assertNotNull(dao.doRetrieveByState(false));
+        assertNotNull(DipendenteDAO.doRetrieveByState(false));
     }
 
     @Test

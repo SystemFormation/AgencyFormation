@@ -22,9 +22,9 @@ public class SkillDAO {
      * @throws SQLException
      * @pre skill!=null && dip!=null
      */
-    public static boolean doSaveSkill(Skill skill, Dipendente dip) throws SQLException {
+    public static boolean doSaveSkill(Skill skill) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (skill != null && dip!=null) {
+        if (skill != null) {
             PreparedStatement save = null;
 
             String query = "insert into " + TABLE_SKILL + " (NomeSkill, DescrizioneSkill)" +

@@ -29,9 +29,9 @@ public class FormazioneManagerImpl implements FormazioneManager {
     //Aggiungere doRetrieveLastId();
     //aggiungere doSaveSkillDip(x,dip);
     @Override
-    public boolean addSkill(Skill skill, Dipendente dip) throws SQLException {
+    public boolean addSkill(Skill skill) throws SQLException {
         if (!alreadyInsertSkill(skill)) {
-            return SkillDAO.doSaveSkill(skill, dip);
+            return SkillDAO.doSaveSkill(skill);
         } else {
             return false;
         }

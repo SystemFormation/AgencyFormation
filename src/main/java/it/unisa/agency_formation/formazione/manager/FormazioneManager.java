@@ -13,7 +13,7 @@ public interface FormazioneManager {
     void uploadDocument(String MaterialeDiFormazione);
 
     //   Documento viewDocument(int idDocument);     Fare Entita Documento
-    boolean addSkill(Skill skill, Dipendente dip) throws SQLException;
+    boolean addSkill(Skill skill) throws SQLException;
 
     void removeSkill(Skill skill);
 
