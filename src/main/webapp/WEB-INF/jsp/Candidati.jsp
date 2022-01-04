@@ -31,6 +31,8 @@
             <div id="flex">
                 <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra file</button>
                 <button onclick="acceptCandidature(${cand.getId()})">Accetta</button>
+
+
                 <button onclick="rejectCandidature(${cand.getId()})">Rifiuta</button>
             </div>
             <div name="drop" class="dropdown-content" style="display:none">

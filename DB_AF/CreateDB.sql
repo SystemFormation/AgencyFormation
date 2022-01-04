@@ -68,9 +68,9 @@ use af_db;
 create table Documenti(
 IdDocumento int primary key not null auto_increment,
 MaterialeDiFormazione varchar(512) not null, 
-IdUtente int not null,
+IdHR int not null,
 IdTeam int not null,
-foreign key(IdUtente) references dipendenti(IdDipendente)
+foreign key(IdHR) references utenti(IdUtente)
 on update cascade
 on delete cascade,
 foreign key(IdTeam) references team(IdTeam)
