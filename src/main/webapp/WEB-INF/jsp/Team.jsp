@@ -1,10 +1,12 @@
 <%@ page import="it.unisa.agency_formation.team.domain.Team" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="it.unisa.agency_formation.autenticazione.domain.Dipendente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
     ArrayList<Team> listTeam = (ArrayList<Team>) request.getAttribute("listTeam");
+    ArrayList<Dipendente> listDip = (ArrayList<Dipendente>) request.getAttribute("listDip");
 %>
 <html>
 <head>
@@ -16,19 +18,39 @@
 <c:import url="/static/Header.jsp"/>
 <h1>Team</h1>
 <div class="flex">
-
     <c:choose>
         <c:when test="${user.getRole()==3}">
             <c:forEach var="team" items="${listTeam}">
                 <div class="team">
-                    <h2>${team.getNomeTeam()}</h2>
-                    <h3>${team.getNomeProgetto()}</h3>
-                        ${team.getNumeroDipendenti()}
-                        ${team.getDescrizione()}
-                    <button><a href="/static/Error.html">Specifica Competenze</a></button>
-                    <c:if test="${team.getNumeroDipendenti() < 10}">
-                        <button><a href="DipendenteControl">Cerca Dipendenti</a></button>
-                    </c:if>
+                    <div class="team-inf">
+                        <div id="flex-team"><h2>${team.getNomeTeam()}</h2></div>
+                        <div id="flex-team"><h3>${team.getNomeProgetto()}</h3></div>
+                        <div id="flex-team"><h4>Numero dipendenti:${team.getNumeroDipendenti()}</h4></div>
+                    </div>
+                    <div class="team-descr">
+                        <h4>Descrizione</h4>
+                        <div id="flex-team">${team.getDescrizione()}</div>
+                    </div>
+
+                    <div class="team-dip">
+                        <h4>Dipendenti</h4>
+                        <div id="flex-team-dip">
+                            <c:forEach var="dip" items="listDip">
+                                <c:if test="${team.getIdTeam() == dip.getIdTeam()}">
+                                    <div>${user.getNome()}</div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </div>
+                    <div class="team-button">
+                        <div id="flex-team-button">
+                            <button><a href="/static/Error.html">Specifica Competenze</a></button>
+                            <br>
+                            <c:if test="${team.getNumeroDipendenti() < 10}">
+                                <button><a href="DipendenteControl">Aggiungi Dipendenti</a></button>
+                            </c:if>
+                        </div>
+                    </div>
                 </div>
             </c:forEach>
         </c:when>

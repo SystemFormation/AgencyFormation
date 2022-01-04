@@ -30,7 +30,7 @@ a {
     color: #1E1E24;
 }
 
-a:hover {
+#flex input:hover, button:hover, a:hover {
     font-weight: bold;
 }
 
@@ -106,16 +106,16 @@ textarea {
     word-wrap: break-word;
 }
 
-#flex input{
+#flex form {
+    display: inline-block;
+}
+
+#flex input, #flex button{
     font-size: 18px;
     border-radius: 2rem;
     padding: 6px;
     background-color: #59A5D8;
     font-family: monospace;
-}
-
-#flex input:hover {
-    font-weight: bold;
 }
 
 #flex-head {
@@ -165,4 +165,24 @@ textarea {
     padding: 10px;
     margin-bottom: 20px;
     width: 80%;
+}
+
+.team-inf, .team-descr, .team-button, .team-dip {
+    display: inline-block;
+    font-size: 23px;
+    width: 24%;
+}
+
+.team {
+    display: flex;
+    align-items: center;
+}
+
+#flex-team-button button{
+    font-size: 18px;
+    border-radius: 2rem;
+    padding: 6px;
+    background-color: #59A5D8;
+    font-family: monospace;
+    margin-bottom: 20px;
 }
