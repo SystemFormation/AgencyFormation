@@ -18,7 +18,6 @@ import java.sql.SQLException;
 @WebServlet("/ViewCandidaturaControl")
 public class ViewCandidatureControl extends HttpServlet {
     private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
-    private String directory = System.getProperty("user.home");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

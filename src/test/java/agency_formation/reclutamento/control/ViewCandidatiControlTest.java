@@ -69,6 +69,13 @@ public class ViewCandidatiControlTest {
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         //Mockito.when(request.getAttribute("aut")).thenReturn(aut);
+
+
+
+
+
+
+
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);

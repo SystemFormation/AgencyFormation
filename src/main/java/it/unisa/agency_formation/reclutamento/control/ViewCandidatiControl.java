@@ -22,7 +22,7 @@ public class ViewCandidatiControl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //AutenticazioneManagerImpl aut=(AutenticazioneManagerImpl) request.getAttribute("aut");
         try {
-            ArrayList<Utente> candidati = aut.getCandidates();
+            ArrayList<Utente> candidati = aut.getCandidatesWithCandidature();
             if(candidati!=null && candidati.size()>0) {
                 request.setAttribute("candidati", candidati);
                 response.getWriter().write("1");//ci sono i candidati

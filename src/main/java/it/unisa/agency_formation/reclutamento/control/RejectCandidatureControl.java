@@ -1,5 +1,7 @@
 package it.unisa.agency_formation.reclutamento.control;
 
+import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -8,41 +10,58 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
 
-/*----------------GENNY SO CHE E' SBAGLIATA, NON TE LA PRENDERE-------------------*/
+
 @WebServlet("/RejectCandidateControl")
 public class RejectCandidatureControl extends HttpServlet {
-    private static final ReclutamentoManagerImpl rec = new ReclutamentoManagerImpl();
+    private String path ="\\AgencyFormationFile\\Candidature\\";
+    private String pathAbsolute = System.getProperty("user.home") + path;
 
-
-    //-----------------------LASCIAMI TROVARE UNA SOLUZIONE MIGLIORE----------------//
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-        String action = req.getParameter("action");
-        //TODO
+        int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
         try {
-            if (action == null) {
-                resp.getWriter().write("notAction");//action= null
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidati.jsp");
-                dispatcher.forward(req, resp);
-            } else if (action.equalsIgnoreCase("reject")) {
-                int idCandidato = Integer.parseInt(req.getParameter("id"));
-                rec.rejectCandidature(idCandidato);
-                resp.getWriter().write("reject");
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidati.jsp");
-                dispatcher.forward(req, resp);
+            Candidatura candidatura = getCandidatura(idCandidato);
+            File toDelete = new File(pathAbsolute+"IdUtente-"+candidatura.getIdCandidato());
+            delete(toDelete);
+            if(rejectCandidatura(candidatura.getIdCandidatura())){
+                dispatcher = getServletContext().getRequestDispatcher("/ViewCandidatiControl");
+                dispatcher.forward(request,response);
+            }else{
+                //TODO errore nel rifiutare la candidatura
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+
+    public static Candidatura getCandidatura(int idCandidato) throws SQLException{
+        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
+        return reclutamentoManager.getCandidaturaById(idCandidato);
+    }
+    public static boolean rejectCandidatura(int idCandidatura) throws SQLException{
+        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
+        return reclutamentoManager.rejectCandidature(idCandidatura);
+    }
+    public static void delete(File file){
+        for (File subFile : file.listFiles()) {
+            if(subFile.isDirectory()) {
+                delete(subFile);
+            } else {
+                subFile.delete();
+            }
+        }
+        file.delete();
     }
 }

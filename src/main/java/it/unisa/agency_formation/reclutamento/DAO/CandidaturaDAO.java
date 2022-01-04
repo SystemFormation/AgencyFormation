@@ -318,4 +318,45 @@ public class CandidaturaDAO {
             }
         }
     }
+
+
+                                            /*Nuovi metodi*/
+
+    /**
+     * Quersta funzionalità permette di rifiutare una candidatura
+     * @param idCandidatura
+     * @pre idCandidatura>0
+     *
+     * */
+    public static boolean doRejectCandidatura(int idCandidatura) throws SQLException {
+        if (idCandidatura < 1) {
+            return false;
+        }
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        String statoCandidatura = "Rifiutata";
+        String delete= "deleted";
+        updateState(idCandidatura,statoCandidatura);
+        String query = "update " + TABLE_CANDIDATURA +" set Curriculum=?, DocumentiAggiuntivi=? where IdCandidatura=?";
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1,delete);
+            stmt.setString(2,delete);
+            stmt.setInt(3, idCandidatura);
+            int result = stmt.executeUpdate();
+            if(result!=-1) {
+                return true;
+            }else{
+                return false;
+            }
+        } finally {
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } finally {
+                if (connection != null)
+                    connection.close();
+            }
+        }
+    }
 }

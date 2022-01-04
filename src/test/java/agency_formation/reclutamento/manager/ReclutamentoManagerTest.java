@@ -129,8 +129,9 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         cand.setIdCandidatura(1);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.doRetrieveById(id)).thenReturn(cand);
+            assertNotNull(reclutamento.getCandidaturaById(id));
         }
-        assertNotNull(reclutamento.getCandidaturaById(id));
+
     }
 
 }

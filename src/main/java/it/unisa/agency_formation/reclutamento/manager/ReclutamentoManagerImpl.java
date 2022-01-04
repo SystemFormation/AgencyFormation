@@ -47,8 +47,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public boolean rejectCandidature(int idCandidatura) throws SQLException{
-        if(CandidaturaDAO.doRemoveCandidatura(idCandidatura)==true){
-            CandidaturaDAO.updateState(idCandidatura, "Rifiutato");
+        if(CandidaturaDAO.doRejectCandidatura(idCandidatura)){
             return true;
         } else{
             return false;

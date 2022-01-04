@@ -199,4 +199,49 @@ public class UtenteDAO {
             }
         }
     }
+
+    //TODO TEST THIS METHOD
+    public static ArrayList<Utente> doRetrieveCandidatesWithCandidature() throws SQLException {
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        ResultSet result;
+        PreparedStatement retrieve = null;
+        String query = "select IdUtente,Nome,Cognome,Pwd,Mail,Ruolo from utenti inner join candidature " +
+                "on utenti.IdUtente=candidature.IdCandidato and candidature.Curriculum!=?";
+
+        ArrayList<Utente> utenti = new ArrayList<>();
+        try {
+            retrieve = connection.prepareStatement(query);
+            retrieve.setString(1, "deleted");
+            result = retrieve.executeQuery();
+            while (result.next()) {
+                Utente user = new Utente();
+                user.setId(result.getInt("IdUtente"));
+                user.setName(result.getString("Nome"));
+                user.setSurname(result.getString("Cognome"));
+                user.setPwd(result.getString("Pwd"));
+                user.setEmail(result.getString("Mail"));
+                user.setRole(result.getInt("Ruolo"));
+                utenti.add(user);
+            }
+            if (utenti.size() > 0) {
+                return utenti;
+            } else {
+                utenti = null;
+                return utenti;
+            }
+        } finally {
+            try {
+                if (retrieve != null) {
+                    retrieve.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
+    }
+
+
+
 }
