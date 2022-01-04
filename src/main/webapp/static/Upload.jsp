@@ -16,14 +16,14 @@
     </div>
 
     <form action="UploadCandidatureControl" id="curriculum" method="post" enctype = "multipart/form-data">
-        Curriculum
+        Curriculum<br><br>
         <input type="file" id="fileCurriculum" name="curriculum" size="50"><br><br>
         <input type="hidden" id="sceltaCurriculum" name="sceltaUpload" value="1">
         <input type="submit" value="Carica" id="uploadCurriculum">
     </form>
 
     <form action="UploadCandidatureControl" id="documenti" method="post" enctype = "multipart/form-data">
-        Documenti aggiuntivi
+        Documenti aggiuntivi<br><br>
         <input type="file" id="fileDocumenti" name="documenti" size="50"><br><br>
         <input type="hidden" id="sceltaDocumenti" name="sceltaUpload" value="2">
         <input type="submit" value="Carica" id="uploadDocumenti">

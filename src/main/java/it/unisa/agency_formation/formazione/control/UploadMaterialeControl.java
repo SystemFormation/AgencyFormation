@@ -26,7 +26,7 @@ public class UploadMaterialeControl extends HttpServlet {
         File file = new File(pathAbsolute+"\\"+"IdTeam-"+idTeam);
         Documento documento = new Documento();
         file.mkdirs();
-        Part part = (Part) request.getPart("curriculum");
+        Part part = (Part) request.getPart("materiale");
         part.write(file.getAbsolutePath()+"\\"+part.getSubmittedFileName());
         String pathMaterialeFormazione = pathRelative+"\\"+"IdTeam-"+idTeam+"\\"+part.getSubmittedFileName();
         documento.setMaterialeDiFormazione(pathMaterialeFormazione);
