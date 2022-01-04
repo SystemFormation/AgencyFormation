@@ -210,19 +210,41 @@ textarea {
     display: none;
     position: relative;
     width: 300px;
-    height: 0;
-    bottom: 25px;
-    right: -54.5%;
+    bottom: 55px;
+    right: -15px;
     z-index: 1;
+    padding-top: -10px;
+    background-color: #59A5D8;
+    border: 2px solid black;
+    border-radius: 2rem;
+    font-family: monospace;
 }
 
 .colloquio input {
-    font-size: 15px;
+    font-size: 18px;
+    font-family: monospace;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: unset;
+    border-bottom: 2px solid #1E1E24;
+}
+
+.colloquio button {
+    display: inline-block;
+    border: none;
+    border-radius: unset;
+    border-bottom: 2px solid #1E1E24;
 }
 
 input, button {
     color: #1E1E24;
 }
+
+.dropdown {
+    display: inline-block;
+    padding: 10px;
+}
+
 input[type=file]::file-selector-button {
     border: 2px solid #1E1E24;
     padding: .5em 1em;

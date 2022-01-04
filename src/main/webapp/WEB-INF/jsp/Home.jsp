@@ -20,6 +20,12 @@
                      <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
                      </p>
                  </div>
+                 <c:if test="${dip.isStato() == true}">
+                     <div class ="disponibile">.</div>
+                 </c:if>
+                 <c:if test="${dip.isStato() == false}">
+                     <div class="occupato">.</div>
+                 </c:if>
              </c:when>
              <c:when test="${user.getRole() == 2}">
                  <div id="home"><a href="ProfiloControl">

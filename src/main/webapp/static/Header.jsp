@@ -16,7 +16,7 @@
     </div>
     <ul>
         <c:if test="${user == null}">
-        <li><a href="../AgencyFormation">Home</a></li>
+Fixi        <li><a href="">Home</a></li>
         </c:if>
         <c:if test="${(user!=null && user.getRole()>=1 && user.getRole()<=4)}">
         <li><a href="LoginControl">Home</a></li>
