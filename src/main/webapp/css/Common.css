@@ -82,7 +82,7 @@ textarea {
     width: 50%;
 }
 
-.content-team {
+.content-createTeam {
     width: 70%;
     margin: auto 15%;
 }
@@ -92,19 +92,36 @@ textarea {
     margin: auto 5%;
 }
 
+.content hr{
+    background-color: #101d42;
+    border: solid 2px #101d42;
+}
+
 #flex {
-    width: 18%;
+    width: 24%;
     display: inline-block;
     text-align: center;
-    font-size: 15px;
+    font-size: 25px;
     padding-top: 10px;
     word-wrap: break-word;
 }
 
+#flex input{
+    font-size: 18px;
+    border-radius: 2rem;
+    padding: 6px;
+    background-color: #59A5D8;
+    font-family: monospace;
+}
+
+#flex input:hover {
+    font-weight: bold;
+}
+
 #flex-head {
-    width: 18%;
+    width: 24%;
     display: inline-block;
-    font-size: 25px;
+    font-size: 30px;
     font-weight: bold;
 }
 
@@ -137,4 +154,15 @@ textarea {
     left: 50%;
     bottom: 50%;
     transform: translate(-50%, 50%);
+}
+
+.team {
+    box-shadow: 15px 15px 30px rgb(71 71 71);
+    border-radius: 1rem;
+    border-style: groove;
+    background-color: #9CC9E8;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 80%;
 }

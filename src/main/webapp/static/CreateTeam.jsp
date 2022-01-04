@@ -11,7 +11,7 @@
 <body>
 <c:import url="Header.jsp"/>
 <h1>Creazione Team</h1>
-<div class="content-team">
+<div class="content-createTeam">
     <div class="content">
         <div class="form">
             <form action="CreateTeamControl" method="post" id="formTeam">
