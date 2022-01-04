@@ -25,14 +25,6 @@ public class Candidatura {
         this.idCandidatura = idCandidatura;
     }
 
-    public String getCv() {
-        return curriculum;
-    }
-
-    public void setCv(String cv) {
-        this.curriculum = cv;
-    }
-
     public String getStato() {
         return stato;
     }

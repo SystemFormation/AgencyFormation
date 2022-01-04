@@ -30,7 +30,7 @@ public class CandidaturaDAO {
                 + "VALUES(?,?,?,?)";
         try {
             save = connection.prepareStatement(query);
-            save.setString(1, candidatura.getCv());
+            save.setString(1, candidatura.getCurriculum());
             save.setString(2, candidatura.getStato());
             save.setDate(3, (Date) candidatura.getDataCandidatura());
             save.setInt(4, candidatura.getIdCandidato());
@@ -119,7 +119,7 @@ public class CandidaturaDAO {
             if (result.next()) {
                 cand = new Candidatura();
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
-                cand.setCv(result.getString("Curriculum"));
+                cand.setCurriculum(result.getString("Curriculum"));
                 cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
                 cand.setStato(result.getString("Stato"));
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
@@ -159,7 +159,7 @@ public class CandidaturaDAO {
             while (result.next()) {
                 Candidatura cand = new Candidatura();
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
-                cand.setCv(result.getString("Curriculum"));
+                cand.setCurriculum(result.getString("Curriculum"));
                 cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
                 cand.setStato(result.getString("Stato"));
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
@@ -210,7 +210,7 @@ public class CandidaturaDAO {
             while (result.next()) {
                 Candidatura cand = new Candidatura();
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
-                cand.setCv(result.getString("Curriculum"));
+                cand.setCurriculum(result.getString("Curriculum"));
                 cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
                 cand.setStato(result.getString("Stato"));
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));

@@ -66,4 +66,15 @@ function rejectCandidature(id){
         }
     })
 }
-
+function open(index){
+    var index = index;
+    var x = document.getElementById("colloquio");
+    var setting = x.style.display;
+    if(setting == "none"){
+        x.style.display = "block";
+        console.log("ciao");
+    }
+    else{
+        x.style.display = "none";
+    }
+}

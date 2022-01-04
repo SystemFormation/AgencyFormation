@@ -9,23 +9,25 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
 
     @Override
-    public boolean uploadCandidatureWithoutDocument(Candidatura candidatura) throws SQLException {
+    public boolean uploadCandidature(Candidatura candidatura) throws SQLException {
         if(candidatura == null){
             return false;
-        }
-        else if (!alreadyLoaded(candidatura.getIdCandidato())) {
-            return CandidaturaDAO.doSaveCandidaturaWithoutDocument(candidatura);
-
-        } else {
-            return false;
+        }else {
+            if (!alreadyLoaded(candidatura.getIdCandidato())) {
+                if(candidatura.getCurriculum()!=null && candidatura.getDocumentiAggiuntivi()==null) {
+                    return CandidaturaDAO.doSaveCandidaturaWithoutDocument(candidatura);
+                }
+                else{
+                   return CandidaturaDAO.addDocument(candidatura.getDocumentiAggiuntivi(), candidatura.getIdCandidato());
+                }
+            } else {
+                return false;
+            }
         }
     }
 
     @Override
-    public boolean uploadDocument(String document, int idUtente) throws SQLException {
-        if (CandidaturaDAO.addDocument(document, idUtente)) {
-            return true;
-        }
+    public boolean reCandidate(Candidatura candidatura) {
         return false;
     }
 
