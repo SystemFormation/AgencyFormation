@@ -2,7 +2,7 @@ package it.unisa.agency_formation.formazione.domain;
 
 public class Documento {
     private String materialeDiFormazione;
-    private int idUtente;
+    private int idHR;
     private int idTeam;
 
     public Documento() {
@@ -10,7 +10,7 @@ public class Documento {
 
     public Documento(String materialeDiFormazione, int idUtente, int idTeam) {
         this.materialeDiFormazione = materialeDiFormazione;
-        this.idUtente = idUtente;
+        this.idHR = idUtente;
         this.idTeam = idTeam;
     }
 
@@ -22,12 +22,12 @@ public class Documento {
         this.materialeDiFormazione = materialeDiFormazione;
     }
 
-    public int getIdUtente() {
-        return idUtente;
+    public int getIdHR() {
+        return idHR;
     }
 
-    public void setIdUtente(int idUtente) {
-        this.idUtente = idUtente;
+    public void setIdHR(int idUtente) {
+        this.idHR = idUtente;
     }
 
     public int getIdTeam() {

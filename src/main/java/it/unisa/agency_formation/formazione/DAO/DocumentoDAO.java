@@ -24,12 +24,12 @@ public class DocumentoDAO {
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
-        String query = "INSERT INTO " + TABLE_DOCUMENTO + "(MaterialeDiFormazione, IdUtente, IdTeam) " +
+        String query = "INSERT INTO " + TABLE_DOCUMENTO + "(MaterialeDiFormazione, IdHR, IdTeam) " +
                 "VALUES(?,?,?)";
         try {
             save = connection.prepareStatement(query);
             save.setString(1, doc.getMaterialeDiFormazione());
-            save.setInt(2, doc.getIdUtente());
+            save.setInt(2, doc.getIdHR());
             save.setInt(3, doc.getIdTeam());
             int result=save.executeUpdate();
             if(result!=-1){
@@ -86,14 +86,14 @@ public class DocumentoDAO {
     /**
      * Questa funzionalità permette di modificare il materiale di formazione di un team
      *
-     * @param idUtente
+     * @param idHR
      * @param materiale
      * @param idTeam
      * @throws SQLException
      * @pre idDocument != null && ma != null && idTeam!=null
      */
-    public static boolean updateDocument(int idUtente, String materiale, int idTeam) throws SQLException {
-        if(idUtente <1 || materiale==null || idTeam<1){
+    public static boolean updateDocument(int idHR, String materiale, int idTeam) throws SQLException {
+        if(idHR <1 || materiale==null || idTeam<1){
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -102,7 +102,7 @@ public class DocumentoDAO {
         try {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, materiale);
-            stmt.setInt(2, idUtente);
+            stmt.setInt(2, idHR);
             stmt.setInt(3, idTeam);
             int result= stmt.executeUpdate();
             if(result!=-1){

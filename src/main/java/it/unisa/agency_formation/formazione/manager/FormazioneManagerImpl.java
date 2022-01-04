@@ -3,7 +3,9 @@ package it.unisa.agency_formation.formazione.manager;
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.formazione.DAO.DocumentoDAO;
 import it.unisa.agency_formation.formazione.DAO.SkillDAO;
+import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.formazione.domain.Skill;
 
 import java.sql.SQLException;
@@ -13,6 +15,11 @@ public class FormazioneManagerImpl implements FormazioneManager {
     @Override
     public void createCompetence(int idTeam, String competenza) {
 
+    }
+
+    @Override
+    public boolean saveDocument(Documento documento) throws SQLException {
+        return DocumentoDAO.doSaveDocument(documento);
     }
 
     @Override
