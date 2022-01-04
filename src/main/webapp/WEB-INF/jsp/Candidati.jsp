@@ -30,14 +30,8 @@
             <div id="flex">${cand.getSurname()}</div>
             <div id="flex">
                 <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra file</button>
-                <form action="AcceptCandidateControl" method="post">
-                <input type="hidden" name="idCandidato" value="${cand.getId()}"/>
-                    <input type="submit" value="Accetta">
-                </form>
-                <form action="RejectCandidateControl" method="post">
-                    <input type="hidden" name="idCandidato" value="${cand.getId()}"/>
-                    <input type="submit" value="Rifiuta">
-                </form>
+                <button onclick="acceptCandidature(${cand.getId()})">Accetta</button>
+                <button onclick="rejectCandidature(${cand.getId()})">Rifiuta</button>
             </div>
             <div name="drop" class="dropdown-content" style="display:none">
                 <a href="DownloadControl?toDownload=curriculum&idCandidato=${cand.getId()}" name="hrefCurriculum">

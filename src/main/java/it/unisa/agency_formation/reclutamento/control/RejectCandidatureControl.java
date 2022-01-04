@@ -16,24 +16,23 @@ import java.sql.SQLException;
 
 
 
-@WebServlet("/RejectCandidateControl")
+@WebServlet("/RejectCandidatureControl")
 public class RejectCandidatureControl extends HttpServlet {
     private String path ="\\AgencyFormationFile\\Candidature\\";
     private String pathAbsolute = System.getProperty("user.home") + path;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher;
         int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
         try {
             Candidatura candidatura = getCandidatura(idCandidato);
             File toDelete = new File(pathAbsolute+"IdUtente-"+candidatura.getIdCandidato());
             delete(toDelete);
             if(rejectCandidatura(candidatura.getIdCandidatura())){
-                dispatcher = getServletContext().getRequestDispatcher("/ViewCandidatiControl");
-                dispatcher.forward(request,response);
+               response.getWriter().write("1"); //rifiuto ok
             }else{
                 //TODO errore nel rifiutare la candidatura
+                response.getWriter().write("2"); //rifiuto non avvenuto
             }
         } catch (SQLException e) {
             e.printStackTrace();

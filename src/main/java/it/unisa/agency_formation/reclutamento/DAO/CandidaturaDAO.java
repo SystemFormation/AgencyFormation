@@ -359,4 +359,5 @@ public class CandidaturaDAO {
             }
         }
     }
+
 }

@@ -39,3 +39,31 @@ function view(i){
     }
 }
 
+function acceptCandidature(id){
+    var id = id;
+    $.ajax({
+        type: 'GET',
+        data:{"idCandidato":id},
+        url: 'AcceptCandidatureControl',
+        success: function (data){
+            if(data== "1"){
+                window.location.reload();
+            }
+        }
+    })
+}
+
+function rejectCandidature(id){
+    var id = id;
+    $.ajax({
+        type: 'GET',
+        data:{"idCandidato":id},
+        url: 'RejectCandidatureControl',
+        success: function (data){
+            if(data== "1"){
+                window.location.reload();
+            }
+        }
+    })
+}
+

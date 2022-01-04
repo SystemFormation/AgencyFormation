@@ -38,13 +38,12 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
             return null;
         }
     }
-
+    //TODO TEST THIS METHOD
     @Override
-    public boolean acceptCandidature(int idCandidatura) {
-        //TODO
-        return false;
+    public boolean acceptCandidature(int idCandidatura) throws SQLException {
+        return CandidaturaDAO.updateState(idCandidatura,"Accettata");
     }
-
+    //TODO TEST THIS METHOD
     @Override
     public boolean rejectCandidature(int idCandidatura) throws SQLException{
         if(CandidaturaDAO.doRejectCandidatura(idCandidatura)){
