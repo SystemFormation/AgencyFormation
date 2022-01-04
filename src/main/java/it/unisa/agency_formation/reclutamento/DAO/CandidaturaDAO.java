@@ -359,5 +359,35 @@ public class CandidaturaDAO {
             }
         }
     }
+    public static boolean acceptCandidatura(int idCandidatura,int idHR) throws SQLException {
+        if (idCandidatura < 1 || idHR<1){
+            return false;
+        }
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        String statoCandidatura = "Accettata";
+        updateState(idCandidatura,statoCandidatura);
+        String query = "update " + TABLE_CANDIDATURA +" set Stato=?, IdHR=? where IdCandidatura=?";
+        PreparedStatement stmt = null;
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setString(1,statoCandidatura);
+            stmt.setInt(2,idHR);
+            stmt.setInt(3, idCandidatura);
+            int result = stmt.executeUpdate();
+            if(result!=-1) {
+                return true;
+            }else{
+                return false;
+            }
+        } finally {
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } finally {
+                if (connection != null)
+                    connection.close();
+            }
+        }
+    }
 
 }

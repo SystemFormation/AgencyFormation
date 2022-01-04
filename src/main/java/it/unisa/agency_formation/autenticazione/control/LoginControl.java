@@ -59,7 +59,6 @@ public class LoginControl extends HttpServlet {
         }
     }
 
-
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
