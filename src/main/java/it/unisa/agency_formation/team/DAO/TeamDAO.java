@@ -68,17 +68,12 @@ public class TeamDAO {
         if(idTeam<1) return false;
         Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "DELETE FROM " + TABLE_TEAM + " WHERE idTeam=?";
-        String upd = "UPDATE " + TABLE_DIPENDENTE + " SET Stato=1 WHERE IdTeam=?";
         PreparedStatement stmt = null;
-        ResultSet result;
         try {
-            stmt = connection.prepareStatement(upd);
-            stmt.setInt(1, idTeam);
-            int res=stmt.executeUpdate();
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             int res2 = stmt.executeUpdate();
-            if(res!=-1 && res2!=-1){
+            if(res2!=-1){
                 return true;
             }
             else{
@@ -235,6 +230,7 @@ public class TeamDAO {
             result = stmt.executeQuery();
             while (result.next()) {
                 Team team = new Team();
+                team.setIdTeam(result.getInt("IdTeam"));
                 team.setNomeProgetto(result.getString("NomeProgetto"));
                 team.setNumeroDipendenti(result.getInt("NumeroDIpendenti"));
                 team.setNomeTeam(result.getString("NomeTeam"));
@@ -449,6 +445,54 @@ public class TeamDAO {
             } finally {
                 if (connection != null)
                     connection.close();
+            }
+        }
+    }
+    public static ArrayList<Integer> doRetrieveIdEmployees(int idTeam) throws SQLException {
+
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        ResultSet result;
+        PreparedStatement stmt = null;
+        ArrayList<Integer> listaIdDips = new ArrayList<Integer>();
+        String query = "SELECT idDipendente FROM " + TABLE_DIPENDENTE + " WHERE IdTeam=?";
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, idTeam);
+            result = stmt.executeQuery();
+            while (result.next()) {
+                int z = 0;
+                z = result.getInt("idDipendente");
+                listaIdDips.add(z);
+                }
+            } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaIdDips;
+    }
+    public static boolean updateDipStateDissolution(int idDip) throws SQLException{
+        if(idDip<0){return false;}
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement stmt = null;
+        String query = "update " + TABLE_DIPENDENTE + " set Stato = ? where IdDipendente = ?";
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, 1);
+            stmt.setInt(2, idDip);
+            int result = stmt.executeUpdate();
+            if(result!=-1){
+                return true;
+            }else{
+                return false;
+            }
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
             }
         }
     }

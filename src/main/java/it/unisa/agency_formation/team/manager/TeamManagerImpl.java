@@ -2,7 +2,6 @@ package it.unisa.agency_formation.team.manager;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 
@@ -55,5 +54,17 @@ public class TeamManagerImpl implements TeamManager {
     public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException {
             return DipendenteDAO.updateDipTeamAndState(idDip, idTeam);
     }
+
+    @Override
+    public ArrayList<Integer> retriveDips(int idTeam) throws SQLException {
+        ArrayList<Integer> listaIdDips = TeamDAO.doRetrieveIdEmployees(idTeam);
+        return listaIdDips;
+    }
+
+    @Override
+    public boolean updateDipsDisso(int idDip) throws SQLException {
+        return TeamDAO.updateDipStateDissolution(idDip);
+    }
+
 
 }

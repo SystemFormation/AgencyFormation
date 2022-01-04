@@ -22,6 +22,7 @@ public class AddTeamControl extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         String action = req.getParameter("action");
+        int idTeam = Integer.parseInt(req.getParameter("idTeam"));
         try {
             if (action == null) {
                     resp.getWriter().write("1");//action null
@@ -29,7 +30,6 @@ public class AddTeamControl extends HttpServlet {
                     dispatcher.forward(req, resp);
             } else if (action.equalsIgnoreCase("aggiungi")) {
                 int idDip = Integer.parseInt(req.getParameter("id"));
-                int idTeam = teamManager.viewLastIdTeam();
                 teamManager.updateDipOnTeam(idDip, idTeam);
                 resp.getWriter().write("2");//action null
                 dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");

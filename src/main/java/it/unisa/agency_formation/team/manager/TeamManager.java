@@ -22,4 +22,6 @@ public interface TeamManager {
     boolean disbandTeam(int idTeam) throws SQLException;
     int viewLastIdTeam() throws SQLException;
     public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException;
+    ArrayList<Integer> retriveDips(int idTeam) throws SQLException;
+    boolean updateDipsDisso(int idDip)throws SQLException;
 }

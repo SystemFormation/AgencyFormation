@@ -23,20 +23,20 @@
             <c:forEach var="team" items="${listTeam}">
                 <div class="team">
                     <div class="team-inf">
-                        <div><h2>${team.getNomeTeam()}</h2></div>
-                        <div><h3>${team.getNomeProgetto()}</h3></div>
-                        <div><h4>Numero dipendenti:${team.getNumeroDipendenti()}</h4></div>
+                        <div id="flex-team"><h2>${team.getNomeTeam()}</h2></div>
+                        <div id="flex-team"><h3>${team.getNomeProgetto()}</h3></div>
+                        <div id="flex-team"><h4>Numero dipendenti:${team.getNumeroDipendenti()}</h4></div>
                     </div>
                     <div class="team-descr">
                         <h4>Descrizione</h4>
-                        <div>${team.getDescrizione()}</div>
+                        <div id="flex-team">${team.getDescrizione()}</div>
                     </div>
 
                     <div class="team-dip">
                         <h4>Dipendenti</h4>
                         <div id="flex-team-dip">
                             <c:forEach var="dip" items="listDip">
-
+                                <div>Luigi</div>
                             </c:forEach>
                         </div>
                     </div>
@@ -44,9 +44,13 @@
                         <div id="flex-team-button">
                             <button><a href="/static/Error.html">Specifica Competenze</a></button>
                             <br>
-                            <c:if test="${team.getNumeroDipendenti() < 10}">
+                            <c:if test="${team.getNumeroDipendenti() <= 8}">
                                 <button><a href="DipendenteControl">Aggiungi Dipendenti</a></button>
+                                <br>
                             </c:if>
+                            <!-- Implementare questa funzione con js e aggiungere una Servlet -->
+                            <button><a href="ScioglimentoTeamControl?idTeam=${team.getIdTeam()}">Scioglimento Team</a></button>
+                            <button><a href="/static/Error.html">Visualizza Materiale</a></button>
                         </div>
                     </div>
                 </div>
@@ -55,7 +59,40 @@
 
         <c:when test="${user.getRole()==4}">
             <c:forEach var="team" items="${listTeam}">
+                <div class="team">
+                    <div class="team-inf">
+                        <div id="flex-team"><h2>${team.getNomeTeam()}</h2></div>
+                        <div id="flex-team"><h3>${team.getNomeProgetto()}</h3></div>
+                        <div id="flex-team"><h4>Numero dipendenti:${team.getNumeroDipendenti()}</h4></div>
+                    </div>
+                    <div class="team-descr">
+                        <h4>Descrizione</h4>
+                        <div id="flex-team">${team.getDescrizione()}</div>
+                    </div>
 
+                    <div class="team-dip">
+                        <h4>Dipendenti</h4>
+                        <div id="flex-team-dip">
+                            <c:forEach var="dip" items="listDip">
+                                <div>Luigi</div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                    <div class="team-button">
+                        <div id="flex-team-button">
+                            <button><a href="/static/Error.html">Visulizza Competenze</a></button>
+                            <br><br>
+
+                            <!-- Si dvee implementare questa fuznionalità  e aggiungere la Servlet -->
+                            <form action="UploadMaterialeControl" id="materiale" method="post" enctype = "multipart/form-data">
+                                <p class="par">Materiale di Formazione</p><br>
+                                <input type="file" id="fileMateriale" name="materiale" size="50"><br>
+                                <input type="hidden" id="idTeam" name="idTeam" value="${team.getIdTeam()}">
+                                <input type="submit" value="Carica" id="uploadMateriale">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </c:forEach>
         </c:when>
     </c:choose>

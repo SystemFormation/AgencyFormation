@@ -1,6 +1,8 @@
 package it.unisa.agency_formation.team.control;
 
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 @WebServlet("/TeamControl")
 public class TeamControl extends HttpServlet {
     TeamManagerImpl aut = new TeamManagerImpl();
+    AutenticazioneManagerImpl aut2= new AutenticazioneManagerImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,7 +27,9 @@ public class TeamControl extends HttpServlet {
         Utente d = (Utente) req.getSession().getAttribute("user");
         if (d.getRole() == 3) { //sei tm
             try {
+                ArrayList<Dipendente> listaDip = aut2.getAllEmploye();
                 ArrayList<Team> list = aut.viewTeams(d.getId());
+                req.setAttribute("listDip",listaDip);
                 req.setAttribute("listTeam", list);
                 resp.getWriter().write("1");
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
@@ -34,8 +39,10 @@ public class TeamControl extends HttpServlet {
             }
         } else if (d.getRole() == 4) {
             try {
+                ArrayList<Dipendente> listaDip = aut2.getAllEmploye();
                 ArrayList<Team> list = aut.viewAllTeams();
                 req.setAttribute("listTeam", list);
+                req.setAttribute("listDip", listaDip);
                 resp.getWriter().write("2");
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
                 dispatcher.forward(req, resp);
