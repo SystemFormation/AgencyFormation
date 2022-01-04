@@ -19,6 +19,7 @@ h1 {
 
 .information {
     width: 90%;
+    margin: auto;
 }
 .information table {
     text-align: center;
@@ -56,19 +57,19 @@ h1 {
     margin-left: 8px;
 }
 
-#flex {
+#flex-dip {
     width: 19%;
     display: inline-block;
     text-align: center;
-    font-size: 15px;
+    font-size: 25px;
     padding-top: 10px;
     word-wrap: break-word;
 }
 
-#flex-head {
+#flex-head-dip {
     width: 19%;
     display: inline-block;
-    font-size: 25px;
+    font-size: 30px;
     font-weight: bold;
 }
 
@@ -84,4 +85,12 @@ h1 {
     display: none;
 }
 
+button {
+    font-size: 18px;
+    border-radius: 2rem;
+    padding: 6px;
+    background-color: #59A5D8;
+    font-family: monospace;
+    margin-bottom: 20px;
+}
 

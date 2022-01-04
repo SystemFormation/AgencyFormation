@@ -25,12 +25,12 @@ h1 {
     flex-wrap: wrap;
 }
 
-a {
+a{
     text-decoration: none;
     color: #1E1E24;
 }
 
-#flex input:hover, button:hover, a:hover {
+input:hover, button:hover, a:hover {
     font-weight: bold;
 }
 
@@ -185,4 +185,8 @@ textarea {
     background-color: #59A5D8;
     font-family: monospace;
     margin-bottom: 20px;
+}
+
+input, button {
+    color: #1E1E24;
 }

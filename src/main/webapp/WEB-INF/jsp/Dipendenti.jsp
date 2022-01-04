@@ -18,7 +18,7 @@
 <h1>Lista Dipendenti</h1>
 
 <div class="content">
-    <div class="found">
+    <!-- <div class="found">
         <form action="DipendenteControl" method="post" id="formDip">
             <select name="subject" id="subject">
                 <option value="null" selected="selected" id=0>---</option>
@@ -26,26 +26,26 @@
                 <option value="disponibili" id=2>Disponibili</option>
             </select>
         </form>
-    </div>
+    </div> -->
     <div class="information">
-        <div id="flex-head">ID Dipendente</div>
-        <div id="flex-head">ID Team</div>
-        <div id="flex-head">Competenze</div>
-        <div id="flex-head">Azione</div>
-        <div id="flex-head">Stato</div>
+        <div id="flex-head-dip">ID Dipendente</div>
+        <div id="flex-head-dip">ID Team</div>
+        <div id="flex-head-dip">Competenze</div>
+        <div id="flex-head-dip">Azione</div>
+        <div id="flex-head-dip">Stato</div>
         <c:choose>
             <c:when test="${value == null}">
 
                 <c:forEach var="dip" items="${dipendenti}">
-                    <div id="flex">${dip.getIdDipendente()}</div>
-                    <div id="flex">${dip.getIdTeam()}</div>
-                    <div id="flex">
+                    <div id="flex-dip">${dip.getIdDipendente()}</div>
+                    <div id="flex-dip">${dip.getIdTeam()}</div>
+                    <div id="flex-dip">
                         <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra skill</button>
                     </div>
 
-                    <div id="flex">
+                    <div id="flex-dip">
                         <c:if test="${user.getRole() == 3 && dip.isStato() == true }">
-                        <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}">Aggiungi</a>
+                            <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}">Aggiungi</a>
                         </c:if>
                         <c:if test="${user.getRole() == 4}">
                             Non Disponibile
@@ -53,10 +53,10 @@
                     </div>
 
                     <c:if test="${dip.isStato() == false}">
-                        <div id="flex">Occupato</div>
+                        <div id="flex-dip">Occupato</div>
                     </c:if>
                     <c:if test="${dip.isStato() == true}">
-                        <div id="flex">Disponibile</div>
+                        <div id="flex-dip">Disponibile</div>
                     </c:if>
 
                 </c:forEach>
@@ -66,12 +66,12 @@
                 <c:forEach var="dip" items="${dipendenti}">
                     <c:if test="${dip.isStato() == true}">
                         <c:forEach var="dip" items="${dipendenti}">
-                            <div id="flex">${dip.getIdDipendente()}</div>
-                            <div id="flex">${dip.getIdTeam()}</div>
-                            <div id="flex">${dip.getAnnoNascita()}</div>
-                            <div id="flex">${dip.getResidenza()}</div>
-                            <div id="flex">${dip.getTelefono()}</div>
-                            <div id="flex">Disponibile</div>
+                            <div id="flex-dip">${dip.getIdDipendente()}</div>
+                            <div id="flex-dip">${dip.getIdTeam()}</div>
+                            <div id="flex-dip">${dip.getAnnoNascita()}</div>
+                            <div id="flex-dip">${dip.getResidenza()}</div>
+                            <div id="flex-dip">${dip.getTelefono()}</div>
+                            <div id="flex-dip">Disponibile</div>
                         </c:forEach>
                     </c:if>
                 </c:forEach>
@@ -81,12 +81,12 @@
                 <c:forEach var="dip" items="${dipendenti}">
                     <c:if test="${dip.isStato() == false}">
                         <c:forEach var="dip" items="${dipendenti}">
-                            <div id="flex">${dip.getIdDipendente()}</div>
-                            <div id="flex">${dip.getIdTeam()}</div>
-                            <div id="flex">${dip.getAnnoNascita()}</div>
-                            <div id="flex">${dip.getResidenza()}</div>
-                            <div id="flex">${dip.getTelefono()}</div>
-                            <div id="flex">Occupato</div>
+                            <div id="flex-dip">${dip.getIdDipendente()}</div>
+                            <div id="flex-dip">${dip.getIdTeam()}</div>
+                            <div id="flex-dip">${dip.getAnnoNascita()}</div>
+                            <div id="flex-dip">${dip.getResidenza()}</div>
+                            <div id="flex-dip">${dip.getTelefono()}</div>
+                            <div id="flex-dip">Occupato</div>
                         </c:forEach>
                     </c:if>
                 </c:forEach>

@@ -36,9 +36,8 @@
                         <h4>Dipendenti</h4>
                         <div id="flex-team-dip">
                             <c:forEach var="dip" items="listDip">
-                                <c:if test="${team.getIdTeam() == dip.getIdTeam()}">
-                                    <div>${user.getNome()}</div>
-                                </c:if>
+                                <div>${listDip.getName()}</div>
+                                <div>Luigi</div>
                             </c:forEach>
                         </div>
                     </div>
@@ -48,7 +47,11 @@
                             <br>
                             <c:if test="${team.getNumeroDipendenti() < 10}">
                                 <button><a href="DipendenteControl">Aggiungi Dipendenti</a></button>
+                                <br>
                             </c:if>
+                            <!-- Implementare questa funzione con js e aggiungere una Servlet -->
+                            <button>Scioglimento Team</button>
+                            <button><a href="/static/Error.html">Visualizza Materiale</a></button>
                         </div>
                     </div>
                 </div>
