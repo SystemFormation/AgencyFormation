@@ -187,6 +187,38 @@ textarea {
     margin-bottom: 20px;
 }
 
+.occupato {
+    width: 23px;
+    margin: 10px auto;
+    background-color: red;
+    font-size: 20px;
+    border-radius: 5rem;
+    color: red;
+}
+
+.disponibile {
+    width: 23px;
+    margin: 10px auto;
+    background-color: green;
+    font-size: 20px;
+    border-radius: 5rem;
+    color: green;
+}
+
+.colloquio {
+    display: none;
+    position: relative;
+    width: 300px;
+    height: 0;
+    bottom: 25px;
+    right: -54.5%;
+    z-index: 1;
+}
+
+.colloquio input {
+    font-size: 15px;
+}
+
 input, button {
     color: #1E1E24;
 }

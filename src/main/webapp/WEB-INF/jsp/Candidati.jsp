@@ -30,7 +30,25 @@
             <div id="flex">${cand.getSurname()}</div>
             <div id="flex">
                 <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra file</button>
-                <button onclick="acceptCandidature(${cand.getId()})">Accetta</button>
+                <button id="apriColloquio">Accetta</button>
+                <div class="colloquio" id="colloquio">
+                    <form>
+                    <h3>Inserisci la data e l'ora del colloquio</h3><br>
+                    <input type="date" id="data1" name="data1"><br>
+                    <input type="time" name="time"><br>
+                    <button type="button"id="chiudiColloquio" class="btnChiudi">Chiudi</button>
+                    <button onclick="acceptCandidature(${cand.getId()})">Accetta</button>
+                    </form>
+                </div>
+                <script type="text/javascript">
+                    $('#apriColloquio').click(function () {
+                        document.getElementById("colloquio").style.display = "block";
+                    })
+                    $('#chiudiColloquio').click(
+                        function chiudiForm() {
+                            document.getElementById("colloquio").style.display = "none";
+                        })
+                </script>
                 <button onclick="rejectCandidature(${cand.getId()})">Rifiuta</button>
             </div>
             <div name="drop" class="dropdown-content" style="display:none">
