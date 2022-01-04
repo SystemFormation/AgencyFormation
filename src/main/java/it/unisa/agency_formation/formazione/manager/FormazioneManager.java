@@ -12,7 +12,7 @@ public interface FormazioneManager {
     String viewCompetence(int idTeam);
 
     void uploadDocument(String MaterialeDiFormazione);
-
+    String getMaterialeByIdTeam(int idTeam) throws SQLException;
     //   Documento viewDocument(int idDocument);     Fare Entita Documento
     boolean addSkill(Skill skill) throws SQLException;
 
