@@ -46,21 +46,29 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
 
     @Override
-    public boolean rejectCandidature(int idCandidatura) {
-        //TODO
-        return false;
+    public boolean rejectCandidature(int idCandidatura) throws SQLException{
+        if(CandidaturaDAO.doRemoveCandidatura(idCandidatura)==true){
+            CandidaturaDAO.updateState(idCandidatura, "Rifiutato");
+            return true;
+        } else{
+            return false;
+        }
     }
 
     @Override
-    public boolean hiringCandidate(int idUtente) {
+    public boolean hiringCandidate(int idUtente) throws SQLException{
         //TODO
         return false;
     }
-
+//DA CONTROLLARE
     @Override
-    public boolean rejectCandidate(int idCandidatura) {
-        //TODO
-        return false;
+    public boolean rejectCandidate(int idCandidatura) throws SQLException{
+        if(CandidaturaDAO.doRemoveCandidatura(idCandidatura)==true){
+            CandidaturaDAO.updateState(idCandidatura, "Rifiutato");
+            return true;
+        } else{
+            return false;
+        }
     }
 
     private boolean alreadyLoaded(int idUtente) throws SQLException {
