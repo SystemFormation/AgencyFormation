@@ -68,13 +68,18 @@ public class TeamDAO {
     public static boolean doRemoveTeam(int idTeam) throws SQLException {
         if(idTeam<1) return false;
         Connection connection = DatabaseManager.getInstance().getConnection();
+        String query1 = "UPDATE " + TABLE_DIPENDENTE + " set idTeam=null WHERE idTeam=?";
         String query = "DELETE FROM " + TABLE_TEAM + " WHERE idTeam=?";
+        PreparedStatement stmt1 = null;
         PreparedStatement stmt = null;
         try {
+            stmt1 = connection.prepareStatement(query1);
+            stmt1.setInt(1, idTeam);
+            int res1 = stmt1.executeUpdate();
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             int res2 = stmt.executeUpdate();
-            if(res2!=-1){
+            if(res1 != -1 && res2!=-1){
                 return true;
             }
             else{

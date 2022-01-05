@@ -30,8 +30,9 @@ public class ScioglimentoTeamControl extends HttpServlet {
                     int x =  listaIdDip.get(i);
                     aut.updateDipsDisso(x);
                 }
-                TeamDAO.doRemoveTeam(idTeam);
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
+                aut.deleteTeam(idTeam);
+
+                dispatcher = req.getServletContext().getRequestDispatcher("/TeamControl");
                 dispatcher.forward(req,resp);
             } catch (SQLException e) {
                 e.printStackTrace();

@@ -126,5 +126,14 @@ public class TeamManagerImpl implements TeamManager {
         }
     }
 
+    @Override
+    public boolean deleteTeam(int idTeam) throws SQLException {
+        boolean result = TeamDAO.doRemoveTeam(idTeam);
+        if (result) {
+            return result;
+        } else {
+            return false;
+        }
+    }
 
 }
