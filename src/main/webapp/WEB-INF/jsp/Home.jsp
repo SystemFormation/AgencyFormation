@@ -8,7 +8,9 @@
     <title>Home</title>
 </head>
 <body>
-<c:import url="/static/Header.jsp"/>
+<jsp:include page="/static/Header.jsp">
+    <jsp:param value="false" name="sameLocation"/>
+</jsp:include>
 
 <h1>Bentornato ${user.getName()}</h1>
 </body>
@@ -16,17 +18,13 @@
     <div class="content flex">
          <c:choose>
              <c:when test="${user.getRole() == RuoliUtenti.CANDIDATO}">
-                 <div id="home"><a href="UploadDispatch">
+                 <div id="home"><a href="static/Upload.jsp">
                      <h2> Caricamento Documenti </h2></a>
                      <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
                      </p>
                  </div>
-                 <c:if test="${dip.isStato() == true}">
-                     <div class ="disponibile">.</div>
-                 </c:if>
-                 <c:if test="${dip.isStato() == false}">
-                     <div class="occupato">.</div>
-                 </c:if>
+                 <!-- <div class ="disponibile">.</div> -->
+                 <!-- <div class="occupato">.</div> -->
              </c:when>
              <c:when test="${user.getRole() == RuoliUtenti.DIPENDENTE}">
                  <div id="home"><a href="ProfiloControl">

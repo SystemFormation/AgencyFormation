@@ -5,14 +5,16 @@
     <script type="text/javascript" src="../js/ConvalidazioneCampi.js"></script>
     <link rel="icon" type="image/png" href="../img/Logo Team 4-5.png"/>
     <link rel="stylesheet" href="../css/Login.css">
+    <link rel="stylesheet" href="../css/HomePage.css">
     <meta charset="ISO-8859-1">
     <title>Login</title>
 </head>
-
-<body>
-<div class="content">
-    <div class="block">
-        <h1>Login</h1>
+<body class="background-login">
+<script>
+    document.write('<a href="' + document.referrer + '"><div class="back"> </div></a>');
+</script>
+    <div class="block content">
+        <h2>Login</h2>
         <form action="../LoginControl" method="post" id="formLogin">
             <div class="components">
                 <input type="email" id="email" name="email" placeholder="Email" required onkeyup="checkEmail()"><br>
@@ -28,6 +30,5 @@
         </div>
         <img src="../img/Logo Team 4-5.png">
     </div>
-</div>
 </body>
 </html>

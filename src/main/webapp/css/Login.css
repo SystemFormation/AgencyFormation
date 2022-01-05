@@ -2,7 +2,6 @@
 
 body {
     margin: 0;
-    background: url(../img/AF_Login.jpg) no-repeat center center fixed;
     font-family: monospace;
 }
 
@@ -20,9 +19,8 @@ body {
     width: 500px;
     height: 500px;
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, 35%);
+    transform: translate(-50%, 50%);
     background-color: rgba(126, 171, 202, 0.7); /*Air Superiority Blue*/
     border: solid black 2px;
     box-shadow: 20px 20px 20px rgb(11, 11, 11); /*Rich Black FOGRA 39*/
@@ -93,7 +91,7 @@ input:focus {
     background-color: rgba(0, 0, 0, .0);
 }
 
-.content h1 {
+.content h2 {
     font-size: 90px;
     font-weight: bold;
     text-align: center;

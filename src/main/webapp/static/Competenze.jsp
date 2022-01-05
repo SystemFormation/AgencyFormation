@@ -1,3 +1,4 @@
+<%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -11,7 +12,7 @@
 <div class="content">
     <div class="form">
     <c:choose>
-        <c:when test="${user.getRole()==3}">
+        <c:when test="${user.getRole()==RuoliUtenti.TM}">
             <form action="CompetenzeControl" method="post" id="specificaCompetenze">
                 <input type="hidden" name="action" value="competenze">
                 <label for="specificaCompetenze">Competenze da Specificare</label><br>
@@ -20,7 +21,7 @@
             </form>
         </c:when>
     </div>
-        <c:when test="${user.getRole()==4}">
+        <c:when test="${user.getRole()==RuoliUtenti.HR}">
 
         </c:when>
     </c:choose>

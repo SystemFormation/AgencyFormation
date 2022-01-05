@@ -1,7 +1,7 @@
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.Dipendente" %>
+<%@ page import="it.unisa.agency_formation.autenticazione.domain.StatiDipendenti" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-
 
 <html>
 <head>
@@ -23,10 +23,10 @@
 
     </div>
     <div class="form-button">
-        <c:if test="${dip.isStato() == true}">
+        <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
             <div class ="disponibile">.</div>
         </c:if>
-        <c:if test="${dip.isStato() == false}">
+        <c:if test="${dip.getStato() == StatiDipendenti.OCCUPATO}">
             <div class="occupato">.</div>
         </c:if>
         <a href="/AgencyFormation/static/Error.html"><button> Gestione Skill </button></a>

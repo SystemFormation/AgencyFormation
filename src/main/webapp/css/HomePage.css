@@ -54,3 +54,20 @@
 .wrap {
     display: flex;
 }
+
+.back {
+    position: absolute;
+    width: 128px;
+    height: 128px;
+    z-index: 2;
+    background: url(../img/Back.png) no-repeat;
+}
+
+.background-login {
+    z-index: 1;
+    background: url(../img/AF_Login.jpg) no-repeat center center fixed;
+}
+
+.background-reg {
+    background: url(../img/AF_Registrazione.jpg) no-repeat;
+}

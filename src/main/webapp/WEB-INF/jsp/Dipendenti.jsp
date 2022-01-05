@@ -1,5 +1,7 @@
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.Dipendente" %>
+<%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="it.unisa.agency_formation.autenticazione.domain.StatiDipendenti" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -44,18 +46,18 @@
                     </div>
 
                     <div id="flex-dip">
-                        <c:if test="${user.getRole() == 3 && dip.isStato() == true }">
+                        <c:if test="${user.getRole() == RuoliUtenti.TM && dip.getStato() == StatiDipendenti.DISPONIBILE }">
                             <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}">Aggiungi</a>
                         </c:if>
-                        <c:if test="${user.getRole() == 4}">
+                        <c:if test="${user.getRole() == RuoliUtenti.HR}">
                             Non Disponibile
                         </c:if>
                     </div>
 
-                    <c:if test="${dip.isStato() == false}">
+                    <c:if test="${dip.getStato() == StatiDipendenti.OCCUPATO}">
                         <div id="flex-dip">Occupato</div>
                     </c:if>
-                    <c:if test="${dip.isStato() == true}">
+                    <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
                         <div id="flex-dip">Disponibile</div>
                     </c:if>
 

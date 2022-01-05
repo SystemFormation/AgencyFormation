@@ -1,6 +1,7 @@
 <%@ page import="it.unisa.agency_formation.team.domain.Team" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.Dipendente" %>
+<%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -19,7 +20,7 @@
 <h1>Team</h1>
 <div class="flex">
     <c:choose>
-        <c:when test="${user.getRole()==3}">
+        <c:when test="${user.getRole()==RuoliUtenti.TM}">
             <c:forEach var="team" items="${listTeam}">
                 <div class="team">
                     <div class="team-inf">
@@ -57,7 +58,7 @@
             </c:forEach>
         </c:when>
 
-        <c:when test="${user.getRole()==4}">
+        <c:when test="${user.getRole()==RuoliUtenti.HR}">
             <c:forEach var="team" items="${listTeam}">
                 <div class="team">
                     <div class="team-inf">

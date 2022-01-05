@@ -1,4 +1,5 @@
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.Utente" %>
+<%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -6,20 +7,42 @@
 %>
 <html>
 <head>
-    <link rel="stylesheet" href="css/Header.css">
+    <c:choose>
+        <c:when test="${param.sameLocation==true}">
+            <link rel="stylesheet" href="../css/Header.css">
+        </c:when>
+        <c:otherwise>
+            <link rel="stylesheet" href="css/Header.css">
+        </c:otherwise>
+    </c:choose>
     <title>Header</title>
 </head>
 <body>
 <div class="header">
     <div class="logo">
-        <img src="img/Logo Team 4-5.png">
+        <c:choose>
+            <c:when test="${param.sameLocation==true}">
+                <img src="../img/Logo Team 4-5.png">
+            </c:when>
+            <c:otherwise>
+                <img src="img/Logo Team 4-5.png">
+            </c:otherwise>
+        </c:choose>
     </div>
     <ul>
         <c:if test="${user == null}">
-Fixi        <li><a href="">Home</a></li>
+            <li><a href="">Home</a></li>
         </c:if>
-        <c:if test="${(user!=null && user.getRole()>=1 && user.getRole()<=4)}">
-        <li><a href="LoginControl">Home</a></li>
+        <c:if test="${(user!=null && user.getRole()==RuoliUtenti.CANDIDATO || user.getRole()==RuoliUtenti.DIPENDENTE ||
+        user.getRole()==RuoliUtenti.TM || user.getRole()==RuoliUtenti.HR)}">
+            <li>        <c:choose>
+                <c:when test="${param.sameLocation==true}">
+                    <a href="../LoginControl">Home</a></li>
+                </c:when>
+                <c:otherwise>
+                    <a href="./LoginControl">Home</a></li>
+                </c:otherwise>
+            </c:choose>
         </c:if>
     </ul>
     <div class="header-right">
@@ -29,16 +52,16 @@ Fixi        <li><a href="">Home</a></li>
             <li><a href="./static/Registrazione.html">Registrati</a></li>
             </c:if>
                 <c:choose>
-                    <c:when test="${user.getRole() == 1}">
+                    <c:when test="${user.getRole() == RuoliUtenti.CANDIDATO}">
                         <li>Candidato</li>
                     </c:when>
-                    <c:when test="${user.getRole() == 2}">
+                    <c:when test="${user.getRole() == RuoliUtenti.DIPENDENTE}">
                         <li>Dipendente</li>
                     </c:when>
-                    <c:when test="${user.getRole() == 3}">
+                    <c:when test="${user.getRole() == RuoliUtenti.TM}">
                         <li>TM</li>
                     </c:when>
-                    <c:when test="${user.getRole() == 4}">
+                    <c:when test="${user.getRole() == RuoliUtenti.HR}">
                         <li>HR</li>
                     </c:when>
                 </c:choose>
