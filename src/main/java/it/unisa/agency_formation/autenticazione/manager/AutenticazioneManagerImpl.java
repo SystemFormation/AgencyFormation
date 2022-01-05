@@ -3,6 +3,8 @@ package it.unisa.agency_formation.autenticazione.manager;
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
 import java.sql.SQLException;
@@ -52,7 +54,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
 
     @Override
     public ArrayList<Utente> getCandidates() throws SQLException {
-        ArrayList<Utente> candidati = UtenteDAO.doRetrieveUserByRuolo(1);
+        ArrayList<Utente> candidati = UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.CANDIDATO);
         if(candidati!=null){
             return candidati;
         }
@@ -67,7 +69,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     }
 
     public ArrayList<Utente> getCandidatesDip() throws SQLException {
-        ArrayList<Utente> candidati = UtenteDAO.doRetrieveUserByRuolo(2);
+        ArrayList<Utente> candidati = UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.DIPENDENTE);
         if (candidati != null) {
             return candidati;
         } else {
@@ -85,7 +87,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     }
 
     @Override
-    public ArrayList<Dipendente> getEmployeByState(boolean state) throws SQLException {
+    public ArrayList<Dipendente> getEmployeByState(StatiDipendenti state) throws SQLException {
         ArrayList<Dipendente> result = DipendenteDAO.doRetrieveByState(state);
         if(result != null){
             return result;

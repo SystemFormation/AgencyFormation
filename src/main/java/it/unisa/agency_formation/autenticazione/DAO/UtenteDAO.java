@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.autenticazione.DAO;
 
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.utils.DatabaseManager;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
@@ -34,7 +35,20 @@ public class UtenteDAO {
             save.setString(2, user.getSurname());
             save.setString(3, user.getPwd());
             save.setString(4, user.getEmail());
-            save.setInt(5, user.getRole());
+            switch (user.getRole()){
+                case CANDIDATO:
+                    save.setInt(5, 1);
+                    break;
+                case DIPENDENTE:
+                    save.setInt(5, 2);
+                    break;
+                case TM:
+                    save.setInt(5, 3);
+                    break;
+                case HR:
+                    save.setInt(5, 4);
+                    break;
+            }
             int result = save.executeUpdate();
             if (result != -1) {
                 return true;
@@ -84,7 +98,21 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                user.setRole(result.getInt("Ruolo"));
+
+                switch (result.getInt("Ruolo")){
+                    case 1:
+                        user.setRole(RuoliUtenti.CANDIDATO);
+                        break;
+                    case 2:
+                        user.setRole(RuoliUtenti.DIPENDENTE);
+                        break;
+                    case 3:
+                        user.setRole(RuoliUtenti.TM);
+                        break;
+                    case 4:
+                        user.setRole(RuoliUtenti.HR);
+                        break;
+                }
                 return user;
             }
         } finally {
@@ -128,7 +156,20 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                user.setRole(result.getInt("Ruolo"));
+                switch (result.getInt("Ruolo")){
+                    case 1:
+                        user.setRole(RuoliUtenti.CANDIDATO);
+                        break;
+                    case 2:
+                        user.setRole(RuoliUtenti.DIPENDENTE);
+                        break;
+                    case 3:
+                        user.setRole(RuoliUtenti.TM);
+                        break;
+                    case 4:
+                        user.setRole(RuoliUtenti.HR);
+                        break;
+                }
                 return user;
             }
         } finally {
@@ -157,8 +198,26 @@ public class UtenteDAO {
      */
 
 
-    public static ArrayList<Utente> doRetrieveUserByRuolo(int ruolo) throws SQLException {
-        if (ruolo <= 0 && ruolo > 4) {
+    public static ArrayList<Utente> doRetrieveUserByRuolo(RuoliUtenti ruolo) throws SQLException {
+        if (ruolo==null) {
+            return null;
+        }
+        int role = 0;
+        switch (ruolo){
+            case CANDIDATO:
+                role = 1;
+                break;
+            case DIPENDENTE:
+                role = 2;
+                break;
+            case TM:
+                role = 3;
+                break;
+            case HR:
+                role = 4;
+                break;
+        }
+        if(role == 0){
             return null;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -169,7 +228,7 @@ public class UtenteDAO {
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
             retrieve = connection.prepareStatement(query);
-            retrieve.setInt(1, ruolo);
+            retrieve.setInt(1, role);
             result = retrieve.executeQuery();
             while (result.next()) {
                 Utente user = new Utente();
@@ -178,7 +237,20 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                user.setRole(result.getInt("Ruolo"));
+                switch (result.getInt("Ruolo")){
+                    case 1:
+                        user.setRole(RuoliUtenti.CANDIDATO);
+                        break;
+                    case 2:
+                        user.setRole(RuoliUtenti.DIPENDENTE);
+                        break;
+                    case 3:
+                        user.setRole(RuoliUtenti.TM);
+                        break;
+                    case 4:
+                        user.setRole(RuoliUtenti.HR);
+                        break;
+                }
                 utenti.add(user);
             }
             if (utenti.size() > 0) {
@@ -221,7 +293,20 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                user.setRole(result.getInt("Ruolo"));
+                switch (result.getInt("Ruolo")){
+                    case 1:
+                        user.setRole(RuoliUtenti.CANDIDATO);
+                        break;
+                    case 2:
+                        user.setRole(RuoliUtenti.DIPENDENTE);
+                        break;
+                    case 3:
+                        user.setRole(RuoliUtenti.TM);
+                        break;
+                    case 4:
+                        user.setRole(RuoliUtenti.HR);
+                        break;
+                }
                 utenti.add(user);
             }
             if (utenti.size() > 0) {

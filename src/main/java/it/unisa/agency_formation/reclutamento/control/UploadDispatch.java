@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.reclutamento.control;
 
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
 import javax.servlet.RequestDispatcher;
@@ -16,11 +17,11 @@ public class UploadDispatch extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente)request.getSession().getAttribute("user");
-        if(user.getRole()==1){
+        if(user.getRole()== RuoliUtenti.CANDIDATO){
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Upload.jsp");
             dispatcher.forward(request,response);
         }
-        else if(user.getRole()==4){
+        else if(user.getRole()==RuoliUtenti.HR){
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/UploadMateriale.jsp");
             dispatcher.forward(request,response);
         }

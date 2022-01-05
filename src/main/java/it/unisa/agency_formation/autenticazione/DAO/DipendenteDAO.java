@@ -1,6 +1,9 @@
 package it.unisa.agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
 import java.sql.Connection;
@@ -21,10 +24,10 @@ public class DipendenteDAO {
      * @pre dip!=null
      */
     public static boolean doSaveEmploye(Dipendente dipendente) throws SQLException {
-        Connection connection = DatabaseManager.getInstance().getConnection();
         if (dipendente == null) {
             return false;
         }
+        Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
         String query = "insert into " + TABLE_DIPENDENTE + " (IdDipendente,Residenza,Telefono,Stato,AnnoDiNascita,idTeam)" +
                 " values(?,?,?,?,?,?)";
@@ -34,7 +37,11 @@ public class DipendenteDAO {
             save.setInt(1, dipendente.getIdDipendente());
             save.setString(2, dipendente.getResidenza());
             save.setString(3, dipendente.getTelefono());
-            save.setBoolean(4, dipendente.isStato());
+            if(dipendente.getStato()==StatiDipendenti.OCCUPATO){
+                save.setBoolean(4, false);
+            }else if(dipendente.getStato()==StatiDipendenti.DISPONIBILE){
+                save.setBoolean(4, true);
+            }
             save.setInt(5, dipendente.getAnnoNascita());
             save.setInt(6, dipendente.getIdTeam());
             int result = save.executeUpdate();
@@ -108,7 +115,7 @@ public class DipendenteDAO {
         ResultSet result;
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement retrieve = null;
-        String query = "Select * from " + TABLE_DIPENDENTE + " where IdDipendente=?";
+        String query = "Select * from " + TABLE_DIPENDENTE + " inner join utenti where IdDipendente=?";
         Dipendente user = new Dipendente();
         try {
             retrieve = connection.prepareStatement(query);
@@ -118,9 +125,33 @@ public class DipendenteDAO {
                 user.setIdDipendente(result.getInt("IdDipendente"));
                 user.setResidenza(result.getString("Residenza"));
                 user.setTelefono(result.getString("Telefono"));
-                user.setStato(result.getBoolean("Stato"));
+                boolean stato = result.getBoolean("Stato");
+                if (!(stato)) {
+                    user.setStato(StatiDipendenti.OCCUPATO);
+                } else if (stato) {
+                    user.setStato(StatiDipendenti.DISPONIBILE);
+                }
                 user.setAnnoNascita(result.getInt("AnnoDiNascita"));
                 user.setIdTeam(result.getInt("IdTeam"));
+                user.setId(result.getInt("IdUtente"));
+                user.setName(result.getString("Nome"));
+                user.setSurname(result.getString("Cognome"));
+                user.setPwd(result.getString("Pwd"));
+                user.setEmail(result.getString("Mail"));
+                switch (result.getInt("Ruolo")) {
+                    case 1:
+                        user.setRole(RuoliUtenti.CANDIDATO);
+                        break;
+                    case 2:
+                        user.setRole(RuoliUtenti.DIPENDENTE);
+                        break;
+                    case 3:
+                        user.setRole(RuoliUtenti.TM);
+                        break;
+                    case 4:
+                        user.setRole(RuoliUtenti.HR);
+                        break;
+                }
                 return user;
             }
         } finally {
@@ -152,7 +183,12 @@ public class DipendenteDAO {
                 dip.setIdDipendente(result.getInt("IdDipendente"));
                 dip.setResidenza(result.getString("Residenza"));
                 dip.setTelefono(result.getString("Telefono"));
-                dip.setStato(result.getBoolean("Stato"));
+                boolean stato = result.getBoolean("Stato");
+                if (!(stato)) {
+                    dip.setStato(StatiDipendenti.OCCUPATO);
+                } else if (stato) {
+                    dip.setStato(StatiDipendenti.DISPONIBILE);
+                }
                 dip.setAnnoNascita(result.getInt("AnnoDiNascita"));
                 dip.setIdTeam(result.getInt("IdTeam"));
                 dipendenti.add(dip);
@@ -187,7 +223,6 @@ public class DipendenteDAO {
      */
     public static boolean updateState(int idUtente, boolean stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        ResultSet result;
         if (idUtente <= 0) {
             return false;
         }
@@ -224,7 +259,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @post dipendenti.size()>0
      */
-    public static ArrayList<Dipendente> doRetrieveByState(boolean stato) throws SQLException {
+    public static ArrayList<Dipendente> doRetrieveByState(StatiDipendenti stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -232,16 +267,44 @@ public class DipendenteDAO {
         ArrayList<Dipendente> dipendenti = new ArrayList<Dipendente>();
         try {
             retrieve = connection.prepareStatement(query);
-            retrieve.setBoolean(1, stato);
+            if(StatiDipendenti.DISPONIBILE == stato){
+                retrieve.setBoolean(1, true);
+            }else if(StatiDipendenti.OCCUPATO == stato){
+                retrieve.setBoolean(1, false);
+            }
             result = retrieve.executeQuery();
             while (result.next()) {
                 Dipendente dip = new Dipendente();
                 dip.setIdDipendente(result.getInt("IdDipendente"));
                 dip.setResidenza(result.getString("Residenza"));
                 dip.setTelefono(result.getString("Telefono"));
-                dip.setStato(result.getBoolean("Stato"));
+                boolean state = result.getBoolean("Stato");
+                if (!(state)) {
+                    dip.setStato(StatiDipendenti.OCCUPATO);
+                } else if (state) {
+                    dip.setStato(StatiDipendenti.DISPONIBILE);
+                }
                 dip.setAnnoNascita(result.getInt("AnnoDiNascita"));
                 dip.setIdTeam(result.getInt("IdTeam"));
+                dip.setId(result.getInt("IdUtente"));
+                dip.setName(result.getString("Nome"));
+                dip.setSurname(result.getString("Cognome"));
+                dip.setPwd(result.getString("Pwd"));
+                dip.setEmail(result.getString("Mail"));
+                switch (result.getInt("Ruolo")) {
+                    case 1:
+                        dip.setRole(RuoliUtenti.CANDIDATO);
+                        break;
+                    case 2:
+                        dip.setRole(RuoliUtenti.DIPENDENTE);
+                        break;
+                    case 3:
+                        dip.setRole(RuoliUtenti.TM);
+                        break;
+                    case 4:
+                        dip.setRole(RuoliUtenti.HR);
+                        break;
+                }
                 dipendenti.add(dip);
             }
             if (dipendenti.size() > 0) {
@@ -262,29 +325,31 @@ public class DipendenteDAO {
         }
 
     }
+
     /**
      * Questa funzionalità di aggiornare idTeam quando un dipendente viene aggiunto
      *
      * @param idDip,idTeam
      * @return void
      * @throws SQLException
-     *
      */
 
-    public static boolean updateDipTeamAndState(int idDip,int idTeam) throws SQLException{
-        if(idDip<0 || idTeam<0){return false;}
+    public static boolean updateDipTeamAndState(int idDip, int idTeam) throws SQLException {
+        if (idDip < 0 || idTeam < 0) {
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stm = null;
         String query = "update " + TABLE_DIPENDENTE + " set IdTeam = ?, Stato = ? where IdDipendente = ?";
         try {
             stm = connection.prepareStatement(query);
             stm.setInt(1, idTeam);
-            stm.setInt(2, 0);
+            stm.setBoolean(2, false);
             stm.setInt(3, idDip);
-            int result=stm.executeUpdate();
-            if(result!=-1){
+            int result = stm.executeUpdate();
+            if (result != -1) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } finally {

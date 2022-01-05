@@ -1,6 +1,7 @@
 package it.unisa.agency_formation.team.DAO;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
@@ -358,7 +359,12 @@ public class TeamDAO {
                 dip.setIdDipendente(result.getInt("IdDipendente"));
                 dip.setResidenza(result.getString("Residenza"));
                 dip.setTelefono(result.getString("Telefono"));
-                dip.setStato(result.getBoolean("Stato"));
+                boolean state = result.getBoolean("Stato");
+                if (!(state)) {
+                    dip.setStato(StatiDipendenti.OCCUPATO);
+                } else if (state) {
+                    dip.setStato(StatiDipendenti.DISPONIBILE);
+                }
                 dip.setAnnoNascita(result.getInt("AnnoDiNascita"));
                 dip.setIdTeam(result.getInt("IdTeam"));
                 dipendenti.add(dip);

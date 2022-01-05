@@ -1,6 +1,7 @@
 package it.unisa.agency_formation.autenticazione.manager;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
 import java.sql.Array;
@@ -16,7 +17,7 @@ public interface AutenticazioneManager {
     ArrayList<Utente> getCandidatesWithCandidature() throws SQLException;
     ArrayList<Utente> getCandidatesDip() throws SQLException;
     ArrayList<Dipendente> getAllEmploye() throws SQLException;
-    ArrayList<Dipendente> getEmployeByState( boolean state) throws SQLException;
+    ArrayList<Dipendente> getEmployeByState(StatiDipendenti state) throws SQLException;
 
 
 }

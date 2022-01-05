@@ -1,5 +1,6 @@
+<%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <link rel="stylesheet" href="css/Common.css">
@@ -14,7 +15,7 @@
 <div class="home">
     <div class="content flex">
          <c:choose>
-             <c:when test="${user.getRole() == 1}">
+             <c:when test="${user.getRole() == RuoliUtenti.CANDIDATO}">
                  <div id="home"><a href="UploadDispatch">
                      <h2> Caricamento Documenti </h2></a>
                      <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
@@ -27,14 +28,14 @@
                      <div class="occupato">.</div>
                  </c:if>
              </c:when>
-             <c:when test="${user.getRole() == 2}">
+             <c:when test="${user.getRole() == RuoliUtenti.DIPENDENTE}">
                  <div id="home"><a href="ProfiloControl">
                      <h2> Profilo </h2></a>
                      <p>Accedi al tuo profilo personale per gestire le tue skill e i tuoi dati personali
                          e visualizzare il proprio stato</p>
                  </div>
              </c:when>
-             <c:when test="${user.getRole() == 3}">
+             <c:when test="${user.getRole() == RuoliUtenti.TM}">
                  <div id="home"><a href="CreateTeamControl">
                      <h2> Creazione Team </h2></a>
                      <p>Crea un team specificando: nome del team, nome del progetto,
@@ -52,7 +53,7 @@
                      speficare le competenze richieste</p>
                  </div>
              </c:when>
-             <c:when test="${user.getRole() == 4}">
+             <c:when test="${user.getRole() == RuoliUtenti.HR}">
                  <div id="home"><a href="DipendenteControl">
                      <h2> Lista Dipendenti </h2></a>
                      <p>Ottieni la lista dipendenti per scegliere quale dipendente disponibile aggiungere

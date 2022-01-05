@@ -2,9 +2,10 @@ package it.unisa.agency_formation.autenticazione.domain;
 
 public class Utente {
     private String nome, cognome, email, pwd;
-    private int ruolo, id;
+    private int id;
+    private RuoliUtenti ruolo;
 
-    public Utente(String nome, String cognome, String email, String pwd, int ruolo) {
+    public Utente(String nome, String cognome, String email, String pwd, RuoliUtenti ruolo) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
@@ -35,7 +36,7 @@ public class Utente {
         return pwd;
     }
 
-    public int getRole() {
+    public RuoliUtenti getRole() {
         return ruolo;
     }
 
@@ -59,7 +60,7 @@ public class Utente {
         this.pwd = pwd;
     }
 
-    public void setRole(int ruolo) {
+    public void setRole(RuoliUtenti ruolo) {
         this.ruolo = ruolo;
     }
 }

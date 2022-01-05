@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.autenticazione.control;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.utils.Check;
@@ -26,7 +27,7 @@ public class RegistrazioneControl extends HttpServlet {
                 user.setSurname(request.getParameter("cognome"));
                 user.setEmail(request.getParameter("email"));
                 user.setPwd(request.getParameter("pwd"));
-                user.setRole(1);//il ruolo = 1 perchè il candidato è l'unico che si registra
+                user.setRole(RuoliUtenti.CANDIDATO);//il ruolo = 1 perchè il candidato è l'unico che si registra
                 try {
                     aut.registration(user);
                     Utente result = aut.login(user.getEmail(), user.getPwd());
