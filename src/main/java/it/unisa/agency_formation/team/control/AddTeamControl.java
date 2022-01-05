@@ -30,10 +30,16 @@ public class AddTeamControl extends HttpServlet {
                     dispatcher.forward(req, resp);
             } else if (action.equalsIgnoreCase("aggiungi")) {
                 int idDip = Integer.parseInt(req.getParameter("id"));
-                teamManager.updateDipOnTeam(idDip, idTeam);
-                resp.getWriter().write("2");//action null
-                dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
-                dispatcher.forward(req, resp);
+                if(idDip != 0){  //messo questo controllo
+                    teamManager.updateDipOnTeam(idDip, idTeam);
+                    resp.getWriter().write("2");//action null
+                    dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
+                    dispatcher.forward(req, resp);
+                }else{
+                    dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
+                    dispatcher.forward(req, resp);
+                }
+
             }
         }catch (SQLException e) {
             e.printStackTrace();
