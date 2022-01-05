@@ -57,17 +57,183 @@
 
 .back {
     position: absolute;
+    z-index: 2;
+}
+
+.back, .back img {
     width: 128px;
     height: 128px;
-    z-index: 2;
-    background: url(../img/Back.png) no-repeat;
 }
+
+/*Login*/
 
 .background-login {
     z-index: 1;
     background: url(../img/AF_Login.jpg) no-repeat center center fixed;
 }
 
+.login-block {
+    font-family: monospace;
+    text-align: center;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background-color: rgba(126, 171, 202, 0.7); /*Air Superiority Blue*/
+    border: 2px solid rgb(11, 11, 11);
+    box-shadow: 20px 20px 20px rgb(11, 11, 11); /*Rich Black FOGRA 39*/
+    border-radius: 1rem;
+}
+
+.login-block img {
+    float: right;
+    position: relative;
+    top: -45px;
+    margin-right: 5px;
+    width: 100px;
+    height: 100px;
+}
+
+.components {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    margin-top: 10px;
+}
+
+.components input {
+    width: 90%;
+    margin: 15px 5% 25px 5%;
+    text-align: center;
+    font-size: 25px;
+    height: 35px;
+    color: #1E1E24; /*Raisin Black*/
+    border: none;
+    border-bottom: 2px solid;
+    background-color: rgba(0, 0, 0, .0);
+}
+
+.components input::placeholder {
+    color: #1E1E24; /*Raisin Black*/
+    opacity: 1;
+    font-size: 30px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.components a {
+    font-size: 22px;
+    text-decoration: none;
+    border-bottom: solid #1E1E24 2px; /*Raisin Black*/
+    color: #1E1E24; /*Raisin Black*/
+}
+
+.components a:hover {
+    font-weight: bold;
+}
+
+.components-button {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.components-button input {
+    width: 100px;
+    height: 40px;
+    font-size: 22px;
+    font-family: monospace;
+    color: #1E1E24; /*Raisin Black*/
+    background-color: rgba(0, 0, 0, .0);
+}
+
+.content h2 {
+    font-size: 90px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: #1E1E24; /*Raisin Black*/
+}
+
+/*Registrazione*/
+
+input:focus {
+    outline: none;
+}
+
 .background-reg {
     background: url(../img/AF_Registrazione.jpg) no-repeat;
+}
+
+.reg-block {
+    font-family: monospace;
+    width: 650px;
+    height: 900px;
+    background: url(../img/Cartella.png);
+    position: absolute;
+    top: 5%;
+    left: 55%;
+}
+
+.reg-block h1 {
+    position: relative;
+    text-align: center;
+    margin-top: 90px;
+    font-size: 70px;
+    z-index: 1;
+}
+
+.form {
+    text-align: center;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.form input {
+    width: 60%;
+    margin: 25px 5% 25px 5%;
+    text-align: center;
+    font-size: 30px;
+    font-family: monospace;
+    height: 40px;
+    color: #1E1E24; /*Raisin Black*/
+    border: none;
+    border-bottom: 2px solid;
+    background-color: rgba(0, 0, 0, .0);
+}
+
+.form input::placeholder {
+    color: #1E1E24;
+}
+
+.form-button {
+    text-align: center;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.form-button input {
+    width: 190px;
+    height: 45px;
+    font-size: 28px;
+    font-family: monospace;
+    color: #1E1E24; /*Raisin Black*/
+    background-color: rgba(0, 0, 0, .0);
+    margin-top: 80px;
+}
+
+#logo {
+    float: right;
+    position: relative;
+    top: -25px;
+    margin-right: 10px;
+    width: 180px;
+    height: 180px;
 }
