@@ -12,58 +12,117 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public boolean createTeam(Team team, int idUtente) throws SQLException {
-        return TeamDAO.doSaveTeam(team, idUtente);
+        boolean result = TeamDAO.doSaveTeam(team, idUtente);
+        if(result){
+            return result;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
     public ArrayList<Dipendente> getEmployee(boolean state) throws SQLException {
-        return DipendenteDAO.doRetrieveByState(state);
+        ArrayList<Dipendente> result = DipendenteDAO.doRetrieveByState(state);
+        if(result != null){
+            return result;
+        }else{
+            return null;
+        }
     }
 
     @Override
     public boolean addEmployee(int idTeam, Dipendente dip) throws SQLException {
-        return TeamDAO.addEmployee(idTeam, dip.getIdDipendente());
+        boolean result = TeamDAO.addEmployee(idTeam, dip.getIdDipendente());
+        if(result){
+            return result;
+        }else{
+            return false;
+        }
     }
 
     @Override
     public boolean removeEmployee(int idTeam, int idDip) throws SQLException {
-        return TeamDAO.removeEmployee(idTeam, idDip);
+        boolean result = TeamDAO.removeEmployee(idTeam, idDip);
+        if(result){
+            return result;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
     public ArrayList<Team> viewTeams(int idUtente) throws SQLException {
-        return TeamDAO.doRetrieveTMTeam(idUtente);
+        ArrayList<Team> result = TeamDAO.doRetrieveTMTeam(idUtente);
+        if(result != null){
+            return result;
+        }else{
+            return null;
+        }
     }
 
     @Override
     public ArrayList<Team> viewAllTeams() throws SQLException {
-        return TeamDAO.doRetrieveAllTeam();
+        ArrayList<Team> result = TeamDAO.doRetrieveAllTeam();
+        if(result != null){
+            return result;
+        }else{
+            return null;
+        }
     }
 
     @Override
     public boolean disbandTeam(int idTeam) throws SQLException {
-        return TeamDAO.doRemoveTeam(idTeam);
+        boolean result = TeamDAO.doRemoveTeam(idTeam);
+        if(result){
+            return result;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
     public int viewLastIdTeam() throws SQLException {
-        return TeamDAO.doRetrieveLastIDTeam();
+        int result = TeamDAO.doRetrieveLastIDTeam();
+        if(result == 0){
+            return result;
+        }else{
+            return 0;
+        }
     }
 
     @Override
     public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException {
-            return DipendenteDAO.updateDipTeamAndState(idDip, idTeam);
+        boolean result = DipendenteDAO.updateDipTeamAndState(idDip, idTeam);
+        if(result){
+            return result;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
     public ArrayList<Integer> retriveDips(int idTeam) throws SQLException {
         ArrayList<Integer> listaIdDips = TeamDAO.doRetrieveIdEmployees(idTeam);
-        return listaIdDips;
+        if(listaIdDips != null){
+            return listaIdDips;
+        }else{
+            return null;
+        }
     }
 
     @Override
     public boolean updateDipsDisso(int idDip) throws SQLException {
-        return TeamDAO.updateDipStateDissolution(idDip);
+        boolean result = TeamDAO.updateDipStateDissolution(idDip);
+        if(result){
+            return result;
+        }
+        else{
+            return false;
+        }
     }
 
 

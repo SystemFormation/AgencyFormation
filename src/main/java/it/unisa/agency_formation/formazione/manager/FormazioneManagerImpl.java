@@ -33,8 +33,6 @@ public class FormazioneManagerImpl implements FormazioneManager {
     }
 
     //doRetrieveById //Dipendente
-    //Aggiungere doRetrieveLastId();
-    //aggiungere doSaveSkillDip(x,dip);
     @Override
     public boolean addSkill(Skill skill) throws SQLException {
         if (!alreadyInsertSkill(skill)) {

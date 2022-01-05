@@ -21,18 +21,33 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
 
     @Override
     public Utente login(String email, String password) throws SQLException {
-        return UtenteDAO.login(email, password);
+        Utente result = UtenteDAO.login(email, password);
+        if(result != null){
+            return result;
+        }else{
+            return null;
+        }
     }
 
     @Override
     public Utente getAllData(int idUser) throws SQLException {
-        return UtenteDAO.doRetrieveByID(idUser);
+        Utente result = UtenteDAO.doRetrieveByID(idUser);;
+        if(result != null){
+            return result;
+        }else{
+            return null;
+        }
     }
 
     //Aggiunto questo metodo
     @Override
     public Dipendente getAllDataDip(int idUser) throws SQLException {
-        return DipendenteDAO.doRetrieveById(idUser);
+        Dipendente result = DipendenteDAO.doRetrieveById(idUser);
+        if(result != null){
+            return result;
+        }else{
+            return null;
+        }
     }
 
     @Override
@@ -61,12 +76,22 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     }
     @Override
     public ArrayList<Dipendente> getAllEmploye() throws SQLException {
-        return DipendenteDAO.doRetrieveAll();
+        ArrayList<Dipendente> result = DipendenteDAO.doRetrieveAll();
+        if(result != null){
+            return result;
+        }else{
+            return null;
+        }
     }
 
     @Override
     public ArrayList<Dipendente> getEmployeByState(boolean state) throws SQLException {
-       return DipendenteDAO.doRetrieveByState(state);
+        ArrayList<Dipendente> result = DipendenteDAO.doRetrieveByState(state);
+        if(result != null){
+            return result;
+        }else{
+            return null;
+        }
     }
 
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {
