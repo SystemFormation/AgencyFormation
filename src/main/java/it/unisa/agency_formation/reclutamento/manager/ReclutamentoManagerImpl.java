@@ -2,6 +2,7 @@ package it.unisa.agency_formation.reclutamento.manager;
 
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 
 import java.sql.SQLException;
 
@@ -64,7 +65,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     @Override
     public boolean rejectCandidate(int idCandidatura) throws SQLException{
         if(CandidaturaDAO.doRemoveCandidatura(idCandidatura)==true){
-            CandidaturaDAO.updateState(idCandidatura, "Rifiutato");
+            CandidaturaDAO.updateState(idCandidatura, StatiCandidatura.Rifiutata);
             return true;
         } else{
             return false;

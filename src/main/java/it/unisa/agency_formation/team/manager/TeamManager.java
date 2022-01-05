@@ -1,6 +1,7 @@
 package it.unisa.agency_formation.team.manager;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.team.domain.Team;
 
 import java.sql.SQLException;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public interface TeamManager {
     boolean createTeam(Team team, int idUser) throws SQLException;
 
-    ArrayList<Dipendente> getEmployee(boolean state) throws SQLException;
+    ArrayList<Dipendente> getEmployee(StatiDipendenti state) throws SQLException;
 
     boolean addEmployee(int idTeam, Dipendente dip) throws SQLException;
 

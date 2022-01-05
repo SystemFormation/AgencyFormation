@@ -1,6 +1,7 @@
 package it.unisa.agency_formation.reclutamento.DAO;
 
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
 import java.sql.*;
@@ -31,7 +32,21 @@ public class CandidaturaDAO {
         try {
             save = connection.prepareStatement(query);
             save.setString(1, candidatura.getCurriculum());
-            save.setString(2, candidatura.getStato());
+            switch (candidatura.getStato()){
+                case Accettata:
+                    save.setString(2, "Accettata");
+                    break;
+                case Rifiutata:
+                    save.setString(2, "Rifiutata");
+                    break;
+                case NonRevisionato:
+                    save.setString(2, "NonRevisionato");
+                    break;
+            }
+
+
+
+
             save.setDate(3, (Date) candidatura.getDataCandidatura());
             save.setInt(4, candidatura.getIdCandidato());
             int result = save.executeUpdate();
@@ -121,7 +136,17 @@ public class CandidaturaDAO {
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
                 cand.setCurriculum(result.getString("Curriculum"));
                 cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
-                cand.setStato(result.getString("Stato"));
+                switch (result.getString("Stato")){
+                    case "NonRevisionato":
+                        cand.setStato(StatiCandidatura.NonRevisionato);
+                        break;
+                    case "Accettata":
+                        cand.setStato(StatiCandidatura.Accettata);
+                        break;
+                    case "Rifiutata":
+                        cand.setStato(StatiCandidatura.Rifiutata);
+                        break;
+                }
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
                 cand.setIdCandidato(result.getInt("IdCandidato"));
@@ -161,7 +186,17 @@ public class CandidaturaDAO {
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
                 cand.setCurriculum(result.getString("Curriculum"));
                 cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
-                cand.setStato(result.getString("Stato"));
+                switch (result.getString("Stato")){
+                    case "NonRevisionato":
+                        cand.setStato(StatiCandidatura.NonRevisionato);
+                        break;
+                    case "Accettata":
+                        cand.setStato(StatiCandidatura.Accettata);
+                        break;
+                    case "Rifiutata":
+                        cand.setStato(StatiCandidatura.Rifiutata);
+                        break;
+                }
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
                 cand.setIdCandidato(result.getInt("IdCandidato"));
@@ -194,7 +229,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre stato!=null
      */
-    public static ArrayList<Candidatura> doRetrieveByState(String stato) throws SQLException {
+    public static ArrayList<Candidatura> doRetrieveByState(StatiCandidatura stato) throws SQLException {
         if (stato == null) {
             return null;
         }
@@ -205,14 +240,34 @@ public class CandidaturaDAO {
         ArrayList<Candidatura> candidature = new ArrayList<>();
         try {
             retrieve = connection.prepareStatement(query);
-            retrieve.setString(1, stato);
+            switch (stato){
+                case Accettata:
+                    retrieve.setString(1, "Accettata");
+                    break;
+                case Rifiutata:
+                    retrieve.setString(1, "Rifiutata");
+                    break;
+                case NonRevisionato:
+                    retrieve.setString(1, "NonRevisionato");
+                    break;
+            }
             result = retrieve.executeQuery();
             while (result.next()) {
                 Candidatura cand = new Candidatura();
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
                 cand.setCurriculum(result.getString("Curriculum"));
                 cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
-                cand.setStato(result.getString("Stato"));
+                switch (result.getString("Stato")){
+                    case "NonRevisionato":
+                        cand.setStato(StatiCandidatura.NonRevisionato);
+                        break;
+                    case "Accettata":
+                        cand.setStato(StatiCandidatura.Accettata);
+                        break;
+                    case "Rifiutata":
+                        cand.setStato(StatiCandidatura.Rifiutata);
+                        break;
+                }
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
                 cand.setIdCandidato(result.getInt("IdCandidato"));
@@ -245,7 +300,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre stato!=null and idCandidatura>0
      */
-    public static boolean updateState(int idCandidatura, String stato) throws SQLException {
+    public static boolean updateState(int idCandidatura, StatiCandidatura stato) throws SQLException {
         if (idCandidatura < 1 || stato == null) {
             return false;
         }
@@ -254,7 +309,17 @@ public class CandidaturaDAO {
         String query = "update " + TABLE_CANDIDATURA + " set Stato= ? where IdCandidatura=?";
         try {
             retrieve = connection.prepareStatement(query);
-            retrieve.setString(1, stato);
+            switch (stato){
+                case Accettata:
+                    retrieve.setString(1, "Accettata");
+                    break;
+                case Rifiutata:
+                    retrieve.setString(1, "Rifiutata");
+                    break;
+                case NonRevisionato:
+                    retrieve.setString(1, "NonRevisionato");
+                    break;
+            }
             retrieve.setInt(2, idCandidatura);
             int result = retrieve.executeUpdate();
             if (result != -1) {
@@ -333,9 +398,8 @@ public class CandidaturaDAO {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String statoCandidatura = "Rifiutata";
         String delete= "deleted";
-        updateState(idCandidatura,statoCandidatura);
+        updateState(idCandidatura,StatiCandidatura.Rifiutata);
         String query = "update " + TABLE_CANDIDATURA +" set Curriculum=?, DocumentiAggiuntivi=? where IdCandidatura=?";
         PreparedStatement stmt = null;
         try {
@@ -364,13 +428,12 @@ public class CandidaturaDAO {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String statoCandidatura = "Accettata";
-        updateState(idCandidatura,statoCandidatura);
+        updateState(idCandidatura,StatiCandidatura.Accettata);
         String query = "update " + TABLE_CANDIDATURA +" set Stato=?, IdHR=? where IdCandidatura=?";
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement(query);
-            stmt.setString(1,statoCandidatura);
+            stmt.setString(1,"Accettata");
             stmt.setInt(2,idHR);
             stmt.setInt(3, idCandidatura);
             int result = stmt.executeUpdate();

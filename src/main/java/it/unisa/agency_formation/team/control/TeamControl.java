@@ -1,6 +1,8 @@
 package it.unisa.agency_formation.team.control;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.team.domain.Team;
@@ -25,7 +27,7 @@ public class TeamControl extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         Utente d = (Utente) req.getSession().getAttribute("user");
-        if (d.getRole() == 3) { //sei tm
+        if (d.getRole() == RuoliUtenti.TM) { //sei tm
             try {
                 ArrayList<Dipendente> listaDip = aut2.getAllEmploye();
                 ArrayList<Team> list = aut.viewTeams(d.getId());
@@ -37,7 +39,7 @@ public class TeamControl extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } else if (d.getRole() == 4) {
+        } else if (d.getRole() == RuoliUtenti.HR) {
             try {
                 ArrayList<Dipendente> listaDip = aut2.getAllEmploye();
                 ArrayList<Team> list = aut.viewAllTeams();

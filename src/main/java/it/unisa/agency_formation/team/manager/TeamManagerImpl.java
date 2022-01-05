@@ -2,6 +2,7 @@ package it.unisa.agency_formation.team.manager;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 
@@ -22,7 +23,7 @@ public class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public ArrayList<Dipendente> getEmployee(boolean state) throws SQLException {
+    public ArrayList<Dipendente> getEmployee(StatiDipendenti state) throws SQLException {
         ArrayList<Dipendente> result = DipendenteDAO.doRetrieveByState(state);
         if(result != null){
             return result;

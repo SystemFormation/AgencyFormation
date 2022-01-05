@@ -7,7 +7,7 @@ public class Candidatura {
     private int idCandidatura;
     private String curriculum;
     private String documentiAggiuntivi;
-    private String stato;
+    private StatiCandidatura stato;
     private Date dataCandidatura;
     private int idCandidato;
     private int idHR;
@@ -25,11 +25,11 @@ public class Candidatura {
         this.idCandidatura = idCandidatura;
     }
 
-    public String getStato() {
+    public StatiCandidatura getStato() {
         return stato;
     }
 
-    public void setStato(String stato) {
+    public void setStato(StatiCandidatura stato) {
         this.stato = stato;
     }
 

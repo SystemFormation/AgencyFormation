@@ -2,6 +2,7 @@ package it.unisa.agency_formation.autenticazione.control;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 
@@ -25,7 +26,7 @@ public class ProfiloControl extends HttpServlet {
         Utente user = (Utente) request.getSession().getAttribute("user");
         int id = user.getId();
         try {
-            if (user != null && user.getRole() == 2) {
+            if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
                 Dipendente dip = aut.getAllDataDip(id);
                 response.getWriter().write("1");//
                 if (id == dip.getIdDipendente()) {

@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.team.control;
 
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
@@ -35,7 +36,7 @@ public class CreateTeamControl extends HttpServlet {
                 String nomeTeam = req.getParameter("fname");
                 String descrizione = req.getParameter("teamDescr");
                 resp.getWriter().write("2");
-                if (d.getRole() == 3) {//ruolo dell'utente è uguale a 3 può salvare
+                if (d.getRole() == RuoliUtenti.TM) {//ruolo dell'utente è uguale a 3 può salvare
                     team.setNomeProgetto(nomeProgetto);
                     team.setDescrizione(descrizione);
                     team.setNomeTeam(nomeTeam);

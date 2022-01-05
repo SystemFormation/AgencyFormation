@@ -3,6 +3,7 @@ package it.unisa.agency_formation.reclutamento.control;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
 
@@ -41,14 +42,13 @@ public class UploadCandidatureControl extends HttpServlet {
                 //TODO ERROR FOR SIZE OF FILE MORE
             }else {
                 Candidatura cand = new Candidatura();
-                String stato = "Non Revisionato";
                 file.mkdirs();
                 curriculum.write(file.getAbsolutePath() + "\\" + curriculum.getSubmittedFileName());
                 String cv = pathRelative + "\\" + "IdUtente-" + user.getId() + "\\" + curriculum.getSubmittedFileName();
                 Date date = new Date();
                 java.sql.Date data = new java.sql.Date(date.getTime());
                 cand.setCurriculum(cv);
-                cand.setStato(stato);
+                cand.setStato(StatiCandidatura.NonRevisionato);
                 cand.setDataCandidatura(data);
                 cand.setIdCandidato(user.getId());
                 try {
