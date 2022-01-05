@@ -1,10 +1,12 @@
 package it.unisa.agency_formation.team.DAO;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
+import javax.lang.model.type.ArrayType;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 public class TeamDAO {
     private static final String TABLE_DIPENDENTE = "dipendenti";
+    private static final String TABLE_UTENTE = "utenti";
     private static final String TABLE_TEAM = "team";
 
     /**
@@ -494,6 +497,66 @@ public class TeamDAO {
                 return true;
             }else{
                 return false;
+            }
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
+    }
+    public static ArrayList<Dipendente> doRetrieveAllDipsTeam() throws SQLException{
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement stmt = null;
+        String query= "SELECT * FROM " + TABLE_DIPENDENTE + " inner join "+ TABLE_UTENTE + " on utenti.IdUtente = dipendenti.IdDipendente" ;
+        ArrayList<Dipendente> DipsUsers = new ArrayList<Dipendente>();
+        ResultSet result;
+        try {
+            stmt = connection.prepareStatement(query);
+            result = stmt.executeQuery();
+            while (result.next()) {
+                Dipendente dipUser = new Dipendente();
+                dipUser.setIdDipendente(result.getInt("idDipendente"));
+                dipUser.setResidenza(result.getString("Residenza"));
+                dipUser.setTelefono(result.getString("Telefono"));
+                if(result.getBoolean("Stato") == false) {
+                    dipUser.setStato(StatiDipendenti.OCCUPATO);
+
+                }else if(result.getBoolean("Stato") == true){
+                    dipUser.setStato(StatiDipendenti.DISPONIBILE);
+                }
+                dipUser.setAnnoNascita(result.getInt("AnnoDiNascita"));
+                dipUser.setIdTeam(result.getInt("IdTeam"));
+                dipUser.setId(result.getInt("IdUtente"));
+                dipUser.setName(result.getString("Nome"));
+                dipUser.setSurname(result.getString("Cognome"));
+                dipUser.setPwd(result.getString("Pwd"));
+                dipUser.setEmail(result.getString("Mail"));
+                switch (result.getInt("Ruolo")) {
+                    case 1:
+                        dipUser.setRole(RuoliUtenti.CANDIDATO);
+                        break;
+                    case 2:
+                        dipUser.setRole(RuoliUtenti.DIPENDENTE);
+                        break;
+                    case 3:
+                        dipUser.setRole(RuoliUtenti.TM);
+                        break;
+                    case 4:
+                        dipUser.setRole(RuoliUtenti.HR);
+                        break;
+                }
+                DipsUsers.add(dipUser);
+            }
+            if (DipsUsers.size() > 0) {
+                return DipsUsers;
+            } else {
+                return null;
             }
         } finally {
             try {

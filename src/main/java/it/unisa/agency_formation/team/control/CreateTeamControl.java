@@ -33,6 +33,10 @@ public class CreateTeamControl extends HttpServlet {
             } else if (action.equalsIgnoreCase("crea")) {
                 String nomeProgetto = req.getParameter("lname");
                 int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
+                if(numeroDipendenti > 8){
+                    dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
+                    dispatcher.forward(req, resp);
+                }
                 String nomeTeam = req.getParameter("fname");
                 String descrizione = req.getParameter("teamDescr");
                 resp.getWriter().write("2");
