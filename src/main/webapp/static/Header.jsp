@@ -67,7 +67,14 @@
                 </c:choose>
 
                 <c:if test="${user != null}">
-                <li><a href="LogoutControl">Logout</a></li>
+                    <c:choose>
+                        <c:when test="${param.sameLocation==true}">
+                            <li><a href="../LogoutControl">Logout</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="./LogoutControl">Logout</a></li>
+                        </c:otherwise>
+                    </c:choose>
                 </c:if>
             </ul>
     </div>
