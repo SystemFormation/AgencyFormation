@@ -37,17 +37,7 @@
                     <input type="time" name="time" id="time"><br>
                     <button type="button" id="chiudiColloquio" class="buttonChiudi">Chiudi</button>
                     <button onclick="acceptCandidature(${cand.getId()},${index})">Accetta</button>
-
                 </div>
-                <script type="text/javascript">
-                    $('#apriColloquio').click(function () {
-                        document.getElementById("colloquio").style.display = "block";
-                    })
-                    $('#chiudiColloquio').click(
-                        function () {
-                            document.getElementById("colloquio").style.display = "none";
-                        })
-                </script>
                 <button onclick="rejectCandidature(${cand.getId()})">Rifiuta</button>
             </div>
             <div name="drop" class="dropdown-content" style="display:none">
@@ -66,4 +56,13 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    $('#apriColloquio').click(function () {
+        document.getElementById("colloquio").style.display = "block";
+    })
+    $('#chiudiColloquio').click(
+        function () {
+            document.getElementById("colloquio").style.display = "none";
+        })
+</script>
 </html>

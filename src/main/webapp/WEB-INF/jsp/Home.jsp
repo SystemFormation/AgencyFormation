@@ -4,7 +4,6 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
 <%
     Candidatura candidatura = (Candidatura) request.getAttribute("candidatura");
-
 %>
 <html>
 <head>
@@ -22,7 +21,6 @@
 </jsp:include>
 
 <h1>Bentornato ${user.getName()}</h1>
-</body>
 <div class="home">
     <div class="content flex">
          <c:choose>
@@ -32,32 +30,16 @@
                      <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
                      </p>
                  </div>
-                 <script type="text/javascript">
-                     $(document).ready(function() {
-                         $.ajax({
-                             type: 'GET',
-                             url: 'ViewCandidaturaControl',
-                             success: function (data1){
-                                 var cv =data1.substr(0,data1.indexOf("."));
-                                 var doc = data1.substr(data1.indexOf(".")+1,data1.length);
-                                 if(cv.length>0 && doc.length>0){
-                                     var x = document.getElementById("home");
-                                     x.style.display = "none";
-                                     var z = document.getElementById("stato");
-                                     z.style.display="block";
-                                 }else if(cv.length>0 && (doc.length<1)){
-                                     var z = document.getElementById("stato");
-                                     z.style.display="block";
-                                 }
-                             }
-                         })
-                     });
-                 </script>
+
                  <div id="stato" style="display: none">
-                     <h1>Stato candidatura</h1>
+                     <h2>Stato della tua candidatura:</h2>
+                     <c:if test="${candidatura.getStato() == 'Accettata'}">
+                         <h3>Accettata</h3>
+                     </c:if>
+                     <c:if test="${candidatura.getStato() == 'Rifiutata'}">
+                         <h3>Rifiutata</h3>
+                     </c:if>
                  </div>
-                 <!-- <div class ="disponibile">.</div> -->
-                 <!-- <div class="occupato">.</div> -->
              </c:when>
              <c:when test="${user.getRole() == RuoliUtenti.DIPENDENTE}">
                  <div id="home"><a href="ProfiloControl">
@@ -70,10 +52,8 @@
                      <h2 onclick="view(), viewLink()"> Materiale di formazione </h2>
                      <div id="drop" class="dropdown-content" style="display:none">
                          <a href="DownloadMaterialeControl" id="hrefDocumenti">
-                             <img src="img/Curriculum.png">
+                             <img src="img/Materiale.png">
                              <p>Materiale</p>
-                         </a>
-
                          </a>
                      </div>
                  </div>
@@ -118,4 +98,27 @@
          </c:choose>
     </div>
 </div>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.ajax({
+            type: 'GET',
+            url: 'ViewCandidaturaControl',
+            success: function (data1){
+                var cv =data1.substr(0,data1.indexOf("."));
+                var doc = data1.substr(data1.indexOf(".")+1,data1.length);
+                if(cv.length>0 && doc.length>0){
+                    var x = document.getElementById("home");
+                    x.style.display = "none";
+                    var z = document.getElementById("stato");
+                    z.style.display="block";
+                }else if(cv.length>0 && (doc.length<1)){
+                    var z = document.getElementById("stato");
+                    z.style.display="block";
+                }
+            }
+        })
+    });
+</script>
 </html>

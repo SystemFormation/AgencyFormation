@@ -8,7 +8,7 @@
 <html>
 <head>
     <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
-    <link rel="stylesheet" href="css/Upload.css">
+    <link rel="stylesheet" href="css/Common.css">
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="js/Reclutamento.js"></script>
     <meta charset="ISO-8859-1">
@@ -22,7 +22,7 @@
 
 
 <h1>Caricamento Documenti</h1>
-<div class="content">
+<div class="content content-upload">
     <div class="text-block">
         Carica qui il tuo Curriculum, attestati o certificazioni per farli revisionare da un HR.
     </div>

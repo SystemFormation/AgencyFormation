@@ -28,17 +28,21 @@
                     <div class="team-inf">
                         <div id="flex-team"><h2>${team.getNomeTeam()}</h2></div>
                         <div id="flex-team"><h3>${team.getNomeProgetto()}</h3></div>
-                        <div id="flex-team"><h4>Numero dipendenti:${team.getNumeroDipendenti()}</h4></div>
+                        <div id="flex-team"><h4>Numero massimo dipendenti: ${team.getNumeroDipendenti()}</h4></div>
                     </div>
                     <div class="team-descr">
                         <h4>Descrizione</h4>
                         <div id="flex-team">${team.getDescrizione()}</div>
                     </div>
                     <div class="team-dip">
-                        <h4>Dipendenti</h4>
+                        <h4>Dipendenti: ${i}</h4>
                         <div id="flex-team-dip">
                             <c:forEach var="dip" items="${listDip}">
-                                <div>${dip.getName()} ${dip.getSurname()} <a href="RemoveTeamControl?idTeam=${team.getIdTeam()}&idDip=${dip.getIdDipendente()}">X</a></div>
+                                <c:if test="${dip.getIdTeam() == team.getIdTeam()}">
+                                    <div>${dip.getName()} ${dip.getSurname()}
+                                        <a href="RemoveTeamControl?idTeam=${team.getIdTeam()}&idDip=${dip.getIdDipendente()}">X</a>
+                                    </div>
+                                </c:if>
                             </c:forEach>
                         </div>
                     </div>
