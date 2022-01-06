@@ -6,6 +6,7 @@ import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 
+import javax.lang.model.type.ArrayType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -133,6 +134,16 @@ public class TeamManagerImpl implements TeamManager {
             return result;
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public ArrayList<Dipendente> retrieveAllDipsTeam() throws SQLException {
+        ArrayList<Dipendente> result = TeamDAO.doRetrieveAllDipsTeam();
+        if(result != null){
+            return result;
+        }else{
+            return null;
         }
     }
 

@@ -26,4 +26,5 @@ public interface TeamManager {
     ArrayList<Integer> retriveDips(int idTeam) throws SQLException;
     boolean updateDipsDisso(int idDip)throws SQLException;
     boolean deleteTeam (int idTeam) throws SQLException;
+    ArrayList<Dipendente> retrieveAllDipsTeam() throws SQLException;
 }
