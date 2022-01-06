@@ -114,7 +114,7 @@ public class TeamDAO {
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         if(idTeam<1 || idDipendente<1) return false;
-        String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=1 WHERE IdDipendente=?";
+        String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=0 WHERE IdDipendente=?";
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement(query);

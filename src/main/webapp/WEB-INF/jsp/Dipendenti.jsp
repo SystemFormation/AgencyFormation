@@ -7,6 +7,7 @@
 
 <%
     ArrayList<Dipendente> dip = (ArrayList<Dipendente>) request.getAttribute("dipendenti");
+    int idTeam = (int) request.getAttribute("idTeam");
 %>
 <html>
 <head>
@@ -47,7 +48,7 @@
 
                     <div id="flex-dip">
                         <c:if test="${user.getRole() == RuoliUtenti.TM && dip.getStato() == StatiDipendenti.DISPONIBILE }">
-                            <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}">Aggiungi</a>
+                            <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}&idTeam=${idTeam}">Aggiungi</a>
                         </c:if>
                         <c:if test="${user.getRole() == RuoliUtenti.HR}">
                             Non Disponibile

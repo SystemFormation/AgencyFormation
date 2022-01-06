@@ -38,7 +38,7 @@
                         <h4>Dipendenti</h4>
                         <div id="flex-team-dip">
                             <c:forEach var="dip" items="${listDip}">
-                                <div>${dip.getName()} ${dip.getSurname()}</div>
+                                <div>${dip.getName()} ${dip.getSurname()} <a href="RemoveTeamControl?idTeam=${team.getIdTeam()}&idDip=${dip.getIdDipendente()}">X</a></div>
                             </c:forEach>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             <button><a href="SpecificaCompetenzeControl?idTeam=${team.getIdTeam()}">Specifica Competenze</a></button>
                             <br>
                             <c:if test="${team.getNumeroDipendenti() <= 8}">
-                                <button><a href="DipendenteControl">Aggiungi Dipendenti</a></button>
+                                <button><a href="DipendenteDispoControl?idTeam=${team.getIdTeam()}">Aggiungi Dipendenti</a></button>
                                 <br>
                             </c:if>
                             <!-- Implementare questa funzione con js e aggiungere una Servlet -->
