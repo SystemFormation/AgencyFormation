@@ -79,7 +79,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     }
     @Override
-    public String getMaterialeByIdTeam(int idTeam) throws SQLException{
+    public Documento getMaterialeByIdTeam(int idTeam) throws SQLException{
         return DocumentoDAO.doRetrieveByTeam(idTeam);
     }
 }

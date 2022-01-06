@@ -12,6 +12,8 @@
     <link rel="icon" type="image/png" href="img/Logo%20Team%204-5.png"/>
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="js/Reclutamento.js"></script>
+    <script type="text/javascript" src="js/Formazione.js"></script>
+
     <title>Home</title>
 </head>
 <body>
@@ -32,7 +34,6 @@
                  </div>
                  <script type="text/javascript">
                      $(document).ready(function() {
-
                          $.ajax({
                              type: 'GET',
                              url: 'ViewCandidaturaControl',
@@ -63,6 +64,18 @@
                      <h2> Profilo </h2></a>
                      <p>Accedi al tuo profilo personale per gestire le tue skill e i tuoi dati personali
                          e visualizzare il proprio stato</p>
+                 </div>
+                 <div id="home">
+
+                     <h2 onclick="view(), viewLink()"> Materiale di formazione </h2>
+                     <div id="drop" class="dropdown-content" style="display:none">
+                         <a href="DownloadMaterialeControl" id="hrefDocumenti">
+                             <img src="img/Curriculum.png">
+                             <p>Materiale</p>
+                         </a>
+
+                         </a>
+                     </div>
                  </div>
              </c:when>
              <c:when test="${user.getRole() == RuoliUtenti.TM}">

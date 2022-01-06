@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DocumentoDAO {
-    private static final String TABLE_DOCUMENTO = "Documenti";
+    private static final String TABLE_DOCUMENTO = "documenti";
 
     /**
      * Questa funzionalità permette di salvare un documento
@@ -24,7 +24,7 @@ public class DocumentoDAO {
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
-        String query = "INSERT INTO " + TABLE_DOCUMENTO + "(MaterialeDiFormazione, IdHR, IdTeam) " +
+        String query = "INSERT INTO " + TABLE_DOCUMENTO + " (MaterialeDiFormazione, IdHR, IdTeam) " +
                 "VALUES(?,?,?)";
         try {
             save = connection.prepareStatement(query);
@@ -61,7 +61,7 @@ public class DocumentoDAO {
         }
         ResultSet result;
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = "DELETE FROM " + TABLE_DOCUMENTO + "WHERE MaterialeDiFormazione=?";
+        String query = "DELETE FROM " + TABLE_DOCUMENTO + " WHERE MaterialeDiFormazione=?";
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement(query);
@@ -98,7 +98,7 @@ public class DocumentoDAO {
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
-        String query = "UPDATE" + TABLE_DOCUMENTO + " SET MaterialeDiFormazione=? WHERE IdUtente=? and IdTeam=?";
+        String query = "UPDATE " + TABLE_DOCUMENTO + " SET MaterialeDiFormazione=? WHERE IdUtente=? and IdTeam=?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, materiale);
@@ -129,22 +129,28 @@ public class DocumentoDAO {
      * @throws SQLException
      * @pre idTeam!=null
      */
-    public static String doRetrieveByTeam(int idTeam) throws SQLException {
+    public static Documento doRetrieveByTeam(int idTeam) throws SQLException {
         if(idTeam<1){
             return null;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
         ResultSet result;
-        String path = null;
-        String query = "SELECT FROM " + TABLE_DOCUMENTO + "WHERE IdTeam=?";
+        Documento documento = null;
+        String query = "SELECT * FROM " + TABLE_DOCUMENTO + " WHERE IdTeam=?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             result = stmt.executeQuery();
-            path = result.getString("MaterialeDiFormazione");
-            if(path!=null){
-                return path;
+           if(result.next()){
+               documento = new Documento();
+               documento.setIdDocumento(result.getInt("IdDocumento"));
+               documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
+               documento.setIdHR(result.getInt("IdHR"));
+               documento.setIdTeam(result.getInt("IdTeam"));
+           }
+            if(documento!=null){
+                return documento;
             }else{
                 return null;
             }

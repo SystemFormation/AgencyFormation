@@ -4,15 +4,11 @@ public class Documento {
     private String materialeDiFormazione;
     private int idHR;
     private int idTeam;
+    private int idDocumento;
 
     public Documento() {
     }
 
-    public Documento(String materialeDiFormazione, int idUtente, int idTeam) {
-        this.materialeDiFormazione = materialeDiFormazione;
-        this.idHR = idUtente;
-        this.idTeam = idTeam;
-    }
 
     public String getMaterialeDiFormazione() {
         return materialeDiFormazione;
@@ -36,5 +32,13 @@ public class Documento {
 
     public void setIdTeam(int idTeam) {
         this.idTeam = idTeam;
+    }
+
+    public int getIdDocumento() {
+        return idDocumento;
+    }
+
+    public void setIdDocumento(int idDocumento) {
+        this.idDocumento = idDocumento;
     }
 }
