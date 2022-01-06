@@ -257,19 +257,19 @@ input[type=file]::file-selector-button:hover {
     background-color: #59A5D8;
 }
 
-input[type=submit] {
+.text-block input[type=submit], .team-button input[type=submit] {
     border: 2px solid #1E1E24;
     padding: .5em 1em;
     border-radius: .5em;
     background-color: #9CC9E8;
 }
 
-input[type=submit]:hover {
+.text-block input[type=submit]:hover, .team-button input[type=submit]:hover  {
     background-color: #59A5D8;
     transition: 1s ease;
 }
 
-.par{
+.team-button p{
     border-bottom: solid #101D42 2px;
     margin: auto;
 }

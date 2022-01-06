@@ -2,13 +2,16 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.Dipendente" %>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
+<%@ page import="it.unisa.agency_formation.autenticazione.domain.Utente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
     ArrayList<Team> listTeam = (ArrayList<Team>) request.getAttribute("listTeam");
     ArrayList<Dipendente> listDip = (ArrayList<Dipendente>) request.getAttribute("listDip");
+    ArrayList<Utente> listUser = (ArrayList<Utente>) request.getAttribute("listUser");
 %>
+
 <html>
 <head>
     <link rel="stylesheet" href="css/Common.css">
@@ -32,12 +35,15 @@
                         <h4>Descrizione</h4>
                         <div id="flex-team">${team.getDescrizione()}</div>
                     </div>
-
                     <div class="team-dip">
                         <h4>Dipendenti</h4>
                         <div id="flex-team-dip">
-                            <c:forEach var="dip" items="listDip">
-                                <div>Luigi</div>
+                            <c:forEach var="dip" items="${listDip}">
+                                    <c:forEach var="user" items="${listUser}">
+                                        <c:if test="${user.getId() == dip.getIdDipendente()}">
+                                            <div>${user.getName()} ${user.getSurname()}</div>
+                                        </c:if>
+                                    </c:forEach>
                             </c:forEach>
                         </div>
                     </div>
@@ -50,7 +56,8 @@
                                 <br>
                             </c:if>
                             <!-- Implementare questa funzione con js e aggiungere una Servlet -->
-                            <button><a href="ScioglimentoTeamControl?idTeam=${team.getIdTeam()}">Scioglimento Team</a></button>
+                            <button><a href="ScioglimentoTeamControl?idTeam=${team.getIdTeam()}">Scioglimento Team</a>
+                            </button>
                             <button><a href="/static/Error.html">Visualizza Materiale</a></button>
                         </div>
                     </div>
@@ -70,22 +77,29 @@
                         <h4>Descrizione</h4>
                         <div id="flex-team">${team.getDescrizione()}</div>
                     </div>
-
+                    <!-- Da rivedere perchè l'IdTeam è sempre uguale a 0 -->
                     <div class="team-dip">
                         <h4>Dipendenti</h4>
                         <div id="flex-team-dip">
-                            <c:forEach var="dip" items="listDip">
-                                <div>Luigi</div>
+                            <c:forEach var="dip" items="${listDip}">
+                                <c:if test="${dip.getIdTeam() == team.getIdTeam()}">
+                                    <c:forEach var="user" items="${listUser}">
+                                        <c:if test="${user.getId() == dip.getIdDipendente()}">
+                                            <div>${user.getName()} ${user.getSurname()}</div>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:if>
                             </c:forEach>
                         </div>
                     </div>
                     <div class="team-button">
                         <div id="flex-team-button">
-                            <button><a href="/static/Error.html">Visulizza Competenze</a></button>
+                            <button><a href="/static/Error.html">Visualizza Competenze</a></button>
                             <br><br>
 
                             <!-- Si dvee implementare questa fuznionalità  e aggiungere la Servlet -->
-                            <form action="UploadMaterialeControl" id="materiale" method="post" enctype = "multipart/form-data">
+                            <form action="UploadMaterialeControl" id="materiale" method="post"
+                                  enctype="multipart/form-data">
                                 <p class="par">Materiale di Formazione</p><br>
                                 <input type="file" id="fileMateriale" name="materiale" size="50"><br>
                                 <input type="hidden" id="idTeam" name="idTeam" value="${team.getIdTeam()}">

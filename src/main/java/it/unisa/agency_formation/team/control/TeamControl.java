@@ -31,8 +31,10 @@ public class TeamControl extends HttpServlet {
             try {
                 ArrayList<Dipendente> listaDip = aut2.getAllEmploye();
                 ArrayList<Team> list = aut.viewTeams(d.getId());
+                ArrayList<Utente> listUser = aut2.getCandidatesDip();
                 req.setAttribute("listDip",listaDip);
                 req.setAttribute("listTeam", list);
+                req.setAttribute("listUser", listUser);
                 resp.getWriter().write("1");
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
                 dispatcher.forward(req, resp);
@@ -43,8 +45,10 @@ public class TeamControl extends HttpServlet {
             try {
                 ArrayList<Dipendente> listaDip = aut2.getAllEmploye();
                 ArrayList<Team> list = aut.viewAllTeams();
+                ArrayList<Utente> listUser = aut2.getCandidatesDip();
                 req.setAttribute("listTeam", list);
                 req.setAttribute("listDip", listaDip);
+                req.setAttribute("listUser", listUser);
                 resp.getWriter().write("2");
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
                 dispatcher.forward(req, resp);
