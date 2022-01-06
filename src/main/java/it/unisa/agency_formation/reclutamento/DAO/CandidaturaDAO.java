@@ -118,6 +118,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre idCandidato >0
      */
+    // todo refactor
     public static Candidatura doRetrieveById(int idCandidato) throws SQLException {
         if (idCandidato < 1) {
             return null;
@@ -176,10 +177,11 @@ public class CandidaturaDAO {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
-        String query = "Select * from " + TABLE_CANDIDATURA;
-        ArrayList<Candidatura> candidature = null;
+        String query = "Select * from " + TABLE_CANDIDATURA + " where Stato=?";
+        ArrayList<Candidatura> candidature = new ArrayList<>();
         try {
             retrieve = connection.prepareStatement(query);
+            retrieve.setString(1, "NonRevisionato");
             result = retrieve.executeQuery();
             while (result.next()) {
                 Candidatura cand = new Candidatura();
@@ -206,7 +208,8 @@ public class CandidaturaDAO {
             if (candidature.size() > 0) {
                 return candidature;
             } else {
-                return null;
+                candidature = null;
+                return candidature;
             }
         } finally {
             try {
@@ -423,19 +426,21 @@ public class CandidaturaDAO {
             }
         }
     }
-    public static boolean acceptCandidatura(int idCandidatura,int idHR) throws SQLException {
+    public static boolean acceptCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
         if (idCandidatura < 1 || idHR<1){
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         updateState(idCandidatura,StatiCandidatura.Accettata);
-        String query = "update " + TABLE_CANDIDATURA +" set Stato=?, IdHR=? where IdCandidatura=?";
+        String query = "update " + TABLE_CANDIDATURA +" set Stato=?, IdHR=?, DataOraColloquio=? where IdCandidatura=?";
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement(query);
             stmt.setString(1,"Accettata");
             stmt.setInt(2,idHR);
-            stmt.setInt(3, idCandidatura);
+            stmt.setTimestamp(3,  data);
+            stmt.setInt(4, idCandidatura);
+
             int result = stmt.executeUpdate();
             if(result!=-1) {
                 return true;

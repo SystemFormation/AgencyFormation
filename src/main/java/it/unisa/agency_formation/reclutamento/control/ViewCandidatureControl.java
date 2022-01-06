@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.reclutamento.control;
 
+import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
@@ -21,7 +22,15 @@ public class ViewCandidatureControl extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
+        int idCandidato=0;
+        if(request.getParameter("idCandidato")==null){
+            Utente user = (Utente) request.getSession().getAttribute("user");
+            idCandidato = user.getId();
+        }
+        else{
+            idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
+        }
+
         Candidatura candidatura = null;
         try {
             candidatura = reclutamento.getCandidaturaById(idCandidato);

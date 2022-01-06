@@ -32,13 +32,12 @@
                 <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra file</button>
                 <div class="dropdown"><button id="apriColloquio">Accetta</button></div>
                 <div class="colloquio" id="colloquio">
-                    <form>
                     <h5>Inserisci la data e l'ora del colloquio</h5>
                     <input type="date" id="data1" name="data1"><br>
-                    <input type="time" name="time"><br>
+                    <input type="time" name="time" id="time"><br>
                     <button type="button" id="chiudiColloquio" class="buttonChiudi">Chiudi</button>
-                    <button onclick="acceptCandidature(${cand.getId()})">Accetta</button>
-                    </form>
+                    <button onclick="acceptCandidature(${cand.getId()},${index})">Accetta</button>
+
                 </div>
                 <script type="text/javascript">
                     $('#apriColloquio').click(function () {

@@ -39,15 +39,21 @@ function view(i){
     }
 }
 
-function acceptCandidature(id){
+function acceptCandidature(id,index){
     var id = id;
+    var index = index
+    var date = document.getElementsByName("data1")[index];
+    var time = document.getElementsByName("time")[index];
+    console.log(date.value);
     $.ajax({
         type: 'GET',
-        data:{"idCandidato":id},
+        data:{"idCandidato":id,"data1":date.value,"time":time.value},
         url: 'AcceptCandidatureControl',
         success: function (data){
             if(data== "1"){
                 window.location.reload();
+            }else{
+                window.location.replace('./LoginControl');
             }
         }
     })
@@ -66,15 +72,4 @@ function rejectCandidature(id){
         }
     })
 }
-function open(index){
-    var index = index;
-    var x = document.getElementById("colloquio");
-    var setting = x.style.display;
-    if(setting == "none"){
-        x.style.display = "block";
-        console.log("ciao");
-    }
-    else{
-        x.style.display = "none";
-    }
-}
+

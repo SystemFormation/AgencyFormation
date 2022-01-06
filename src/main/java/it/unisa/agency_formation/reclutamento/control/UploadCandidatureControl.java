@@ -32,6 +32,19 @@ public class UploadCandidatureControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
+        if(request.getParameter("sceltaUpload")==null){
+            try {
+                Candidatura cand = reclutamento.getCandidaturaById(user.getId());
+                request.setAttribute("candidatura",cand);
+                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Upload.jsp");
+                dispatcher.forward(request,response);
+                return;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
         //se scelta = 1 curriculum caricato
         //se scelta = 2 documenti aggiuntivi caricati
         int scelta = Integer.parseInt(request.getParameter("sceltaUpload"));
@@ -40,6 +53,7 @@ public class UploadCandidatureControl extends HttpServlet {
             Part curriculum = (Part) request.getPart("curriculum");
             if(curriculum.getSize()>MAXDIM){
                 //TODO ERROR FOR SIZE OF FILE MORE
+                response.getWriter().write("3");//file troppo grande
             }else {
                 Candidatura cand = new Candidatura();
                 file.mkdirs();
@@ -53,8 +67,8 @@ public class UploadCandidatureControl extends HttpServlet {
                 cand.setIdCandidato(user.getId());
                 try {
                     reclutamento.uploadCandidature(cand);
-                    request.setAttribute("curriculum", true);
-                    request.setAttribute("document", false);//i documenti non sono stati ancora caricati
+                    request.setAttribute("candidatura", cand);
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -71,12 +85,13 @@ public class UploadCandidatureControl extends HttpServlet {
                 cand.setDocumentiAggiuntivi(documentiAggiuntivi);
                 try {
                     reclutamento.uploadCandidature(cand);
-                    request.setAttribute("document", true);//i documenti sono stati caricati
+                    request.setAttribute("candidatura", cand);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
         }
+
         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
         dispatcher.forward(request,response);
     }

@@ -5,6 +5,8 @@ import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
@@ -14,17 +16,23 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
         if(candidatura == null){
             return false;
         }else {
-            if (!alreadyLoaded(candidatura.getIdCandidato())) {
                 if(candidatura.getCurriculum()!=null && candidatura.getDocumentiAggiuntivi()==null) {
-                    return CandidaturaDAO.doSaveCandidaturaWithoutDocument(candidatura);
+                    if(!alreadyLoaded(candidatura.getIdCandidato())) {
+                        return CandidaturaDAO.doSaveCandidaturaWithoutDocument(candidatura);
+                    }else{
+                        return false;
+                    }
                 }
-                else{
+                else {
                    return CandidaturaDAO.addDocument(candidatura.getDocumentiAggiuntivi(), candidatura.getIdCandidato());
                 }
-            } else {
-                return false;
             }
         }
+
+
+    @Override
+    public ArrayList<Candidatura> getAll() throws SQLException {
+        return CandidaturaDAO.doRetrieveAll();
     }
 
     @Override
@@ -43,8 +51,8 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
     //TODO TEST THIS METHOD
     @Override
-    public boolean acceptCandidature(int idCandidatura, int idHR) throws SQLException {
-        return CandidaturaDAO.acceptCandidatura(idCandidatura,idHR);
+    public boolean acceptCandidature(int idCandidatura, int idHR, Timestamp data) throws SQLException {
+        return CandidaturaDAO.acceptCandidatura(idCandidatura,idHR,data);
     }
     //TODO TEST THIS METHOD
     @Override
@@ -61,7 +69,6 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
         //TODO
         return false;
     }
-//DA CONTROLLARE
     @Override
     public boolean rejectCandidate(int idCandidatura) throws SQLException{
         if(CandidaturaDAO.doRemoveCandidatura(idCandidatura)==true){

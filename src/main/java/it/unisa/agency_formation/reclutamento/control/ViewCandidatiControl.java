@@ -12,17 +12,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 @WebServlet("/ViewCandidatiControl")
 public class ViewCandidatiControl extends HttpServlet {
-    private static final AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //AutenticazioneManagerImpl aut=(AutenticazioneManagerImpl) request.getAttribute("aut");
         try {
-            ArrayList<Utente> candidati = aut.getCandidatesWithCandidature();
+            ArrayList<Utente> candidati = getCandidates();
             if(candidati!=null && candidati.size()>0) {
                 request.setAttribute("candidati", candidati);
                 response.getWriter().write("1");//ci sono i candidati
@@ -34,11 +33,13 @@ public class ViewCandidatiControl extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req,resp);
+    }
+    public static ArrayList<Utente> getCandidates() throws SQLException {
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+        return autenticazioneManager.getCandidatesWithCandidature();
     }
 }
