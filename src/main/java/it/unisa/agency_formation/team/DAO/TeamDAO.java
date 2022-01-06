@@ -319,7 +319,7 @@ public class TeamDAO {
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
-            result = (stmt.executeQuery());
+            result = stmt.executeQuery();
             if(result.next()){
                 path=result.getString("Competenza");
             }

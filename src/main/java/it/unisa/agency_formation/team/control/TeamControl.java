@@ -29,10 +29,9 @@ public class TeamControl extends HttpServlet {
         Utente d = (Utente) req.getSession().getAttribute("user");
         if (d.getRole() == RuoliUtenti.TM) { //sei tm
             try {
-                //ArrayList<Dipendente> listaDip = aut2.getAllEmploye(); //Mettere questo se l'altro non funziona
-                ArrayList<Dipendente> listaDipsUsers = aut.retrieveAllDipsTeam(); //<------- Nuovo metodo
+
+                ArrayList<Dipendente> listaDipsUsers = aut.retrieveAllDipsTeam();
                 ArrayList<Team> list = aut.viewTeams(d.getId());
-                //req.setAttribute("listDip",listaDip);
                 req.setAttribute("listDip", listaDipsUsers);
                 req.setAttribute("listTeam", list);
                 resp.getWriter().write("1");

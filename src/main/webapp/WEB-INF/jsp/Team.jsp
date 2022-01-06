@@ -9,7 +9,6 @@
 <%
     ArrayList<Team> listTeam = (ArrayList<Team>) request.getAttribute("listTeam");
     ArrayList<Dipendente> listDip = (ArrayList<Dipendente>) request.getAttribute("listDip");
-    ArrayList<Utente> listUser = (ArrayList<Utente>) request.getAttribute("listUser");
 %>
 
 <html>
@@ -39,17 +38,13 @@
                         <h4>Dipendenti</h4>
                         <div id="flex-team-dip">
                             <c:forEach var="dip" items="${listDip}">
-                                    <c:forEach var="user" items="${listUser}">
-                                        <c:if test="${user.getId() == dip.getIdDipendente()}">
-                                            <div>${user.getName()} ${user.getSurname()}</div>
-                                        </c:if>
-                                    </c:forEach>
+                                <div>${dip.getName()} ${dip.getSurname()}</div>
                             </c:forEach>
                         </div>
                     </div>
                     <div class="team-button">
                         <div id="flex-team-button">
-                            <button><a href="/static/Error.html">Specifica Competenze</a></button>
+                            <button><a href="SpecificaCompetenzeControl?idTeam=${team.getIdTeam()}">Specifica Competenze</a></button>
                             <br>
                             <c:if test="${team.getNumeroDipendenti() <= 8}">
                                 <button><a href="DipendenteControl">Aggiungi Dipendenti</a></button>
@@ -83,11 +78,7 @@
                         <div id="flex-team-dip">
                             <c:forEach var="dip" items="${listDip}">
                                 <c:if test="${dip.getIdTeam() == team.getIdTeam()}">
-                                    <c:forEach var="user" items="${listUser}">
-                                        <c:if test="${user.getId() == dip.getIdDipendente()}">
-                                            <div>${user.getName()} ${user.getSurname()}</div>
-                                        </c:if>
-                                    </c:forEach>
+                                    <div>${dip.getName()} ${dip.getSurname()}</div>
                                 </c:if>
                             </c:forEach>
                         </div>
