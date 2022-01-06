@@ -189,6 +189,7 @@ public class TeamDAO {
             result = stmt.executeQuery();
             while (result.next()) {
                 Team team = new Team();
+                team.setIdTeam(result.getInt("IdTeam"));
                 team.setNomeProgetto(result.getString("NomeProgetto"));
                 team.setNumeroDipendenti(result.getInt("NumeroDipendenti"));
                 team.setNomeTeam(result.getString("NomeTeam"));

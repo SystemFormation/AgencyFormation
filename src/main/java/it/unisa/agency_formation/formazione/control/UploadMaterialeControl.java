@@ -6,6 +6,7 @@ import it.unisa.agency_formation.formazione.manager.FormazioneManager;
 import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +17,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/UploadMaterialeControl")
+@MultipartConfig
 public class UploadMaterialeControl extends HttpServlet {
     private static final String pathRelative ="\\AgencyFormationFile\\MaterialeFormazione\\";
     private static final String pathAbsolute = System.getProperty("user.home")+pathRelative;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
+
         int idTeam = Integer.parseInt(request.getParameter("idTeam"));
         File file = new File(pathAbsolute+"\\"+"IdTeam-"+idTeam);
         Documento documento = new Documento();

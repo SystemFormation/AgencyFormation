@@ -62,6 +62,7 @@
 
         <c:when test="${user.getRole()==RuoliUtenti.HR}">
             <c:forEach var="team" items="${listTeam}">
+
                 <div class="team">
                     <div class="team-inf">
                         <div id="flex-team"><h2>${team.getNomeTeam()}</h2></div>
@@ -72,7 +73,7 @@
                         <h4>Descrizione</h4>
                         <div id="flex-team">${team.getDescrizione()}</div>
                     </div>
-                    <!-- Da rivedere perchè l'IdTeam è sempre uguale a 0 -->
+                    <!-- Risolto problema idTeam=0 -->
                     <div class="team-dip">
                         <h4>Dipendenti</h4>
                         <div id="flex-team-dip">
@@ -93,7 +94,7 @@
                                   enctype="multipart/form-data">
                                 <p class="par">Materiale di Formazione</p><br>
                                 <input type="file" id="fileMateriale" name="materiale" size="50"><br>
-                                <input type="hidden" id="idTeam" name="idTeam" value="${team.getIdTeam()}">
+                                <input type="hidden" id="sceltaDocumenti" name="idTeam" value="${team.getIdTeam()}">
                                 <input type="submit" value="Carica" id="uploadMateriale">
                             </form>
                         </div>

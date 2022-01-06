@@ -10,6 +10,7 @@ import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 
 @WebServlet("/TeamControl")
 public class TeamControl extends HttpServlet {
-    TeamManagerImpl aut = new TeamManagerImpl();
+    TeamManagerImpl teamManager = new TeamManagerImpl();
     AutenticazioneManagerImpl aut2= new AutenticazioneManagerImpl();
 
     @Override
@@ -30,8 +31,8 @@ public class TeamControl extends HttpServlet {
         if (d.getRole() == RuoliUtenti.TM) { //sei tm
             try {
 
-                ArrayList<Dipendente> listaDipsUsers = aut.retrieveAllDipsTeam();
-                ArrayList<Team> list = aut.viewTeams(d.getId());
+                ArrayList<Dipendente> listaDipsUsers = teamManager.retrieveAllDipsTeam();
+                ArrayList<Team> list = teamManager.viewTeams(d.getId());
                 req.setAttribute("listDip", listaDipsUsers);
                 req.setAttribute("listTeam", list);
                 resp.getWriter().write("1");
@@ -43,7 +44,8 @@ public class TeamControl extends HttpServlet {
         } else if (d.getRole() == RuoliUtenti.HR) {
             try {
                 ArrayList<Dipendente> listaDip = aut2.getAllEmploye();
-                ArrayList<Team> list = aut.viewAllTeams();
+                ArrayList<Team> list = teamManager.viewAllTeams();
+
                 req.setAttribute("listTeam", list);
                 req.setAttribute("listDip", listaDip);
                 resp.getWriter().write("2");
