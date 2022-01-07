@@ -24,11 +24,19 @@ public class UploadMaterialeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-
+        if(user==null){
+            response.getWriter().write("1");//user null
+        }
+        if(request.getParameter("idTeam")==null){
+            response.getWriter().write("2");//idTeam non passato
+        }
         int idTeam = Integer.parseInt(request.getParameter("idTeam"));
         File file = new File(pathAbsolute+"\\"+"IdTeam-"+idTeam);
         Documento documento = new Documento();
         file.mkdirs();
+        if(request.getPart("materiale")==null){
+            response.getWriter().write("3");//materiale non passato
+        }
         Part part = (Part) request.getPart("materiale");
         part.write(file.getAbsolutePath()+"\\"+part.getSubmittedFileName());
         String pathMaterialeFormazione = pathRelative+"\\"+"IdTeam-"+idTeam+"\\"+part.getSubmittedFileName();
@@ -36,7 +44,12 @@ public class UploadMaterialeControl extends HttpServlet {
         documento.setIdTeam(idTeam);
         documento.setIdHR(user.getId());
         try {
-            saveDocument(documento);
+            boolean esito = saveDocument(documento);
+            if(esito){
+                response.getWriter().write("4");//documento salvato
+            }else{
+                response.getWriter().write("5");//documento non salvato
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

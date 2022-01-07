@@ -1,6 +1,8 @@
 package agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
 import org.junit.jupiter.api.Test;
@@ -22,7 +24,7 @@ public class UtenteDAOTest {
 
     @Test
     public void saveUserOK() throws SQLException {
-        Utente user = new Utente("Gennaro", "Cecco", "genny@libero.it", "lol", 1);
+        Utente user = new Utente("Gennaro", "Cecco", "genny@libero.it", "lol", RuoliUtenti.CANDIDATO);
         assertTrue(UtenteDAO.doSaveUser(user));
     }
 
@@ -50,7 +52,7 @@ public class UtenteDAOTest {
 
     @Test
     public void loginFail() throws SQLException {
-        String email = "genny@gmail.it";
+        String email = "genny158@gmail.it";
         String pwd = "lol";
         assertNull(UtenteDAO.login(email, pwd));
     }
@@ -66,7 +68,7 @@ public class UtenteDAOTest {
         int id = 5;
         assertNotNull(UtenteDAO.doRetrieveByID(id));
     }
-
+/*
     @Test
     public void retrieveByRuoloLessZero() throws SQLException {
         int ruolo = -1;
@@ -78,16 +80,17 @@ public class UtenteDAOTest {
         int ruolo = 5;
         assertNull(UtenteDAO.doRetrieveUserByRuolo(ruolo));
     }
-
+*/
     @Test
     public void retrieveByRuoloSizeLessOne() throws SQLException {
-        assertNull(UtenteDAO.doRetrieveUserByRuolo(0));
+        assertNull(UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.HR));
     }
 
     @Test
     public void retrieveByRuoloPass() throws SQLException {
-        int ruolo = 1;
-        assertNotNull(UtenteDAO.doRetrieveUserByRuolo(ruolo));
+        assertNotNull(UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.HR));
 
     }
+
+    //Test doRetrieveCandidatesWithCandidature()
 }

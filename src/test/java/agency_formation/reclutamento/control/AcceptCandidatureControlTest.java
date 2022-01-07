@@ -1,4 +1,4 @@
 package agency_formation.reclutamento.control;
 
-public class UploadDispatchTest {
+public class AcceptCandidatureControlTest {
 }

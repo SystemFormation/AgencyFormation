@@ -396,20 +396,21 @@ public class CandidaturaDAO {
      * @pre idCandidatura>0
      *
      * */
-    public static boolean doRejectCandidatura(int idCandidatura) throws SQLException {
-        if (idCandidatura < 1) {
+    public static boolean doRejectCandidatura(int idCandidatura,int idHR) throws SQLException {
+        if (idCandidatura < 1 || idHR <1) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         String delete= "deleted";
         updateState(idCandidatura,StatiCandidatura.Rifiutata);
-        String query = "update " + TABLE_CANDIDATURA +" set Curriculum=?, DocumentiAggiuntivi=? where IdCandidatura=?";
+        String query = "update " + TABLE_CANDIDATURA +" set Curriculum=?, DocumentiAggiuntivi=?, IdHR=? where IdCandidatura=?";
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement(query);
             stmt.setString(1,delete);
             stmt.setString(2,delete);
-            stmt.setInt(3, idCandidatura);
+            stmt.setInt(3, idHR);
+            stmt.setInt(4, idCandidatura);
             int result = stmt.executeUpdate();
             if(result!=-1) {
                 return true;

@@ -45,12 +45,7 @@ public class FormazioneManagerTest {
     }
     @Test
     public void addSkillDipFailId() throws  SQLException{
-        int idSkill = 0;
-        Dipendente dip = new Dipendente(4,3,2000,"Fisciano","118",false);
-       try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.doSaveSkillDip(idSkill,dip)).thenReturn(false);
-        }
-        assertFalse(aut.addSkillDip(idSkill,dip));
+
     }
     @Test
     public void addSkillDipFailDip() throws  SQLException{
@@ -63,14 +58,16 @@ public class FormazioneManagerTest {
     }
     @Test
     public void addSkillDipPass() throws SQLException{
-        int idSkill = 5;
-        Dipendente dip = new Dipendente(2,1,2000,"Fisciano","118",false);
-        try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.doSaveSkillDip(idSkill,dip)).thenReturn(true);
-        }
-        assertTrue(aut.addSkillDip(idSkill,dip));
+
     }
 
-    //fare getIdEmplyee TODO
+    @Test//documento==null
+    public void getMaterialeByIdTeam1(){
+
+    }
+    @Test//pass
+    public void getMaterialeByIdTeam2(){
+
+    }
 
 }

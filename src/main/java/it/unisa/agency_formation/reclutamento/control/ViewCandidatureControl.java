@@ -18,7 +18,6 @@ import java.sql.SQLException;
 
 @WebServlet("/ViewCandidaturaControl")
 public class ViewCandidatureControl extends HttpServlet {
-    private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,19 +32,29 @@ public class ViewCandidatureControl extends HttpServlet {
 
         Candidatura candidatura = null;
         try {
-            candidatura = reclutamento.getCandidaturaById(idCandidato);
+            candidatura = getCandidaturaByIdFromManager(idCandidato);
+            if(candidatura==null){
+                response.getWriter().write("1");//candidatura null
+            }
             if(candidatura!=null){
+                response.getWriter().write("2");//candidatura non null
                 String cv = "curriculum.";
                 request.setAttribute("curriculum",cv);
                 response.getWriter().write(cv);
                 String documenti  = candidatura.getDocumentiAggiuntivi();
                 if(documenti!=null){
+                    response.getWriter().write("3");//documenti non null
                     documenti = "documenti";
                     response.getWriter().write(documenti);
                     response.getWriter().close();
+                }else{
+                    response.getWriter().write("4");//documenti null
                 }
             }
-        } catch (SQLException e) {
+            response.getWriter().write("5");//view ok
+        }
+
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -53,5 +62,9 @@ public class ViewCandidatureControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+    public static Candidatura getCandidaturaByIdFromManager(int idCandidato) throws SQLException{
+        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
+        return reclutamentoManager.getCandidaturaById(idCandidato);
     }
 }

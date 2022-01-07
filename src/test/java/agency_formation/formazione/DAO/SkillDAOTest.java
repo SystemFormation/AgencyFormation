@@ -18,24 +18,24 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SkillDAOTest {
     //
     @Test
-    public void SaveSkillFailSkillNull() throws SQLException{
+    public void saveSkillFailSkillNull() throws SQLException{
         Skill skill = null;
         assertFalse(SkillDAO.doSaveSkill(skill));
     }
 
     @Test
-    public void SaveSkillOK() throws SQLException{
+    public void saveSkillOK() throws SQLException{
         Skill skill = new Skill("C","Conoscenze base");
         assertTrue(SkillDAO.doSaveSkill(skill));
     }
 
     @Test
-    public void RemoveSkillOK() throws SQLException{
+    public void removeSkillOK() throws SQLException{
         int idSkill= 2;
         assertTrue(SkillDAO.doRemoveSkill(2));
     }
     @Test
-    public void RemoveSkillFail() throws SQLException{
+    public void removeSkillFail() throws SQLException{
         int idSkill= 0;
         assertFalse(SkillDAO.doRemoveSkill(0));
     }
@@ -60,16 +60,30 @@ public class SkillDAOTest {
         String nomeSkill = "CSS";
         assertNotNull(SkillDAO.doRetrieveByName(nomeSkill));
     }
-     //Da rivedere, fare ANCHE IL FALLIMENTO //TODO
-    @Test
+
+    @Test//not pass idSkill<1
+    public void saveSkillDip1() throws SQLException {
+
+    }
+    @Test//not pass dip==null
+    public void saveSkillDip2() throws SQLException {
+
+    }
+    @Test//not pass dip==null && idSkill<1
+    public void saveSkillDip3() throws SQLException {
+
+    }
+
+    @Test//pass
     public void saveSkillDipPass() throws SQLException {
-        int idSkill = 5;
-        Dipendente dip = new Dipendente(2,1,2000,"Fisciano","118",false);
-        assertTrue(SkillDAO.doSaveSkillDip(idSkill,dip));
 
     }
     @Test
     public void RetrieveLastIdPass() throws  SQLException{
+        assertNotNull(SkillDAO.doRetrieveLastId());
+    }
+    @Test//there aren't skill
+    public void RetrieveLastIdFail() throws  SQLException{
         assertNotNull(SkillDAO.doRetrieveLastId());
     }
 }

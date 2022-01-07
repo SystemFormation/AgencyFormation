@@ -28,11 +28,20 @@ public class DownloadMaterialeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
+        if(user == null){
+            response.getWriter().write("1");//utente null
+        }
         ServletContext context = request.getServletContext();
         Documento documento = null;
         try {
             Dipendente dipendente = getDipendentefromManager(user.getId());
+            if(dipendente==null){
+                response.getWriter().write("2");//dipendete null
+            }
             documento = getDocumentofromManager(dipendente.getIdTeam());
+            if(documento == null){
+                response.getWriter().write("3");//documento null
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,8 +67,10 @@ public class DownloadMaterialeControl extends HttpServlet {
             }
             fileIn.close();
             outStream.close();
+            response.getWriter().write("4");//documento scaricato
         } else{
-            //TODO NESSUN FILE CARICATO
+            //TODO NESSUN FILE SSCARICATO
+            response.getWriter().write("5");//documento non scaricato
         }
     }
 

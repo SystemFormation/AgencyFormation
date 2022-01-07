@@ -1,8 +1,12 @@
 package agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
+import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -19,7 +23,13 @@ public class DipendenteDAOTest {
 
     @Test
     public void doSaveEmployeeOk() throws SQLException {
-        Dipendente dip = new Dipendente(4, 1, 2000, "Fisciano", "118", true);
+        Utente user = UtenteDAO.doRetrieveByID(1);
+        assertNotNull(UtenteDAO.doRetrieveByID(1));
+        Dipendente dip = new Dipendente();
+        dip.setIdDipendente(user.getId());
+        dip.setStato(StatiDipendenti.DISPONIBILE);
+        dip.setResidenza("Londra");
+        dip.setTelefono("333158974");
         assertTrue(DipendenteDAO.doSaveEmploye(dip));
     }
 
@@ -56,59 +66,87 @@ public class DipendenteDAOTest {
     @Test
     public void updateStateFailIdLessOne() throws SQLException {
         int id = -1;
-        assertFalse(DipendenteDAO.updateState(id, true));
+        assertFalse(DipendenteDAO.updateState(id, StatiDipendenti.DISPONIBILE));
     }
 
 
     @Test
     public void updateStatePass() throws SQLException {
         int id = 2;
-        boolean ver = true;  //stato=1
-        assertTrue(DipendenteDAO.updateState(id, ver));
+        assertTrue(DipendenteDAO.updateState(id, StatiDipendenti.DISPONIBILE));
     }
 
     //test per dim array minore di uno
     @Test
     public void doRetrieveByStateSizeLessOne() throws SQLException {
-        assertNull(DipendenteDAO.doRetrieveByState(false));
+        assertNull(DipendenteDAO.doRetrieveByState(StatiDipendenti.OCCUPATO));
     }
 
     @Test
     public void doRetrieveByStateSizeMoreZero() throws SQLException {
-        assertNotNull(DipendenteDAO.doRetrieveByState(true));
+        assertNotNull(DipendenteDAO.doRetrieveByState(StatiDipendenti.DISPONIBILE));
     }
 
     // testa il retreve dei dipendenti con stato true
     @Test
     public void doRetrieveByStateTrueNotPass() throws SQLException {
-        assertNull(DipendenteDAO.doRetrieveByState(true));
+        assertNull(DipendenteDAO.doRetrieveByState(StatiDipendenti.DISPONIBILE));
 
 
     }
 
     @Test
     public void doRetrieveByStateTruePass() throws SQLException {
-        assertNotNull(DipendenteDAO.doRetrieveByState(true));
+        assertNotNull(DipendenteDAO.doRetrieveByState(StatiDipendenti.DISPONIBILE));
     }
 
     @Test
     public void doRetrieveByStateFalseNotPass() throws SQLException {
-        assertNull(DipendenteDAO.doRetrieveByState(false));
+        assertNull(DipendenteDAO.doRetrieveByState(StatiDipendenti.DISPONIBILE));
     }
 
     @Test
     public void doRetrieveByStateFalsePass() throws SQLException {
-        assertNotNull(DipendenteDAO.doRetrieveByState(false));
+        assertNotNull(DipendenteDAO.doRetrieveByState(StatiDipendenti.OCCUPATO));
     }
 
-    @Test
-    public void updateDipTeamAndStateFail() {
-        //TODO
+
+    @Test//not pass with id<1
+    public void updateRole1() {
+
     }
 
-    @Test
-    public void updateDipTeamAndStatePass() {
-        //TODO
+    @Test//not pass because id doesn't exists
+    public void updateRole2() {
+
     }
+    @Test//pass
+    public void updateRole3() {
+
+    }
+
+    @Test //not pass because idDip<1
+    public void updateDipTeamAndState1() {
+
+    }
+    @Test //not pass because idTeam<1
+    public void updateDipTeamAndState2() {
+
+    }
+    @Test //not pass because idDip doesn't exists
+    public void updateDipTeamAndState3() {
+
+    }
+    @Test //not pass because idTeam doesn't exists
+    public void updateDipTeamAndState4() {
+
+    }
+    @Test //pass
+    public void updateDipTeamAndState5() {
+
+    }
+
+
+
 
 }

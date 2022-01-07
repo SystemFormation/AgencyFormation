@@ -56,8 +56,8 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
     //TODO TEST THIS METHOD
     @Override
-    public boolean rejectCandidature(int idCandidatura) throws SQLException{
-        if(CandidaturaDAO.doRejectCandidatura(idCandidatura)){
+    public boolean rejectCandidature(int idCandidatura,int idHR) throws SQLException{
+        if(CandidaturaDAO.doRejectCandidatura(idCandidatura,idHR)){
             return true;
         } else{
             return false;

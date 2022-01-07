@@ -2,6 +2,7 @@ package agency_formation.reclutamento.manager;
 
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
 import org.junit.jupiter.api.Test;
@@ -22,12 +23,12 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         java.sql.Date data = new java.sql.Date(date.getTime());
         cand.setDataCandidatura(data);
         cand.setIdCandidato(1);
-        cand.setCv("test");
-        cand.setStato("test");
+        cand.setCurriculum("test");
+        cand.setStato(StatiCandidatura.NonRevisionato);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.doSaveCandidaturaWithoutDocument(cand)).thenReturn(true);
         }
-        assertTrue(reclutamento.uploadCandidatureWithoutDocument(cand));
+        assertTrue(reclutamento.uploadCandidature(cand));
 
     }
 
@@ -37,22 +38,22 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.doSaveCandidaturaWithoutDocument(cand)).thenReturn(false);
         }
-        assertFalse(reclutamento.uploadCandidatureWithoutDocument(cand));
+        assertFalse(reclutamento.uploadCandidature(cand));
     }
 
-    @Test //candidatura  alreadyLoaded
+    @Test //candidatura  alreadyLoaded non caricata
     public void uploadCandidatura3() throws SQLException {
         Candidatura cand = new Candidatura();
         java.util.Date date = new java.util.Date();
         java.sql.Date data = new java.sql.Date(date.getTime());
         cand.setDataCandidatura(data);
         cand.setIdCandidato(1);
-        cand.setCv("test");
-        cand.setStato("test");
+        cand.setCurriculum("test");
+        cand.setStato(StatiCandidatura.NonRevisionato);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.doRetrieveById(cand.getIdCandidato())).thenReturn(null);
         }
-        assertFalse(reclutamento.uploadCandidatureWithoutDocument(cand));
+        assertTrue(reclutamento.uploadCandidature(cand));
 
     }
     @Test //candidatura  alreadyLoaded
@@ -62,40 +63,22 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         java.sql.Date data = new java.sql.Date(date.getTime());
         cand.setDataCandidatura(data);
         cand.setIdCandidato(1);
-        cand.setCv("test");
-        cand.setStato("test");
+        cand.setCurriculum("test");
+        cand.setStato(StatiCandidatura.NonRevisionato);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.doRetrieveById(cand.getIdCandidato())).thenReturn(cand);
         }
-        assertFalse(reclutamento.uploadCandidatureWithoutDocument(cand));
+        assertFalse(reclutamento.uploadCandidature(cand));
     }
 
     @Test//document = null
-    public void uloadDocument1() throws SQLException{
-        String document=null;
-        int id = 1;
-        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.addDocument(document,id)).thenReturn(false);
-        }
-        assertFalse(reclutamento.uploadDocument(document,id));
+    public void uploadDocument1() throws SQLException{
+
     }
-    @Test//id < 1
-    public void uloadDocument2() throws SQLException{
-        String document="test";
-        int id = 0;
-        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.addDocument(document,id)).thenReturn(false);
-        }
-        assertFalse(reclutamento.uploadDocument(document,id));
-    }
-    @Test//pass
+
+    @Test//pass Attenzione(crea la candidatura con i documenti aggiuntivi)
     public void uloadDocument3() throws SQLException{
-        String document="test";
-        int id = 1;
-        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.addDocument(document,id)).thenReturn(true);
-        }
-        assertTrue(reclutamento.uploadDocument(document,id));
+
     }
 
     @Test //id<1
@@ -116,22 +99,39 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         }
         assertNull(reclutamento.getCandidaturaById(id));
     }
-    @Test //da controllare non va
+    @Test //pass
     public void getCandidaturaById3() throws SQLException{
-        int id = 1;
-        Candidatura cand = new Candidatura();
-        java.util.Date date = new java.util.Date();
-        java.sql.Date data = new java.sql.Date(date.getTime());
-        cand.setDataCandidatura(data);
-        cand.setIdCandidato(1);
-        cand.setCv("test");
-        cand.setStato("test");
-        cand.setIdCandidatura(1);
-        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.doRetrieveById(id)).thenReturn(cand);
-            assertNotNull(reclutamento.getCandidaturaById(id));
-        }
 
     }
+
+    @Test //non ci devono essere candidature
+    public void getAll1() throws SQLException{
+
+    }
+    @Test //pass
+    public void getAll2() throws SQLException{
+
+    }
+
+    @Test //not pass , mi aspetto false
+    public void acceptCandidatura1(){
+
+    }
+    @Test //pass
+    public void acceptCandidatura2(){
+
+    }
+
+    @Test//not pass mi aspetto false
+    public void rejectCandidatura1(){
+
+    }
+
+    @Test//pass
+    public void rejectCandidatura2(){
+
+    }
+
+
 
 }

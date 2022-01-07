@@ -104,4 +104,9 @@ public class SkillControlTest {
         servlet.doGet(request,response);
         assertTrue(stringWriter.toString().equals("3"));
     }
+
+    @Test//aggiuntaFallita
+    public void aggiuntaFallita(){
+
+    }
 }

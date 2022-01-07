@@ -28,8 +28,6 @@ public class LoginControlTest {
     private HttpSession session;
     private RequestDispatcher dispatcher;
 
-
-
     @Test
     public void loginEmailNull() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);

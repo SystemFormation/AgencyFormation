@@ -20,19 +20,45 @@ import java.sql.SQLException;
 
 @WebServlet("/LoginControl")
 public class LoginControl extends HttpServlet {
-    private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher;
         HttpSession session = request.getSession();
         Utente user = (Utente) session.getAttribute("user");
         if (user != null) {
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
-            dispatcher.forward(request, response);
+            switch (user.getRole()) {
+                case CANDIDATO:
+                    Candidatura candidatura = null;
+                    try {
+                        candidatura = getCandidaturafromManager(user.getId());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    if (candidatura != null) {
+                        request.setAttribute("candidatura", candidatura);
+                    }
+                    dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidate.jsp");
+                    dispatcher.forward(request, response);
+                    break;
+                case DIPENDENTE:
+                    dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeEmployee.jsp");
+                    dispatcher.forward(request, response);
+                    break;
+                case TM:
+                    dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeTM.jsp");
+                    dispatcher.forward(request, response);
+                    break;
+                case HR:
+                    dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
+                    dispatcher.forward(request, response);
+                    break;
+
+            }
         } else {
             String email = request.getParameter("email");
             String pwd = request.getParameter("password");
-            RequestDispatcher dispatcher;
+
             if (email != null && pwd != null) {
                 if (email.trim().length() == 0) {
                     response.getWriter().write("1");//email vuota
@@ -41,7 +67,7 @@ public class LoginControl extends HttpServlet {
                     response.getWriter().write("2");//password vuota;
                 }
                 try {
-                    user = aut.login(email, pwd);
+                    user = loginFromManager(email,pwd);
                     if (user != null) {
                         session = request.getSession(true);
                         session.setAttribute("user", user);
@@ -70,7 +96,7 @@ public class LoginControl extends HttpServlet {
 
                         }
                     } else {
-                        response.getWriter().write("5");//utente non valido
+                        response.getWriter().write("4");//utente non valido
                         response.sendRedirect("/static/Login.html");
                     }
 
@@ -78,7 +104,7 @@ public class LoginControl extends HttpServlet {
                     e.printStackTrace();
                 }
             }else {
-                response.getWriter().write("6");//email e password null
+                response.getWriter().write("5");//email e password null
                 response.sendRedirect("/static/Login.html");
             }
         }
@@ -92,5 +118,9 @@ public class LoginControl extends HttpServlet {
     public static Candidatura getCandidaturafromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
+    }
+    public static Utente loginFromManager(String email,String pwd) throws SQLException {
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+        return autenticazioneManager.login(email,pwd);
     }
 }

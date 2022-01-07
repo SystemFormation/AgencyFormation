@@ -221,7 +221,7 @@ public class DipendenteDAO {
      * @pre idUtente>0
      * @post setStato(stato)
      */
-    public static boolean updateState(int idUtente, boolean stato) throws SQLException {
+    public static boolean updateState(int idUtente, StatiDipendenti stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if (idUtente <= 0) {
             return false;
@@ -230,7 +230,13 @@ public class DipendenteDAO {
         String query = "update " + TABLE_DIPENDENTE + " set Stato= ? where IdDipendente=?";
         try {
             retrieve = connection.prepareStatement(query);
-            retrieve.setBoolean(1, stato);
+            if(StatiDipendenti.DISPONIBILE == stato){
+                retrieve.setBoolean(1, true);
+            }
+            if(StatiDipendenti.OCCUPATO == stato){
+                retrieve.setBoolean(1, false);
+            }
+
             retrieve.setInt(2, idUtente);
             int res = retrieve.executeUpdate();
             if (res != -1) {
@@ -335,7 +341,7 @@ public class DipendenteDAO {
      */
 
     public static boolean updateDipTeamAndState(int idDip, int idTeam) throws SQLException {
-        if (idDip < 0 || idTeam < 0) {
+        if (idDip <= 0 || idTeam <= 0) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();

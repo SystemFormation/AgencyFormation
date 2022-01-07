@@ -4,6 +4,7 @@ import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 
 
@@ -19,7 +20,6 @@ import java.sql.SQLException;
 
 @WebServlet("/ProfiloControl")
 public class ProfiloControl extends HttpServlet {
-    private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,21 +27,16 @@ public class ProfiloControl extends HttpServlet {
         int id = user.getId();
         try {
             if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
-                Dipendente dip = aut.getAllDataDip(id);
-                response.getWriter().write("1");//
-                if (id == dip.getIdDipendente()) {
-                    response.getWriter().write("2");//
+                Dipendente dip = getAllDataDipFromManager(id);
+                    response.getWriter().write("1");// retrieve data ok
                     request.setAttribute("dip", dip);
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
                     dispatcher.forward(request, response);
-                } else {
-                    response.getWriter().write("3");//
                 }
-            }
             else{
-                response.getWriter().write("4");//
+                response.getWriter().write("2");//errore
             }
-        } catch (SQLException e) {
+            } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -49,5 +44,10 @@ public class ProfiloControl extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+
+    public static Dipendente getAllDataDipFromManager(int id) throws SQLException{
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+        return autenticazioneManager.getAllDataDip(id);
     }
 }

@@ -215,7 +215,7 @@ public class RegistrazioneControlTest extends Mockito {
         assertTrue(stringWriter.toString().contains("4"));
     }
 
-    @Test
+    @Test //da controllare
     public void regPass() throws IOException, ServletException {
         ServletConfig config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);

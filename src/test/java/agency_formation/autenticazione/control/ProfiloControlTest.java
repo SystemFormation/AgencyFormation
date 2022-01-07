@@ -1,5 +1,7 @@
 package agency_formation.autenticazione.control;
 
+import org.junit.jupiter.api.Test;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,4 +12,17 @@ public class ProfiloControlTest {
     private HttpServletResponse response;
     private HttpSession session;
     private RequestDispatcher dispatcher;
+
+
+    @Test
+    public void retrieveDataPass(){
+
+    }
+    @Test
+    public void retrieveDataFail(){
+
+    }
+
+
+
 }

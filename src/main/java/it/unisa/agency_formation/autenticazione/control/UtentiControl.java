@@ -4,6 +4,7 @@ import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -20,13 +21,20 @@ import java.util.ArrayList;
 @WebServlet("/UtentiControl")
 public class UtentiControl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
         RequestDispatcher dispatcher;
         try {
-            ArrayList<Dipendente> listaDipendenti = aut.getAllEmploye();
-            ArrayList<Utente> listaUtenti = aut.getCandidatesDip();
+            ArrayList<Dipendente> listaDipendenti = getAllEmployeFromManager();
+            if(listaDipendenti==null || listaDipendenti.size()<1){
+                response.getWriter().write("1");//errore retrieve getAllEmploye
+            }
+            ArrayList<Utente> listaUtenti = getCandidatesDipFromManager();
+            if(listaUtenti==null || listaUtenti.size()<1){
+                response.getWriter().write("2");//errore retrieve getCandidatesDip
+            }
+
             request.setAttribute("dipendenti",listaDipendenti);
             request.setAttribute("utenti",listaUtenti);
+            response.getWriter().write("3");//retrieves ok
             dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException e) {
@@ -37,5 +45,13 @@ public class UtentiControl extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+    public static ArrayList<Dipendente> getAllEmployeFromManager() throws SQLException{
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+        return autenticazioneManager.getAllEmploye();
+    }
+    public static ArrayList<Utente> getCandidatesDipFromManager() throws SQLException{
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+        return autenticazioneManager.getCandidatesDip();
     }
 }

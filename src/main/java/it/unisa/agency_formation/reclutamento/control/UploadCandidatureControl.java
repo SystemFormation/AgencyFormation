@@ -27,14 +27,13 @@ import java.util.GregorianCalendar;
 public class UploadCandidatureControl extends HttpServlet {
     private String pathRelative = "\\AgencyFormationFile\\Candidature\\";
     private String pathAbsolute = System.getProperty("user.home") + pathRelative;
-    private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
     private static final int MAXDIM = 83886080;//10MB
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if(request.getParameter("sceltaUpload")==null){
             try {
-                Candidatura cand = reclutamento.getCandidaturaById(user.getId());
+                Candidatura cand = getCandidaturaByIdFromManager(user.getId());
                 request.setAttribute("candidatura",cand);
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Upload.jsp");
                 dispatcher.forward(request,response);
@@ -53,7 +52,7 @@ public class UploadCandidatureControl extends HttpServlet {
             Part curriculum = (Part) request.getPart("curriculum");
             if(curriculum.getSize()>MAXDIM){
                 //TODO ERROR FOR SIZE OF FILE MORE
-                response.getWriter().write("3");//file troppo grande
+                response.getWriter().write("1");//file troppo grande
             }else {
                 Candidatura cand = new Candidatura();
                 file.mkdirs();
@@ -66,7 +65,7 @@ public class UploadCandidatureControl extends HttpServlet {
                 cand.setDataCandidatura(data);
                 cand.setIdCandidato(user.getId());
                 try {
-                    reclutamento.uploadCandidature(cand);
+                    uploadCandidatureFromManager(cand);
                     request.setAttribute("candidatura", cand);
 
                 } catch (SQLException e) {
@@ -84,7 +83,7 @@ public class UploadCandidatureControl extends HttpServlet {
                 cand.setIdCandidato(user.getId());
                 cand.setDocumentiAggiuntivi(documentiAggiuntivi);
                 try {
-                    reclutamento.uploadCandidature(cand);
+                    uploadCandidatureFromManager(cand);
                     request.setAttribute("candidatura", cand);
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -107,6 +106,15 @@ public class UploadCandidatureControl extends HttpServlet {
         doGet(req, resp);
     }
     public static Candidatura getCandidaturafromManager(int idCandidato) throws SQLException {
+        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
+        return reclutamentoManager.getCandidaturaById(idCandidato);
+    }
+
+    public static boolean uploadCandidatureFromManager(Candidatura candidatura) throws SQLException{
+        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
+        return reclutamentoManager.uploadCandidature(candidatura);
+    }
+    public static Candidatura getCandidaturaByIdFromManager(int idCandidato)throws SQLException{
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }

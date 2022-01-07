@@ -23,13 +23,16 @@ public class ViewMaterialeControl extends HttpServlet {
         Utente user = (Utente) request.getSession().getAttribute("user");
         try {
             Dipendente dipendente = getDipendentefromManager(user.getId());
+            if(dipendente==null){
+                response.getWriter().write("1");//errore retrieve dipendente
+            }
             int idTeam = dipendente.getIdTeam();
             Documento documento = getDocumentofromManager(idTeam);
             if(documento!=null){
-                response.getWriter().write("1");//il documento esiste
+                response.getWriter().write("2");//il documento esiste
             }
             else{
-                response.getWriter().write("2");//il documento non esiste
+                response.getWriter().write("3");//il documento non esiste
             }
         } catch (SQLException e) {
             e.printStackTrace();

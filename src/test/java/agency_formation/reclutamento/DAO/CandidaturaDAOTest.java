@@ -2,6 +2,7 @@ package agency_formation.reclutamento.DAO;
 
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -17,15 +18,15 @@ public class CandidaturaDAOTest {
         assertFalse(CandidaturaDAO.doSaveCandidaturaWithoutDocument(cand));
     }
 
-    @Test //salva il candidato
+    @Test //salva il candidatura
     public void savecandOk() throws SQLException {
         Candidatura cand = new Candidatura();
         java.util.Date date = new java.util.Date();
         java.sql.Date data = new java.sql.Date(date.getTime());
         cand.setDataCandidatura(data);
         cand.setIdCandidato(1);
-        cand.setCv("test");
-        cand.setStato("test");
+        cand.setCurriculum("test");
+        cand.setStato(StatiCandidatura.NonRevisionato);
         assertTrue(CandidaturaDAO.doSaveCandidaturaWithoutDocument(cand));
     }
 
@@ -62,43 +63,43 @@ public class CandidaturaDAOTest {
         assertNotNull(CandidaturaDAO.doRetrieveById(idCandidato));
     }
 
-    @Test //stato = null
-    public void doRetrieveByStateFail1() throws SQLException {
-        String stato = null;
-        assertNull(CandidaturaDAO.doRetrieveByState(stato));
-    }
 
-    @Test //stato = prova(non esiste)
+    @Test   /*non ci sono candidature con quello
+            * stato(cancella tutte le candidatue
+             con lo stato accettata dal db)*/
     public void doRetrieveByStateFail2() throws SQLException {
-        String stato = "prova";
-        assertNull(CandidaturaDAO.doRetrieveByState(stato));
+
+        assertNull(CandidaturaDAO.doRetrieveByState(StatiCandidatura.Accettata));
     }
 
-    @Test //stato = test(presente nel DB)
+    @Test //assicurati di avere candidature con stato non revisionato
     public void doRetrieveByStateOk() throws SQLException {
-        String stato = "test";
-        assertNotNull(CandidaturaDAO.doRetrieveByState(stato));
+        assertNotNull(CandidaturaDAO.doRetrieveByState(StatiCandidatura.NonRevisionato));
     }
 
-    @Test //id candidatura = -1 stato = null
+    @Test//non ci devono essere candidature
+    public void doRetrieveAllFail(){
+
+    }
+    @Test//ci devono essere candidature con stato non revisionato
+    public void doRetrieveAllOk(){
+
+    }
+
+
+
+    @Test //id candidatura = -1
     public void updateStateFail1() throws SQLException {
         int idCandidatura = -1;
-        String stato = null;
-        assertFalse(CandidaturaDAO.updateState(idCandidatura, stato));
+        assertFalse(CandidaturaDAO.updateState(idCandidatura, StatiCandidatura.Accettata));
     }
 
-    @Test //id candidatura =  stato = null
-    public void updateStateFail2() throws SQLException {
-        int idCandidatura = 1;
-        String stato = null;
-        assertFalse(CandidaturaDAO.updateState(idCandidatura, stato));
-    }
 
-    @Test //id candidatura = 2(questo id esiste) stato = disponibile
+
+    @Test //id candidatura = 2(questo id esiste)
     public void updateStateOk() throws SQLException {
         int idCandidatura = 2;
-        String stato = "disponibile";
-        assertTrue(CandidaturaDAO.updateState(idCandidatura, stato));
+        assertTrue(CandidaturaDAO.updateState(idCandidatura, StatiCandidatura.Rifiutata));
     }
 
     @Test //idCandidatura = -1
@@ -111,5 +112,49 @@ public class CandidaturaDAOTest {
     public void doRemoveCandidaturaOk() throws SQLException {
         int idCandidatura = 2;
         assertTrue(CandidaturaDAO.doRemoveCandidatura(idCandidatura));
+    }
+    @Test //idCandidatura<1
+    public void doRejectFail1(){
+
+    }
+    @Test //idCandidatura non esiste
+    public void doRejectFail2(){
+
+    }
+    @Test //idHR<1
+    public void doRejectFail3(){
+
+    }
+    @Test //idHR non esiste
+    public void doRejectFail4(){
+
+    }
+    @Test //pass
+    public void doRejectPass(){
+
+    }
+
+    @Test //idCandidatura<1
+    public void accpetCandidaturaFail1(){
+
+    }
+    @Test //idHR<1
+    public void accpetCandidaturaFail2(){
+
+    }
+
+
+    @Test //idCandidatura non esiste
+    public void accpetCandidaturaFail3(){
+
+    }
+
+    @Test //idHR non esiste
+    public void accpetCandidaturaFail4(){
+
+    }
+    @Test //pass
+    public void accpetCandidaturaPass(){
+
     }
 }

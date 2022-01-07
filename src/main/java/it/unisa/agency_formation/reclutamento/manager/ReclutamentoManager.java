@@ -12,7 +12,7 @@ public interface ReclutamentoManager {
     boolean uploadCandidature(Candidatura candidatura) throws SQLException;
     Candidatura getCandidaturaById(int idCandidato) throws SQLException;
     boolean acceptCandidature(int idCandidatura, int idHR, Timestamp data) throws SQLException;
-    boolean rejectCandidature(int idCandidatura) throws SQLException;
+    boolean rejectCandidature(int idCandidatura,int idHR) throws SQLException;
     ArrayList<Candidatura> getAll()throws SQLException;
     boolean hiringCandidate(int idUtente) throws SQLException;
     boolean rejectCandidate(int idCandidatura) throws SQLException;
