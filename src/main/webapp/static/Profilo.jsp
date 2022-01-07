@@ -48,15 +48,4 @@
     </form>
 </div>
 </body>
-<script>
-    function viewSkill() {
-        var x = document.getElementById("addSkill");
-        var setting = x.style.display;
-        if (setting == "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
-</script>
 </html>

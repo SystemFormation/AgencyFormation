@@ -99,7 +99,7 @@
                     </div>
                     <div class="team-button">
                         <div id="flex-team-button">
-                            <button><a href="/static/Error.html">Visualizza Competenze</a></button>
+                            <button><a href="SpecificaCompetenzeControl?idTeam=${team.getIdTeam()}">Visualizza Competenze</a></button>
                             <br><br>
 
                             <form action="UploadMaterialeControl" id="materiale" method="post"

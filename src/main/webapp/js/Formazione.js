@@ -38,3 +38,13 @@ function checkFileMateriale(){
         button.setAttribute('type',"submit")
     }
 }
+
+function viewSkill() {
+    var x = document.getElementById("addSkill");
+    var setting = x.style.display;
+    if (setting == "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}

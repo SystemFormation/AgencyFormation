@@ -97,6 +97,11 @@ textarea {
     margin: auto 5%;
 }
 
+.content-competenze {
+    width: 60%;
+    margin: auto;
+}
+
 .content hr{
     background-color: #101d42;
     border: solid 2px #101d42;
@@ -301,4 +306,18 @@ input[type=file]::file-selector-button:hover {
     display: inline-block;
     font-size: 28px;
     width: 50%;
+}
+
+#teamDescr, #specCompetenze {
+    border: inset;
+    background-color: white;
+    border-radius: 1rem;
+    margin-bottom: 20px;
+    resize: none;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.form textarea::placeholder {
+    text-align: center;
 }

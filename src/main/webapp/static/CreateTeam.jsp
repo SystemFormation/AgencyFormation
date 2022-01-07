@@ -1,6 +1,6 @@
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.Dipendente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
@@ -23,7 +23,8 @@
                 <label for="quantity">Numero Dipendenti</label><br>
                 <input type="number" id="quantity" name="quantity" min="1" max="8" required><br>
                 <label for="quantity">Descrizione</label><br>
-                <textarea id="teamDescr" name="teamDescr" rows="6" cols="70" placeholder="Descrizione" required></textarea><br>
+                <textarea id="teamDescr" name="teamDescr" rows="6" cols="70" placeholder="Descrizione del Team"
+                          required></textarea><br>
                 <input type="submit" name="crea" value="Crea" id="cerca"><br>
             </form>
         </div>

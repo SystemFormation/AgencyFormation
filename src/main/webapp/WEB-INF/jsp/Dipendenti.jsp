@@ -7,8 +7,8 @@
 
 <%
     ArrayList<Dipendente> dip = (ArrayList<Dipendente>) request.getAttribute("dipendenti");
-    int idTeam = (int) request.getAttribute("idTeam");
 %>
+
 <html>
 <head>
     <link rel="stylesheet" href="css/Dipendenti.css">
