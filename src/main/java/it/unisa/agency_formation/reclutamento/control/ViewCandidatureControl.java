@@ -42,6 +42,7 @@ public class ViewCandidatureControl extends HttpServlet {
                 request.setAttribute("curriculum",cv);
                 response.getWriter().write(cv);
                 String documenti  = candidatura.getDocumentiAggiuntivi();
+
                 if(documenti!=null){
                     response.getWriter().write("3");//documenti non null
                     documenti = "documenti";

@@ -2,6 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.Dipendente" %>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
+<%@ page import="it.unisa.agency_formation.formazione.domain.Documento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -22,6 +23,7 @@
 <c:import url="/static/Header.jsp"/>
 <h1>Team</h1>
 <div class="flex">
+    <c:set var="index" value="0"/>
     <c:forEach var="team" items="${listTeam}">
         <div class="team">
             <div class="team-inf">
@@ -49,18 +51,20 @@
                     </button>
                     <br><br>
 
-                    <form action="UploadMaterialeControl" id="materiale" method="post"
+                    <form action="UploadMaterialeControl" id="materiale" method="post" name ="formUpload" onmouseover="checkAlreadyUpload(${team.getIdTeam()},${index})"
                           enctype="multipart/form-data">
                         <p class="par">Materiale di Formazione</p><br>
                         <input type="file" id="fileMateriale" name="materiale" size="50"><br>
                         <input type="hidden" id="sceltaDocumenti" name="idTeam" value="${team.getIdTeam()}">
-                        <input type="button" value="Carica" id="uploadMateriale" onclick="checkFileMateriale()">
+                        <input type="button" value="Carica" name="uploadMateriale" onclick="checkFileMateriale(${index})">
                         <span id="materialeNotUpload"></span>
                     </form>
                 </div>
             </div>
         </div>
+        <c:set var="index" value="${index + 1}" scope="page"/>
     </c:forEach>
 </div>
 </body>
+
 </html>

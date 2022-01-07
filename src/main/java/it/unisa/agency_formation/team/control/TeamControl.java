@@ -4,6 +4,9 @@ import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.formazione.domain.Documento;
+import it.unisa.agency_formation.formazione.manager.FormazioneManager;
+import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
@@ -42,9 +45,9 @@ public class TeamControl extends HttpServlet {
         } else if (user.getRole() == RuoliUtenti.HR) {
             try {
                 ArrayList<Dipendente> listaDip = aut2.getTuttiDipendenti();
-                ArrayList<Team> list = teamManager.visualizzaTuttiTeams();
+                ArrayList<Team> team = teamManager.visualizzaTuttiTeams();
 
-                req.setAttribute("listTeam", list);
+                req.setAttribute("listTeam", team);
                 req.setAttribute("listDip", listaDip);
                 resp.getWriter().write("2");
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamHR.jsp");
@@ -63,6 +66,11 @@ public class TeamControl extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+
+    public static Documento getDocumentoFromManager(int idTeam) throws SQLException{
+        FormazioneManager formazioneManager = new FormazioneManagerImpl();
+        return formazioneManager.getMaterialeByIdTeam(idTeam);
     }
 
 }
