@@ -30,12 +30,14 @@
             <div id="flex">${cand.getSurname()}</div>
             <div id="flex">
                 <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra file</button>
-                <div class="dropdown"><button id="apriColloquio">Accetta</button></div>
-                <div class="colloquio" id="colloquio">
+                <div class="dropdown">
+                    <button id="apriColloquio" onclick="openColloquio(${index})">Accetta</button>
+                </div>
+                <div class="colloquio" name="colloquio" style="display: none">
                     <h5>Inserisci la data e l'ora del colloquio</h5>
                     <input type="date" id="data1" name="data1"><br>
                     <input type="time" name="time" id="time"><br>
-                    <button type="button" id="chiudiColloquio" class="buttonChiudi">Chiudi</button>
+                    <button type="button" id="chiudiColloquio" class="buttonChiudi" onclick="closeColloquio(${index})">Chiudi</button>
                     <button onclick="acceptCandidature(${cand.getId()},${index})">Accetta</button>
                 </div>
                 <button onclick="rejectCandidature(${cand.getId()})">Rifiuta</button>
@@ -56,13 +58,4 @@
     </div>
 </div>
 </body>
-<script type="text/javascript">
-    $('#apriColloquio').click(function () {
-        document.getElementById("colloquio").style.display = "block";
-    })
-    $('#chiudiColloquio').click(
-        function () {
-            document.getElementById("colloquio").style.display = "none";
-        })
-</script>
 </html>

@@ -73,3 +73,20 @@ function rejectCandidature(id){
     })
 }
 
+function openColloquio(index){
+    var index = index;
+    var x = document.getElementsByName("colloquio")[index];
+    var setting = x.style.display;
+    if(setting == "none"){
+        x.style.display = "block";
+    }
+}
+function closeColloquio(index) {
+    var index = index;
+    var x = document.getElementsByName("colloquio")[index];
+    var setting = x.style.display;
+    if (setting == "block") {
+        x.style.display = "none";
+    }
+}
+

@@ -29,7 +29,7 @@
     <c:if test="${candidatura==null}">
         <form action="UploadCandidatureControl" id="curriculum" method="post" enctype = "multipart/form-data">
             Curriculum<br><br>
-            <input type="file" id="fileCurriculum" name="curriculum" size="10"><br><br>
+            <input type="file" id="fileCurriculum" name="curriculum" size="10"><br>
             <input type="hidden" id="sceltaCurriculum" name="sceltaUpload" value="1">
             <input type="button" value="Carica" id="uploadCurriculum" onclick="checkFileCurriculum()">
             <span id="curriculumNotUpload"></span>
@@ -38,7 +38,7 @@
     <c:if test="${candidatura.getCurriculum()!=null}">
         <form action="UploadCandidatureControl" id="documenti" method="post" enctype = "multipart/form-data">
             Documenti aggiuntivi<br><br>
-            <input type="file" id="fileDocumenti" name="documenti" size="10"><br><br>
+            <input type="file" id="fileDocumenti" name="documenti" size="10"><br>
             <input type="hidden" id="sceltaDocumenti" name="sceltaUpload" value="2">
             <input type="button" value="Carica" id="uploadDocumenti" onclick="checkFileDocumenti()">
             <span id="documentNotUpload"></span>

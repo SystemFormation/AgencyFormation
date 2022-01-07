@@ -63,10 +63,10 @@ b{
 .addSkill input {
     border: groove;
     background-color: #9cc9e8;
-    resize: none;
     font-size: 18px;
     border-radius: 10px;
     margin-bottom: 20px;
+    padding: 6px;
 }
 
 .addSkill textarea {
@@ -76,6 +76,14 @@ b{
     margin-bottom: 20px;
     resize: none;
     font-size: 20px;
+}
+
+#quantity, #skillName {
+    width: 230px;
+}
+
+.addSkill input::placeholder, .addSkill textarea::placeholder {
+    text-align: center;
 }
 
 .occupato {

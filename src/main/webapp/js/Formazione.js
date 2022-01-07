@@ -25,3 +25,16 @@ function viewLink(){
         }
     })
 }
+
+function checkFileMateriale(){
+    var fileUpload = document.getElementById("fileMateriale");
+    var button = document.getElementById("uploadMateriale");
+    if (fileUpload.files.length == 0) {
+        $('#materialeNotUpload').css("display","inline");
+        $('#materialeNotUpload').css("color","red");
+        $('#materialeNotUpload').css("font-size","14px").html("<br>Seleziona un file");
+    }
+    else{
+        button.setAttribute('type',"submit")
+    }
+}
