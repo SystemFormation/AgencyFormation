@@ -25,7 +25,7 @@ public class DipendenteDispoControl extends HttpServlet {
         int idTeam = Integer.parseInt(req.getParameter("idTeam"));
         //if(stato.equalsIgnoreCase("null")){
         try {
-            ArrayList<Dipendente> dipendenti= aut.getAllEmploye();
+            ArrayList<Dipendente> dipendenti= aut.getTuttiDipendenti();
             req.setAttribute("dipendenti", dipendenti);
             req.setAttribute("idTeam",idTeam);
             dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");

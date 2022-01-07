@@ -1,6 +1,5 @@
 package it.unisa.agency_formation.team.control;
 
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
@@ -29,7 +28,7 @@ public class FiltroDipendentiControl extends HttpServlet {
             StatiDipendenti state;
             state = StatiDipendenti.DISPONIBILE;
             try {
-                ArrayList<Dipendente> dipendenti = aut.getEmployeByState(state);
+                ArrayList<Dipendente> dipendenti = aut.getDipendenteByStato(state);
                 request.setAttribute("dipendenti", dipendenti);
                 dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
                 dispatcher.forward(request, response);
@@ -41,7 +40,7 @@ public class FiltroDipendentiControl extends HttpServlet {
             StatiDipendenti state;
             state = StatiDipendenti.OCCUPATO;
             try {
-                ArrayList<Dipendente> dipendenti = aut.getEmployeByState(state);
+                ArrayList<Dipendente> dipendenti = aut.getDipendenteByStato(state);
                 request.setAttribute("dipendenti", dipendenti);
                 dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
                 dispatcher.forward(request, response);

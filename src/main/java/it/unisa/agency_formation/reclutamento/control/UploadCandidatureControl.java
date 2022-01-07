@@ -1,7 +1,6 @@
 package it.unisa.agency_formation.reclutamento.control;
 
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
@@ -18,9 +17,7 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 @WebServlet("/UploadCandidatureControl")
 @MultipartConfig
@@ -112,7 +109,7 @@ public class UploadCandidatureControl extends HttpServlet {
 
     public static boolean uploadCandidatureFromManager(Candidatura candidatura) throws SQLException{
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
-        return reclutamentoManager.uploadCandidature(candidatura);
+        return reclutamentoManager.caricaCandidatura(candidatura);
     }
     public static Candidatura getCandidaturaByIdFromManager(int idCandidato)throws SQLException{
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();

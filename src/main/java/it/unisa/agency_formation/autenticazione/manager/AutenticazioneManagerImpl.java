@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class AutenticazioneManagerImpl implements AutenticazioneManager {
 
     @Override
-    public boolean registration(Utente user) throws SQLException {
+    public boolean registrazione(Utente user) throws SQLException {
         if (!alreadyRegisteredUser(user)) {
             return UtenteDAO.salvaUtente(user);
         } else {
@@ -28,37 +28,37 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     }
 
     @Override
-    public Utente getAllData(int idUser) throws SQLException {
+    public Utente getDatiUtente(int idUser) throws SQLException {
         return UtenteDAO.doRetrieveByID(idUser);
 
     }
 
     //Aggiunto questo metodo
     @Override
-    public Dipendente getAllDataDip(int idUser) throws SQLException {
+    public Dipendente getDatiDipendente(int idUser) throws SQLException {
         return DipendenteDAO.doRetrieveById(idUser);
     }
 
     @Override
-    public ArrayList<Utente> getCandidates() throws SQLException {
+    public ArrayList<Utente> getCandidati() throws SQLException {
         return UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.CANDIDATO);
     }
     //TODO TEST THIS METHOD
     @Override
-    public ArrayList<Utente> getCandidatesWithCandidature() throws SQLException {
+    public ArrayList<Utente> getCandidatiConCandidatura() throws SQLException {
         return UtenteDAO.doRetrieveCandidatesWithCandidature();
     }
-
-    public ArrayList<Utente> getCandidatesDip() throws SQLException {
+    @Override
+    public ArrayList<Utente> getDipendentiByRuolo() throws SQLException {
         return UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.DIPENDENTE);
     }
     @Override
-    public ArrayList<Dipendente> getAllEmploye() throws SQLException {
+    public ArrayList<Dipendente> getTuttiDipendenti() throws SQLException {
         return DipendenteDAO.recuperaDipendenti();
     }
 
     @Override
-    public ArrayList<Dipendente> getEmployeByState(StatiDipendenti state) throws SQLException {
+    public ArrayList<Dipendente> getDipendenteByStato(StatiDipendenti state) throws SQLException {
         return DipendenteDAO.recuperaByStato(state);
     }
 

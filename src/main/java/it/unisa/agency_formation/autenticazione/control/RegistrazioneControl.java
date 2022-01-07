@@ -1,5 +1,4 @@
 package it.unisa.agency_formation.autenticazione.control;
-import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
@@ -62,7 +61,7 @@ public class RegistrazioneControl extends HttpServlet {
 
     public static boolean registrazioneFromManager(Utente user) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.registration(user);
+        return autenticazioneManager.registrazione(user);
     }
     public static Utente loginFromManager(String email,String pwd) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();

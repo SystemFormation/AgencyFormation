@@ -25,12 +25,12 @@ public class TeamControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-        Utente d = (Utente) req.getSession().getAttribute("user");
-        if (d.getRole() == RuoliUtenti.TM) { //sei tm
+        Utente user = (Utente) req.getSession().getAttribute("user");
+        if (user.getRole() == RuoliUtenti.TM) { //sei tm
             try {
 
-                ArrayList<Dipendente> listaDipsUsers = teamManager.retrieveAllDipsTeam();
-                ArrayList<Team> list = teamManager.viewTeams(d.getId());
+                ArrayList<Dipendente> listaDipsUsers = teamManager.recuperaDipendentiDelTeam();
+                ArrayList<Team> list = teamManager.visualizzaTeams(user.getId());
                 req.setAttribute("listDip", listaDipsUsers);
                 req.setAttribute("listTeam", list);
                 resp.getWriter().write("1");
@@ -39,10 +39,10 @@ public class TeamControl extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } else if (d.getRole() == RuoliUtenti.HR) {
+        } else if (user.getRole() == RuoliUtenti.HR) {
             try {
-                ArrayList<Dipendente> listaDip = aut2.getAllEmploye();
-                ArrayList<Team> list = teamManager.viewAllTeams();
+                ArrayList<Dipendente> listaDip = aut2.getTuttiDipendenti();
+                ArrayList<Team> list = teamManager.visualizzaTuttiTeam();
 
                 req.setAttribute("listTeam", list);
                 req.setAttribute("listDip", listaDip);

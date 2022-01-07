@@ -28,7 +28,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand)).thenReturn(true);
         }
-        assertTrue(reclutamento.uploadCandidature(cand));
+        assertTrue(reclutamento.caricaCandidatura(cand));
 
     }
 
@@ -38,7 +38,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand)).thenReturn(false);
         }
-        assertFalse(reclutamento.uploadCandidature(cand));
+        assertFalse(reclutamento.caricaCandidatura(cand));
     }
 
     @Test //candidatura  alreadyLoaded non caricata
@@ -53,7 +53,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.doRetrieveById(cand.getIdCandidato())).thenReturn(null);
         }
-        assertTrue(reclutamento.uploadCandidature(cand));
+        assertTrue(reclutamento.caricaCandidatura(cand));
 
     }
     @Test //candidatura  alreadyLoaded
@@ -68,7 +68,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.doRetrieveById(cand.getIdCandidato())).thenReturn(cand);
         }
-        assertFalse(reclutamento.uploadCandidature(cand));
+        assertFalse(reclutamento.caricaCandidatura(cand));
     }
 
     @Test//document = null

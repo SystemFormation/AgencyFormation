@@ -1,9 +1,7 @@
 package it.unisa.agency_formation.team.control;
 
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
-import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManager;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
@@ -30,7 +28,7 @@ public class DipendenteControl extends HttpServlet {
         /*visualizzo tutti i dipendenti*/
         //if(stato.equalsIgnoreCase("null")){
             try {
-                ArrayList<Dipendente> dipendenti= aut.getAllEmploye();
+                ArrayList<Dipendente> dipendenti= aut.getTuttiDipendenti();
                 ArrayList<Team> team = viewAllTeamsFromManager();
 
                 req.setAttribute("teams", team);
@@ -50,7 +48,7 @@ public class DipendenteControl extends HttpServlet {
     }
     public static ArrayList<Team> viewAllTeamsFromManager()throws SQLException{
         TeamManager teamManager = new TeamManagerImpl();
-        return teamManager.viewAllTeams();
+        return teamManager.visualizzaTuttiTeam();
     }
 
 }

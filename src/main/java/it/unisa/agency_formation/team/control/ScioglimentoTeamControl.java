@@ -1,7 +1,5 @@
 package it.unisa.agency_formation.team.control;
 
-import it.unisa.agency_formation.team.DAO.TeamDAO;
-import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -24,13 +22,13 @@ public class ScioglimentoTeamControl extends HttpServlet {
         RequestDispatcher dispatcher;
         if(idTeam != 0){
             try {
-                ArrayList<Integer> listaIdDip = aut.retriveDips(idTeam);
+                ArrayList<Integer> listaIdDip = aut.recuperaIdDipendentiDekTeam(idTeam);
                 System.out.println(listaIdDip);
                 for(int i = 0; i<listaIdDip.size(); i++){
                     int x =  listaIdDip.get(i);
                     aut.updateDipsDisso(x);
                 }
-                aut.deleteTeam(idTeam);
+                aut.eliminaTeam(idTeam);
 
                 dispatcher = req.getServletContext().getRequestDispatcher("/TeamControl");
                 dispatcher.forward(req,resp);

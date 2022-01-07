@@ -12,37 +12,37 @@ import java.util.ArrayList;
 public class TeamManagerImpl implements TeamManager {
 
     @Override
-    public boolean createTeam(Team team, int idUtente) throws SQLException {
+    public boolean creaTeam(Team team, int idUtente) throws SQLException {
        return TeamDAO.salvaTeam(team, idUtente);
     }
 
     @Override
-    public ArrayList<Dipendente> getEmployee(StatiDipendenti state) throws SQLException {
+    public ArrayList<Dipendente> getDipendenti(StatiDipendenti state) throws SQLException {
         return DipendenteDAO.recuperaByStato(state);
     }
 
     @Override
-    public boolean addEmployee(int idTeam, Dipendente dip) throws SQLException {
+    public boolean addDipendente(int idTeam, Dipendente dip) throws SQLException {
        return TeamDAO.aggiungiDipendente(idTeam, dip.getIdDipendente());
     }
 
     @Override
-    public boolean removeEmployee(int idDip) throws SQLException {
+    public boolean rimuoviDipendente(int idDip) throws SQLException {
         return TeamDAO.remuoviDipendente(idDip);
     }
 
     @Override
-    public ArrayList<Team> viewTeams(int idUtente) throws SQLException {
+    public ArrayList<Team> visualizzaTeams(int idUtente) throws SQLException {
         return TeamDAO.recuperaTeamDiUnTM(idUtente);
     }
 
     @Override
-    public ArrayList<Team> viewAllTeams() throws SQLException {
+    public ArrayList<Team> visualizzaTuttiTeam() throws SQLException {
         return TeamDAO.recuperaTuttiTeam();
     }
 
     @Override
-    public boolean disbandTeam(int idTeam) throws SQLException {
+    public boolean sciogliTeam(int idTeam) throws SQLException {
         return TeamDAO.rimuoviTeam(idTeam);
     }
 
@@ -57,7 +57,7 @@ public class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public ArrayList<Integer> retriveDips(int idTeam) throws SQLException {
+    public ArrayList<Integer> recuperaIdDipendentiDekTeam(int idTeam) throws SQLException {
         return TeamDAO.doRetrieveIdEmployees(idTeam);
     }
 
@@ -68,13 +68,13 @@ public class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public boolean deleteTeam(int idTeam) throws SQLException {
+    public boolean eliminaTeam(int idTeam) throws SQLException {
         return TeamDAO.rimuoviTeam(idTeam);
 
     }
 
     @Override
-    public ArrayList<Dipendente> retrieveAllDipsTeam() throws SQLException {
+    public ArrayList<Dipendente> recuperaDipendentiDelTeam() throws SQLException {
         return TeamDAO.recuperaDipendentiDelTeam();
 
     }

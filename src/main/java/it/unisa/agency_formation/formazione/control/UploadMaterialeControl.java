@@ -64,7 +64,7 @@ public class UploadMaterialeControl extends HttpServlet {
     }
     public static boolean saveDocument(Documento documento) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
-        return formazioneManager.saveDocument(documento);
+        return formazioneManager.salvaDocumento(documento);
 
     }
 

@@ -20,7 +20,7 @@ public class RemoveTeamControl extends HttpServlet {
         int idDip = Integer.parseInt(req.getParameter("idDip"));
         if(idDip != 0){
             try {
-                teamManager.removeEmployee(idDip);
+                teamManager.rimuoviDipendente(idDip);
                 resp.getWriter().write("1");
                 dispatcher = req.getServletContext().getRequestDispatcher("/TeamControl");
                 dispatcher.forward(req, resp);

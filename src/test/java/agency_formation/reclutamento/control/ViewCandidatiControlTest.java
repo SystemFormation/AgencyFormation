@@ -1,14 +1,8 @@
 package agency_formation.reclutamento.control;
 
-import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
-import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
-import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.control.ViewCandidatiControl;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import javax.servlet.RequestDispatcher;
@@ -22,7 +16,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -64,7 +57,7 @@ public class ViewCandidatiControlTest {
         config = Mockito.mock(ServletConfig.class);
         context = Mockito.mock(ServletContext.class);
         AutenticazioneManagerImpl aut = Mockito.mock(AutenticazioneManagerImpl.class);
-        Mockito.when(aut.getCandidates()).thenReturn(null);
+        Mockito.when(aut.getCandidati()).thenReturn(null);
         ViewCandidatiControl servlet = new ViewCandidatiControl();
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);

@@ -22,7 +22,7 @@ public class FormazioneManagerTest {
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
             mocked.when(() -> SkillDAO.salvaSkill(skill)).thenReturn(false);
         }
-        assertFalse(aut.addSkill(skill));
+        assertFalse(aut.aggiungiSkill(skill));
     }
     @Test
     public void addSkillPass()throws SQLException {
@@ -30,7 +30,7 @@ public class FormazioneManagerTest {
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
             mocked.when(() -> SkillDAO.salvaSkill(skill)).thenReturn(true);
         }
-        assertTrue(aut.addSkill(skill));
+        assertTrue(aut.aggiungiSkill(skill));
     }
     // Da rivedere
     @Test
@@ -51,7 +51,7 @@ public class FormazioneManagerTest {
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
             mocked.when(() -> SkillDAO.salvaSkillDipendente(idSkill,dip)).thenReturn(false);
         }
-        assertFalse(aut.addSkillDip(idSkill,dip));
+        assertFalse(aut.addSkillDipendente(idSkill,dip));
     }
     @Test
     public void addSkillDipPass() throws SQLException{

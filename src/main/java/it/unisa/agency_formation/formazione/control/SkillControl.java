@@ -4,7 +4,6 @@ package it.unisa.agency_formation.formazione.control;
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.formazione.DAO.SkillDAO;
 import it.unisa.agency_formation.formazione.domain.Skill;
 import it.unisa.agency_formation.formazione.manager.FormazioneManager;
 import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
@@ -71,7 +70,7 @@ public class SkillControl extends HttpServlet {
 
     public static boolean addSkillFromManager(Skill skill) throws SQLException{
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
-        return formazioneManager.addSkill(skill);
+        return formazioneManager.aggiungiSkill(skill);
     }
     public static int getLastIdSkillCreatedFromManager() throws SQLException{
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
@@ -79,6 +78,6 @@ public class SkillControl extends HttpServlet {
     }
     public static boolean addSkillDipFromManager(int idSkill, Dipendente dipendente)throws SQLException{
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
-        return formazioneManager.addSkillDip(idSkill,dipendente);
+        return formazioneManager.addSkillDipendente(idSkill,dipendente);
     }
 }

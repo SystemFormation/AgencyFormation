@@ -1,6 +1,5 @@
 package it.unisa.agency_formation.reclutamento.control;
 
-import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -41,6 +39,6 @@ public class ViewCandidatiControl extends HttpServlet {
     }
     public static ArrayList<Utente> getCandidates() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.getCandidatesWithCandidature();
+        return autenticazioneManager.getCandidatiConCandidatura();
     }
 }

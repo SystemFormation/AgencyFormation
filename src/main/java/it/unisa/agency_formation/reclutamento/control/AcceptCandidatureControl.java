@@ -65,10 +65,10 @@ public class AcceptCandidatureControl extends HttpServlet {
 
     public static boolean acceptCandidature(int idCandidatura, int idHR, Timestamp timestamp) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
-        return reclutamentoManager.acceptCandidature(idCandidatura,idHR,timestamp);
+        return reclutamentoManager.accettaCandidature(idCandidatura,idHR,timestamp);
     }
     public static ArrayList<Candidatura> getAllFromManager() throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
-        return reclutamentoManager.getAll();
+        return reclutamentoManager.getTutteCandidature();
     }
 }

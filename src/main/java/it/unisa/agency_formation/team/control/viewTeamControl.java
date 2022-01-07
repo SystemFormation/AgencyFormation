@@ -51,6 +51,6 @@ public class viewTeamControl extends HttpServlet {
     }
     public static ArrayList<Team> viewAllTeamsFromManager()throws SQLException{
         TeamManager teamManager = new TeamManagerImpl();
-        return teamManager.viewAllTeams();
+        return teamManager.visualizzaTuttiTeam();
     }
 }

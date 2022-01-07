@@ -12,7 +12,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
 
     @Override
-    public boolean uploadCandidature(Candidatura candidatura) throws SQLException {
+    public boolean caricaCandidatura(Candidatura candidatura) throws SQLException {
         if(candidatura == null){
             return false;
         }else {
@@ -31,12 +31,12 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
 
     @Override
-    public ArrayList<Candidatura> getAll() throws SQLException {
+    public ArrayList<Candidatura> getTutteCandidature() throws SQLException {
         return CandidaturaDAO.recuperaCandidature();
     }
 
     @Override
-    public boolean reCandidate(Candidatura candidatura) {
+    public boolean reCandidate(Candidatura candidatura) throws SQLException {
         return false;
     }
 
@@ -47,12 +47,12 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
     //TODO TEST THIS METHOD
     @Override
-    public boolean acceptCandidature(int idCandidatura, int idHR, Timestamp data) throws SQLException {
+    public boolean accettaCandidature(int idCandidatura, int idHR, Timestamp data) throws SQLException {
         return CandidaturaDAO.accettaCandidatura(idCandidatura,idHR,data);
     }
     //TODO TEST THIS METHOD
     @Override
-    public boolean rejectCandidature(int idCandidatura,int idHR) throws SQLException{
+    public boolean rifiutaCandidature(int idCandidatura, int idHR) throws SQLException{
         if(CandidaturaDAO.rifiutaCandidatura(idCandidatura,idHR)){
             return true;
         } else{
@@ -61,12 +61,12 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
 
     @Override
-    public boolean hiringCandidate(int idUtente) throws SQLException{
+    public boolean assumiCandidato(int idUtente) throws SQLException{
         //TODO
         return false;
     }
     @Override
-    public boolean rejectCandidate(int idCandidatura) throws SQLException{
+    public boolean rifiutaCandidato(int idCandidatura) throws SQLException{
         if(CandidaturaDAO.rimuoviCandidatura(idCandidatura)){
             CandidaturaDAO.modificaStato(idCandidatura, StatiCandidatura.Rifiutata);
             return true;

@@ -1,7 +1,5 @@
 package it.unisa.agency_formation.autenticazione.control;
 
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
-import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
@@ -25,7 +23,7 @@ public class UtentiControl extends HttpServlet {
         try {
             ArrayList<Dipendente> listaDipendenti = getAllEmployeFromManager();
             if(listaDipendenti==null || listaDipendenti.size()<1){
-                response.getWriter().write("1");//errore retrieve getAllEmploye
+                response.getWriter().write("1");//errore retrieve getDipendenti
             }
             ArrayList<Utente> listaUtenti = getCandidatesDipFromManager();
             if(listaUtenti==null || listaUtenti.size()<1){
@@ -48,10 +46,10 @@ public class UtentiControl extends HttpServlet {
     }
     public static ArrayList<Dipendente> getAllEmployeFromManager() throws SQLException{
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.getAllEmploye();
+        return autenticazioneManager.getTuttiDipendenti();
     }
     public static ArrayList<Utente> getCandidatesDipFromManager() throws SQLException{
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.getCandidatesDip();
+        return autenticazioneManager.getDipendentiByRuolo();
     }
 }

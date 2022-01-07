@@ -46,7 +46,7 @@ public class ViewMaterialeControl extends HttpServlet {
 
     public static Dipendente getDipendentefromManager(int idUtente) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.getAllDataDip(idUtente);
+        return autenticazioneManager.getDatiDipendente(idUtente);
     }
     public static Documento getDocumentofromManager(int idTeam) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();

@@ -26,7 +26,7 @@ public class TeamManagerTest {
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.salvaTeam(team,id)).thenReturn(true);
         }
-        assertTrue(aut.createTeam(team,id));
+        assertTrue(aut.creaTeam(team,id));
     }
     @Test
     public void getEmployee() throws SQLException {}

@@ -25,7 +25,7 @@ public class AutenticazioneManagerTest {
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
             mocked.when(() -> UtenteDAO.salvaUtente(user)).thenReturn(false);
         }
-        assertFalse(aut.registration(user));
+        assertFalse(aut.registrazione(user));
     }
 
     @Test
@@ -35,7 +35,7 @@ public class AutenticazioneManagerTest {
             mocked.when(() -> UtenteDAO.salvaUtente(user)).thenReturn(true);
         }
 
-        assertTrue(aut.registration(user));
+        assertTrue(aut.registrazione(user));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class AutenticazioneManagerTest {
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
             mocked.when(() -> UtenteDAO.doRetrieveByID(id)).thenReturn(user);
         }
-        assertNull(aut.getAllData(id));
+        assertNull(aut.getDatiUtente(id));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class AutenticazioneManagerTest {
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
             mocked.when(() -> UtenteDAO.doRetrieveByID(id)).thenReturn(user);
         }
-        assertNotNull(aut.getAllData(id));
+        assertNotNull(aut.getDatiUtente(id));
     }
 
     @Test //not pass id<1

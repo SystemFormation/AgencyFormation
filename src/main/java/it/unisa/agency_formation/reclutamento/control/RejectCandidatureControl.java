@@ -5,7 +5,6 @@ import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,7 +52,7 @@ public class RejectCandidatureControl extends HttpServlet {
     }
     public static boolean rejectCandidatura(int idCandidatura, int idHR) throws SQLException{
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
-        return reclutamentoManager.rejectCandidature(idCandidatura, idHR);
+        return reclutamentoManager.rifiutaCandidature(idCandidatura, idHR);
     }
     public static void delete(File file){
         for (File subFile : file.listFiles()) {

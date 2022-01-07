@@ -12,40 +12,40 @@ import java.sql.SQLException;
 public class FormazioneManagerImpl implements FormazioneManager {
 
     @Override
-    public void createCompetence(int idTeam, String competenza) {
+    public void creaCompetenza(int idTeam, String competenza) throws SQLException {
 
     }
 
     @Override
-    public boolean saveDocument(Documento documento) throws SQLException {
+    public boolean salvaDocumento(Documento documento) throws SQLException {
         return DocumentoDAO.salvaDocumento(documento);
     }
 
     @Override
-    public String viewCompetence(int idTeam) {
+    public String visualizzaCompetenza(int idTeam) {
         return null;
     }
 
     @Override
-    public void uploadDocument(String MaterialeDiFormazione) {
+    public void caricaDocumenti(String MaterialeDiFormazione) {
 
     }
 
     //doRetrieveById //Dipendente
     @Override
-    public boolean addSkill(Skill skill) throws SQLException {
+    public boolean aggiungiSkill(Skill skill) throws SQLException {
 
             return SkillDAO.salvaSkill(skill);
 
     }
 
     @Override
-    public void removeSkill(Skill skill) {
+    public void remuoviSkill(Skill skill) {
 
     }
 
     @Override
-    public void viewSkill(int idSkill) {
+    public void visualizzaSkill(int idSkill) {
 
     }
 
@@ -55,12 +55,12 @@ public class FormazioneManagerImpl implements FormazioneManager {
     }
 
     @Override
-    public boolean addSkillDip(int idSkill, Dipendente dip) throws SQLException{
+    public boolean addSkillDipendente(int idSkill, Dipendente dip) throws SQLException{
          return SkillDAO.salvaSkillDipendente(idSkill,dip);
     }
 
     @Override
-    public Dipendente getIdEmployee(int idDip) throws SQLException {
+    public Dipendente getIdDipendente(int idDip) throws SQLException {
         return DipendenteDAO.doRetrieveById(idDip);
     }
 
