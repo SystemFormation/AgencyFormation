@@ -22,25 +22,30 @@
 <jsp:include page="/static/Header.jsp">
     <jsp:param value="false" name="sameLocation"/>
 </jsp:include>
-<c:choose>
-<c:when test="${user.getRole() == RuoliUtenti.TM}">
-    <div id="home"><a href="CreateTeamControl">
-        <h2> Creazione Team </h2></a>
-        <p>Crea un team specificando: nome del team, nome del progetto,
-            numero dipendenti e la relativa descrizione</p>
+<h1>Bentornato ${user.getName()}</h1>
+<div class="home">
+    <div class="content flex">
+        <c:choose>
+            <c:when test="${user.getRole() == RuoliUtenti.TM}">
+                <div id="home"><a href="CreateTeamControl">
+                    <h2> Creazione Team </h2></a>
+                    <p>Crea un team specificando: nome del team, nome del progetto,
+                        numero dipendenti e la relativa descrizione</p>
+                </div>
+                <div id="home"><a href="DipendenteControl">
+                    <h2> Lista Dipendenti </h2></a>
+                    <p>Ottieni la lista dipendenti per scegliere quale dipendente disponibile aggiungere
+                        al proprio team oppure a quale dipendente occupato per un altro progetto effettuare
+                        la richiesta di disponbilità</p>
+                </div>
+                <div id="home"><a href="TeamControl">
+                    <h2> Lista Teams </h2></a>
+                    <p>Ottieni la lista dei tuoi teams con i relativi dati e la gestione per
+                        speficare le competenze richieste</p>
+                </div>
+            </c:when>
+        </c:choose>
     </div>
-    <div id="home"><a href="DipendenteControl">
-        <h2> Lista Dipendenti </h2></a>
-        <p>Ottieni la lista dipendenti per scegliere quale dipendente disponibile aggiungere
-            al proprio team oppure a quale dipendente occupato per un altro progetto effettuare
-            la richiesta di disponbilità</p>
-    </div>
-    <div id="home"><a href="TeamControl">
-        <h2> Lista Teams </h2></a>
-        <p>Ottieni la lista dei tuoi teams con i relativi dati e la gestione per
-            speficare le competenze richieste</p>
-    </div>
-</c:when>
-</c:choose>
+</div>
 </body>
 </html>

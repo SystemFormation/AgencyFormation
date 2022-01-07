@@ -21,26 +21,31 @@
 <jsp:include page="/static/Header.jsp">
     <jsp:param value="false" name="sameLocation"/>
 </jsp:include>
-<c:choose>
-<c:when test="${user.getRole() == RuoliUtenti.HR}">
-    <div id="home"><a href="DipendenteControl">
-        <h2> Lista Dipendenti </h2></a>
-        <p>Ottieni la lista dipendenti per scegliere quale dipendente disponibile aggiungere
-            al proprio team oppure a quale dipendente occupato per un altro progetto effettuare
-            la richiesta di disponbilità</p>
+<h1>Bentornato ${user.getName()}</h1>
+<div class="home">
+    <div class="content flex">
+    <c:choose>
+        <c:when test="${user.getRole() == RuoliUtenti.HR}">
+            <div id="home"><a href="DipendenteControl">
+                <h2> Lista Dipendenti </h2></a>
+                <p>Ottieni la lista dipendenti per scegliere quale dipendente disponibile aggiungere
+                    al proprio team oppure a quale dipendente occupato per un altro progetto effettuare
+                    la richiesta di disponbilità</p>
+            </div>
+            <div id="home"><a id="viewCandidates" href="ViewCandidatiControl" onmouseover="controlCandidates()" onmouseleave="deleteSpan()">
+                <h2> Lista Candidati </h2></a>
+                <span id="noCandidati"></span>
+                <p>Ottieni la lista candidati per poter controllare: i file caricati da un candidato,
+                    il loro rispettivo nome e cognome e la loro email</p>
+            </div>
+            <div id="home"><a href="TeamControl">
+                <h2> Lista Teams </h2></a>
+                <p>Ottieni la lista di tutti i teams con i relativi dati e la gestione del
+                    caricamento del materiale di formazione</p>
+            </div>
+        </c:when>
+    </c:choose>
     </div>
-    <div id="home"><a id="viewCandidates" href="ViewCandidatiControl" onmouseover="controlCandidates()" onmouseleave="deleteSpan()">
-        <h2> Lista Candidati </h2></a>
-        <span id="noCandidati"></span>
-        <p>Ottieni la lista candidati per poter controllare: i file caricati da un candidato,
-            il loro rispettivo nome e cognome e la loro email</p>
-    </div>
-    <div id="home"><a href="TeamControl">
-        <h2> Lista Teams </h2></a>
-        <p>Ottieni la lista di tutti i teams con i relativi dati e la gestione del
-            caricamento del materiale di formazione</p>
-    </div>
-</c:when>
-</c:choose>
+</div>
 </body>
 </html>

@@ -39,7 +39,7 @@
                 </c:if>
                 <c:if test="${candidatura!=null && candidatura.getCurriculum()!=null}">
                     <div id="stato">
-                        <h1>Stato della tua candidatura:</h1>
+                        <h2>Stato della tua candidatura:</h2>
                         <c:if test="${candidatura.getStato() == StatiCandidatura.Accettata}">
                             <h2>Accettata</h2>
                         </c:if>
