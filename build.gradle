@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'war'
+    id 'checkstyle'
 }
 
 test{
@@ -25,4 +26,15 @@ dependencies {
     implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.25'
 
+}
+
+checkstyle {
+    toolVersion '8.40'
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required = true
+        html.required = true
+    }
 }
