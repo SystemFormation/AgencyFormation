@@ -24,7 +24,6 @@ import java.sql.SQLException;
 public class DownloadMaterialeControl extends HttpServlet {
 
     private static final String directory = System.getProperty("user.home");
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");

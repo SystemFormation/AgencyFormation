@@ -36,8 +36,8 @@ public class AddTeamControl extends HttpServlet {
                     dispatcher = req.getServletContext().getRequestDispatcher("/TeamControl");
                     dispatcher.forward(req, resp);
                 }else{
-                    dispatcher = req.getServletContext().getRequestDispatcher("/static/CreateTeam.jsp");
-                    dispatcher.forward(req, resp);
+                    resp.sendRedirect("/static/CreateTeam.jsp");
+
                 }
 
             }

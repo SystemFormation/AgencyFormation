@@ -29,6 +29,7 @@ public class ViewCandidatiControl extends HttpServlet {
                 dispatcher.forward(request, response);
             }else{
                 response.getWriter().write("2");//non ci sono candidati
+                //response.sendRedirect("/static/Errore.html");
             }
         } catch (SQLException e) {
             e.printStackTrace();

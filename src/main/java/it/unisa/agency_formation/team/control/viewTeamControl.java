@@ -4,6 +4,7 @@ import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.team.domain.Team;
+import it.unisa.agency_formation.team.manager.TeamManager;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -26,7 +27,7 @@ public class viewTeamControl extends HttpServlet {
 
         if(user.getRole() == RuoliUtenti.HR) { //sei HR
             try {
-                ArrayList<Team> teams = tman.viewAllTeams();
+                ArrayList<Team> teams = viewAllTeamsFromManager();
                 if(teams!=null && teams.size()>0){
                     request.setAttribute("listaTeams", teams);
                     response.getWriter().write("1");//ci sono team
@@ -38,11 +39,18 @@ public class viewTeamControl extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }else{
+            //ritorna errore
+            response.sendRedirect("/static/Errore.html");
         }
     }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+    public static ArrayList<Team> viewAllTeamsFromManager()throws SQLException{
+        TeamManager teamManager = new TeamManagerImpl();
+        return teamManager.viewAllTeams();
     }
 }
