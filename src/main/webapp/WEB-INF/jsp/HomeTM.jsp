@@ -25,8 +25,6 @@
 <h1>Bentornato ${user.getName()}</h1>
 <div class="home">
     <div class="content flex">
-        <c:choose>
-            <c:when test="${user.getRole() == RuoliUtenti.TM}">
                 <div id="home"><a href="CreateTeamControl">
                     <h2> Creazione Team </h2></a>
                     <p>Crea un team specificando: nome del team, nome del progetto,
@@ -43,8 +41,6 @@
                     <p>Ottieni la lista dei tuoi teams con i relativi dati e la gestione per
                         speficare le competenze richieste</p>
                 </div>
-            </c:when>
-        </c:choose>
     </div>
 </div>
 </body>

@@ -84,7 +84,7 @@ textarea {
 }
 
 #home {
-    width: 50%;
+    width: 48%;
 }
 
 .content-createTeam {
@@ -197,23 +197,7 @@ textarea {
     margin-bottom: 20px;
 }
 
-.occupato {
-    width: 23px;
-    margin: 10px auto;
-    background-color: red;
-    font-size: 20px;
-    border-radius: 5rem;
-    color: red;
-}
 
-.disponibile {
-    width: 23px;
-    margin: 10px auto;
-    background-color: green;
-    font-size: 20px;
-    border-radius: 5rem;
-    color: green;
-}
 
 .colloquio {
     display: none;
@@ -320,4 +304,22 @@ input[type=file]::file-selector-button:hover {
 
 .form textarea::placeholder {
     text-align: center;
+}
+
+.occupato {
+    width: 23px;
+    display: inline-block;
+    background-color: red;
+    font-size: 20px;
+    border-radius: 5rem;
+    color: red;
+}
+
+.disponibile {
+    width: 23px;
+    display: inline-block;
+    background-color: green;
+    font-size: 20px;
+    border-radius: 5rem;
+    color: green;
 }

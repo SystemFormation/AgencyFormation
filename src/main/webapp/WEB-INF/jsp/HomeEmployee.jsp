@@ -7,7 +7,7 @@
 --%>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <link rel="stylesheet" href="css/Common.css">
@@ -25,24 +25,20 @@
 <h1>Bentornato ${user.getName()}</h1>
 <div class="home">
     <div class="content flex">
-        <c:choose>
-            <c:when test="${user.getRole() == RuoliUtenti.DIPENDENTE}">
-                <div id="home"><a href="ProfiloControl">
-                    <h2> Profilo </h2></a>
-                    <p>Accedi al tuo profilo personale per gestire le tue skill e i tuoi dati personali
-                        e visualizzare il proprio stato</p>
-                </div>
-                <div id="home">
-                    <h2 id="materiale" onclick="view(), viewLink()"> Materiale di formazione </h2>
-                    <div id="drop" class="dropdown-content" style="display:none">
-                        <a href="DownloadMaterialeControl" id="hrefDocumenti">
-                            <img src="img/Materiale.png">
-                            <p>Materiale</p>
-                        </a>
-                    </div>
-                </div>
-            </c:when>
-        </c:choose>
+        <div id="home"><a href="ProfiloControl">
+            <h2> Profilo </h2></a>
+            <p>Accedi al tuo profilo personale per gestire le tue skill e i tuoi dati personali
+                e visualizzare il proprio stato</p>
+        </div>
+        <div id="home">
+            <h2 id="materiale" onclick="view(), viewLink()"> Materiale di formazione </h2>
+            <div id="drop" class="dropdown-content" style="display:none">
+                <a href="DownloadMaterialeControl" id="hrefDocumenti">
+                    <img src="img/Materiale.png">
+                    <p>Materiale</p>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 </body>
