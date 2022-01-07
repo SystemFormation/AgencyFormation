@@ -2,13 +2,15 @@
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.StatiDipendenti" %>
+<%@ page import="it.unisa.agency_formation.team.domain.Team" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
     ArrayList<Dipendente> dip = (ArrayList<Dipendente>) request.getAttribute("dipendenti");
+    ArrayList<Team> teams = (ArrayList<Team>) request.getAttribute("teams");
+    int idTeam = (int) request.getAttribute("idTeam");
 %>
-
 <html>
 <head>
     <link rel="stylesheet" href="css/Dipendenti.css">
@@ -74,9 +76,14 @@
             <div id="flex-head">Stato</div>
 
             <c:forEach var="dip" items="${dipendenti}">
-                <div id="flex">${dip.getIdDipendente()}</div>
-                <div id="flex">${dip.getIdTeam()}</div>
-
+            <c:forEach var="team" items="${teams}">
+                <div id="flex">${dip.getIdDipendente()}${dip.getName()}${dip.getSurname()}</div>
+                <c:if test="${dip.getIdTeam()==team.getIdTeam()}">
+                <div id="flex">${dip.getIdTeam()}${team.getNomeTeam()}</div>
+                </c:if>
+                <c:if test="${dip.getIdTeam()!=team.getIdTeam()}">
+                    <div id="flex"></div>
+                </c:if>
                 <!-- DA RIVEDERE -->
                 <div id="flex">
                     <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra skill</button>
@@ -88,7 +95,7 @@
                 <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
                     <div id="flex">Disponibile</div>
                 </c:if>
-
+            </c:forEach>
             </c:forEach>
             </c:when>
             </c:choose>

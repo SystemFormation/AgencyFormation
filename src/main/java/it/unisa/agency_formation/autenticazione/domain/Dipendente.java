@@ -1,9 +1,16 @@
 package it.unisa.agency_formation.autenticazione.domain;
 
+import it.unisa.agency_formation.formazione.domain.Skill;
+import it.unisa.agency_formation.team.domain.Team;
+
+import java.util.ArrayList;
+
 public class Dipendente extends Utente {
     private int idDipendente, idTeam, annoNascita;
     private String residenza, telefono;
     private StatiDipendenti stato;
+    private Team team;
+    private ArrayList<Skill> skills;//da riempire tramite un'altra query
 
     public Dipendente(String nome, String cognome, String email, String pwd, RuoliUtenti ruolo,int idDipendente, int idTeam, int annoNascita, String residenza, String telefono, StatiDipendenti stato){
        super(nome,cognome,email,pwd,ruolo);

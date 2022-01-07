@@ -4,6 +4,9 @@ import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
+import it.unisa.agency_formation.team.domain.Team;
+import it.unisa.agency_formation.team.manager.TeamManager;
+import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +31,9 @@ public class DipendenteControl extends HttpServlet {
         //if(stato.equalsIgnoreCase("null")){
             try {
                 ArrayList<Dipendente> dipendenti= aut.getAllEmploye();
+                ArrayList<Team> team = viewAllTeamsFromManager();
+
+                req.setAttribute("teams", team);
                 req.setAttribute("dipendenti", dipendenti);
                 req.setAttribute("idTeam",idTeam);
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
@@ -41,6 +47,10 @@ public class DipendenteControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+    public static ArrayList<Team> viewAllTeamsFromManager()throws SQLException{
+        TeamManager teamManager = new TeamManagerImpl();
+        return teamManager.viewAllTeams();
     }
 
 }

@@ -171,37 +171,56 @@ public class DipendenteDAO {
      */
     public static ArrayList<Dipendente> doRetrieveAll() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement stmt = null;
+        String query= "SELECT * FROM " + TABLE_DIPENDENTE + " inner join utenti on utenti.IdUtente = dipendenti.IdDipendente" ;
+        ArrayList<Dipendente> DipsUsers = new ArrayList<Dipendente>();
         ResultSet result;
-        PreparedStatement retrieve = null;
-        String query = "Select * from " + TABLE_DIPENDENTE;
-        ArrayList<Dipendente> dipendenti = new ArrayList<Dipendente>();
         try {
-            retrieve = connection.prepareStatement(query);
-            result = retrieve.executeQuery();
+            stmt = connection.prepareStatement(query);
+            result = stmt.executeQuery();
             while (result.next()) {
-                Dipendente dip = new Dipendente();
-                dip.setIdDipendente(result.getInt("IdDipendente"));
-                dip.setResidenza(result.getString("Residenza"));
-                dip.setTelefono(result.getString("Telefono"));
-                boolean stato = result.getBoolean("Stato");
-                if (!(stato)) {
-                    dip.setStato(StatiDipendenti.OCCUPATO);
-                } else if (stato) {
-                    dip.setStato(StatiDipendenti.DISPONIBILE);
+                Dipendente dipUser = new Dipendente();
+                dipUser.setIdDipendente(result.getInt("idDipendente"));
+                dipUser.setResidenza(result.getString("Residenza"));
+                dipUser.setTelefono(result.getString("Telefono"));
+                if(result.getBoolean("Stato") == false) {
+                    dipUser.setStato(StatiDipendenti.OCCUPATO);
+
+                }else if(result.getBoolean("Stato") == true){
+                    dipUser.setStato(StatiDipendenti.DISPONIBILE);
                 }
-                dip.setAnnoNascita(result.getInt("AnnoDiNascita"));
-                dip.setIdTeam(result.getInt("IdTeam"));
-                dipendenti.add(dip);
+                dipUser.setAnnoNascita(result.getInt("AnnoDiNascita"));
+                dipUser.setIdTeam(result.getInt("IdTeam"));
+                dipUser.setId(result.getInt("IdUtente"));
+                dipUser.setName(result.getString("Nome"));
+                dipUser.setSurname(result.getString("Cognome"));
+                dipUser.setPwd(result.getString("Pwd"));
+                dipUser.setEmail(result.getString("Mail"));
+                switch (result.getInt("Ruolo")) {
+                    case 1:
+                        dipUser.setRole(RuoliUtenti.CANDIDATO);
+                        break;
+                    case 2:
+                        dipUser.setRole(RuoliUtenti.DIPENDENTE);
+                        break;
+                    case 3:
+                        dipUser.setRole(RuoliUtenti.TM);
+                        break;
+                    case 4:
+                        dipUser.setRole(RuoliUtenti.HR);
+                        break;
+                }
+                DipsUsers.add(dipUser);
             }
-            if (dipendenti.size() > 0) {
-                return dipendenti;
+            if (DipsUsers.size() > 0) {
+                return DipsUsers;
             } else {
                 return null;
             }
         } finally {
             try {
-                if (retrieve != null) {
-                    retrieve.close();
+                if (stmt != null) {
+                    stmt.close();
                 }
             } finally {
                 if (connection != null) {
