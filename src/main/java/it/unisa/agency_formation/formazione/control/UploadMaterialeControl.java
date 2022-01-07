@@ -5,6 +5,7 @@ import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.formazione.manager.FormazioneManager;
 import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -47,6 +48,8 @@ public class UploadMaterialeControl extends HttpServlet {
             boolean esito = saveDocument(documento);
             if(esito){
                 response.getWriter().write("4");//documento salvato
+                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
+                dispatcher.forward(request,response);
             }else{
                 response.getWriter().write("5");//documento non salvato
             }
