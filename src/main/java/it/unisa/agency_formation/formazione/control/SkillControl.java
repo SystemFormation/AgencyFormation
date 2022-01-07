@@ -45,7 +45,7 @@ public class SkillControl extends HttpServlet {
                     int idSkill = getLastIdSkillCreatedFromManager();
                     addSkillDipFromManager(idSkill,dip);
                     response.getWriter().write("3"); // aggiunta avvenuta con successo.
-                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
+                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeEmployee.jsp");
                     dispatcher.forward(request, response);
                 } else {
                     response.getWriter().write("4");// aggiunta fallita.

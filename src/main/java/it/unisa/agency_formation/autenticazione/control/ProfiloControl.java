@@ -7,6 +7,7 @@ import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,10 +29,10 @@ public class ProfiloControl extends HttpServlet {
                 Dipendente dip = getAllDataDipFromManager(id);
                     response.getWriter().write("1");// retrieve data ok
                     request.setAttribute("dip", dip);
-                    /*RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
-                    dispatcher.forward(request, response);
-                    */
-                     response.sendRedirect("/static/Profilo.jsp");
+                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
+                dispatcher.forward(request,response);
+
+
                 }
             else{
                 response.getWriter().write("2");//errore

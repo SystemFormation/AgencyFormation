@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-    ArrayList<Utente> list = (ArrayList<Utente>) request.getAttribute("candidati");
+    ArrayList<Utente> candidati = (ArrayList<Utente>) request.getAttribute("candidati");
 %>
 <html>
 <head>

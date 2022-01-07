@@ -37,7 +37,7 @@ public class DownloadMaterialeControl extends HttpServlet {
             if(dipendente==null){
                 response.getWriter().write("2");//dipendete null
             }
-            documento = getDocumentofromManager(dipendente.getIdTeam());
+            documento = getDocumentofromManager(dipendente.getTeam().getIdTeam());
             if(documento == null){
                 response.getWriter().write("3");//documento null
             }

@@ -135,6 +135,46 @@ public class TeamDAO {
         }
     }
 
+
+    public static Team doRetrieveById(int idTeam) throws SQLException {
+        if(idTeam<1){
+            return null;
+        }
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        Team team = null;
+        PreparedStatement stmt = null;
+        ResultSet result;
+        String query = "SELECT * FROM " + TABLE_TEAM + " WHERE IdTeam=?";
+        try {
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, idTeam);
+            result = stmt.executeQuery();
+            if (result.next()) {
+                team = new Team();
+                team.setIdTeam(result.getInt("IdTeam"));
+                team.setNomeProgetto(result.getString("NomeProgetto"));
+                team.setNumeroDipendenti(result.getInt("NumeroDIpendenti"));
+                team.setNomeTeam(result.getString("NomeTeam"));
+                team.setDescrizione(result.getString("Descrizione"));
+                team.setCompetenza(result.getString("Competenza"));
+                team.setIdTM(result.getInt("IdTM"));
+            }
+
+                return team;
+
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
+    }
+
     /**
      * questa funzionalità permette di rimuovere un dipendente da un team
      *
@@ -362,6 +402,7 @@ public class TeamDAO {
             result = stmt.executeQuery();
             while (result.next()) {
                 Dipendente dip = new Dipendente();
+                Team team = new Team();
                 dip.setIdDipendente(result.getInt("IdDipendente"));
                 dip.setResidenza(result.getString("Residenza"));
                 dip.setTelefono(result.getString("Telefono"));
@@ -372,7 +413,8 @@ public class TeamDAO {
                     dip.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 dip.setAnnoNascita(result.getInt("AnnoDiNascita"));
-                dip.setIdTeam(result.getInt("IdTeam"));
+                team.setIdTeam(result.getInt("IdTeam"));
+                dip.setTeam(team);
                 dipendenti.add(dip);
             }
             if (dipendenti.size() > 0) {
@@ -520,6 +562,7 @@ public class TeamDAO {
             result = stmt.executeQuery();
             while (result.next()) {
                 Dipendente dipUser = new Dipendente();
+                Team team = new Team();
                 dipUser.setIdDipendente(result.getInt("idDipendente"));
                 dipUser.setResidenza(result.getString("Residenza"));
                 dipUser.setTelefono(result.getString("Telefono"));
@@ -530,7 +573,8 @@ public class TeamDAO {
                     dipUser.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 dipUser.setAnnoNascita(result.getInt("AnnoDiNascita"));
-                dipUser.setIdTeam(result.getInt("IdTeam"));
+                team.setIdTeam(result.getInt("IdTeam"));
+                dipUser.setTeam(team);
                 dipUser.setId(result.getInt("IdUtente"));
                 dipUser.setName(result.getString("Nome"));
                 dipUser.setSurname(result.getString("Cognome"));

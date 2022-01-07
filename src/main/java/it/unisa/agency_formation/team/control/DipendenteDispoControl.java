@@ -23,12 +23,13 @@ public class DipendenteDispoControl extends HttpServlet {
         RequestDispatcher dispatcher;
         /*visualizzo tutti i dipendenti Dispo*/
         int idTeam = Integer.parseInt(req.getParameter("idTeam"));
+        System.out.println("mi trovo nella servlet dipendente "+ idTeam);
         //if(stato.equalsIgnoreCase("null")){
         try {
             ArrayList<Dipendente> dipendenti= aut.getTuttiDipendenti();
             req.setAttribute("dipendenti", dipendenti);
             req.setAttribute("idTeam",idTeam);
-            dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
+            dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaDipendentiTM.jsp");
             dispatcher.forward(req,resp);
         } catch (SQLException e) {
             e.printStackTrace();

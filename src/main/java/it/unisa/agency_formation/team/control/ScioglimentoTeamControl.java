@@ -22,7 +22,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
         RequestDispatcher dispatcher;
         if(idTeam != 0){
             try {
-                ArrayList<Integer> listaIdDip = aut.recuperaIdDipendentiDekTeam(idTeam);
+                ArrayList<Integer> listaIdDip = aut.recuperaIdDipendentiDelTeam(idTeam);
                 System.out.println(listaIdDip);
                 for(int i = 0; i<listaIdDip.size(); i++){
                     int x =  listaIdDip.get(i);

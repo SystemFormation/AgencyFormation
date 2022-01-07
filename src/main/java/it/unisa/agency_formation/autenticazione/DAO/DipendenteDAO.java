@@ -3,6 +3,7 @@ package it.unisa.agency_formation.autenticazione.DAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
+import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
 import java.sql.Connection;
@@ -42,7 +43,7 @@ public class DipendenteDAO {
                 save.setBoolean(4, true);
             }
             save.setInt(5, dipendente.getAnnoNascita());
-            save.setInt(6, dipendente.getIdTeam());
+            save.setInt(6, dipendente.getTeam().getIdTeam());
             int result = save.executeUpdate();
             if (result != -1) {
                 return true;
@@ -121,6 +122,7 @@ public class DipendenteDAO {
             retrieve.setInt(1, id);
             result = retrieve.executeQuery();
             if (result.next()) {
+                Team team = new Team();
                 user.setIdDipendente(result.getInt("IdDipendente"));
                 user.setResidenza(result.getString("Residenza"));
                 user.setTelefono(result.getString("Telefono"));
@@ -131,7 +133,10 @@ public class DipendenteDAO {
                     user.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 user.setAnnoNascita(result.getInt("AnnoDiNascita"));
-                user.setIdTeam(result.getInt("IdTeam"));
+                if(result.getInt("IdTeam")!=0){
+                    team.setIdTeam(result.getInt("IdTeam"));
+                    user.setTeam(team);
+                }
                 user.setId(result.getInt("IdUtente"));
                 user.setName(result.getString("Nome"));
                 user.setSurname(result.getString("Cognome"));
@@ -178,6 +183,7 @@ public class DipendenteDAO {
             stmt = connection.prepareStatement(query);
             result = stmt.executeQuery();
             while (result.next()) {
+                Team team = new Team();
                 Dipendente dipUser = new Dipendente();
                 dipUser.setIdDipendente(result.getInt("idDipendente"));
                 dipUser.setResidenza(result.getString("Residenza"));
@@ -189,7 +195,10 @@ public class DipendenteDAO {
                     dipUser.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 dipUser.setAnnoNascita(result.getInt("AnnoDiNascita"));
-                dipUser.setIdTeam(result.getInt("IdTeam"));
+                if(result.getInt("IdTeam")!=0){
+                    team.setIdTeam(result.getInt("IdTeam"));
+                    dipUser.setTeam(team);
+                }
                 dipUser.setId(result.getInt("IdUtente"));
                 dipUser.setName(result.getString("Nome"));
                 dipUser.setSurname(result.getString("Cognome"));
@@ -299,6 +308,7 @@ public class DipendenteDAO {
             result = retrieve.executeQuery();
             while (result.next()) {
                 Dipendente dip = new Dipendente();
+                Team team = new Team();
                 dip.setIdDipendente(result.getInt("IdDipendente"));
                 dip.setResidenza(result.getString("Residenza"));
                 dip.setTelefono(result.getString("Telefono"));
@@ -309,7 +319,10 @@ public class DipendenteDAO {
                     dip.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 dip.setAnnoNascita(result.getInt("AnnoDiNascita"));
-                dip.setIdTeam(result.getInt("IdTeam"));
+                if(result.getInt("IdTeam")!=0){
+                    team.setIdTeam(result.getInt("IdTeam"));
+                    dip.setTeam(team);
+                }
                 dip.setId(result.getInt("IdUtente"));
                 dip.setName(result.getString("Nome"));
                 dip.setSurname(result.getString("Cognome"));

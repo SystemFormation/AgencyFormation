@@ -12,10 +12,9 @@ public class Dipendente extends Utente {
     private Team team;
     private ArrayList<Skill> skills;//da riempire tramite un'altra query
 
-    public Dipendente(String nome, String cognome, String email, String pwd, RuoliUtenti ruolo,int idDipendente, int idTeam, int annoNascita, String residenza, String telefono, StatiDipendenti stato){
+    public Dipendente(String nome, String cognome, String email, String pwd, RuoliUtenti ruolo,int idDipendente, int annoNascita, String residenza, String telefono, StatiDipendenti stato){
        super(nome,cognome,email,pwd,ruolo);
         this.idDipendente = idDipendente;
-        this.idTeam = idTeam;
         this.annoNascita = annoNascita;
         this.residenza = residenza;
         this.telefono = telefono;
@@ -31,14 +30,6 @@ public class Dipendente extends Utente {
 
     public void setIdDipendente(int idUtente) {
         this.idDipendente = idUtente;
-    }
-
-    public int getIdTeam() {
-        return idTeam;
-    }
-
-    public void setIdTeam(int idTeam) {
-        this.idTeam = idTeam;
     }
 
     public int getAnnoNascita() {
@@ -71,5 +62,19 @@ public class Dipendente extends Utente {
 
     public void setStato(StatiDipendenti stato) {
         this.stato = stato;
+    }
+
+    public void setTeam(Team team){this.team=team;}
+
+    public Team getTeam(){
+        return team;
+    }
+
+    public ArrayList<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(ArrayList<Skill> skills) {
+        this.skills = skills;
     }
 }

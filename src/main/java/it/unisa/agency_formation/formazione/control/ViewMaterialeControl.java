@@ -26,7 +26,7 @@ public class ViewMaterialeControl extends HttpServlet {
             if(dipendente==null){
                 response.getWriter().write("1");//errore retrieve dipendente
             }
-            int idTeam = dipendente.getIdTeam();
+            int idTeam = dipendente.getTeam().getIdTeam();
             Documento documento = getDocumentofromManager(idTeam);
             if(documento!=null){
                 response.getWriter().write("2");//il documento esiste

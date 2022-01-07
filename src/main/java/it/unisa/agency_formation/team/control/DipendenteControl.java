@@ -24,7 +24,7 @@ public class DipendenteControl extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
        //String stato= req.getParameter("stato");
         RequestDispatcher dispatcher;
-        int idTeam = 0;
+        int idTeam =(int) req.getAttribute("idTeam");
         /*visualizzo tutti i dipendenti*/
         //if(stato.equalsIgnoreCase("null")){
             try {
@@ -34,7 +34,7 @@ public class DipendenteControl extends HttpServlet {
                 req.setAttribute("teams", team);
                 req.setAttribute("dipendenti", dipendenti);
                 req.setAttribute("idTeam",idTeam);
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
+                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaDipendentiTM.jsp");
                 dispatcher.forward(req,resp);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -48,7 +48,7 @@ public class DipendenteControl extends HttpServlet {
     }
     public static ArrayList<Team> viewAllTeamsFromManager()throws SQLException{
         TeamManager teamManager = new TeamManagerImpl();
-        return teamManager.visualizzaTuttiTeam();
+        return teamManager.visualizzaTuttiTeams();
     }
 
 }

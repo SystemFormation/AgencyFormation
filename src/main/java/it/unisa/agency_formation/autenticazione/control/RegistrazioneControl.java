@@ -31,7 +31,7 @@ public class RegistrazioneControl extends HttpServlet {
                     registrazioneFromManager(user);
                     Utente result = loginFromManager(user.getEmail(), user.getPwd());
                     request.getSession().setAttribute("user", result);
-                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
+                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidate.jsp");
                     dispatcher.forward(request, response);
                     response.getWriter().write("5");//registrazione avvenuta con successo
                     return;

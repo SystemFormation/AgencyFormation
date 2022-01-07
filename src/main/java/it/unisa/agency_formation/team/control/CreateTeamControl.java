@@ -23,13 +23,10 @@ public class CreateTeamControl extends HttpServlet {
         Team team = new Team();
         RequestDispatcher dispatcher;
         String action = req.getParameter("action");
-        Utente d = (Utente) req.getSession().getAttribute("user");
-        int z = d.getId();
+        Utente userTM = (Utente) req.getSession().getAttribute("user");
+        int idTM = userTM.getId();
         try {
-            if (action == null)  {
-                resp.getWriter().write("1");
-                resp.sendRedirect("/static/CreateTeam.jsp");
-            } else if (action.equalsIgnoreCase("crea")) {
+            if (action.equalsIgnoreCase("crea")) {
                 String nomeProgetto = req.getParameter("lname");
                 int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
                 if(numeroDipendenti > 8){
@@ -38,12 +35,14 @@ public class CreateTeamControl extends HttpServlet {
                 String nomeTeam = req.getParameter("fname");
                 String descrizione = req.getParameter("teamDescr");
                 resp.getWriter().write("2");
-                if (d.getRole() == RuoliUtenti.TM) {//ruolo dell'utente è uguale a 3 può salvare
+                if (userTM.getRole() == RuoliUtenti.TM) {//ruolo dell'utente è uguale a 3 può salvare
                     team.setNomeProgetto(nomeProgetto);
                     team.setDescrizione(descrizione);
                     team.setNomeTeam(nomeTeam);
                     team.setNumeroDipendenti(numeroDipendenti);
-                    teamManager.creaTeam(team,z);
+                    teamManager.creaTeam(team,idTM);
+                    int idTeam = teamManager.viewLastIdTeam();
+                    req.setAttribute("idTeam",idTeam);
                     resp.getWriter().write("3");
                     dispatcher = req.getServletContext().getRequestDispatcher("/DipendenteControl");
                     dispatcher.forward(req, resp);
@@ -57,8 +56,8 @@ public class CreateTeamControl extends HttpServlet {
             e.printStackTrace();
         }
     }
-        @Override
-        public void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            doGet(req, resp);
-        }
+    @Override
+    public void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
 }

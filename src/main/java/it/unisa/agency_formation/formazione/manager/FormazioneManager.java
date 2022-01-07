@@ -5,6 +5,7 @@ import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.formazione.domain.Skill;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface FormazioneManager {
     void creaCompetenza(int idTeam, String competenza)throws SQLException;
@@ -24,5 +25,7 @@ public interface FormazioneManager {
 
     boolean addSkillDipendente(int idSkill, Dipendente dip) throws SQLException;
 
-    Dipendente getIdDipendente(int idDip) throws  SQLException;
+    Dipendente getIdEmployee(int idDip) throws  SQLException;
+
+    ArrayList<Skill> recuperoSkillConIdDipendete(int idDipendete) throws SQLException;
 }

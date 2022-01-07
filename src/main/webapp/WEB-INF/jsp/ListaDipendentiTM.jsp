@@ -43,7 +43,7 @@
 
         <c:forEach var="dip" items="${dipendenti}">
             <div id="flex-dip">${dip.getIdDipendente()}</div>
-            <div id="flex-dip">${dip.getIdTeam()}</div>
+            <div id="flex-dip">${dip.getTeam().getIdTeam()}</div>
             <div id="flex-dip">
                 <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra skill</button>
             </div>

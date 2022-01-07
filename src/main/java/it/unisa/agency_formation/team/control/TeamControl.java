@@ -34,7 +34,7 @@ public class TeamControl extends HttpServlet {
                 req.setAttribute("listDip", listaDipsUsers);
                 req.setAttribute("listTeam", list);
                 resp.getWriter().write("1");
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
+                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamTM.jsp");
                 dispatcher.forward(req, resp);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -42,12 +42,12 @@ public class TeamControl extends HttpServlet {
         } else if (user.getRole() == RuoliUtenti.HR) {
             try {
                 ArrayList<Dipendente> listaDip = aut2.getTuttiDipendenti();
-                ArrayList<Team> list = teamManager.visualizzaTuttiTeam();
+                ArrayList<Team> list = teamManager.visualizzaTuttiTeams();
 
                 req.setAttribute("listTeam", list);
                 req.setAttribute("listDip", listaDip);
                 resp.getWriter().write("2");
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
+                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamHR.jsp");
                 dispatcher.forward(req, resp);
             } catch (SQLException e) {
                 e.printStackTrace();

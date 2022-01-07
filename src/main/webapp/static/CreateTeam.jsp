@@ -4,17 +4,19 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="css/Common.css">
-    <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
+    <link rel="stylesheet" href="../css/Common.css">
+    <link rel="icon" type="image/png" href="../img/Logo Team 4-5.png"/>
     <title>Creazione Team</title>
 </head>
 <body>
-<c:import url="Header.jsp"/>
+<jsp:include page="/static/Header.jsp">
+    <jsp:param value="true" name="sameLocation"/>
+</jsp:include>
 <h1>Creazione Team</h1>
 <div class="content-createTeam">
     <div class="content">
         <div class="form">
-            <form action="CreateTeamControl" method="post" id="formTeam">
+            <form action="../CreateTeamControl" method="post" id="formTeam">
                 <input type="hidden" name="action" value="crea">
                 <label for="formTeam">Nome del Team</label><br>
                 <input type="text" id="fname" name="fname" placeholder="Team" required><br>

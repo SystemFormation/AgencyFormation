@@ -37,7 +37,7 @@
                 <h4>Dipendenti</h4>
                 <div id="flex-team-dip">
                     <c:forEach var="dip" items="${listDip}">
-                        <c:if test="${dip.getIdTeam() == team.getIdTeam()}">
+                        <c:if test="${dip.getTeam().getIdTeam() == team.getIdTeam()}">
                             <div>${dip.getName()} ${dip.getSurname()}
                                 <a href="RemoveTeamControl?idDip=${dip.getIdDipendente()}">X</a>
                             </div>
@@ -53,7 +53,7 @@
                     <br>
                     <c:set var="index" value="0" scope="page"/>
                     <c:forEach var="dip" items="${listDip}">
-                        <c:if test="${dip.getIdTeam() == team.getIdTeam()}">
+                        <c:if test="${dip.getTeam().getIdTeam() == team.getIdTeam()}">
                             <c:set var="index" value="${index + 1}" scope="page"/>
                         </c:if>
                     </c:forEach>

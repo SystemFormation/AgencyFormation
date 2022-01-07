@@ -37,7 +37,7 @@
                 <h4>Dipendenti</h4>
                 <div id="flex-team-dip">
                     <c:forEach var="dip" items="${listDip}">
-                        <c:if test="${dip.getIdTeam() == team.getIdTeam()}">
+                        <c:if test="${dip.getTeam().getIdTeam() == team.getIdTeam()}">
                             <div>${dip.getName()} ${dip.getSurname()}</div>
                         </c:if>
                     </c:forEach>

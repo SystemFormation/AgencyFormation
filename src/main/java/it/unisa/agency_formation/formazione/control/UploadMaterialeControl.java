@@ -48,7 +48,7 @@ public class UploadMaterialeControl extends HttpServlet {
             boolean esito = saveDocument(documento);
             if(esito){
                 response.getWriter().write("4");//documento salvato
-                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
+                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/TeamControl");
                 dispatcher.forward(request,response);
             }else{
                 response.getWriter().write("5");//documento non salvato

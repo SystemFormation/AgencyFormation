@@ -37,7 +37,7 @@ public class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public ArrayList<Team> visualizzaTuttiTeam() throws SQLException {
+    public ArrayList<Team> visualizzaTuttiTeams() throws SQLException {
         return TeamDAO.recuperaTuttiTeam();
     }
 
@@ -57,7 +57,7 @@ public class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public ArrayList<Integer> recuperaIdDipendentiDekTeam(int idTeam) throws SQLException {
+    public ArrayList<Integer> recuperaIdDipendentiDelTeam(int idTeam) throws SQLException {
         return TeamDAO.doRetrieveIdEmployees(idTeam);
     }
 
@@ -79,4 +79,8 @@ public class TeamManagerImpl implements TeamManager {
 
     }
 
+    @Override
+    public Team getTeamId(int idTeam) throws SQLException {
+        return TeamDAO.doRetrieveById(idTeam);
+    }
 }

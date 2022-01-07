@@ -18,13 +18,14 @@ public interface TeamManager {
 
     ArrayList<Team> visualizzaTeams(int idUtente) throws SQLException;
 
-    ArrayList<Team> visualizzaTuttiTeam() throws SQLException;
+    ArrayList<Team> visualizzaTuttiTeams() throws SQLException;
 
     boolean sciogliTeam(int idTeam) throws SQLException;
     int viewLastIdTeam() throws SQLException;
     public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException;
-    ArrayList<Integer> recuperaIdDipendentiDekTeam(int idTeam) throws SQLException;
+    ArrayList<Integer> recuperaIdDipendentiDelTeam(int idTeam) throws SQLException;
     boolean updateDipsDisso(int idDip)throws SQLException;
-    boolean eliminaTeam(int idTeam) throws SQLException;
+    boolean eliminaTeam (int idTeam) throws SQLException;
     ArrayList<Dipendente> recuperaDipendentiDelTeam() throws SQLException;
+    Team getTeamId(int idTeam) throws SQLException;
 }

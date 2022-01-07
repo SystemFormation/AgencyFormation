@@ -8,6 +8,7 @@ import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.formazione.domain.Skill;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class FormazioneManagerImpl implements FormazioneManager {
 
@@ -35,7 +36,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
     @Override
     public boolean aggiungiSkill(Skill skill) throws SQLException {
 
-            return SkillDAO.salvaSkill(skill);
+            return SkillDAO.doSaveSkill(skill);
 
     }
 
@@ -56,16 +57,16 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     @Override
     public boolean addSkillDipendente(int idSkill, Dipendente dip) throws SQLException{
-         return SkillDAO.salvaSkillDipendente(idSkill,dip);
+         return SkillDAO.doSaveSkillDip(idSkill,dip);
     }
 
     @Override
-    public Dipendente getIdDipendente(int idDip) throws SQLException {
+    public Dipendente getIdEmployee(int idDip) throws SQLException {
         return DipendenteDAO.doRetrieveById(idDip);
     }
 
     private boolean alreadyInsertSkill(Skill skill) throws SQLException {
-        Skill result = SkillDAO.recuperaSkillByNome(skill.getNomeSkill());
+        Skill result = SkillDAO.doRetrieveByName(skill.getNomeSkill());
         if (result == null) {
             return false;
         } else {
@@ -76,5 +77,10 @@ public class FormazioneManagerImpl implements FormazioneManager {
     @Override
     public Documento getMaterialeByIdTeam(int idTeam) throws SQLException{
         return DocumentoDAO.recuperaByTeam(idTeam);
+    }
+
+    @Override
+    public ArrayList<Skill> recuperoSkillConIdDipendete(int idDipendete) throws SQLException {
+        return SkillDAO.recuperoSkillIdDip(idDipendete);
     }
 }
