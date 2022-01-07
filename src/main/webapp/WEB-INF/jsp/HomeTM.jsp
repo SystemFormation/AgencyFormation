@@ -19,6 +19,9 @@
     <title>Home</title>
 </head>
 <body>
+<jsp:include page="/static/Header.jsp">
+    <jsp:param value="false" name="sameLocation"/>
+</jsp:include>
 <c:choose>
 <c:when test="${user.getRole() == RuoliUtenti.TM}">
     <div id="home"><a href="CreateTeamControl">

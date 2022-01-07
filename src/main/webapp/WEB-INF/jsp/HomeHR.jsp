@@ -15,10 +15,12 @@
     <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="js/Reclutamento.js"></script>
     <script type="text/javascript" src="js/Formazione.js"></script>
-
     <title>Home</title>
 </head>
 <body>
+<jsp:include page="/static/Header.jsp">
+    <jsp:param value="false" name="sameLocation"/>
+</jsp:include>
 <c:choose>
 <c:when test="${user.getRole() == RuoliUtenti.HR}">
     <div id="home"><a href="DipendenteControl">

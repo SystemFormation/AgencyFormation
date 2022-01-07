@@ -48,7 +48,6 @@
                          e visualizzare il proprio stato</p>
                  </div>
                  <div id="home">
-
                      <h2 onclick="view(), viewLink()"> Materiale di formazione </h2>
                      <div id="drop" class="dropdown-content" style="display:none">
                          <a href="DownloadMaterialeControl" id="hrefDocumenti">
@@ -100,25 +99,5 @@
 </div>
 </body>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $.ajax({
-            type: 'GET',
-            url: 'ViewCandidaturaControl',
-            success: function (data1){
-                var cv =data1.substr(0,data1.indexOf("."));
-                var doc = data1.substr(data1.indexOf(".")+1,data1.length);
-                if(cv.length>0 && doc.length>0){
-                    var x = document.getElementById("home");
-                    x.style.display = "none";
-                    var z = document.getElementById("stato");
-                    z.style.display="block";
-                }else if(cv.length>0 && (doc.length<1)){
-                    var z = document.getElementById("stato");
-                    z.style.display="block";
-                }
-            }
-        })
-    });
-</script>
+
 </html>

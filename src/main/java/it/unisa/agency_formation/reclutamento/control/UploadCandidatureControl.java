@@ -91,13 +91,23 @@ public class UploadCandidatureControl extends HttpServlet {
                 }
             }
         }
+        try {
+            Candidatura candidatura = getCandidaturafromManager(user.getId());
+            request.setAttribute("candidatura",candidatura);
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidate.jsp");
+            dispatcher.forward(request,response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
-        dispatcher.forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+    public static Candidatura getCandidaturafromManager(int idCandidato) throws SQLException {
+        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
+        return reclutamentoManager.getCandidaturaById(idCandidato);
     }
 }

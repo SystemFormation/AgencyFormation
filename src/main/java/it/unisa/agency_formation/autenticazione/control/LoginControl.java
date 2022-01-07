@@ -4,6 +4,9 @@ import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,7 +28,7 @@ public class LoginControl extends HttpServlet {
         Utente user = (Utente) session.getAttribute("user");
         if (user != null) {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         } else {
             String email = request.getParameter("email");
             String pwd = request.getParameter("password");
@@ -43,17 +46,39 @@ public class LoginControl extends HttpServlet {
                         session = request.getSession(true);
                         session.setAttribute("user", user);
                         response.getWriter().write("3");//utente loggato
-                        dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp");
-                        dispatcher.forward(request,response);
+                        switch (user.getRole()) {
+                            case CANDIDATO:
+                                Candidatura candidatura = getCandidaturafromManager(user.getId());
+                                if (candidatura != null) {
+                                    request.setAttribute("candidatura", candidatura);
+                                }
+                                dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidate.jsp");
+                                dispatcher.forward(request, response);
+                                break;
+                            case DIPENDENTE:
+                                dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeEmployee.jsp");
+                                dispatcher.forward(request, response);
+                                break;
+                            case TM:
+                                dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeTM.jsp");
+                                dispatcher.forward(request, response);
+                                break;
+                            case HR:
+                                dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
+                                dispatcher.forward(request, response);
+                                break;
+
+                        }
                     } else {
-                        response.getWriter().write("4");//utente non loggato
-                        response.sendRedirect("/static/Login.html"); //TODO-r: magari potreste aggiungere un parametro tipo errore=1, in questo modo nella pagina potete far visualizzare errore di user o password non corretti (potete usare jstl per leggere il parametro, o js)
+                        response.getWriter().write("5");//utente non valido
+                        response.sendRedirect("/static/Login.html");
                     }
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            } else {
-                response.getWriter().write("5");//email e password null
+            }else {
+                response.getWriter().write("6");//email e password null
                 response.sendRedirect("/static/Login.html");
             }
         }
@@ -62,5 +87,10 @@ public class LoginControl extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+
+    public static Candidatura getCandidaturafromManager(int idCandidato) throws SQLException {
+        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
+        return reclutamentoManager.getCandidaturaById(idCandidato);
     }
 }
