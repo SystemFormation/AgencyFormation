@@ -35,12 +35,8 @@ public class FormazioneManagerImpl implements FormazioneManager {
     //doRetrieveById //Dipendente
     @Override
     public boolean addSkill(Skill skill) throws SQLException {
-        if (!alreadyInsertSkill(skill)) {
-            return SkillDAO.doSaveSkill(skill);
-        } else {
-            return false;
-        }
 
+            return SkillDAO.doSaveSkill(skill);
 
     }
 

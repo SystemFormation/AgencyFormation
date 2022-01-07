@@ -42,12 +42,8 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public Candidatura getCandidaturaById(int idCandidato) throws SQLException {
-        Candidatura result = CandidaturaDAO.doRetrieveById(idCandidato);
-        if (result != null) {
-            return result;
-        } else {
-            return null;
-        }
+        return CandidaturaDAO.doRetrieveById(idCandidato);
+
     }
     //TODO TEST THIS METHOD
     @Override
@@ -71,7 +67,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
     @Override
     public boolean rejectCandidate(int idCandidatura) throws SQLException{
-        if(CandidaturaDAO.doRemoveCandidatura(idCandidatura)==true){
+        if(CandidaturaDAO.doRemoveCandidatura(idCandidatura)){
             CandidaturaDAO.updateState(idCandidatura, StatiCandidatura.Rifiutata);
             return true;
         } else{

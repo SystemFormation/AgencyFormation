@@ -23,44 +23,25 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
 
     @Override
     public Utente login(String email, String password) throws SQLException {
-        Utente result = UtenteDAO.login(email, password);
-        if(result != null){
-            return result;
-        }else{
-            return null;
-        }
+        return UtenteDAO.login(email, password);
+
     }
 
     @Override
     public Utente getAllData(int idUser) throws SQLException {
-        Utente result = UtenteDAO.doRetrieveByID(idUser);;
-        if(result != null){
-            return result;
-        }else{
-            return null;
-        }
+        return UtenteDAO.doRetrieveByID(idUser);
+
     }
 
     //Aggiunto questo metodo
     @Override
     public Dipendente getAllDataDip(int idUser) throws SQLException {
-        Dipendente result = DipendenteDAO.doRetrieveById(idUser);
-        if(result != null){
-            return result;
-        }else{
-            return null;
-        }
+        return DipendenteDAO.doRetrieveById(idUser);
     }
 
     @Override
     public ArrayList<Utente> getCandidates() throws SQLException {
-        ArrayList<Utente> candidati = UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.CANDIDATO);
-        if(candidati!=null){
-            return candidati;
-        }
-        else{
-            return null;
-        }
+        return UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.CANDIDATO);
     }
     //TODO TEST THIS METHOD
     @Override
@@ -69,31 +50,16 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     }
 
     public ArrayList<Utente> getCandidatesDip() throws SQLException {
-        ArrayList<Utente> candidati = UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.DIPENDENTE);
-        if (candidati != null) {
-            return candidati;
-        } else {
-            return null;
-        }
+        return UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.DIPENDENTE);
     }
     @Override
     public ArrayList<Dipendente> getAllEmploye() throws SQLException {
-        ArrayList<Dipendente> result = DipendenteDAO.doRetrieveAll();
-        if(result != null){
-            return result;
-        }else{
-            return null;
-        }
+        return DipendenteDAO.doRetrieveAll();
     }
 
     @Override
     public ArrayList<Dipendente> getEmployeByState(StatiDipendenti state) throws SQLException {
-        ArrayList<Dipendente> result = DipendenteDAO.doRetrieveByState(state);
-        if(result != null){
-            return result;
-        }else{
-            return null;
-        }
+        return DipendenteDAO.doRetrieveByState(state);
     }
 
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {

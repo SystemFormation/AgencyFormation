@@ -14,137 +14,70 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public boolean createTeam(Team team, int idUtente) throws SQLException {
-        boolean result = TeamDAO.doSaveTeam(team, idUtente);
-        if(result){
-            return result;
-        }
-        else{
-            return false;
-        }
+       return TeamDAO.doSaveTeam(team, idUtente);
     }
 
     @Override
     public ArrayList<Dipendente> getEmployee(StatiDipendenti state) throws SQLException {
-        ArrayList<Dipendente> result = DipendenteDAO.doRetrieveByState(state);
-        if(result != null){
-            return result;
-        }else{
-            return null;
-        }
+        return DipendenteDAO.doRetrieveByState(state);
     }
 
     @Override
     public boolean addEmployee(int idTeam, Dipendente dip) throws SQLException {
-        boolean result = TeamDAO.addEmployee(idTeam, dip.getIdDipendente());
-        if(result){
-            return result;
-        }else{
-            return false;
-        }
+       return TeamDAO.addEmployee(idTeam, dip.getIdDipendente());
     }
 
     @Override
     public boolean removeEmployee(int idDip) throws SQLException {
-        boolean result = TeamDAO.removeEmployee(idDip);
-        if(result){
-            return result;
-        }
-        else{
-            return false;
-        }
+        return TeamDAO.removeEmployee(idDip);
     }
 
     @Override
     public ArrayList<Team> viewTeams(int idUtente) throws SQLException {
-        ArrayList<Team> result = TeamDAO.doRetrieveTMTeam(idUtente);
-        if(result != null){
-            return result;
-        }else{
-            return null;
-        }
+        return TeamDAO.doRetrieveTMTeam(idUtente);
     }
 
     @Override
     public ArrayList<Team> viewAllTeams() throws SQLException {
-        ArrayList<Team> result = TeamDAO.doRetrieveAllTeam();
-        if(result != null){
-            return result;
-        }else{
-            return null;
-        }
+        return TeamDAO.doRetrieveAllTeam();
     }
 
     @Override
     public boolean disbandTeam(int idTeam) throws SQLException {
-        boolean result = TeamDAO.doRemoveTeam(idTeam);
-        if(result){
-            return result;
-        }
-        else{
-            return false;
-        }
+        return TeamDAO.doRemoveTeam(idTeam);
     }
 
     @Override
     public int viewLastIdTeam() throws SQLException {
-        int result = TeamDAO.doRetrieveLastIDTeam();
-        if(result == 0){
-            return result;
-        }else{
-            return 0;
-        }
+        return TeamDAO.doRetrieveLastIDTeam();
     }
 
     @Override
     public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException {
-        boolean result = DipendenteDAO.updateDipTeamAndState(idDip, idTeam);
-        if(result){
-            return result;
-        }
-        else{
-            return false;
-        }
+       return DipendenteDAO.updateDipTeamAndState(idDip, idTeam);
     }
 
     @Override
     public ArrayList<Integer> retriveDips(int idTeam) throws SQLException {
-        ArrayList<Integer> listaIdDips = TeamDAO.doRetrieveIdEmployees(idTeam);
-        if(listaIdDips != null){
-            return listaIdDips;
-        }else{
-            return null;
-        }
+        return TeamDAO.doRetrieveIdEmployees(idTeam);
     }
 
     @Override
     public boolean updateDipsDisso(int idDip) throws SQLException {
-        boolean result = TeamDAO.updateDipStateDissolution(idDip);
-        if(result){
-            return result;
-        }
-        else{
-            return false;
-        }
+       return TeamDAO.updateDipStateDissolution(idDip);
+
     }
 
     @Override
     public boolean deleteTeam(int idTeam) throws SQLException {
-        boolean result = TeamDAO.doRemoveTeam(idTeam);
-        if (result) {
-            return result;
-        } else {
-            return false;
-        }
+        return TeamDAO.doRemoveTeam(idTeam);
+
     }
 
     @Override
     public ArrayList<Dipendente> retrieveAllDipsTeam() throws SQLException {
-        ArrayList<Dipendente> result = TeamDAO.doRetrieveAllDipsTeam();
-        if(result != null){
-            return result;
-        }else{
-            return null;
-        }
+        return TeamDAO.doRetrieveAllDipsTeam();
+
     }
 
 }
