@@ -47,7 +47,7 @@ public class CreateTeamControl extends HttpServlet {
                     team.setNumeroDipendenti(numeroDipendenti);
                     teamManager.createTeam(team,z);
                     resp.getWriter().write("3");
-                    dispatcher = req.getServletContext().getRequestDispatcher("/UtentiControl");
+                    dispatcher = req.getServletContext().getRequestDispatcher("/DipendenteControl");
                     dispatcher.forward(req, resp);
                 }
                 else{

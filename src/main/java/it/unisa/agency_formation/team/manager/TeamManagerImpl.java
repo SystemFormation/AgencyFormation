@@ -44,8 +44,8 @@ public class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public boolean removeEmployee(int idTeam, int idDip) throws SQLException {
-        boolean result = TeamDAO.removeEmployee(idTeam, idDip);
+    public boolean removeEmployee(int idDip) throws SQLException {
+        boolean result = TeamDAO.removeEmployee(idDip);
         if(result){
             return result;
         }

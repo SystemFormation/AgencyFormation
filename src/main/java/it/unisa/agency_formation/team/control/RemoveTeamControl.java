@@ -17,11 +17,10 @@ public class RemoveTeamControl extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-        int idTeam = Integer.parseInt(req.getParameter("idTeam"));
         int idDip = Integer.parseInt(req.getParameter("idDip"));
-        if(idTeam != 0 && idDip != 0){
+        if(idDip != 0){
             try {
-                teamManager.removeEmployee(idTeam,idDip);
+                teamManager.removeEmployee(idDip);
                 resp.getWriter().write("1");
                 dispatcher = req.getServletContext().getRequestDispatcher("/TeamControl");
                 dispatcher.forward(req, resp);

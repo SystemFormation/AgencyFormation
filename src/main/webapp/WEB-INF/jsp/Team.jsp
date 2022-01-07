@@ -41,7 +41,7 @@
                             <c:forEach var="dip" items="${listDip}">
                                 <c:if test="${dip.getIdTeam() == team.getIdTeam()}">
                                     <div>${dip.getName()} ${dip.getSurname()}
-                                        <a href="RemoveTeamControl?idTeam=${team.getIdTeam()}&idDip=${dip.getIdDipendente()}">X</a>
+                                        <a href="RemoveTeamControl?idDip=${dip.getIdDipendente()}">X</a>
                                     </div>
                                 </c:if>
                             </c:forEach>

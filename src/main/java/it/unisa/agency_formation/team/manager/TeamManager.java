@@ -14,7 +14,7 @@ public interface TeamManager {
 
     boolean addEmployee(int idTeam, Dipendente dip) throws SQLException;
 
-    boolean removeEmployee(int idTeam, int idDip) throws SQLException;
+    boolean removeEmployee(int idDip) throws SQLException;
 
     ArrayList<Team> viewTeams(int idUtente) throws SQLException;
 

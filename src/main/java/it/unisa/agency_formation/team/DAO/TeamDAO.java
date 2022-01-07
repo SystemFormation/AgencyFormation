@@ -139,22 +139,20 @@ public class TeamDAO {
     /**
      * questa funzionalità permette di rimuovere un dipendente da un team
      *
-     * @param idTeam
      * @param idDipendente
      * @throws SQLException
      * @pre idTeam>0
      * @pre idDipendente>0
      */
-    public static boolean removeEmployee(int idTeam, int idDipendente) throws SQLException {
-        if(idTeam<1 || idDipendente<1) return false;
+    public static boolean removeEmployee(int idDipendente) throws SQLException {
+        if(idDipendente<1) return false;
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=1 WHERE IdDipendente=?";
+        String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=NULL, Stato=1 WHERE IdDipendente=?";
         PreparedStatement stmt = null;
         int result;
         try {
             stmt = connection.prepareStatement(query);
-            stmt.setInt(1, idTeam);
-            stmt.setInt(2, idDipendente);
+            stmt.setInt(1, idDipendente);
             result = stmt.executeUpdate();
             if(result!=-1) return true;
             else return false;
