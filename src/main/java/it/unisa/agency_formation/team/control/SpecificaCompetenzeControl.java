@@ -23,13 +23,14 @@ public class SpecificaCompetenzeControl extends HttpServlet {
             resp.getWriter().write("1");
             int idTeam = Integer.parseInt(req.getParameter("idTeam"));
             req.setAttribute("idTeam",idTeam);
-            dispatcher = req.getServletContext().getRequestDispatcher("/static/Competenze.jsp");
-            dispatcher.forward(req, resp);
+            /*dispatcher = req.getServletContext().getRequestDispatcher("/static/Competenze.jsp");
+            dispatcher.forward(req, resp);*/
+            resp.sendRedirect("/static/Competenze.jsp");
+
             //String comp = TeamDAO.doRetrieveCompetence(idTeam); //<---- fare il manager
             //                req.setAttribute("Competence",comp);
         } else if(req.getParameter("action").equalsIgnoreCase("competenze")){ //update competenze
             String competence = req.getParameter("specCompetenze");
-            System.out.println("sto qui");
 
             try {
                 int idTeam = Integer.parseInt(req.getParameter("idTeam"));

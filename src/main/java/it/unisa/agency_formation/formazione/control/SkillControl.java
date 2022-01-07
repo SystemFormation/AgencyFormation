@@ -59,7 +59,7 @@ public class SkillControl extends HttpServlet {
 
         }else{
             response.getWriter().write("5"); //skillNome e skillDescr null
-            response.sendRedirect("./static/Profilo.jsp");
+            response.sendRedirect("/static/Profilo.jsp");
         }
 
     }

@@ -2,7 +2,6 @@ package it.unisa.agency_formation.team.control;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
-import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.team.domain.Team;
@@ -10,7 +9,6 @@ import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,8 +54,9 @@ public class TeamControl extends HttpServlet {
             }
         } else {
             resp.getWriter().write("3");
-            dispatcher = req.getServletContext().getRequestDispatcher("/static/Error.html");
-            dispatcher.forward(req, resp);
+           /* dispatcher = req.getServletContext().getRequestDispatcher("/static/Error.html");
+            dispatcher.forward(req, resp);*/
+            resp.sendRedirect("/static/Error.html");
         }
     }
 
@@ -65,4 +64,5 @@ public class TeamControl extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
 }
