@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class DocumentoDAO {
     private static final String TABLE_DOCUMENTO = "documenti";
@@ -18,7 +17,7 @@ public class DocumentoDAO {
      * @param doc
      * @throws SQLException doc!=null
      */
-    public static boolean doSaveDocument(Documento doc) throws SQLException {
+    public static boolean salvaDocumento(Documento doc) throws SQLException {
         if(doc == null){
             return false;
         }
@@ -55,7 +54,7 @@ public class DocumentoDAO {
      * @throws SQLException
      * @pre matForm!=null
      */
-    public static boolean doRemoveDocument(String materialeFormazione) throws SQLException {
+    public static boolean rimuoviDocumento(String materialeFormazione) throws SQLException {
         if(materialeFormazione==null){
             return false;
         }
@@ -92,7 +91,7 @@ public class DocumentoDAO {
      * @throws SQLException
      * @pre idDocument != null && ma != null && idTeam!=null
      */
-    public static boolean updateDocument(int idHR, String materiale, int idTeam) throws SQLException {
+    public static boolean modificaDocumento(int idHR, String materiale, int idTeam) throws SQLException {
         if(idHR <1 || materiale==null || idTeam<1){
             return false;
         }
@@ -129,7 +128,7 @@ public class DocumentoDAO {
      * @throws SQLException
      * @pre idTeam!=null
      */
-    public static Documento doRetrieveByTeam(int idTeam) throws SQLException {
+    public static Documento recuperaByTeam(int idTeam) throws SQLException {
         if(idTeam<1){
             return null;
         }

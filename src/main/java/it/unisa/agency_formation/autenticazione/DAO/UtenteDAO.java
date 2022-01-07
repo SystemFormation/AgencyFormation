@@ -21,7 +21,7 @@ public class UtenteDAO {
      * @throws SQLException
      * @pre user!=null
      */
-    public static boolean doSaveUser(Utente user) throws SQLException {
+    public static boolean salvaUtente(Utente user) throws SQLException {
         if (user == null) {
             return false;
         }

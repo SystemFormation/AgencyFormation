@@ -15,123 +15,123 @@ public class TeamDAOTest {
     public void saveTeamFail() throws SQLException {
         Team team = null;
         int idUtente = -1;
-        assertFalse(TeamDAO.doSaveTeam(team, idUtente));
+        assertFalse(TeamDAO.salvaTeam(team, idUtente));
     }
     @Test
     public void saveTeamOk() throws SQLException {
         Team team = new Team("FitDiary", 8, "Bastoncini Fitnuss","Vendiamo Bastoncini Di Pesce","HTML", 2);
         int idUtente = 1;
-        assertTrue(TeamDAO.doSaveTeam(team, idUtente));
+        assertTrue(TeamDAO.salvaTeam(team, idUtente));
     }
     @Test
     public void removeTeamFail() throws SQLException {
         int idTeam = -1;
-        assertFalse(TeamDAO.doRemoveTeam(idTeam));
+        assertFalse(TeamDAO.rimuoviTeam(idTeam));
 
     }
     @Test
     public void removeTeamOk() throws SQLException {
         int idTeam = 1;
-        assertTrue(TeamDAO.doRemoveTeam(idTeam));
+        assertTrue(TeamDAO.rimuoviTeam(idTeam));
     }
     @Test
     public void addEmployeeFail() throws SQLException{
         int idTeam = -1;
         int idDipendente = -1;
-        assertFalse(TeamDAO.addEmployee(idTeam, idDipendente));
+        assertFalse(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
 
     }
     @Test
     public void addEmployeeOk() throws SQLException{
         int idTeam = 1;
         int idDipendente = 1;
-        assertTrue(TeamDAO.addEmployee(idTeam, idDipendente));
+        assertTrue(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
     }
     @Test
     public void removeEmployeeFail() throws SQLException{
         int idTeam = -1;
         int idDipendente = -1;
-        assertFalse(TeamDAO.addEmployee(idTeam, idDipendente));
+        assertFalse(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
 
     }
     @Test
     public void removeEmployeeOk() throws SQLException{
         int idTeam = 1;
         int idDipendente = 1;
-        assertTrue(TeamDAO.addEmployee(idTeam, idDipendente));
+        assertTrue(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
 
     }
     @Test // fa questo o quello sotto (non entrambi)
     public void retrieveAllTeamFail() throws SQLException   {
-            assertNull(TeamDAO.doRetrieveAllTeam());
+            assertNull(TeamDAO.recuperaTuttiTeam());
 
     }
     @Test
     public void retrieveAllTeamOk() throws SQLException   {
-        assertNotNull(TeamDAO.doRetrieveAllTeam());
+        assertNotNull(TeamDAO.recuperaTuttiTeam());
 
     }
     @Test
     public void retrieveTMTeamFail() throws SQLException{
         int idUtente = -1;
-        assertNull(TeamDAO.doRetrieveTMTeam(idUtente));
+        assertNull(TeamDAO.recuperaTeamDiUnTM(idUtente));
 
 
     }
     @Test
     public void retrieveTMTeamOk() throws SQLException{
         int idUtente = 1;
-        assertNotNull(TeamDAO.doRetrieveTMTeam(idUtente));
+        assertNotNull(TeamDAO.recuperaTeamDiUnTM(idUtente));
 
     }
     @Test
     public void updateCompetenceFail() throws SQLException{
         String competence = null;
         int idTeam = 1;
-        assertFalse(TeamDAO.updateCompetence(competence, idTeam));
+        assertFalse(TeamDAO.modificaCompetenze(competence, idTeam));
 
     }
     @Test
     public void updateCompetenceOk() throws SQLException{
         String competence = "HTML";
         int idTeam = 1;
-        assertTrue(TeamDAO.updateCompetence(competence, idTeam));
+        assertTrue(TeamDAO.modificaCompetenze(competence, idTeam));
 
     }
     @Test
     public void retrieveCompetenceFail() throws SQLException {
         int idTeam = -1;
-        assertNull(TeamDAO.doRetrieveCompetence(idTeam));
+        assertNull(TeamDAO.recuperaCompetenza(idTeam));
 
     }
     @Test
     public void retrieveCompetenceOk() throws SQLException {
         int idTeam = 1;
-        assertNotNull(TeamDAO.doRetrieveCompetence(idTeam));
+        assertNotNull(TeamDAO.recuperaCompetenza(idTeam));
 
     }
     @Test
     public void retrieveAllTMemberFail () throws SQLException {
         int idTeam = -1;
-        assertNull(TeamDAO.doRetrieveAllTMember(idTeam));
+        assertNull(TeamDAO.recuperaTuttiTMember(idTeam));
 
     }
     @Test
     public void retrieveAllTMemberOk () throws SQLException {
         int idTeam = 1;
-        assertNotNull(TeamDAO.doRetrieveAllTMember(idTeam));
+        assertNotNull(TeamDAO.recuperaTuttiTMember(idTeam));
 
     }
     @Test
     public void retrieveNTMemberFail() throws SQLException {
         int idTeam = -1;
-        assertFalse(TeamDAO.doRemoveTeam(idTeam));
+        assertFalse(TeamDAO.rimuoviTeam(idTeam));
 
     }
     @Test
     public void retrieveNTMemberOk() throws SQLException {
         int idTeam = 1;
-        assertTrue(TeamDAO.doRemoveTeam(idTeam));
+        assertTrue(TeamDAO.rimuoviTeam(idTeam));
 
     }
 

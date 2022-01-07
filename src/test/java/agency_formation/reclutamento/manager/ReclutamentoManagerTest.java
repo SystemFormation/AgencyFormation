@@ -26,7 +26,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         cand.setCurriculum("test");
         cand.setStato(StatiCandidatura.NonRevisionato);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.doSaveCandidaturaWithoutDocument(cand)).thenReturn(true);
+            mocked.when(() -> CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand)).thenReturn(true);
         }
         assertTrue(reclutamento.uploadCandidature(cand));
 
@@ -36,7 +36,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
     public void uploadCandidatura2() throws SQLException {
         Candidatura cand = null;
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.doSaveCandidaturaWithoutDocument(cand)).thenReturn(false);
+            mocked.when(() -> CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand)).thenReturn(false);
         }
         assertFalse(reclutamento.uploadCandidature(cand));
     }

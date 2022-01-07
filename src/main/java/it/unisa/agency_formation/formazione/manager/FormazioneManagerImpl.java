@@ -2,7 +2,6 @@ package it.unisa.agency_formation.formazione.manager;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.formazione.DAO.DocumentoDAO;
 import it.unisa.agency_formation.formazione.DAO.SkillDAO;
 import it.unisa.agency_formation.formazione.domain.Documento;
@@ -19,7 +18,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     @Override
     public boolean saveDocument(Documento documento) throws SQLException {
-        return DocumentoDAO.doSaveDocument(documento);
+        return DocumentoDAO.salvaDocumento(documento);
     }
 
     @Override
@@ -36,7 +35,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
     @Override
     public boolean addSkill(Skill skill) throws SQLException {
 
-            return SkillDAO.doSaveSkill(skill);
+            return SkillDAO.salvaSkill(skill);
 
     }
 
@@ -57,7 +56,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     @Override
     public boolean addSkillDip(int idSkill, Dipendente dip) throws SQLException{
-         return SkillDAO.doSaveSkillDip(idSkill,dip);
+         return SkillDAO.salvaSkillDipendente(idSkill,dip);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
     }
 
     private boolean alreadyInsertSkill(Skill skill) throws SQLException {
-        Skill result = SkillDAO.doRetrieveByName(skill.getNomeSkill());
+        Skill result = SkillDAO.recuperaSkillByNome(skill.getNomeSkill());
         if (result == null) {
             return false;
         } else {
@@ -76,6 +75,6 @@ public class FormazioneManagerImpl implements FormazioneManager {
     }
     @Override
     public Documento getMaterialeByIdTeam(int idTeam) throws SQLException{
-        return DocumentoDAO.doRetrieveByTeam(idTeam);
+        return DocumentoDAO.recuperaByTeam(idTeam);
     }
 }

@@ -7,7 +7,6 @@ import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 import java.sql.SQLException;
 
@@ -25,7 +24,7 @@ public class TeamManagerTest {
         int id = 3;
         Team team = new Team("Agency Formation",4,"The system errors","i membri sono dei geni",null,3);
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
-            mocked.when(() -> TeamDAO.doSaveTeam(team,id)).thenReturn(true);
+            mocked.when(() -> TeamDAO.salvaTeam(team,id)).thenReturn(true);
         }
         assertTrue(aut.createTeam(team,id));
     }

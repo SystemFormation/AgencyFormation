@@ -1,7 +1,6 @@
 package it.unisa.agency_formation.team.control;
 
 import it.unisa.agency_formation.team.DAO.TeamDAO;
-import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -34,7 +33,7 @@ public class SpecificaCompetenzeControl extends HttpServlet {
 
             try {
                 int idTeam = Integer.parseInt(req.getParameter("idTeam"));
-                TeamDAO.updateCompetence(competence,idTeam); //<---- fare il manager
+                TeamDAO.modificaCompetenze(competence,idTeam); //<---- fare il manager
                 resp.getWriter().write("2");
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Team.jsp");
                 dispatcher.forward(req, resp);

@@ -1,14 +1,11 @@
 package agency_formation.formazione.manager;
 
-import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.formazione.DAO.SkillDAO;
 import it.unisa.agency_formation.formazione.domain.Skill;
 import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 import java.sql.SQLException;
 
@@ -23,7 +20,7 @@ public class FormazioneManagerTest {
     public void addSkillFail()throws SQLException {
         Skill skill = new Skill("CSS","Competenza Basilare");
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.doSaveSkill(skill)).thenReturn(false);
+            mocked.when(() -> SkillDAO.salvaSkill(skill)).thenReturn(false);
         }
         assertFalse(aut.addSkill(skill));
     }
@@ -31,7 +28,7 @@ public class FormazioneManagerTest {
     public void addSkillPass()throws SQLException {
         Skill skill = new Skill("CSS","Competenza Basilare");
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.doSaveSkill(skill)).thenReturn(true);
+            mocked.when(() -> SkillDAO.salvaSkill(skill)).thenReturn(true);
         }
         assertTrue(aut.addSkill(skill));
     }
@@ -52,7 +49,7 @@ public class FormazioneManagerTest {
         int idSkill = 2;
         Dipendente dip = null;
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.doSaveSkillDip(idSkill,dip)).thenReturn(false);
+            mocked.when(() -> SkillDAO.salvaSkillDipendente(idSkill,dip)).thenReturn(false);
         }
         assertFalse(aut.addSkillDip(idSkill,dip));
     }

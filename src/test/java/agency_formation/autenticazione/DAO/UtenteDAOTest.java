@@ -2,7 +2,6 @@ package agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
-import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
 import org.junit.jupiter.api.Test;
@@ -19,13 +18,13 @@ public class UtenteDAOTest {
     @Test
     public void saveUserFail() throws SQLException {
         Utente user = null;
-        assertFalse(UtenteDAO.doSaveUser(user));
+        assertFalse(UtenteDAO.salvaUtente(user));
     }
 
     @Test
     public void saveUserOK() throws SQLException {
         Utente user = new Utente("Gennaro", "Cecco", "genny@libero.it", "lol", RuoliUtenti.CANDIDATO);
-        assertTrue(UtenteDAO.doSaveUser(user));
+        assertTrue(UtenteDAO.salvaUtente(user));
     }
 
     @Test

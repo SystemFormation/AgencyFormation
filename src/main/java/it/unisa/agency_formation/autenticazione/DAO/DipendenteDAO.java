@@ -3,7 +3,6 @@ package it.unisa.agency_formation.autenticazione.DAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
-import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
 import java.sql.Connection;
@@ -23,7 +22,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @pre dip!=null
      */
-    public static boolean doSaveEmploye(Dipendente dipendente) throws SQLException {
+    public static boolean salvaDipendente(Dipendente dipendente) throws SQLException {
         if (dipendente == null) {
             return false;
         }
@@ -31,7 +30,7 @@ public class DipendenteDAO {
         PreparedStatement save = null;
         String query = "insert into " + TABLE_DIPENDENTE + " (IdDipendente,Residenza,Telefono,Stato,AnnoDiNascita,idTeam)" +
                 " values(?,?,?,?,?,?)";
-        updateRole(dipendente.getIdDipendente());
+        modificaRuolo(dipendente.getIdDipendente());
         try {
             save = connection.prepareStatement(query);
             save.setInt(1, dipendente.getIdDipendente());
@@ -69,7 +68,7 @@ public class DipendenteDAO {
      * @pre id>0
      */
 
-    public static boolean updateRole(int id) throws SQLException {
+    public static boolean modificaRuolo(int id) throws SQLException {
         if (id <= 0) {
             return false;
         }
@@ -169,7 +168,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @post dipendenti.size()>0
      */
-    public static ArrayList<Dipendente> doRetrieveAll() throws SQLException {
+    public static ArrayList<Dipendente> recuperaDipendenti() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
         String query= "SELECT * FROM " + TABLE_DIPENDENTE + " inner join utenti on utenti.IdUtente = dipendenti.IdDipendente" ;
@@ -240,7 +239,7 @@ public class DipendenteDAO {
      * @pre idUtente>0
      * @post setStato(stato)
      */
-    public static boolean updateState(int idUtente, StatiDipendenti stato) throws SQLException {
+    public static boolean modificaStato(int idUtente, StatiDipendenti stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if (idUtente <= 0) {
             return false;
@@ -284,7 +283,7 @@ public class DipendenteDAO {
      * @throws SQLException
      * @post dipendenti.size()>0
      */
-    public static ArrayList<Dipendente> doRetrieveByState(StatiDipendenti stato) throws SQLException {
+    public static ArrayList<Dipendente> recuperaByStato(StatiDipendenti stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;

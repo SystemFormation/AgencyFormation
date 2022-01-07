@@ -1,14 +1,11 @@
 package agency_formation.formazione.DAO;
 
 
-import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.formazione.DAO.SkillDAO;
 import it.unisa.agency_formation.formazione.domain.Skill;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,45 +17,45 @@ public class SkillDAOTest {
     @Test
     public void saveSkillFailSkillNull() throws SQLException{
         Skill skill = null;
-        assertFalse(SkillDAO.doSaveSkill(skill));
+        assertFalse(SkillDAO.salvaSkill(skill));
     }
 
     @Test
     public void saveSkillOK() throws SQLException{
         Skill skill = new Skill("C","Conoscenze base");
-        assertTrue(SkillDAO.doSaveSkill(skill));
+        assertTrue(SkillDAO.salvaSkill(skill));
     }
 
     @Test
     public void removeSkillOK() throws SQLException{
         int idSkill= 2;
-        assertTrue(SkillDAO.doRemoveSkill(2));
+        assertTrue(SkillDAO.rimuoviSkill(2));
     }
     @Test
     public void removeSkillFail() throws SQLException{
         int idSkill= 0;
-        assertFalse(SkillDAO.doRemoveSkill(0));
+        assertFalse(SkillDAO.rimuoviSkill(0));
     }
 
     // Funziona con il db vuoto
     @Test
     public void doRetrieveAllFail() throws SQLException{
-        assertNull(SkillDAO.doRetrieveAll());
+        assertNull(SkillDAO.recuperaSkills());
     }
     @Test
     public void doRetrieveAllPass() throws SQLException{
-        assertNotNull(SkillDAO.doRetrieveAll());
+        assertNotNull(SkillDAO.recuperaSkills());
     }
 
     @Test
     public void doRetrieveByNameNull() throws SQLException{
         String nomeSkill = null;
-        assertNull(SkillDAO.doRetrieveByName(nomeSkill));
+        assertNull(SkillDAO.recuperaSkillByNome(nomeSkill));
     }
     @Test
     public void doRetrieveByNamePass() throws SQLException{
         String nomeSkill = "CSS";
-        assertNotNull(SkillDAO.doRetrieveByName(nomeSkill));
+        assertNotNull(SkillDAO.recuperaSkillByNome(nomeSkill));
     }
 
     @Test//not pass idSkill<1

@@ -10,7 +10,6 @@ import static org.mockito.Mockito.mockStatic;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 
 import java.sql.SQLException;
 
@@ -24,7 +23,7 @@ public class AutenticazioneManagerTest {
         Utente user = new Utente("Francesco", "Cecco", "fra@gmail.com", "lol", RuoliUtenti.CANDIDATO);
 
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
-            mocked.when(() -> UtenteDAO.doSaveUser(user)).thenReturn(false);
+            mocked.when(() -> UtenteDAO.salvaUtente(user)).thenReturn(false);
         }
         assertFalse(aut.registration(user));
     }
@@ -33,7 +32,7 @@ public class AutenticazioneManagerTest {
     public void registrationPass() throws SQLException {
         Utente user = new Utente("Francescoz", "Ceccoz", "frza@gmail.com", "lol", RuoliUtenti.CANDIDATO);
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
-            mocked.when(() -> UtenteDAO.doSaveUser(user)).thenReturn(true);
+            mocked.when(() -> UtenteDAO.salvaUtente(user)).thenReturn(true);
         }
 
         assertTrue(aut.registration(user));

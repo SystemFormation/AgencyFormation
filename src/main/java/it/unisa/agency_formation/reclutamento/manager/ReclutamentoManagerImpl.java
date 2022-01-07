@@ -18,13 +18,13 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
         }else {
                 if(candidatura.getCurriculum()!=null && candidatura.getDocumentiAggiuntivi()==null) {
                     if(!alreadyLoaded(candidatura.getIdCandidato())) {
-                        return CandidaturaDAO.doSaveCandidaturaWithoutDocument(candidatura);
+                        return CandidaturaDAO.salvaCandidaturaSenzaDocumenti(candidatura);
                     }else{
                         return false;
                     }
                 }
                 else {
-                   return CandidaturaDAO.addDocument(candidatura.getDocumentiAggiuntivi(), candidatura.getIdCandidato());
+                   return CandidaturaDAO.aggiungiDocumentiAggiuntivi(candidatura.getDocumentiAggiuntivi(), candidatura.getIdCandidato());
                 }
             }
         }
@@ -32,7 +32,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public ArrayList<Candidatura> getAll() throws SQLException {
-        return CandidaturaDAO.doRetrieveAll();
+        return CandidaturaDAO.recuperaCandidature();
     }
 
     @Override
@@ -48,12 +48,12 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     //TODO TEST THIS METHOD
     @Override
     public boolean acceptCandidature(int idCandidatura, int idHR, Timestamp data) throws SQLException {
-        return CandidaturaDAO.acceptCandidatura(idCandidatura,idHR,data);
+        return CandidaturaDAO.accettaCandidatura(idCandidatura,idHR,data);
     }
     //TODO TEST THIS METHOD
     @Override
     public boolean rejectCandidature(int idCandidatura,int idHR) throws SQLException{
-        if(CandidaturaDAO.doRejectCandidatura(idCandidatura,idHR)){
+        if(CandidaturaDAO.rifiutaCandidatura(idCandidatura,idHR)){
             return true;
         } else{
             return false;
@@ -67,8 +67,8 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
     @Override
     public boolean rejectCandidate(int idCandidatura) throws SQLException{
-        if(CandidaturaDAO.doRemoveCandidatura(idCandidatura)){
-            CandidaturaDAO.updateState(idCandidatura, StatiCandidatura.Rifiutata);
+        if(CandidaturaDAO.rimuoviCandidatura(idCandidatura)){
+            CandidaturaDAO.modificaStato(idCandidatura, StatiCandidatura.Rifiutata);
             return true;
         } else{
             return false;

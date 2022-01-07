@@ -20,7 +20,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre candidatura!=null
      */
-    public static boolean doSaveCandidaturaWithoutDocument(Candidatura candidatura) throws SQLException {
+    public static boolean salvaCandidaturaSenzaDocumenti(Candidatura candidatura) throws SQLException {
         if (candidatura == null) {
             return false;
         }
@@ -78,7 +78,7 @@ public class CandidaturaDAO {
      * @pre document!=null and idUtente>0
      */
 
-    public static boolean addDocument(String document, int idUtente) throws SQLException {
+    public static boolean aggiungiDocumentiAggiuntivi(String document, int idUtente) throws SQLException {
         if (document == null || idUtente < 1) {
             return false;
         }
@@ -173,7 +173,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @post candidature.size()>0
      */
-    public static ArrayList<Candidatura> doRetrieveAll() throws SQLException {
+    public static ArrayList<Candidatura> recuperaCandidature() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -232,7 +232,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre stato!=null
      */
-    public static ArrayList<Candidatura> doRetrieveByState(StatiCandidatura stato) throws SQLException {
+    public static ArrayList<Candidatura> recuperaCandidatureByStato(StatiCandidatura stato) throws SQLException {
         if (stato == null) {
             return null;
         }
@@ -303,7 +303,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre stato!=null and idCandidatura>0
      */
-    public static boolean updateState(int idCandidatura, StatiCandidatura stato) throws SQLException {
+    public static boolean modificaStato(int idCandidatura, StatiCandidatura stato) throws SQLException {
         if (idCandidatura < 1 || stato == null) {
             return false;
         }
@@ -360,7 +360,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre idCandidatura>0
      */
-    public static boolean doRemoveCandidatura(int idCandidatura) throws SQLException {
+    public static boolean rimuoviCandidatura(int idCandidatura) throws SQLException {
         if (idCandidatura < 1) {
             return false;
         }
@@ -396,13 +396,13 @@ public class CandidaturaDAO {
      * @pre idCandidatura>0
      *
      * */
-    public static boolean doRejectCandidatura(int idCandidatura,int idHR) throws SQLException {
+    public static boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
         if (idCandidatura < 1 || idHR <1) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         String delete= "deleted";
-        updateState(idCandidatura,StatiCandidatura.Rifiutata);
+        modificaStato(idCandidatura,StatiCandidatura.Rifiutata);
         String query = "update " + TABLE_CANDIDATURA +" set Curriculum=?, DocumentiAggiuntivi=?, IdHR=? where IdCandidatura=?";
         PreparedStatement stmt = null;
         try {
@@ -427,12 +427,12 @@ public class CandidaturaDAO {
             }
         }
     }
-    public static boolean acceptCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
+    public static boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
         if (idCandidatura < 1 || idHR<1){
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        updateState(idCandidatura,StatiCandidatura.Accettata);
+        modificaStato(idCandidatura,StatiCandidatura.Accettata);
         String query = "update " + TABLE_CANDIDATURA +" set Stato=?, IdHR=?, DataOraColloquio=? where IdCandidatura=?";
         PreparedStatement stmt = null;
         try {

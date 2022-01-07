@@ -3,7 +3,6 @@ package agency_formation.reclutamento.DAO;
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -15,7 +14,7 @@ public class CandidaturaDAOTest {
     @Test //cand = null
     public void saveCandFail() throws SQLException {
         Candidatura cand = null;
-        assertFalse(CandidaturaDAO.doSaveCandidaturaWithoutDocument(cand));
+        assertFalse(CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand));
     }
 
     @Test //salva il candidatura
@@ -27,28 +26,28 @@ public class CandidaturaDAOTest {
         cand.setIdCandidato(1);
         cand.setCurriculum("test");
         cand.setStato(StatiCandidatura.NonRevisionato);
-        assertTrue(CandidaturaDAO.doSaveCandidaturaWithoutDocument(cand));
+        assertTrue(CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand));
     }
 
     @Test //document = null
     public void addDocumentFail1() throws SQLException {
         String document = null;
         int idUtente = 1;
-        assertFalse(CandidaturaDAO.addDocument(document, idUtente));
+        assertFalse(CandidaturaDAO.aggiungiDocumentiAggiuntivi(document, idUtente));
     }
 
     @Test //id = -1
     public void addDocumentFail2() throws SQLException {
         String document = "Test";
         int idUtente = -1;
-        assertFalse(CandidaturaDAO.addDocument(document, idUtente));
+        assertFalse(CandidaturaDAO.aggiungiDocumentiAggiuntivi(document, idUtente));
     }
 
     @Test //aggiunge il document Test con id 1
     public void addDocumentOk() throws SQLException {
         String document = "Test";
         int idUtente = 1;
-        assertTrue(CandidaturaDAO.addDocument(document, idUtente));
+        assertTrue(CandidaturaDAO.aggiungiDocumentiAggiuntivi(document, idUtente));
     }
 
     @Test //id candidato = -1
@@ -69,12 +68,12 @@ public class CandidaturaDAOTest {
              con lo stato accettata dal db)*/
     public void doRetrieveByStateFail2() throws SQLException {
 
-        assertNull(CandidaturaDAO.doRetrieveByState(StatiCandidatura.Accettata));
+        assertNull(CandidaturaDAO.recuperaCandidatureByStato(StatiCandidatura.Accettata));
     }
 
     @Test //assicurati di avere candidature con stato non revisionato
     public void doRetrieveByStateOk() throws SQLException {
-        assertNotNull(CandidaturaDAO.doRetrieveByState(StatiCandidatura.NonRevisionato));
+        assertNotNull(CandidaturaDAO.recuperaCandidatureByStato(StatiCandidatura.NonRevisionato));
     }
 
     @Test//non ci devono essere candidature
@@ -91,7 +90,7 @@ public class CandidaturaDAOTest {
     @Test //id candidatura = -1
     public void updateStateFail1() throws SQLException {
         int idCandidatura = -1;
-        assertFalse(CandidaturaDAO.updateState(idCandidatura, StatiCandidatura.Accettata));
+        assertFalse(CandidaturaDAO.modificaStato(idCandidatura, StatiCandidatura.Accettata));
     }
 
 
@@ -99,19 +98,19 @@ public class CandidaturaDAOTest {
     @Test //id candidatura = 2(questo id esiste)
     public void updateStateOk() throws SQLException {
         int idCandidatura = 2;
-        assertTrue(CandidaturaDAO.updateState(idCandidatura, StatiCandidatura.Rifiutata));
+        assertTrue(CandidaturaDAO.modificaStato(idCandidatura, StatiCandidatura.Rifiutata));
     }
 
     @Test //idCandidatura = -1
     public void doRemoveCandidaturaFail() throws SQLException {
         int idCandidatura = -1;
-        assertFalse(CandidaturaDAO.doRemoveCandidatura(idCandidatura));
+        assertFalse(CandidaturaDAO.rimuoviCandidatura(idCandidatura));
     }
 
     @Test //idCandidatura = 2
     public void doRemoveCandidaturaOk() throws SQLException {
         int idCandidatura = 2;
-        assertTrue(CandidaturaDAO.doRemoveCandidatura(idCandidatura));
+        assertTrue(CandidaturaDAO.rimuoviCandidatura(idCandidatura));
     }
     @Test //idCandidatura<1
     public void doRejectFail1(){

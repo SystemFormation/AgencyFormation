@@ -15,7 +15,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     @Override
     public boolean registration(Utente user) throws SQLException {
         if (!alreadyRegisteredUser(user)) {
-            return UtenteDAO.doSaveUser(user);
+            return UtenteDAO.salvaUtente(user);
         } else {
             return false;
         }
@@ -54,12 +54,12 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     }
     @Override
     public ArrayList<Dipendente> getAllEmploye() throws SQLException {
-        return DipendenteDAO.doRetrieveAll();
+        return DipendenteDAO.recuperaDipendenti();
     }
 
     @Override
     public ArrayList<Dipendente> getEmployeByState(StatiDipendenti state) throws SQLException {
-        return DipendenteDAO.doRetrieveByState(state);
+        return DipendenteDAO.recuperaByStato(state);
     }
 
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {
