@@ -54,7 +54,7 @@
                             <input type="hidden" name="action" value="competenze">
                             <textarea id="specCompetenze" name="specCompetenze" rows="6" cols="40"
                                       placeholder="Specifica le competenze"></textarea><br>
-                            <input type="hidden" name="idTeam" value="${idTeam}">
+                            <input type="hidden" name="idTeam" value="${team.getIdTeam()}">
                             <input type="submit" name="specifica" value="Invia" id="specifica"><br>
                         </form>
                     <br>
