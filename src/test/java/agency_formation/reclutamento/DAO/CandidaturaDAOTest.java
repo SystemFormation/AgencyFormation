@@ -4,21 +4,22 @@ import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import org.junit.jupiter.api.Test;
-
+import java.util.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CandidaturaDAOTest {
 
     @Test //cand = null
-    public void saveCandFail() throws SQLException {
+    public void saveCandidatureNoDocumentFail() throws SQLException {
         Candidatura cand = null;
         assertFalse(CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand));
     }
 
     @Test //salva il candidatura
-    public void savecandOk() throws SQLException {
+    public void saveCandidatureNoDocumentOk() throws SQLException {
         Candidatura cand = new Candidatura();
         java.util.Date date = new java.util.Date();
         java.sql.Date data = new java.sql.Date(date.getTime());
@@ -67,7 +68,6 @@ public class CandidaturaDAOTest {
             * stato(cancella tutte le candidatue
              con lo stato accettata dal db)*/
     public void doRetrieveByStateFail2() throws SQLException {
-
         assertNull(CandidaturaDAO.recuperaCandidatureByStato(StatiCandidatura.Accettata));
     }
 
@@ -77,23 +77,19 @@ public class CandidaturaDAOTest {
     }
 
     @Test//non ci devono essere candidature
-    public void doRetrieveAllFail(){
-
+    public void doRetrieveAllFail() throws SQLException {
+        assertNotNull(CandidaturaDAO.recuperaCandidature());
     }
-    @Test//ci devono essere candidature con stato non revisionato
-    public void doRetrieveAllOk(){
-
+    @Test//RIEMPIRE IL DB ci devono essere candidature con stato non revisionato
+    public void doRetrieveAllOk() throws SQLException {
+        assertNull(CandidaturaDAO.recuperaCandidature());
     }
-
-
 
     @Test //id candidatura = -1
     public void updateStateFail1() throws SQLException {
         int idCandidatura = -1;
         assertFalse(CandidaturaDAO.modificaStato(idCandidatura, StatiCandidatura.Accettata));
     }
-
-
 
     @Test //id candidatura = 2(questo id esiste)
     public void updateStateOk() throws SQLException {
@@ -113,47 +109,66 @@ public class CandidaturaDAOTest {
         assertTrue(CandidaturaDAO.rimuoviCandidatura(idCandidatura));
     }
     @Test //idCandidatura<1
-    public void doRejectFail1(){
-
+    public void doRejectFail1() throws SQLException {
+        int idCandidatura=-1;
+        int idHR=4;
+        assertFalse(CandidaturaDAO.rifiutaCandidatura(idCandidatura,idHR));
     }
-    @Test //idCandidatura non esiste
-    public void doRejectFail2(){
+    @Test //idCandidatura non esiste NON FUNZIONA
+    public void doRejectFail2() throws SQLException {
+        int idCandidatura=432873892;
+        int idHR=4;
+        assertFalse(CandidaturaDAO.rifiutaCandidatura(idCandidatura,idHR));
 
     }
     @Test //idHR<1
-    public void doRejectFail3(){
+    public void doRejectFail3() throws SQLException {
+        int idCandidatura=1;
+        int idHR=-4;
+        assertFalse(CandidaturaDAO.rifiutaCandidatura(idCandidatura,idHR));
 
     }
-    @Test //idHR non esiste
-    public void doRejectFail4(){
-
+    @Test //idHR non esiste NON FUNZIONA..MANCA CONTROLLO
+    public void doRejectFail4() throws SQLException {
+        int idCandidatura=1;
+        int idHR=4326;
+        assertFalse(CandidaturaDAO.rifiutaCandidatura(idCandidatura,idHR));
     }
     @Test //pass
-    public void doRejectPass(){
-
+    public void doRejectPass() throws SQLException {
+        int idCandidatura=1;
+        int idHR=4;
+        assertTrue(CandidaturaDAO.rifiutaCandidatura(idCandidatura,idHR));
     }
-
+/*----------------ERRORE CON LA DATA. CONTROLLARE COME PRENDERLA----
     @Test //idCandidatura<1
-    public void accpetCandidaturaFail1(){
+    public void accpetCandidaturaFail1() throws SQLException {
+        int idCandidatura=-1;
+        int idHR=4;
+        java.util.Date date = new java.util.Date();
+        java.sql.Date data = new java.sql.Date(date.getTime());
+        assertFalse(CandidaturaDAO.accettaCandidatura(idCandidatura,idHR,data));
 
     }
     @Test //idHR<1
-    public void accpetCandidaturaFail2(){
+    public void accpetCandidaturaFail2() throws SQLException {
+        int idCandidatura=1;
+        int idHR=-1;
+        java.util.Date date = new java.util.Date();
+        java.sql.Date data = new java.sql.Date(date.getTime());
+        assertFalse(CandidaturaDAO.accettaCandidatura(idCandidatura,idHR,data));
 
     }
 
-
-    @Test //idCandidatura non esiste
-    public void accpetCandidaturaFail3(){
-
-    }
-
-    @Test //idHR non esiste
-    public void accpetCandidaturaFail4(){
-
-    }
     @Test //pass
     public void accpetCandidaturaPass(){
+        int idCandidatura=1;
+        int idHR=4;
+        java.util.Date date = new java.util.Date();
+        java.sql.Date data = new java.sql.Date(date.getTime());
+        assertFalse(CandidaturaDAO.accettaCandidatura(idCandidatura,idHR,(Timestamp) data));
 
     }
+
+ */
 }

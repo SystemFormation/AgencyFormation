@@ -1,5 +1,6 @@
 package agency_formation.team.control;
 
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.control.AddTeamControl;
 import it.unisa.agency_formation.team.control.CreateTeamControl;
@@ -33,7 +34,7 @@ public class CreateTeamControlTest {
 
     @Test
     public void actionNull() throws IOException, ServletException {
-        Utente user = new Utente ( "Manuel", "Nocerino", "lol", "m.nocerino@studenti.unisa.it", 4);
+        Utente user = new Utente ( "Manuel", "Nocerino", "lol", "m.nocerino@studenti.unisa.it", RuoliUtenti.HR);
         user.setId(3);
         ServletConfig config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);

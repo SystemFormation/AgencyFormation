@@ -22,13 +22,13 @@ public class DipendenteDAOTest {
 
     @Test
     public void doSaveEmployeeOk() throws SQLException {
-        Utente user = UtenteDAO.doRetrieveByID(1);
-        assertNotNull(UtenteDAO.doRetrieveByID(1));
+        Utente user = UtenteDAO.doRetrieveByID(2);
+        assertNotNull(UtenteDAO.doRetrieveByID(2));
         Dipendente dip = new Dipendente();
         dip.setIdDipendente(user.getId());
         dip.setStato(StatiDipendenti.DISPONIBILE);
-        dip.setResidenza("Londra");
-        dip.setTelefono("333158974");
+        dip.setResidenza("Fisciano");
+        dip.setTelefono("118");
         assertTrue(DipendenteDAO.salvaDipendente(dip));
     }
 
@@ -47,11 +47,11 @@ public class DipendenteDAOTest {
 
     @Test
     public void doRetrieveByIdPass() throws SQLException {
-        int id = 4;
+        int id = 2;
         Dipendente dip = DipendenteDAO.doRetrieveById(id);
         assertNotNull(dip);
     }
-
+//non funziona
     @Test
     public void doRetrieveAllSizeLessOne() throws SQLException {
         assertNull(DipendenteDAO.recuperaDipendenti());
@@ -80,7 +80,7 @@ public class DipendenteDAOTest {
     public void doRetrieveByStateSizeLessOne() throws SQLException {
         assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
     }
-
+//non funziona
     @Test
     public void doRetrieveByStateSizeMoreZero() throws SQLException {
         assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
@@ -91,9 +91,8 @@ public class DipendenteDAOTest {
     public void doRetrieveByStateTrueNotPass() throws SQLException {
         assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
 
-
     }
-
+//non funziona- riempire il db
     @Test
     public void doRetrieveByStateTruePass() throws SQLException {
         assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
@@ -103,7 +102,7 @@ public class DipendenteDAOTest {
     public void doRetrieveByStateFalseNotPass() throws SQLException {
         assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
     }
-
+//non funziona
     @Test
     public void doRetrieveByStateFalsePass() throws SQLException {
         assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
@@ -144,8 +143,4 @@ public class DipendenteDAOTest {
     public void updateDipTeamAndState5() {
 
     }
-
-
-
-
 }

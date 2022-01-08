@@ -19,7 +19,7 @@ public class TeamDAOTest {
     }
     @Test
     public void saveTeamOk() throws SQLException {
-        Team team = new Team("FitDiary", 8, "Bastoncini Fitnuss","Vendiamo Bastoncini Di Pesce","HTML", 2);
+        Team team = new Team("FintDiary", 8, "Bastoncini Fintuss", "Vendiamo Bastoncini Di Pesce", "HTML", 2);
         int idUtente = 1;
         assertTrue(TeamDAO.salvaTeam(team, idUtente));
     }
@@ -41,21 +41,36 @@ public class TeamDAOTest {
         assertFalse(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
 
     }
+
     @Test
-    public void addEmployeeOk() throws SQLException{
+    public void addEmployeeOk() throws SQLException {
         int idTeam = 1;
         int idDipendente = 1;
         assertTrue(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
     }
+
     @Test
-    public void removeEmployeeFail() throws SQLException{
+    public void doRetrieveTeamByIdFail() throws SQLException {
+        int idTeam = -1;
+        assertNull(TeamDAO.doRetrieveById(idTeam));
+    }
+
+    @Test
+    public void doRetrieveTeamByIdOk() throws SQLException {
+        int idTeam = 1;
+        assertNull(TeamDAO.doRetrieveById(idTeam));
+    }
+
+    @Test
+    public void removeEmployeeFail() throws SQLException {
         int idTeam = -1;
         int idDipendente = -1;
         assertFalse(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
 
     }
+
     @Test
-    public void removeEmployeeOk() throws SQLException{
+    public void removeEmployeeOk() throws SQLException {
         int idTeam = 1;
         int idDipendente = 1;
         assertTrue(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
@@ -63,8 +78,8 @@ public class TeamDAOTest {
     }
     @Test // fa questo o quello sotto (non entrambi)
     public void retrieveAllTeamFail() throws SQLException   {
-            assertNull(TeamDAO.recuperaTuttiTeam());
-
+        assertNull(TeamDAO.recuperaTuttiTeam());
+//non può funzionare perchè non può azzerare l'arraylist di team
     }
     @Test
     public void retrieveAllTeamOk() throws SQLException   {
@@ -75,8 +90,6 @@ public class TeamDAOTest {
     public void retrieveTMTeamFail() throws SQLException{
         int idUtente = -1;
         assertNull(TeamDAO.recuperaTeamDiUnTM(idUtente));
-
-
     }
     @Test
     public void retrieveTMTeamOk() throws SQLException{
@@ -108,19 +121,16 @@ public class TeamDAOTest {
     public void retrieveCompetenceOk() throws SQLException {
         int idTeam = 1;
         assertNotNull(TeamDAO.recuperaCompetenza(idTeam));
-
     }
     @Test
     public void retrieveAllTMemberFail () throws SQLException {
         int idTeam = -1;
         assertNull(TeamDAO.recuperaTuttiTMember(idTeam));
-
     }
     @Test
     public void retrieveAllTMemberOk () throws SQLException {
-        int idTeam = 1;
+        int idTeam = 3;
         assertNotNull(TeamDAO.recuperaTuttiTMember(idTeam));
-
     }
     @Test
     public void retrieveNTMemberFail() throws SQLException {
@@ -130,7 +140,7 @@ public class TeamDAOTest {
     }
     @Test
     public void retrieveNTMemberOk() throws SQLException {
-        int idTeam = 1;
+        int idTeam = 3;
         assertTrue(TeamDAO.rimuoviTeam(idTeam));
 
     }

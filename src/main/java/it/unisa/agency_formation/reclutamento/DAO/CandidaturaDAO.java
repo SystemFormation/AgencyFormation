@@ -44,9 +44,6 @@ public class CandidaturaDAO {
                     break;
             }
 
-
-
-
             save.setDate(3, (Date) candidatura.getDataCandidatura());
             save.setInt(4, candidatura.getIdCandidato());
             int result = save.executeUpdate();

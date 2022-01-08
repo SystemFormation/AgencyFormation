@@ -15,51 +15,52 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SkillDAOTest {
     //
     @Test
-    public void saveSkillFailSkillNull() throws SQLException{
+    public void saveSkillFail() throws SQLException{
         Skill skill = null;
-        assertFalse(SkillDAO.salvaSkill(skill));
+        assertFalse(SkillDAO.doSaveSkill(skill));
     }
 
     @Test
     public void saveSkillOK() throws SQLException{
         Skill skill = new Skill("C","Conoscenze base");
-        assertTrue(SkillDAO.salvaSkill(skill));
-    }
-
-    @Test
-    public void removeSkillOK() throws SQLException{
-        int idSkill= 2;
-        assertTrue(SkillDAO.rimuoviSkill(2));
+        assertTrue(SkillDAO.doSaveSkill(skill));
     }
     @Test
     public void removeSkillFail() throws SQLException{
         int idSkill= 0;
-        assertFalse(SkillDAO.rimuoviSkill(0));
+        assertFalse(SkillDAO.doRemoveSkill(0));
+    }
+    @Test
+    public void removeSkillOK() throws SQLException{
+        int idSkill= 2;
+        assertTrue(SkillDAO.doRemoveSkill(2));
     }
 
     // Funziona con il db vuoto
     @Test
     public void doRetrieveAllFail() throws SQLException{
-        assertNull(SkillDAO.recuperaSkills());
+        assertNull(SkillDAO.doRetrieveAll());
     }
     @Test
     public void doRetrieveAllPass() throws SQLException{
-        assertNotNull(SkillDAO.recuperaSkills());
+        assertNotNull(SkillDAO.doRetrieveAll());
     }
 
     @Test
     public void doRetrieveByNameNull() throws SQLException{
         String nomeSkill = null;
-        assertNull(SkillDAO.recuperaSkillByNome(nomeSkill));
+        assertNull(SkillDAO.doRetrieveByName(nomeSkill));
     }
+
     @Test
     public void doRetrieveByNamePass() throws SQLException{
-        String nomeSkill = "CSS";
-        assertNotNull(SkillDAO.recuperaSkillByNome(nomeSkill));
+        String nomeSkill = "HTML";
+        assertNotNull(SkillDAO.doRetrieveByName(nomeSkill));
     }
 
     @Test//not pass idSkill<1
     public void saveSkillDip1() throws SQLException {
+        int idSkill=0;
 
     }
     @Test//not pass dip==null

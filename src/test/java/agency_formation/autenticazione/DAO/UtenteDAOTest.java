@@ -80,6 +80,7 @@ public class UtenteDAOTest {
         assertNull(UtenteDAO.doRetrieveUserByRuolo(ruolo));
     }
 */
+    //non ci sarà errore perché l'Enum Ruoli non può errare
     @Test
     public void retrieveByRuoloSizeLessOne() throws SQLException {
         assertNull(UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.HR));

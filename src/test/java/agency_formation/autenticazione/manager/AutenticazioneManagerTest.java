@@ -1,7 +1,10 @@
 package agency_formation.autenticazione.manager;
 
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 
@@ -70,7 +73,7 @@ public class AutenticazioneManagerTest {
         assertNull(aut.getDatiUtente(id));
     }
 
-    @Test
+    @Test//non funziona
     public void getAllDataPass() throws SQLException {
         Utente user = new Utente("Francesco", "Cecco", "fra@gmail.com", "lol", RuoliUtenti.CANDIDATO);
         int id = 5;
@@ -79,12 +82,18 @@ public class AutenticazioneManagerTest {
         }
         assertNotNull(aut.getDatiUtente(id));
     }
-
+/*
     @Test //not pass id<1
-    public void getAllDataDip1(){
+    public void getAllDataDip1() throws SQLException {
+        Dipendente user= new Dipendente("Yoko","Poko","yokopokomayoko@gmail.com","lol",RuoliUtenti.DIPENDENTE,
+                -1,2000,"Salerno","220", StatiDipendenti.DISPONIBILE);
 
+        try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
+            mocked.when(() -> DipendenteDAO.doRetrieveById(user.getIdDipendente())).thenReturn(user);
+        }
+        assertNull(aut.getDatiDipendente(user.getIdDipendente()));
     }
-    @Test //pass
+*/    @Test //pass
     public void getAllDataDip2(){
 
     }

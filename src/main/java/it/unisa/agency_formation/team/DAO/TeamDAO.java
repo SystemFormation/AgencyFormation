@@ -135,7 +135,12 @@ public class TeamDAO {
         }
     }
 
-
+    /**
+     * Questa funzionalità permette di recuperare un team attraverso il suo id
+     * @param idTeam
+     * @return il team
+     * @throws SQLException
+     */
     public static Team doRetrieveById(int idTeam) throws SQLException {
         if(idTeam<1){
             return null;
@@ -159,7 +164,6 @@ public class TeamDAO {
                 team.setCompetenza(result.getString("Competenza"));
                 team.setIdTM(result.getInt("IdTM"));
             }
-
                 return team;
 
         } finally {
