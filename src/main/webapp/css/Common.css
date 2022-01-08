@@ -190,7 +190,7 @@ textarea {
     align-items: center;
 }
 
-#flex-team-button button{
+#flex-team-button button, input[type=submit]{
     font-size: 18px;
     border-radius: 2rem;
     padding: 6px;
@@ -198,8 +198,6 @@ textarea {
     font-family: monospace;
     margin-bottom: 20px;
 }
-
-
 
 .colloquio {
     display: none;
@@ -268,7 +266,7 @@ input[type=file]::file-selector-button:hover {
     transition: 1s ease;
 }
 
-.team-button p{
+.team-button p, .skills{
     border-bottom: solid #101D42 2px;
     margin: auto;
 }
@@ -338,3 +336,4 @@ input[type=file]::file-selector-button:hover {
     font-size: 30px;
     padding: 20px 45px;
 }
+
