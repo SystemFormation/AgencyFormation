@@ -30,14 +30,15 @@
             <p>Accedi al tuo profilo personale per gestire le tue skill e i tuoi dati personali
                 e visualizzare il proprio stato</p>
         </div>
-        <div id="home">
-            <h2 id="materiale" onclick="view(), viewLink()"> Materiale di formazione </h2>
+        <div name="materialeDaNascondere" id="home">
+            <h2 id="materiale" onclick="view()" onmouseover="viewLink()" onmouseleave="deleteSpanMateriale()"> Materiale di formazione </h2>
             <div id="drop" class="dropdown-content" style="display:none">
                 <a href="DownloadMaterialeControl" id="hrefDocumenti">
                     <img src="img/Materiale.png">
                     <p>Materiale</p>
                 </a>
             </div>
+            <span id="noMateriale"></span>
         </div>
     </div>
 </div>

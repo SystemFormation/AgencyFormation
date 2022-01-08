@@ -13,17 +13,20 @@ function viewLink(){
         type: 'GET',
         url: 'ViewMaterialeControl',
         success: function (data){
-            console.log("ciao");
-            if(data1== "1"){
+            if(data== "2"){
                 var x = document.getElementById("hrefDocumenti");
                 x.style.display = "block";
             }else{
-                var x = document.getElementById("hrefDocumenti");
-                x.style.display = "none";
+                document.getElementById('materiale').removeAttribute("onclick");
+                $('#noMateriale').css("display","inline");
+                $('#noMateriale').css("color","red");
+                $('#noMateriale').css("font-size","14px").html("<br>Al momento non è presente materiale");
             }
-
         }
     })
+}
+function deleteSpanMateriale(){
+    $('#noMateriale').css("display","none");
 }
 
 function checkFileMateriale(index){
@@ -58,7 +61,6 @@ function checkAlreadyUpload(idTeam,index){
         url:'CheckMaterialeFormazione',
         success: function (data){
             if(data=="2"){
-                console.log("cia");
                 var x = document.getElementsByName("formUpload")[index];
                 x.style.display = "none";
             }
