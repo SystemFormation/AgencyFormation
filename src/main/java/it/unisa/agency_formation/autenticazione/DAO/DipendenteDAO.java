@@ -133,10 +133,9 @@ public class DipendenteDAO {
                     user.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 user.setAnnoNascita(result.getInt("AnnoDiNascita"));
-                if(result.getInt("IdTeam")!=0){
                     team.setIdTeam(result.getInt("IdTeam"));
                     user.setTeam(team);
-                }
+
                 user.setId(result.getInt("IdUtente"));
                 user.setName(result.getString("Nome"));
                 user.setSurname(result.getString("Cognome"));

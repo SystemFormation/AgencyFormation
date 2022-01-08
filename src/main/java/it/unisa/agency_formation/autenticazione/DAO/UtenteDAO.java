@@ -1,6 +1,7 @@
 package it.unisa.agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import it.unisa.agency_formation.utils.DatabaseManager;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
@@ -278,13 +279,13 @@ public class UtenteDAO {
         ResultSet result;
         PreparedStatement retrieve = null;
         String query = "select IdUtente,Nome,Cognome,Pwd,Mail,Ruolo from utenti inner join candidature " +
-                "on utenti.IdUtente=candidature.IdCandidato and candidature.Stato!=? and candidature.Stato!=?";
+                "on utenti.IdUtente=candidature.IdCandidato and candidature.Stato NOT IN (?,?)";
 
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
             retrieve = connection.prepareStatement(query);
-            retrieve.setString(1, "Rifiutata");
-            retrieve.setString(2, "Accettata");
+            retrieve.setString(1, StatiCandidatura.Rifiutata.toString());
+            retrieve.setString(2, StatiCandidatura.Accettata.toString());
             result = retrieve.executeQuery();
             while (result.next()) {
                 Utente user = new Utente();

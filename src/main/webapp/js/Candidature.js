@@ -45,7 +45,6 @@ function acceptCandidature(id,index){
     var index = index
     var date = document.getElementsByName("data1")[index];
     var time = document.getElementsByName("time")[index];
-    console.log(date.value);
     $.ajax({
         type: 'GET',
         data:{"idCandidato":id,"data1":date.value,"time":time.value},
@@ -68,7 +67,12 @@ function rejectCandidature(id){
         url: 'RejectCandidatureControl',
         success: function (data){
             if(data== "1"){
+                console.log("ciao");
                 window.location.reload();
+            }
+            else if(data=="2"){
+                console.log("ciao 2")
+                window.location.replace('./LoginControl');
             }
         }
     })

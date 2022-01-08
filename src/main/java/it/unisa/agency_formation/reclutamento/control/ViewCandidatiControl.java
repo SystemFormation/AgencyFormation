@@ -21,12 +21,14 @@ public class ViewCandidatiControl extends HttpServlet {
         try {
             ArrayList<Utente> candidati = getCandidates();
             if(candidati!=null && candidati.size()>0) {
+                System.out.println("array maggiore di 0"+candidati.size()+" "+candidati.get(0).getId());
                 request.setAttribute("candidati", candidati);
                 response.getWriter().write("1");//ci sono i candidati
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
                 dispatcher.forward(request, response);
             }else{
                 response.getWriter().write("2");//non ci sono candidati
+
                 //response.sendRedirect("/static/Errore.html");
             }
         } catch (SQLException e) {

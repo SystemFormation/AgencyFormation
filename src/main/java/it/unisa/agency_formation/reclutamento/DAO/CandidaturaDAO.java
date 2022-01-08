@@ -69,7 +69,7 @@ public class CandidaturaDAO {
     }
 
     /**
-     * Questa funzionalità permette di aggiungere attestati e vertificazioni
+     * Questa funzionalità permette di aggiungere attestati e certificazioni
      *
      * @param document
      * @param idUtente

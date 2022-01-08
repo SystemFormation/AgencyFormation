@@ -30,7 +30,9 @@
 <h1>Bentornato ${user.getName()}</h1>
 <div class="home">
     <div class="content flex">
-                <c:if test="${candidatura==null||candidatura.getDocumentiAggiuntivi()==null}">
+
+
+                <c:if test="${candidatura==null||candidatura.getDocumentiAggiuntivi()==null ||candidatura.getStato() == StatiCandidatura.NonRevisionato }">
                     <div id="home"><a href="UploadCandidatureControl">
                         <h2> Caricamento Documenti </h2></a>
                         <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura

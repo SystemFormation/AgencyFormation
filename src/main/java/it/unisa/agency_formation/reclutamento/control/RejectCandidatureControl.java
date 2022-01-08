@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 
 
 @WebServlet("/RejectCandidatureControl")
@@ -29,8 +29,10 @@ public class RejectCandidatureControl extends HttpServlet {
             Candidatura candidatura = getCandidatura(idCandidato);
             File toDelete = new File(pathAbsolute+"IdUtente-"+candidatura.getIdCandidato());
             delete(toDelete);
+
             if(rejectCandidatura(candidatura.getIdCandidatura(),user.getId())){
                response.getWriter().write("1"); //rifiuto ok
+
             }else{
                 //TODO errore nel rifiutare la candidatura
                 response.getWriter().write("2"); //rifiuto non avvenuto
@@ -45,6 +47,7 @@ public class RejectCandidatureControl extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
 
     public static Candidatura getCandidatura(int idCandidato) throws SQLException{
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
