@@ -30,8 +30,8 @@
         <div id="flex-head">Stato</div>
 
         <c:forEach var="dip" items="${dipendenti}">
-            <div id="flex">${dip.getIdDipendente()}</div>
-            <div id="flex">${dip.getTeam().getIdTeam()}</div>
+            <div id="flex">${dip.getName()}</div>
+            <div id="flex">${dip.getTeam().getNomeTeam()} ${dip.getSkills().get(0).getNomeSkill()}</div>
 
             <!-- DA RIVEDERE -->
             <div id="flex">

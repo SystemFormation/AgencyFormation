@@ -30,7 +30,7 @@
 
         <c:forEach var="dip" items="${dipendenti}">
             <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
-            <div id="flex">${dip.getIdDipendente()}</div>
+            <div id="flex">${dip.getName()} ${dip.getSkills().get(0).getNomeSkill()}</div>
             <!-- DA VEDERE-->
             <div id="flex">
                 <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra skill</button>

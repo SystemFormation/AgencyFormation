@@ -5,6 +5,9 @@ import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.formazione.domain.Skill;
+import it.unisa.agency_formation.formazione.manager.FormazioneManager;
+import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
 
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 @WebServlet("/ProfiloControl")
@@ -27,8 +31,13 @@ public class ProfiloControl extends HttpServlet {
         try {
             if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
                 Dipendente dip = getAllDataDipFromManager(id);
+                    ArrayList<Skill>  skills = new ArrayList<>();
+                    if(getSkillDipendenteFromManager(dip.getIdDipendente())!=null && getSkillDipendenteFromManager(dip.getIdDipendente()).size()>0){
+                        skills = getSkillDipendenteFromManager(dip.getIdDipendente());
+                        dip.setSkills(skills);
+                    }
                     response.getWriter().write("1");// retrieve data ok
-                    request.setAttribute("dip", dip);
+                request.setAttribute("dip", dip);
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
                 dispatcher.forward(request,response);
                 }
@@ -48,5 +57,9 @@ public class ProfiloControl extends HttpServlet {
     public static Dipendente getAllDataDipFromManager(int id) throws SQLException{
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getDatiDipendente(id);
+    }
+    public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException{
+        FormazioneManager formazioneManager = new FormazioneManagerImpl();
+        return formazioneManager.recuperoSkillConIdDipendete(idDip);
     }
 }

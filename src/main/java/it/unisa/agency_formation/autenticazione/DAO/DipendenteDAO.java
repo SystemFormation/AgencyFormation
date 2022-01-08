@@ -198,6 +198,8 @@ public class DipendenteDAO {
                     team.setIdTeam(result.getInt("IdTeam"));
                     dipUser.setTeam(team);
                 }
+                team.setIdTeam(result.getInt("IdTeam"));
+                dipUser.setTeam(team);
                 dipUser.setId(result.getInt("IdUtente"));
                 dipUser.setName(result.getString("Nome"));
                 dipUser.setSurname(result.getString("Cognome"));

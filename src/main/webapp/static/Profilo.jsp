@@ -1,7 +1,6 @@
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.StatiDipendenti" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <html>
 <head>
     <link rel="stylesheet" href="css/Profilo.css">
@@ -17,7 +16,7 @@
     <div class="identity">
         <ul>
             <li><b>${user.getName()} ${user.getSurname()}</b></li>
-            <li> Residenza: ${dip.getResidenza()} </li>
+            <li> Residenza: ${dip.getResidenza()} ${dip.getSkills().get(0).getNomeSkill()}</li>
             <li> Telefono: ${dip.getTelefono()} </li>
             <li> Anno di Nascita: ${dip.getAnnoNascita()} </li>
         </ul>
