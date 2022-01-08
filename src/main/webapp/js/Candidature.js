@@ -53,7 +53,7 @@ function acceptCandidature(id,index){
             if(data== "1"){
                 window.location.reload();
             }else{
-                window.location.replace('./LoginControl');
+                window.location.reload();
             }
         }
     })
@@ -67,12 +67,9 @@ function rejectCandidature(id){
         url: 'RejectCandidatureControl',
         success: function (data){
             if(data== "1"){
-                console.log("ciao");
                 window.location.reload();
-            }
-            else if(data=="2"){
-                console.log("ciao 2")
-                window.location.replace('./LoginControl');
+            }else{
+                window.location.reload();
             }
         }
     })

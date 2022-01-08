@@ -1,5 +1,7 @@
 package it.unisa.agency_formation.reclutamento.control;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
@@ -35,10 +37,12 @@ public class AcceptCandidatureControl extends HttpServlet {
                     if(getAllFromManager()==null){
                         response.getWriter().write("3");
                     }else {
+
                         response.getWriter().write("1");//accettazione avvenuta
                     }
                 }else{
                     //todo errore nell'accettazione
+
                     response.getWriter().write("2");//accettazione non avvenuta
 
                 }

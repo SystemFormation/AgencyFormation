@@ -1,4 +1,4 @@
-package it.unisa.agency_formation.reclutamento.control;
+package it.unisa.agency_formation.formazione.control;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
@@ -23,7 +23,7 @@ public class CheckMaterialeFormazione extends HttpServlet {
         try {
           int idTeam = Integer.parseInt(request.getParameter("idTeam"));
             if(idTeam==0){
-                response.getWriter().write("1");//errore retrieve dipendente
+                response.getWriter().write("1");//
             }
             Documento documento = getDocumentofromManager(idTeam);
             if(documento!=null){
