@@ -23,7 +23,7 @@ public class ViewCandidatiControl extends HttpServlet {
             if(candidati!=null && candidati.size()>0) {
                 request.setAttribute("candidati", candidati);
                 response.getWriter().write("1");//ci sono i candidati
-                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidati.jsp");
+                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
                 dispatcher.forward(request, response);
             }else{
                 response.getWriter().write("2");//non ci sono candidati

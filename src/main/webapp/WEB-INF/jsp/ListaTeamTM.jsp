@@ -22,6 +22,7 @@
 <c:import url="/static/Header.jsp"/>
 <h1>Team</h1>
 <div class="flex">
+    <c:set var="indexSkill" value="0" scope="page"/>
     <c:forEach var="team" items="${listTeam}">
         <div class="team">
             <div class="team-inf">
@@ -47,9 +48,15 @@
             </div>
             <div class="team-button">
                 <div id="flex-team-button">
-                    <button><a href="SpecificaCompetenzeControl?idTeam=${team.getIdTeam()}">Specifica
-                        Competenze</a>
-                    </button>
+                    <button onclick="viewSpecifySkills(${indexSkill})" class="dropdown">Specifica Competenze</button>
+                        <form name="drop" action="SpecificaCompetenzeControl" method="post"
+                              id="specificaCompetenze" style="display: none">
+                            <input type="hidden" name="action" value="competenze">
+                            <textarea id="specCompetenze" name="specCompetenze" rows="6" cols="40"
+                                      placeholder="Specifica le competenze"></textarea><br>
+                            <input type="hidden" name="idTeam" value="${idTeam}">
+                            <input type="submit" name="specifica" value="Invia" id="specifica"><br>
+                        </form>
                     <br>
                     <c:set var="index" value="0" scope="page"/>
                     <c:forEach var="dip" items="${listDip}">
@@ -58,7 +65,7 @@
                         </c:if>
                     </c:forEach>
                     <c:if test="${index < team.getNumeroDipendenti()}">
-                        <button><a href="DipendenteDispoControl?idTeam=${team.getIdTeam()}">Aggiungi
+                        <button><a href="AggiuntaDipendente?idTeam=${team.getIdTeam()}">Aggiungi
                             Dipendenti</a>
                         </button>
                         <br>
@@ -68,6 +75,7 @@
                 </div>
             </div>
         </div>
+        <c:set var="indexSkill" value="${indexSkill + 1}" scope="page"/>
     </c:forEach>
 </div>
 </body>

@@ -1,4 +1,4 @@
-function viewLink(id,i){
+function viewFile(id,i){
     var id = id;
     var index = i;
     $.ajax({
@@ -28,7 +28,7 @@ function viewLink(id,i){
     })
 }
 
-function view(i){
+function checkFile(i){
     var index = i;
     var x = document.getElementsByName("drop")[index];
     var setting = x.style.display;
@@ -90,4 +90,3 @@ function closeColloquio(index) {
         x.style.display = "none";
     }
 }
-

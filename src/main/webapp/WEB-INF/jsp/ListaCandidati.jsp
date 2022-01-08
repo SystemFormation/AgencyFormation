@@ -29,7 +29,7 @@
             <div id="flex">${cand.getName()}</div>
             <div id="flex">${cand.getSurname()}</div>
             <div id="flex">
-                <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra file</button>
+                <button onclick="checkFile(${index});viewFile(${cand.getId()},${index})">Mostra file</button>
                 <div class="dropdown">
                     <button id="apriColloquio" onclick="openColloquio(${index})">Accetta</button>
                 </div>

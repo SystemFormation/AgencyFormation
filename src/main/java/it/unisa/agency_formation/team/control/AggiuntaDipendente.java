@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet("/DipendenteDispoControl")
+@WebServlet("/AggiuntaDipendente")
 public class AggiuntaDipendente extends HttpServlet {
     private AutenticazioneManagerImpl aut= new AutenticazioneManagerImpl();
 

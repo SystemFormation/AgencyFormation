@@ -31,7 +31,7 @@ public class viewTeamControl extends HttpServlet {
                 if(teams!=null && teams.size()>0){
                     request.setAttribute("listaTeams", teams);
                     response.getWriter().write("1");//ci sono team
-                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidati.jsp");
+                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
                     dispatcher.forward(request, response);
                 } else{
                     response.getWriter().write("2"); //non ci sono team

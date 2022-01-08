@@ -67,3 +67,15 @@ function checkAlreadyUpload(idTeam,index){
         }
     })
 }
+
+function viewSpecifySkills (i) {
+    var indexSkill = i;
+    var x = document.getElementsByName("drop")[indexSkill];
+    var setting = x.style.display;
+    if(setting == "none"){
+        x.style.display = "block";
+    }
+    else{
+        x.style.display = "none";
+    }
+}
