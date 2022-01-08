@@ -171,7 +171,7 @@ public class SkillDAO {
      * @throws SQLException
      * @pre idSkill>0 && dip!=null
      */
-    public static boolean doSaveSkillDip(int idSkill, Dipendente dip) throws SQLException {
+    public static boolean doSaveSkillDip(int idSkill, Dipendente dip, int skillLivello) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if (idSkill < 1 || dip == null) {
             return false;
@@ -183,7 +183,7 @@ public class SkillDAO {
             save = connection.prepareStatement(query);
             save.setInt(1, dip.getIdDipendente());
             save.setInt(2, idSkill);
-            save.setInt(3, 1);
+            save.setInt(3, skillLivello);
             int result = save.executeUpdate();
             if (result != -1) {
                 return true;

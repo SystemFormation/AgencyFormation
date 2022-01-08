@@ -23,7 +23,7 @@ public interface FormazioneManager {
 
     int getLastIdSkillCreated() throws SQLException;
 
-    boolean addSkillDipendente(int idSkill, Dipendente dip) throws SQLException;
+    boolean addSkillDipendente(int idSkill, Dipendente dip,int skillLivello) throws SQLException;
 
     Dipendente getIdEmployee(int idDip) throws  SQLException;
 
