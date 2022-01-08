@@ -13,7 +13,6 @@
 %>
 <html>
 <head>
-    <link rel="stylesheet" href="css/Dipendenti.css">
     <link rel="stylesheet" href="css/Common.css">
     <link rel="icon" type="image/png" href="img/Logo Team 4-5.png"/>
     <title>Dipendenti</title>
@@ -23,53 +22,28 @@
 <h1>Lista Dipendenti</h1>
 
 <div class="content">
-    <!-- <div class="found">
-        <form action="DipendenteControl" method="post" id="formDip">
-            <select name="subject" id="subject">
-                <option value="null" selected="selected" id=0>---</option>
-                <option value="occupati" id=1>Occupati</option>
-                <option value="disponibili" id=2>Disponibili</option>
-            </select>
-        </form>
-    </div> -->
-
-
     <div class="information">
-        <div id="flex-head-dip">ID Dipendente</div>
-        <div id="flex-head-dip">ID Team</div>
-        <div id="flex-head-dip">Competenze</div>
-        <div id="flex-head-dip">Azione</div>
-        <div id="flex-head-dip">Stato</div>
+        <div id="flex-head">ID Dipendente</div>
+        <div id="flex-head">Competenze</div>
+        <div id="flex-head">Azione</div>
+        <div id="flex-head">Stato</div>
 
         <c:forEach var="dip" items="${dipendenti}">
-            <div id="flex-dip">${dip.getIdDipendente()}</div>
-            <div id="flex-dip">${dip.getTeam().getIdTeam()}</div>
-            <div id="flex-dip">
+            <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
+            <div id="flex">${dip.getIdDipendente()}</div>
+            <!-- DA VEDERE-->
+            <div id="flex">
                 <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra skill</button>
             </div>
 
-            <div id="flex-dip">
-                <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE }">
+            <div id="flex">
                     <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}&idTeam=${idTeam}">Aggiungi</a>
-                </c:if>
-
             </div>
-
-            <c:if test="${dip.getStato() == StatiDipendenti.OCCUPATO}">
-                <div id="flex-dip">
-                    <div class="occupato">.</div>
-                </div>
+                    <div id="flex">
+                        <div class="disponibile">.</div>
+                    </div>
             </c:if>
-            <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
-                <div id="flex-dip">
-                    <div class="disponibile">.</div>
-                </div>
-
-            </c:if>
-
         </c:forEach>
-
-
     </div>
 </div>
 </body>

@@ -17,12 +17,6 @@
 <h1>Bentornato ${user.getName()}</h1>
 <div class="home">
     <div class="content flex">
-        <div id="home"><a href="DipendenteControl">
-            <h2> Lista Dipendenti </h2></a>
-            <p>Ottieni la lista dipendenti per scegliere quale dipendente disponibile aggiungere
-                al proprio team oppure a quale dipendente occupato per un altro progetto effettuare
-                la richiesta di disponbilità</p>
-        </div>
         <div id="home"><a id="viewCandidates" href="ViewCandidatiControl" onmouseover="controlCandidates()"
                           onmouseleave="deleteSpan()">
             <h2> Lista Candidati </h2></a>

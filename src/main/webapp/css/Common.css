@@ -16,7 +16,7 @@ h1 {
     background-color: #9CC9E8;
     text-align: center;
     padding: 10px;
-    margin-bottom: 20px;
+    margin: 0px 50px 20px 50px;
 }
 
 .flex {
@@ -114,6 +114,7 @@ textarea {
     font-size: 25px;
     padding-top: 10px;
     word-wrap: break-word;
+    margin-bottom: 10px;
 }
 
 #flex form {
@@ -322,4 +323,17 @@ input[type=file]::file-selector-button:hover {
     font-size: 20px;
     border-radius: 5rem;
     color: green;
+}
+
+.information {
+    width: 90%;
+    margin: auto;
+}
+.information table {
+    text-align: center;
+}
+
+.information th {
+    font-size: 30px;
+    padding: 20px 45px;
 }

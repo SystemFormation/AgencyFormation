@@ -65,8 +65,6 @@
                     </c:if>
                     <button><a href="ScioglimentoTeamControl?idTeam=${team.getIdTeam()}">Scioglimento Team</a>
                     </button>
-                    <br>
-                    <button><a href="/static/Error.html">Visualizza Materiale</a></button>
                 </div>
             </div>
         </div>

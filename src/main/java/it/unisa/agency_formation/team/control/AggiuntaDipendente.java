@@ -15,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 @WebServlet("/DipendenteDispoControl")
-public class DipendenteDispoControl extends HttpServlet {
+public class AggiuntaDipendente extends HttpServlet {
     private AutenticazioneManagerImpl aut= new AutenticazioneManagerImpl();
 
     @Override
@@ -29,7 +29,7 @@ public class DipendenteDispoControl extends HttpServlet {
             ArrayList<Dipendente> dipendenti= aut.getTuttiDipendenti();
             req.setAttribute("dipendenti", dipendenti);
             req.setAttribute("idTeam",idTeam);
-            dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaDipendentiTM.jsp");
+            dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaDipendenti.jsp");
             dispatcher.forward(req,resp);
         } catch (SQLException e) {
             e.printStackTrace();
