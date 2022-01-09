@@ -38,7 +38,7 @@ public class ProfiloControl extends HttpServlet {
                 }
                 response.getWriter().write("1");// retrieve data ok
                 request.setAttribute("dip", dip);
-                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
+                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
                 dispatcher.forward(request,response);
             } else {
                 response.getWriter().write("2");//errore

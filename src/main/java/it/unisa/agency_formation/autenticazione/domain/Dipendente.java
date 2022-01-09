@@ -6,11 +6,11 @@ import it.unisa.agency_formation.team.domain.Team;
 import java.util.ArrayList;
 
 public class Dipendente extends Utente {
-    private int idDipendente, idTeam, annoNascita;
+    private int idDipendente,annoNascita;
     private String residenza, telefono;
     private StatiDipendenti stato;
     private Team team;
-    private ArrayList<Skill> skills;//da riempire tramite un'altra query
+    private ArrayList<Skill> skills;
 
     public Dipendente(String nome, String cognome, String email, String pwd, RuoliUtenti ruolo,int idDipendente, int annoNascita, String residenza, String telefono, StatiDipendenti stato){
        super(nome,cognome,email,pwd,ruolo);

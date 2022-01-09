@@ -2,6 +2,7 @@ package agency_formation.autenticazione.control;
 
 import it.unisa.agency_formation.autenticazione.control.LoginControl;
 import it.unisa.agency_formation.autenticazione.control.RegistrazioneControl;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -24,6 +25,12 @@ public class RegistrazioneControlTest extends Mockito {
     private HttpServletResponse response;
     private HttpSession session;
     private RequestDispatcher dispatcher;
+
+
+    @BeforeAll
+    public static void setup(){
+        System.out.println("ciao");
+    }
 
 
     @Test //nome==null
