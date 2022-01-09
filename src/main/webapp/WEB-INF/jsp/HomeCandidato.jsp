@@ -30,27 +30,36 @@
 <h1>Bentornato ${user.getName()}</h1>
 <div class="home">
     <div class="content flex">
+        <c:choose>
+            <c:when test="${candidatura.getStato() != StatiCandidatura.Accettata}">
+                <c:if test="${candidatura==null||candidatura.getDocumentiAggiuntivi()==null ||candidatura.getStato() == StatiCandidatura.NonRevisionato }">
+                    <div id="home"><a href="UploadCandidatureControl">
+                        <h2> Caricamento Documenti </h2></a>
+                        <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
+                        </p>
+                    </div>
+                </c:if>
+            </c:when>
+            <c:otherwise>
+                <div id="home">
+                    <h2> Data e ora colloquio:</h2></p>
+                    <p> ${candidatura.getDataOraColloquio()} </p>
 
-
-        <c:if test="${candidatura==null||candidatura.getDocumentiAggiuntivi()==null ||candidatura.getStato() == StatiCandidatura.NonRevisionato }">
-            <div id="home"><a href="UploadCandidatureControl">
-                <h2> Caricamento Documenti </h2></a>
-                <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
-                </p>
-            </div>
-        </c:if>
+                </div>
+            </c:otherwise>
+        </c:choose>
         <c:if test="${candidatura!=null && candidatura.getCurriculum()!=null}">
             <div id="stato">
                 <h2>Stato della tua candidatura:</h2>
                 <c:choose>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Accettata}">
-                        <h2>Accettata</h2>
+                        <p>Accettata</p>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Rifiutata}">
-                        <h2>Rifiutata</h2>
+                        <p>Rifiutata</p>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">
-                        <h2>Non Revisionato</h2>
+                        <p>Non Revisionato</p>
                     </c:when>
                 </c:choose>
 

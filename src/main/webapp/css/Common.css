@@ -128,7 +128,7 @@ textarea {
     padding: 6px;
     background-color: #59A5D8;
     font-family: monospace;
-    margin-bottom: 20px;
+    margin-bottom: auto;
 }
 
 #flex-head {
@@ -152,7 +152,7 @@ textarea {
     height: 128px;
 }
 
-.dropdown-content p {
+p{
     font-size: 20px;
     margin-top: 0;
     margin-bottom: 0;
@@ -180,6 +180,9 @@ textarea {
     width: 90%;
 }
 
+h2{
+    font-size: 25px;
+}
 .team-inf, .team-descr, .team-button, .team-dip {
     display: inline-block;
     font-size: 23px;

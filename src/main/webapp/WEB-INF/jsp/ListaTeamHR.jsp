@@ -56,18 +56,18 @@
                                 ${team.getCompetenza()}
                         </div>
                         <br><br><br>
+                        <form action="UploadMaterialeControl" id="materiale" method="post" name="formUpload"
+                              onmouseover="checkAlreadyUpload(${team.getIdTeam()},${index})"
+                              enctype="multipart/form-data">
+                            <p class="par">Materiale di Formazione</p><br>
+                            <input type="file" id="fileMateriale" name="materiale" size="50"><br>
+                            <input type="hidden" id="sceltaDocumenti" name="idTeam" value="${team.getIdTeam()}">
+                            <input type="button" value="Carica" name="uploadMateriale"
+                                   onclick="checkFileMateriale(${index})">
+                            <span id="materialeNotUpload"></span>
+                        </form>
+                        <span name="noMateriale"></span>
                     </c:if>
-                    <form action="UploadMaterialeControl" id="materiale" method="post" name="formUpload"
-                          onmouseover="checkAlreadyUpload(${team.getIdTeam()},${index})"
-                          enctype="multipart/form-data">
-                        <p class="par">Materiale di Formazione</p><br>
-                        <input type="file" id="fileMateriale" name="materiale" size="50"><br>
-                        <input type="hidden" id="sceltaDocumenti" name="idTeam" value="${team.getIdTeam()}">
-                        <input type="button" value="Carica" name="uploadMateriale"
-                               onclick="checkFileMateriale(${index})">
-                        <span id="materialeNotUpload"></span>
-                    </form>
-                    <span name="noMateriale"></span>
                 </div>
             </div>
         </div>
