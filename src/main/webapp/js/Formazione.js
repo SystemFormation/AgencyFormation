@@ -64,6 +64,9 @@ function checkAlreadyUpload(idTeam, index) {
             if (data == "2") {
                 var x = document.getElementsByName("formUpload")[index];
                 x.style.display = "none";
+                var y = document.getElementsByName("noMateriale")[index];
+                y.style.display = "block";
+                y.css("font-size","20px").html("Il materiale è già stato caricato");
             }
         }
     })

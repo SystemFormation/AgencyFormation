@@ -2,7 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.Dipendente" %>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
@@ -40,7 +40,8 @@
                     <c:forEach var="dip" items="${listDip}">
                         <c:if test="${dip.getTeam().getIdTeam() == team.getIdTeam()}">
                             <div>${dip.getName()} ${dip.getSurname()}
-                                <a href="RemoveTeamControl?idDip=${dip.getIdDipendente()}">X</a>
+                                <a href="RemoveTeamControl?idDip=${dip.getIdDipendente()}"><img
+                                        src="img/Delete.png"></a>
                             </div>
                         </c:if>
                     </c:forEach>
@@ -51,18 +52,17 @@
                     <c:if test="${team.getCompetenza()==null}">
                         <button onclick="viewSpecifySkills(${indexSkill})" class="dropdown">Specifica Competenze
                         </button>
-                        <div name="drop" style="display:none">
-                            <form action="SpecificaCompetenzeControl" method="post"
-                                  id="specificaCompetenze">
-                                <input type="hidden" name="action" value="competenze">
-                                <textarea id="specCompetenze" name="specCompetenze" rows="6" cols="38"
-                                          placeholder="Specifica le competenze"></textarea><br>
-                                <input type="hidden" name="idTeam" value="${team.getIdTeam()}">
-                                <input type="submit" name="specifica" value="Invia" id="specifica"><br>
-                            </form>
-                        </div>
                     </c:if>
-
+                    <div name="drop" style="display:none">
+                        <form action="SpecificaCompetenzeControl" method="post"
+                              id="specificaCompetenze">
+                            <input type="hidden" name="action" value="competenze">
+                            <textarea id="specCompetenze" name="specCompetenze" rows="6" cols="25"
+                                      placeholder="Specifica le competenze"></textarea><br>
+                            <input type="hidden" name="idTeam" value="${team.getIdTeam()}">
+                            <input type="submit" name="specifica" value="Invia" id="specifica"><br>
+                        </form>
+                    </div>
                     <br>
                     <c:set var="index" value="0" scope="page"/>
                     <c:forEach var="dip" items="${listDip}">

@@ -1,6 +1,6 @@
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.Utente" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
@@ -39,7 +39,9 @@
                     <h5>Inserisci la data e l'ora del colloquio</h5>
                     <input type="date" id="data1" name="data1"><br>
                     <input type="time" name="time" id="time"><br>
-                    <button type="button" id="chiudiColloquio" class="buttonChiudi" onclick="closeColloquio(${index})">Chiudi</button>
+                    <button type="button" id="chiudiColloquio" class="buttonChiudi" onclick="closeColloquio(${index})">
+                        Chiudi
+                    </button>
                     <button onclick="acceptCandidature(${cand.getId()},${index})">Accetta</button>
                 </div>
                 <button onclick="rejectCandidature(${cand.getId()})">Rifiuta</button>

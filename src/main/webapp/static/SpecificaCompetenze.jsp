@@ -1,5 +1,5 @@
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     int idTeam = (int) request.getAttribute("idTeam");
@@ -15,8 +15,6 @@
 <h1>Competenze</h1>
 <div class="content-competenze">
     <div class="content">
-
-
         <div class="form">
             <form action="SpecificaCompetenzeControl" method="post" id="specificaCompetenze">
                 <input type="hidden" name="action" value="competenze">
@@ -26,8 +24,6 @@
                 <input type="submit" name="specifica" value="Invia" id="specifica"><br>
             </form>
         </div>
-
-
     </div>
 </div>
 </body>

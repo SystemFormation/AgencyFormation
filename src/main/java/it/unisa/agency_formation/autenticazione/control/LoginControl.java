@@ -38,11 +38,11 @@ public class LoginControl extends HttpServlet {
                     if (candidatura != null) {
                         request.setAttribute("candidatura", candidatura);
                     }
-                    dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidate.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");
                     dispatcher.forward(request, response);
                     break;
                 case DIPENDENTE:
-                    dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeEmployee.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");
                     dispatcher.forward(request, response);
                     break;
                 case TM:
@@ -78,11 +78,11 @@ public class LoginControl extends HttpServlet {
                                 if (candidatura != null) {
                                     request.setAttribute("candidatura", candidatura);
                                 }
-                                dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidate.jsp");
+                                dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");
                                 dispatcher.forward(request, response);
                                 break;
                             case DIPENDENTE:
-                                dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeEmployee.jsp");
+                                dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");
                                 dispatcher.forward(request, response);
                                 break;
                             case TM:

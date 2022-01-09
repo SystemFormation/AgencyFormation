@@ -90,7 +90,7 @@ public class UploadCandidatureControl extends HttpServlet {
         try {
             Candidatura candidatura = getCandidaturafromManager(user.getId());
             request.setAttribute("candidatura",candidatura);
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidate.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");
             dispatcher.forward(request,response);
         } catch (SQLException e) {
             e.printStackTrace();

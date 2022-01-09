@@ -3,7 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.StatiDipendenti" %>
 <%@ page import="it.unisa.agency_formation.team.domain.Team" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
@@ -30,18 +30,18 @@
 
         <c:forEach var="dip" items="${dipendenti}">
             <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
-            <div id="flex">${dip.getName()} ${dip.getSkills().get(0).getNomeSkill()}</div>
-            <!-- DA VEDERE-->
-            <div id="flex">
-                <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra skill</button>
-            </div>
+                <div id="flex">${dip.getName()} ${dip.getSkills().get(0).getNomeSkill()}</div>
+                <!-- DA VEDERE-->
+                <div id="flex">
+                    <button onclick="view(${index});viewLink(${cand.getId()},${index})">Mostra skill</button>
+                </div>
 
-            <div id="flex">
+                <div id="flex">
                     <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}&idTeam=${idTeam}">Aggiungi</a>
-            </div>
-                    <div id="flex">
-                        <div class="disponibile">.</div>
-                    </div>
+                </div>
+                <div id="flex">
+                    <div class="disponibile">.</div>
+                </div>
             </c:if>
         </c:forEach>
     </div>

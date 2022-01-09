@@ -30,7 +30,7 @@ public class CreateTeamControl extends HttpServlet {
                 String nomeProgetto = req.getParameter("lname");
                 int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
                 if(numeroDipendenti > 8){
-                    resp.sendRedirect("/static/CreateTeam.jsp");
+                    resp.sendRedirect("/static/CreaTeam.jsp");
                 }
                 String nomeTeam = req.getParameter("fname");
                 String descrizione = req.getParameter("teamDescr");

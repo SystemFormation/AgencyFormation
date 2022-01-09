@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -31,7 +31,8 @@
                 e visualizzare il proprio stato</p>
         </div>
         <div name="materialeDaNascondere" id="home">
-            <h2 id="materiale" onclick="view()" onmouseover="viewLink()" onmouseleave="deleteSpanMateriale()"> Materiale di formazione </h2>
+            <h2 id="materiale" onclick="view()" onmouseover="viewLink()" onmouseleave="deleteSpanMateriale()"> Materiale
+                di formazione </h2>
             <div id="drop" class="dropdown-content" style="display:none">
                 <a href="DownloadMaterialeControl" id="hrefDocumenti">
                     <img src="img/Materiale.png">
