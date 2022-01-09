@@ -1,0 +1,10 @@
+
+                                ***  PER  TUTTI ***
+in questa cartella è stato effettuato il copy and paste del Database e dell'insert
+Bisogna decidere insieme se e come popolare il DB -> se non popoliamo il DB allora si elimina PopulateDB.sql
+
+                                ***DA RICORDARSI***
+    nei file di testing bisogna utilizzare il @BEFORE setupAll(){...}
+
+
+Buon Lavoro a noi!!
