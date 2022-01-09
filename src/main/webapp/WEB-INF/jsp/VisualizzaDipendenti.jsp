@@ -33,8 +33,16 @@
         <c:set var="index" value="0"/>
         <c:forEach var="dip" items="${dipendenti}">
             <div id="flex">${dip.getName()} ${dip.getSurname()}</div>
-            <div id="flex">${dip.getTeam().getNomeTeam()}</div>
-
+            <div id="flex">
+                <c:choose>
+                    <c:when test="${dip.getTeam().getNomeTeam() != null}">
+                        ${dip.getTeam().getNomeTeam()}
+                    </c:when>
+                    <c:otherwise>
+                        Nessuno
+                    </c:otherwise>
+                </c:choose>
+            </div>
             <div id="flex">
                 <c:choose>
                     <c:when test="${dip.getSkills() != null}">
@@ -44,16 +52,14 @@
                         <div name="drop" class="skills" style="display: none">
                             <c:set var="indexSkill" value="0"/>
                             <c:forEach var="skill" items="${dip.getSkills()}">
-                                ${dip.getSkills().get(indexSKill).getNomeSkill()}
-                                <c:set var="indexSKill" value="${indexSkill + 1}"/>
+                                ${dip.getSkills().get(indexSkill).getNomeSkill()}
+                                <c:set var="indexSkill" value="${indexSkill + 1}"/>
                             </c:forEach>
                         </div>
                     </c:when>
                     <c:otherwise> Non sono presenti Skills </c:otherwise>
                 </c:choose>
             </div>
-
-
             <c:choose>
                 <c:when test="${dip.getStato() == StatiDipendenti.OCCUPATO}">
                     <div id="flex">
@@ -68,8 +74,6 @@
             </c:choose>
             <c:set var="index" value="${index + 1}" scope="page"/>
         </c:forEach>
-
-
     </div>
 </div>
 </body>

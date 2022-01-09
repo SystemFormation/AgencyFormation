@@ -38,7 +38,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
 
         }else{
             //Errore TODO
-            dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Dipendenti.jsp");
+            dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamTM.jsp");
             dispatcher.forward(req,resp);
 
         }
