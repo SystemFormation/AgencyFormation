@@ -42,15 +42,18 @@
         <c:if test="${candidatura!=null && candidatura.getCurriculum()!=null}">
             <div id="stato">
                 <h2>Stato della tua candidatura:</h2>
-                <c:if test="${candidatura.getStato() == StatiCandidatura.Accettata}">
-                    <h2>Accettata</h2>
-                </c:if>
-                <c:if test="${candidatura.getStato() == StatiCandidatura.Rifiutata}">
-                    <h2>Rifiutata</h2>
-                </c:if>
-                <c:if test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">
-                    <h2>Non Revisionato</h2>
-                </c:if>
+                <c:choose>
+                    <c:when test="${candidatura.getStato() == StatiCandidatura.Accettata}">
+                        <h2>Accettata</h2>
+                    </c:when>
+                    <c:when test="${candidatura.getStato() == StatiCandidatura.Rifiutata}">
+                        <h2>Rifiutata</h2>
+                    </c:when>
+                    <c:when test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">
+                        <h2>Non Revisionato</h2>
+                    </c:when>
+                </c:choose>
+
             </div>
         </c:if>
     </div>

@@ -43,7 +43,7 @@ function checkFileMateriale(index) {
     }
 }
 
-function viewSkill() {
+function viewAddSkill() {
     var x = document.getElementById("addSkill");
     var setting = x.style.display;
     if (setting == "none") {
@@ -101,4 +101,15 @@ function viewCompetenze(i){
         x.style.display = "inline";
         y.style.display = "none";
     }
+}
+
+function viewSkill(i){
+    var index = i;
+    var x = document.getElementsByName("drop")[index];
+    var setting = x.style.display;
+    if (setting == "none") {
+        x.style.display = "inline";
+    } else
+        x.style.display = "none";
+
 }

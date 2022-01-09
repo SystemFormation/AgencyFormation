@@ -32,7 +32,7 @@
             </c:if>
             <br>
             <div class="dropdown">
-                <button id="gestioneSkill" onclick="viewSkill()">Gestione Skill</button>
+                <button id="gestioneSkill" onclick="viewAddSkill()">Gestione Skill</button>
             </div>
             <br>
             <a href="/AgencyFormation/static/Error.html">
