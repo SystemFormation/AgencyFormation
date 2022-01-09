@@ -68,7 +68,7 @@ public class DownloadMaterialeControl extends HttpServlet {
             outStream.close();
             response.getWriter().write("4");//documento scaricato
         } else{
-            //TODO NESSUN FILE SSCARICATO
+            //TODO NESSUN FILE SCARICATO
             response.getWriter().write("5");//documento non scaricato
         }
     }

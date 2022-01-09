@@ -69,6 +69,5 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
         } else {
             return true;
         }
-
     }
 }
