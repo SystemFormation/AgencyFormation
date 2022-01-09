@@ -31,20 +31,20 @@ public class ProfiloControl extends HttpServlet {
         try {
             if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
                 Dipendente dip = getAllDataDipFromManager(id);
-                    ArrayList<Skill>  skills = new ArrayList<>();
-                    if(getSkillDipendenteFromManager(dip.getIdDipendente())!=null && getSkillDipendenteFromManager(dip.getIdDipendente()).size()>0){
-                        skills = getSkillDipendenteFromManager(dip.getIdDipendente());
-                        dip.setSkills(skills);
-                    }
-                    response.getWriter().write("1");// retrieve data ok
-                request.setAttribute("dip", dip);
-                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
-                dispatcher.forward(request,response);
+                ArrayList<Skill> skills = new ArrayList<>();
+                if (getSkillDipendenteFromManager(dip.getIdDipendente()) != null && getSkillDipendenteFromManager(dip.getIdDipendente()).size() > 0) {
+                    skills = getSkillDipendenteFromManager(dip.getIdDipendente());
+                    dip.setSkills(skills);
                 }
-            else{
+                response.getWriter().write("1");// retrieve data ok
+                request.setAttribute("dip", dip);
+                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
+                dispatcher.forward(request,response);
+            } else {
                 response.getWriter().write("2");//errore
+                response.sendRedirect("./static/Login.html");
             }
-            } catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
