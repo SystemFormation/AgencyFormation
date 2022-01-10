@@ -115,7 +115,7 @@ public class DipendenteDAO {
         ResultSet result;
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement retrieve = null;
-        String query = "Select * from " + TABLE_DIPENDENTE + " inner join utenti where IdDipendente=?";
+        String query = "Select * from " + TABLE_DIPENDENTE + " inner join utenti on utenti.IdUtente = dipendenti.IdDipendente where IdDipendente=?";
         Dipendente user = new Dipendente();
         try {
             retrieve = connection.prepareStatement(query);
