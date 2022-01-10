@@ -23,6 +23,7 @@ import java.util.Date;
 @WebServlet("/UploadCandidatureControl")
 @MultipartConfig
 public class UploadCandidatureControl extends HttpServlet {
+    //TODO DA RENDERE FINAL
     private String pathRelative = "\\AgencyFormationFile\\Candidature\\";
     private String pathAbsolute = System.getProperty("user.home") + pathRelative;
     private static final int MAXDIM = 83886080;//10MB
@@ -46,12 +47,13 @@ public class UploadCandidatureControl extends HttpServlet {
             int scelta = Integer.parseInt(request.getParameter("sceltaUpload"));
             File file = new File(pathAbsolute + "\\" + "IdUtente-" + user.getId());
             if (scelta == 1) {
-                Part curriculum = (Part) request.getPart("curriculum");
+                Part curriculum = request.getPart("curriculum");
                 if (curriculum.getSize() > MAXDIM) {
                     //TODO ERROR FOR SIZE OF FILE MORE
                     response.getWriter().write("1");//file troppo grande
                 } else {
                     Candidatura cand = new Candidatura();
+                    //TODO RISULTATO NON GESTITO
                     file.mkdirs();
                     curriculum.write(file.getAbsolutePath() + "\\" + curriculum.getSubmittedFileName());
                     String cv = pathRelative + "\\" + "IdUtente-" + user.getId() + "\\" + curriculum.getSubmittedFileName();
@@ -70,7 +72,7 @@ public class UploadCandidatureControl extends HttpServlet {
                     }
                 }
             } else if (scelta == 2) {
-                Part documenti = (Part) request.getPart("documenti");
+                Part documenti = request.getPart("documenti");
                 if (documenti.getSize() > MAXDIM) {
                     //TODO ERROR FOR SIZE OF FILE MORE
                 } else {
@@ -80,6 +82,7 @@ public class UploadCandidatureControl extends HttpServlet {
                     cand.setIdCandidato(user.getId());
                     cand.setDocumentiAggiuntivi(documentiAggiuntivi);
                     try {
+                        //TODO return non gestito
                         uploadCandidatureFromManager(cand);
                         request.setAttribute("candidatura", cand);
                     } catch (SQLException e) {
@@ -109,7 +112,6 @@ public class UploadCandidatureControl extends HttpServlet {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
-
     public static boolean uploadCandidatureFromManager(Candidatura candidatura) throws SQLException{
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.caricaCandidatura(candidatura);

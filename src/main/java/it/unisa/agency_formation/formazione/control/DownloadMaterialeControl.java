@@ -34,12 +34,14 @@ public class DownloadMaterialeControl extends HttpServlet {
             try {
                 Dipendente dipendente = getDipendentefromManager(user.getId());
                 if (dipendente == null) {
-                    response.getWriter().write("2");//dipendete null
+                    response.getWriter().write("2");//dipendente null
                 }
-                documento = getDocumentofromManager(dipendente.getTeam().getIdTeam());
-                if (documento == null) {
-                    response.getWriter().write("3");//documento null
-                    //si può rimandare all'homepage?
+                else {
+                    documento = getDocumentofromManager(dipendente.getTeam().getIdTeam());
+                    if (documento == null) {
+                        response.getWriter().write("3");//documento null
+                        //si può rimandare all'homepage?
+                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -60,7 +62,7 @@ public class DownloadMaterialeControl extends HttpServlet {
                 response.setHeader(headerKey, headerValue);
                 OutputStream outStream = response.getOutputStream();
                 byte[] buffer = new byte[4096];
-                int bytesRead = -1;
+                int bytesRead;
                 while ((bytesRead = fileIn.read(buffer)) != -1) {
                     outStream.write(buffer, 0, bytesRead);
                 }

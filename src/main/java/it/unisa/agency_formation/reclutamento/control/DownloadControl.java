@@ -2,7 +2,6 @@ package it.unisa.agency_formation.reclutamento.control;
 
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
@@ -13,12 +12,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.SQLException;
 
 @WebServlet("/DownloadControl")
 public class DownloadControl extends HttpServlet {
+    //TODO: bisogna fare il metodo statico
     private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
+    //TODO da rendere final
     private String directory = System.getProperty("user.home");
 
     @Override
@@ -51,7 +55,7 @@ public class DownloadControl extends HttpServlet {
                     response.setHeader(headerKey, headerValue);
                     OutputStream outStream = response.getOutputStream();
                     byte[] buffer = new byte[4096];
-                    int bytesRead = -1;
+                    int bytesRead;
                     while ((bytesRead = fileIn.read(buffer)) != -1) {
                         outStream.write(buffer, 0, bytesRead);
                     }
@@ -72,7 +76,7 @@ public class DownloadControl extends HttpServlet {
                     response.setHeader(headerKey, headerValue);
                     OutputStream outStream = response.getOutputStream();
                     byte[] buffer = new byte[4096];
-                    int bytesRead = -1;
+                    int bytesRead;
                     while ((bytesRead = fileIn.read(buffer)) != -1) {
                         outStream.write(buffer, 0, bytesRead);
                     }
@@ -80,7 +84,7 @@ public class DownloadControl extends HttpServlet {
                     outStream.close();
                 }
             } else {
-                //TODO FILE NON ESISTENTI
+                //TODO FILE NON ESISTENTI: DA IMPLEMENTARE
             }
         }else{
             response.sendRedirect("./static/Login.html");

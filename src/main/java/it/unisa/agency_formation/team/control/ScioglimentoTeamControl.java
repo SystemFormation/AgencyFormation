@@ -27,8 +27,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
             if (idTeam != 0) {
                 try {
                     ArrayList<Integer> listaIdDip = recuperaIdDipendentiFromManager(idTeam);
-                    for (int i = 0; i < listaIdDip.size(); i++) {
-                        int idDip = listaIdDip.get(i);
+                    for (int idDip : listaIdDip) {
                         updateStatoDipendenteFromManager(idDip);
                     }
                     eliminaTeamFromManager(idTeam);
@@ -57,7 +56,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.recuperaIdDipendentiDelTeam(idTeam);
     }
-
+//TODO GESTIRE I RETURN QUI E DOPO
     public static boolean updateStatoDipendenteFromManager(int idDipendente) throws SQLException{
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.updateDipsDisso(idDipendente);

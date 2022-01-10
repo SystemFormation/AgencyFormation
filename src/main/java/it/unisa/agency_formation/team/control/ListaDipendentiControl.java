@@ -33,14 +33,14 @@ public class ListaDipendentiControl extends HttpServlet {
             /*visualizzo tutti i dipendenti*/
             try {
                 ArrayList<Dipendente> dipendenti = getTuttiDipendentiFromManager();
-                for (int i = 0; i < dipendenti.size(); i++) {
-                    ArrayList<Skill> skills = new ArrayList<>();
-                    if (dipendenti.get(i).getTeam() != null && dipendenti.get(i).getTeam().getIdTeam() > 0) {
-                        dipendenti.get(i).setTeam(getTeamIdFromManager(dipendenti.get(i).getTeam().getIdTeam()));
+                for (Dipendente dipendente : dipendenti) {
+                    ArrayList<Skill> skills;
+                    if (dipendente.getTeam() != null && dipendente.getTeam().getIdTeam() > 0) {
+                        dipendente.setTeam(getTeamIdFromManager(dipendente.getTeam().getIdTeam()));
                     }
-                    if (getSkillDipendenteFromManager(dipendenti.get(i).getIdDipendente()) != null && getSkillDipendenteFromManager(dipendenti.get(i).getIdDipendente()).size() > 0) {
-                        skills = getSkillDipendenteFromManager(dipendenti.get(i).getIdDipendente());
-                        dipendenti.get(i).setSkills(skills);
+                    if (getSkillDipendenteFromManager(dipendente.getIdDipendente()) != null && getSkillDipendenteFromManager(dipendente.getIdDipendente()).size() > 0) {
+                        skills = getSkillDipendenteFromManager(dipendente.getIdDipendente());
+                        dipendente.setSkills(skills);
                     }
                 }
                 req.setAttribute("dipendenti", dipendenti);
@@ -58,7 +58,7 @@ public class ListaDipendentiControl extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-
+    //TODO metodo mai usato
     public static ArrayList<Team> viewAllTeamsFromManager() throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.visualizzaTuttiTeams();

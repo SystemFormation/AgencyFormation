@@ -33,10 +33,12 @@ public class UploadMaterialeControl extends HttpServlet {
             int idTeam = Integer.parseInt(request.getParameter("idTeam"));
             File file = new File(pathAbsolute + "\\" + "IdTeam-" + idTeam);
             Documento documento = new Documento();
+            //TODO: viene ignorato il risultato della successiva riga di codice
             file.mkdirs();
             if (request.getPart("materiale") == null) {
                 response.getWriter().write("3");//materiale non passato
             }
+            //TODO: Casting ridondante
             Part part = (Part) request.getPart("materiale");
             part.write(file.getAbsolutePath() + "\\" + part.getSubmittedFileName());
             String pathMaterialeFormazione = pathRelative + "\\" + "IdTeam-" + idTeam + "\\" + part.getSubmittedFileName();

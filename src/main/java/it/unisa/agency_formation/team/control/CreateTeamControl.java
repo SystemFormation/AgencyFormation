@@ -65,7 +65,7 @@ public class CreateTeamControl extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-
+//TODO GESTIRE IL RETURN
     public static boolean creaTeamFromManager(Team team, int idTM) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.creaTeam(team, idTM);
