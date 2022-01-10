@@ -9,7 +9,6 @@
 <%
     ArrayList<Dipendente> dip = (ArrayList<Dipendente>) request.getAttribute("dipendenti");
     ArrayList<Team> teams = (ArrayList<Team>) request.getAttribute("teams");
-    int idTeam = (int) request.getAttribute("idTeam");
 %>
 
 <html>

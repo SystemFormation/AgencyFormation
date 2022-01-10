@@ -32,7 +32,7 @@
     <div class="content flex">
         <c:choose>
             <c:when test="${candidatura.getStato() != StatiCandidatura.Accettata}">
-                <c:if test="${candidatura==null||candidatura.getDocumentiAggiuntivi()==null ||candidatura.getStato() == StatiCandidatura.NonRevisionato }">
+                <c:if test="${candidatura==null||candidatura.getDocumentiAggiuntivi()==null}">
                     <div id="home"><a href="UploadCandidatureControl">
                         <h2> Caricamento Documenti </h2></a>
                         <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
