@@ -31,7 +31,7 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                 if (candidatura == null) {
                     response.getWriter().write("1"); //errore Candidatura
                 } else {
-                    candidatura.setStato(StatiCandidatura.Assunto);
+                    candidatura.setStato(StatiCandidatura.Assunzione);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

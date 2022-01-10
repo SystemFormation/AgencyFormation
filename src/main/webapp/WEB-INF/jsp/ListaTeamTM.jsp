@@ -63,6 +63,20 @@
                             <input type="submit" name="specifica" value="Invia" id="specifica"><br>
                         </form>
                     </div>
+                    <c:choose>
+                        <c:when test="${team.getCompetenza()!=null}">
+                            <div class="stato">
+                                <h2>Stato della Specifica:</h2>
+                                <p>Effettuata</p>
+                            </div>
+                        </c:when>
+                        <c:when test="${documento.getMaterialeDiFormazione() != null}">
+                            <div class="stato">
+                                <h2>Stato della Specifica:</h2>
+                                <p>Soddisfatta</p>
+                            </div>
+                        </c:when>
+                    </c:choose>
                     <br>
                     <c:set var="index" value="0" scope="page"/>
                     <c:forEach var="dip" items="${listDip}">

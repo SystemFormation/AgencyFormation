@@ -4,5 +4,5 @@ public enum StatiCandidatura {
     NonRevisionato,
     Accettata,
     Rifiutata,
-    Assunto
+    Assunzione
 }

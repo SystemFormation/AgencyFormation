@@ -62,7 +62,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     public boolean assumiCandidato(int idCandidato) throws SQLException {
         if(DipendenteDAO.modificaRuoloUtente(idCandidato)){
             int idCandidatura=CandidaturaDAO.recuperaIdCandidaturaByIdCandidato(idCandidato);
-            CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Assunto);
+            CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Assunzione);
             return true;
         } else {
             return false;

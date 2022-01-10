@@ -1,4 +1,4 @@
-package it.unisa.agency_formation.reclutamento;
+/*package it.unisa.agency_formation.reclutamento.control;
 
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
@@ -70,4 +70,4 @@ public class RifiutaColloquioControl extends HttpServlet {
         }
         file.delete();
     }
-}
+} */

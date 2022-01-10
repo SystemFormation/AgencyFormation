@@ -17,17 +17,20 @@
 <h1>Bentornato ${user.getName()}</h1>
 <div class="home">
     <div class="content flex">
-        <div id="home"><a id="viewCandidates" href="ListaCandidati" onmouseover="controlCandidates()"
-                          onmouseleave="deleteSpan()">
+        <div id="home"><a href="ListaCandidati">
             <h2> Lista Candidati </h2></a>
             <span id="noCandidati"></span>
             <p>Ottieni la lista candidati per poter controllare: i file caricati da un candidato,
-                il loro rispettivo nome e cognome e la loro email</p>
+                il loro rispettivo nome e cognome</p>
         </div>
         <div id="home"><a href="ListaTeam">
             <h2> Lista Teams </h2></a>
             <p>Ottieni la lista di tutti i teams con i relativi dati e la gestione del
                 caricamento del materiale di formazione</p>
+        </div>
+        <div id="home"><a href="ListaColloqui.jsp">
+            <h2> Lista Colloqui </h2></a>
+            <p>Ottieni la lista dei colloqui per poter assumere o rifiutare un candidato</p>
         </div>
     </div>
 </div>
