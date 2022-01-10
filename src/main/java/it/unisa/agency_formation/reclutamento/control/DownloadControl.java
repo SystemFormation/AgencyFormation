@@ -20,8 +20,6 @@ import java.sql.SQLException;
 
 @WebServlet("/DownloadControl")
 public class DownloadControl extends HttpServlet {
-    //TODO: bisogna fare il metodo statico
-    private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
     //TODO da rendere final
     private String directory = System.getProperty("user.home");
 
@@ -35,7 +33,7 @@ public class DownloadControl extends HttpServlet {
             Candidatura candidatura = null;
             ServletContext context = request.getServletContext();
             try {
-                candidatura = reclutamento.getCandidaturaById(idCandidato);
+                candidatura = getCandidaturaFromManager(idCandidato);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -94,5 +92,10 @@ public class DownloadControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+
+    public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
+        ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
+        return reclutamento.getCandidaturaById(idCandidato);
     }
 }

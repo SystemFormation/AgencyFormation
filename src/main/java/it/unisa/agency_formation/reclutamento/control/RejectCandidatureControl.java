@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static java.util.Objects.*;
 
@@ -68,7 +67,7 @@ public class RejectCandidatureControl extends HttpServlet {
     }
     public static boolean rejectCandidatura(int idCandidatura, int idHR) throws SQLException{
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
-        return reclutamentoManager.rifiutaCandidature(idCandidatura, idHR);
+        return reclutamentoManager.rifiutaCandidatura(idCandidatura, idHR);
     }
     public static void delete(File file){
         for (File subFile : requireNonNull(file.listFiles())) {

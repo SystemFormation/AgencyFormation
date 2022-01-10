@@ -1,6 +1,7 @@
 package it.unisa.agency_formation.reclutamento.manager;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
@@ -29,15 +30,14 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
         }
     }
 
-
     @Override
     public ArrayList<Candidatura> getTutteCandidature() throws SQLException {
         return CandidaturaDAO.recuperaCandidature();
     }
 
     @Override
-    public boolean reCandidate(Candidatura candidatura) throws SQLException {
-        return false;
+    public boolean ricandidatura(int idCandidatura) throws SQLException {
+        return CandidaturaDAO.rimuoviCandidatura(idCandidatura);
     }
 
     @Override
@@ -54,29 +54,18 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     //TODO TEST THIS METHOD
     @Override
-    public boolean rifiutaCandidature(int idCandidatura, int idHR) throws SQLException {
+    public boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
         return CandidaturaDAO.rifiutaCandidatura(idCandidatura, idHR);
     }
 
     @Override
-    public boolean assumiCandidato(int idCandidato) throws SQLException {
-        if(DipendenteDAO.modificaRuoloUtente(idCandidato)){
-            int idCandidatura=CandidaturaDAO.recuperaIdCandidaturaByIdCandidato(idCandidato);
-            CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Assunzione);
-            return true;
-        } else {
-            return false;
-        }
+    public boolean assumiCandidato(Dipendente dipendente) throws SQLException {
+        return (DipendenteDAO.salvaDipendente(dipendente));
     }
 
     @Override
     public boolean rifiutaCandidato(int idCandidatura) throws SQLException {
-        if (CandidaturaDAO.rimuoviCandidatura(idCandidatura)) {
-            CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Rifiutata);
-            return true;
-        } else {
-            return false;
-        }
+        return CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Rifiutata);
     }
 
     private boolean alreadyLoaded(int idUtente) throws SQLException {

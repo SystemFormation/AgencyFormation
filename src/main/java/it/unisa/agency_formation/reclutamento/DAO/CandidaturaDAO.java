@@ -446,41 +446,4 @@ public class CandidaturaDAO {
         }
     }
 
-    /**
-     * questa funzionalità ermette di recuperare l'id della candidatura tramite quella del candidato
-     * @param idCandidato che dev'essere >0
-     * @return
-     * @throws SQLException
-     */
-    public static int recuperaIdCandidaturaByIdCandidato(int idCandidato) throws SQLException {
-        if (idCandidato < 1) {
-            return Integer.parseInt(null);
-        }
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = "SELECT IdCandidatura FROM " + TABLE_CANDIDATURA + " WHERE IdCandidato=?";
-        PreparedStatement stmt = null;
-        try {
-             stmt = connection.prepareStatement(query);
-             stmt.setInt(1, idCandidato);
-             ResultSet result = stmt.executeQuery();
-             result = stmt.executeQuery();
-             int id = 0;
-             if (result.next()) {
-                 id = result.getInt(1);
-             }
-             if (id > 0) {
-                 return id;
-             } else {
-                 return -1;
-             }
-        } finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } finally {
-                if (connection != null)
-                    connection.close();
-            }
-        }
-    }
 }
