@@ -51,7 +51,7 @@ public class ListaTeam extends HttpServlet {
             }
         } else {
             resp.getWriter().write("3");
-            resp.sendRedirect("./static/Error.html");
+            resp.sendRedirect("./static/Login.html");
         }
     }
 
