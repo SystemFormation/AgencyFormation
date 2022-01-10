@@ -5,9 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseManager {
-    String url = "jdbc:mysql://localhost:3306/af_db?serverTimezone=UTC";
-    String name = "root";
-    String pwd = "root11";
+    String nomeDB = Const.nomeDB;
+    String name = Const.name;
+    String pwd = Const.pwd;
+    String url;
 
     private static Connection connect;
     private static DatabaseManager instance;
@@ -23,13 +24,14 @@ public class DatabaseManager {
     public static DatabaseManager getInstance() throws SQLException {
         if (instance == null) {
             instance = new DatabaseManager();
-        } else if (connect.isClosed()) {
+        } else if (connect != null && connect.isClosed()) {
             instance = new DatabaseManager();
         }
         return instance;
     }
 
     public Connection getConnection() {
+        url = "jdbc:mysql://localhost:3306/" + nomeDB + "?serverTimezone=UTC";
         try {
             return this.connect = DriverManager.getConnection(url, name, pwd);
         } catch (SQLException e) {
