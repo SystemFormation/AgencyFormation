@@ -83,7 +83,7 @@ public class DownloadControl extends HttpServlet {
                 //TODO FILE NON ESISTENTI
             }
         }else{
-            response.sendRedirect("/static/Login.html");
+            response.sendRedirect("./static/Login.html");
         }
     }
 

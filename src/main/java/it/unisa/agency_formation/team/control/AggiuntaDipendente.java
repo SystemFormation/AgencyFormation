@@ -49,7 +49,7 @@ public class AggiuntaDipendente extends HttpServlet {
                e.printStackTrace();
            }
        }else {
-           resp.sendRedirect("/static/Login.html");
+           resp.sendRedirect("./static/Login.html");
        }
     }
     @Override

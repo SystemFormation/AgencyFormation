@@ -1,5 +1,7 @@
 package it.unisa.agency_formation.team.control;
 
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
@@ -17,21 +19,26 @@ public class SpecificaCompetenzeControl extends HttpServlet {
     TeamManagerImpl aut = new TeamManagerImpl();
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-        if(req.getParameter("action").equalsIgnoreCase("competenze")){ //update competenze
-            int idTeam = Integer.parseInt(req.getParameter("idTeam"));
-            String competence = req.getParameter("specCompetenze");
-            try {
-                TeamDAO.modificaCompetenze(competence,idTeam); //<---- fare il manager
+        Utente user = (Utente) req.getSession().getAttribute("user");
+        if(user!=null && user.getRole()== RuoliUtenti.TM) {
+            if (req.getParameter("action").equalsIgnoreCase("competenze")) { //update competenze
+                int idTeam = Integer.parseInt(req.getParameter("idTeam"));
+                String competence = req.getParameter("specCompetenze");
+                try {
+                    TeamDAO.modificaCompetenze(competence, idTeam); //<---- fare il manager
+                    resp.getWriter().write("2");
+                    dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                    dispatcher.forward(req, resp);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } else {
                 resp.getWriter().write("2");
-                dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamTM.jsp");
                 dispatcher.forward(req, resp);
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         }else{
-            resp.getWriter().write("2");
-            dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamTM.jsp");
-            dispatcher.forward(req, resp);
+            resp.sendRedirect("./static/Login.html");
         }
     }
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

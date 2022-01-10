@@ -47,7 +47,7 @@ public class FiltroDipendentiControl extends HttpServlet {
                 }
             }
         } else {
-            response.sendRedirect("/static/Login.html");
+            response.sendRedirect("./static/Login.html");
         }
     }
 

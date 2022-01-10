@@ -40,7 +40,7 @@ public class AddTeamControl extends HttpServlet {
                 e.printStackTrace();
             }
         }else{
-            resp.sendRedirect("/static/Login.html");
+            resp.sendRedirect("./static/Login.html");
         }
     }
     @Override

@@ -44,7 +44,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
 
             }
         }else{
-            resp.sendRedirect("/static/Login.html");
+            resp.sendRedirect("./static/Login.html");
         }
     }
 

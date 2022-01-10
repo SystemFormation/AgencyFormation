@@ -52,7 +52,7 @@ public class AcceptCandidatureControl extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
-            response.sendRedirect("/static/Login.html");
+            response.sendRedirect("./static/Login.html");
         }
     }
 

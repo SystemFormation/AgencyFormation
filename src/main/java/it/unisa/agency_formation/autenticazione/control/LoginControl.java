@@ -93,7 +93,7 @@ public class LoginControl extends HttpServlet {
                         }
                     } else {
                         response.getWriter().write("4");//utente non valido
-                        response.sendRedirect("/static/Login.html");
+                        response.sendRedirect("./static/Login.html");
                     }
 
                 } catch (SQLException e) {

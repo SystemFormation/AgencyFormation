@@ -38,7 +38,7 @@ public class RemoveTeamControl extends HttpServlet {
                 dispatcher.forward(req, resp);
             }
         } else {
-            resp.sendRedirect("/static/Login.html");
+            resp.sendRedirect("./static/Login.html");
         }
     }
 
