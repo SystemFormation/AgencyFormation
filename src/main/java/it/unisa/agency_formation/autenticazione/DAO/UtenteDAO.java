@@ -1,9 +1,9 @@
 package it.unisa.agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import it.unisa.agency_formation.utils.DatabaseManager;
-import it.unisa.agency_formation.autenticazione.domain.Utente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ public class UtenteDAO {
      *
      * @param user è l'utente da registrare
      * @return boolean
-     * @throws SQLException
+     * @throws SQLException eccezione
      * @pre user!=null
      */
     public static boolean salvaUtente(Utente user) throws SQLException {
@@ -145,7 +145,7 @@ public class UtenteDAO {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
-        String query = "Select * from " + TABLE_UTENTE + " where IdUtente=?";
+        String query = "SELECT * FROM " + TABLE_UTENTE + " WHERE IdUtente=?";
         Utente user = new Utente();
         try {
             retrieve = connection.prepareStatement(query);

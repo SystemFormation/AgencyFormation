@@ -75,7 +75,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
     }
 
     @Override
-    public ArrayList<Skill> recuperoSkillConIdDipendete(int idDipendete) throws SQLException {
+    public ArrayList<Skill> recuperoSkillConIdDipendente(int idDipendete) throws SQLException {
         return SkillDAO.recuperoSkillsByIdDipendente(idDipendete);
     }
 }

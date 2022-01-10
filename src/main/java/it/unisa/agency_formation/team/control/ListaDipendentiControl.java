@@ -71,7 +71,7 @@ public class ListaDipendentiControl extends HttpServlet {
 
     public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
-        return formazioneManager.recuperoSkillConIdDipendete(idDip);
+        return formazioneManager.recuperoSkillConIdDipendente(idDip);
     }
     public static ArrayList<Dipendente> getTuttiDipendentiFromManager() throws SQLException{
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();

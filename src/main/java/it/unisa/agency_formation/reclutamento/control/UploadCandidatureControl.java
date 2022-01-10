@@ -23,9 +23,9 @@ import java.util.Date;
 @WebServlet("/UploadCandidatureControl")
 @MultipartConfig
 public class UploadCandidatureControl extends HttpServlet {
-    //TODO DA RENDERE FINAL
-    private String pathRelative = "\\AgencyFormationFile\\Candidature\\";
-    private String pathAbsolute = System.getProperty("user.home") + pathRelative;
+
+    private static final String pathRelative = "\\AgencyFormationFile\\Candidature\\";
+    private static final String pathAbsolute = System.getProperty("user.home") + pathRelative;
     private static final int MAXDIM = 83886080;//10MB
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -50,7 +50,7 @@ public class UploadCandidatureControl extends HttpServlet {
                 Part curriculum = request.getPart("curriculum");
                 if (curriculum.getSize() > MAXDIM) {
                     //TODO ERROR FOR SIZE OF FILE MORE
-                    response.getWriter().write("1");//file troppo grande
+                    response.getWriter().write("1"); //file troppo grande
                 } else {
                     Candidatura cand = new Candidatura();
                     //TODO RISULTATO NON GESTITO

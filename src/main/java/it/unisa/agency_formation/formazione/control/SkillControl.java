@@ -25,7 +25,7 @@ public class SkillControl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
 
-        if(user !=null && user.getRole()== RuoliUtenti.DIPENDENTE) {
+        if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
             Skill skill = new Skill();
             String skillName = request.getParameter("skillName");
             String skillDescr = request.getParameter("skillDescr");
@@ -35,7 +35,7 @@ public class SkillControl extends HttpServlet {
             skill.setDescrizioneSkill(skillDescr);
             if (skillName != null && skillDescr != null) {
                 if (skillName.trim().equalsIgnoreCase("")) {
-                    response.getWriter().write("1");// Skillnome vuoto
+                    response.getWriter().write("1"); // Skillnome vuoto
                 }
                 if (skillDescr.trim().equalsIgnoreCase("")) {
                     response.getWriter().write("2"); //Skilldesc vuoto

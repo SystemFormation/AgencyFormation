@@ -60,6 +60,6 @@ public class ProfiloControl extends HttpServlet {
     }
     public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException{
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
-        return formazioneManager.recuperoSkillConIdDipendete(idDip);
+        return formazioneManager.recuperoSkillConIdDipendente(idDip);
     }
 }

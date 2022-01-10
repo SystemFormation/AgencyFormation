@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.reclutamento.manager;
 
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
@@ -54,17 +55,18 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     //TODO TEST THIS METHOD
     @Override
     public boolean rifiutaCandidature(int idCandidatura, int idHR) throws SQLException {
-        if (CandidaturaDAO.rifiutaCandidatura(idCandidatura, idHR)) {
+        return CandidaturaDAO.rifiutaCandidatura(idCandidatura, idHR);
+    }
+
+    @Override
+    public boolean assumiCandidato(int idCandidato) throws SQLException {
+        if(DipendenteDAO.modificaRuoloUtente(idCandidato)){
+            int idCandidatura=CandidaturaDAO.recuperaIdCandidaturaByIdCandidato(idCandidato);
+            CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Assunto);
             return true;
         } else {
             return false;
         }
-    }
-
-    @Override
-    public boolean assumiCandidato(int idUtente) throws SQLException {
-        //TODO
-        return false;
     }
 
     @Override

@@ -25,8 +25,8 @@ import static java.util.Objects.*;
 @WebServlet("/RejectCandidatureControl")
 public class RejectCandidatureControl extends HttpServlet {
     //TODO DA RENDERE FINAL
-    private String path ="\\AgencyFormationFile\\Candidature\\";
-    private String pathAbsolute = System.getProperty("user.home") + path;
+    private static final String path ="\\AgencyFormationFile\\Candidature\\";
+    private static final String pathAbsolute = System.getProperty("user.home") + path;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

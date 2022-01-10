@@ -28,5 +28,5 @@ public interface FormazioneManager {
 
     boolean addSkillDipendente(int idSkill, Dipendente dip, int skillLivello) throws SQLException;
 
-    ArrayList<Skill> recuperoSkillConIdDipendete(int idDipendete) throws SQLException;
+    ArrayList<Skill> recuperoSkillConIdDipendente(int idDipendete) throws SQLException;
 }
