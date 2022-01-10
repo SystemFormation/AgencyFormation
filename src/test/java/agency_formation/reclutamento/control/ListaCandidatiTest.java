@@ -29,7 +29,7 @@ public class ListaCandidatiTest {
     private RequestDispatcher dispatcher;
     private ServletConfig config;
     private ServletContext context;
-
+/*
     @Test
     public void viewCandidatiPass() throws ServletException, IOException {
         request = Mockito.mock(HttpServletRequest.class);
@@ -75,5 +75,5 @@ public class ListaCandidatiTest {
         servlet.init(config);
         servlet.doGet(request,response);
         assertTrue(stringWriter.toString().equals("2"));
-    }
+    }*/
 }

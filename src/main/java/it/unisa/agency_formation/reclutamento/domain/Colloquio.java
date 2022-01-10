@@ -11,6 +11,8 @@ public class Colloquio {
 
     public Colloquio() {
 
+    }
+
     public StatiCandidatura getStato() {
         return stato;
     }
@@ -36,7 +38,7 @@ public class Colloquio {
         this.idHR = idHR;
     }
 
-    }
+
 }
 
 

@@ -1,6 +1,6 @@
 use af_db;
 
-/*-------------------  DA POPOLARE INSIEME  -------------------
+/*-------------------  DA POPOLARE INSIEME  -------------------*/
 
 INSERT INTO utenti ( `Nome`, `Cognome`, `Pwd`, `Mail`, `Ruolo`) VALUES ('Luigi', 'Giacchetti', 'lol', 'l.giacchetti@studenti.unisa.it', '1');	/*Utente*/
 INSERT INTO utenti ( `Nome`, `Cognome`, `Pwd`, `Mail`, `Ruolo`) VALUES ('Pasquale', 'Severino', 'lol', 'p.severino@studenti.unisa.it', '2');	/*Dipendente*/
@@ -13,4 +13,3 @@ INSERT INTO dipendenti (`IdDipendente`,`Residenza`, `Telefono`, `Stato`, `AnnoDi
 INSERT INTO skillsdipendenti (`IdDipendente`, `IdSkill`, `Livello`) VALUES ('2', '1', '5');
 INSERT INTO skillsdipendenti (`IdDipendente`, `IdSkill`, `Livello`) VALUES ('2', '2', '3');
 INSERT INTO documenti (`MaterialeDiFormazione`, `IdHR`, `IdTeam`) VALUES ('\\', '4', '1');
-*/
