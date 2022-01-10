@@ -56,7 +56,7 @@ public class ProfiloControl extends HttpServlet {
 
     public static Dipendente getAllDataDipFromManager(int id) throws SQLException{
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.getDatiDipendente(id);
+        return autenticazioneManager.getDipendente(id);
     }
     public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException{
         FormazioneManager formazioneManager = new FormazioneManagerImpl();

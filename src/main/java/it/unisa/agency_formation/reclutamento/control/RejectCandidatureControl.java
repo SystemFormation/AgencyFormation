@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.reclutamento.control;
 
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
@@ -26,23 +27,27 @@ public class RejectCandidatureControl extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-        int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
-        try {
-            Candidatura candidatura = getCandidatura(idCandidato);
-            File toDelete = new File(pathAbsolute+"IdUtente-"+candidatura.getIdCandidato());
-            delete(toDelete);
+        if(user!=null && user.getRole()== RuoliUtenti.HR) {
+            int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
+            try {
+                Candidatura candidatura = getCandidatura(idCandidato);
+                File toDelete = new File(pathAbsolute + "IdUtente-" + candidatura.getIdCandidato());
+                delete(toDelete);
 
-            if(rejectCandidatura(candidatura.getIdCandidatura(),user.getId())){
+                if (rejectCandidatura(candidatura.getIdCandidatura(), user.getId())) {
 
-               response.getWriter().write("1"); //rifiuto ok
+                    response.getWriter().write("1"); //rifiuto ok
 
-            }else{
-                //TODO errore nel rifiutare la candidatura
+                } else {
+                    //TODO errore nel rifiutare la candidatura
 
-                response.getWriter().write("2"); //rifiuto non avvenuto
+                    response.getWriter().write("2"); //rifiuto non avvenuto
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }else{
+            response.sendRedirect("/static/Login.html");
         }
 
     }

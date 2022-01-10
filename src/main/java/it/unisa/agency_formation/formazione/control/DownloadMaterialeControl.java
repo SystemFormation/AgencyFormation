@@ -1,6 +1,7 @@
 package it.unisa.agency_formation.formazione.control;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
@@ -27,49 +28,51 @@ public class DownloadMaterialeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-        if(user == null){
-            response.getWriter().write("1");//utente null
-        }
-        ServletContext context = request.getServletContext();
-        Documento documento = null;
-        try {
-            Dipendente dipendente = getDipendentefromManager(user.getId());
-            if(dipendente==null){
-                response.getWriter().write("2");//dipendete null
+        if(user !=null && user.getRole()== RuoliUtenti.DIPENDENTE) {
+            ServletContext context = request.getServletContext();
+            Documento documento = null;
+            try {
+                Dipendente dipendente = getDipendentefromManager(user.getId());
+                if (dipendente == null) {
+                    response.getWriter().write("2");//dipendete null
+                }
+                documento = getDocumentofromManager(dipendente.getTeam().getIdTeam());
+                if (documento == null) {
+                    response.getWriter().write("3");//documento null
+                    //si può rimandare all'homepage?
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            documento = getDocumentofromManager(dipendente.getTeam().getIdTeam());
-            if(documento == null){
-                response.getWriter().write("3");//documento null
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if(documento!=null) {
-            String pathMateriale = directory + documento.getMaterialeDiFormazione();
-            File file = new File(pathMateriale);
-            FileInputStream fileIn = new FileInputStream(file);
-            String mimeType = context.getMimeType(pathMateriale);
-            if (mimeType == null) {
-                mimeType = "application/octet-stream";
-            }
-            response.setContentType(mimeType);
-            response.setContentLength((int) file.length());
+            if (documento != null) {
+                String pathMateriale = directory + documento.getMaterialeDiFormazione();
+                File file = new File(pathMateriale);
+                FileInputStream fileIn = new FileInputStream(file);
+                String mimeType = context.getMimeType(pathMateriale);
+                if (mimeType == null) {
+                    mimeType = "application/octet-stream";
+                }
+                response.setContentType(mimeType);
+                response.setContentLength((int) file.length());
 
-            String headerKey = "Content-Disposition";
-            String headerValue = String.format("attachment; filename=\"%s\"", file.getName());
-            response.setHeader(headerKey, headerValue);
-            OutputStream outStream = response.getOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead = -1;
-            while ((bytesRead = fileIn.read(buffer)) != -1) {
-                outStream.write(buffer, 0, bytesRead);
+                String headerKey = "Content-Disposition";
+                String headerValue = String.format("attachment; filename=\"%s\"", file.getName());
+                response.setHeader(headerKey, headerValue);
+                OutputStream outStream = response.getOutputStream();
+                byte[] buffer = new byte[4096];
+                int bytesRead = -1;
+                while ((bytesRead = fileIn.read(buffer)) != -1) {
+                    outStream.write(buffer, 0, bytesRead);
+                }
+                fileIn.close();
+                outStream.close();
+                response.getWriter().write("4");//documento scaricato
+            } else {
+                //TODO NESSUN FILE SCARICATO
+                response.getWriter().write("5");//documento non scaricato
             }
-            fileIn.close();
-            outStream.close();
-            response.getWriter().write("4");//documento scaricato
-        } else{
-            //TODO NESSUN FILE SCARICATO
-            response.getWriter().write("5");//documento non scaricato
+        }else{
+            response.sendRedirect("./static/Login.html");
         }
     }
 
@@ -79,7 +82,7 @@ public class DownloadMaterialeControl extends HttpServlet {
     }
     public static Dipendente getDipendentefromManager(int idUtente) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.getDatiDipendente(idUtente);
+        return autenticazioneManager.getDipendente(idUtente);
     }
     public static Documento getDocumentofromManager(int idTeam) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();

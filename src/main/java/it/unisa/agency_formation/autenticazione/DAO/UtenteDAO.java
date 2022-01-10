@@ -36,7 +36,7 @@ public class UtenteDAO {
             save.setString(2, user.getSurname());
             save.setString(3, user.getPwd());
             save.setString(4, user.getEmail());
-            switch (user.getRole()){
+            switch (user.getRole()) {
                 case CANDIDATO:
                     save.setInt(5, 1);
                     break;
@@ -100,7 +100,7 @@ public class UtenteDAO {
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
 
-                switch (result.getInt("Ruolo")){
+                switch (result.getInt("Ruolo")) {
                     case 1:
                         user.setRole(RuoliUtenti.CANDIDATO);
                         break;
@@ -138,7 +138,7 @@ public class UtenteDAO {
      * @throws SQLException
      * @pre id>0
      */
-    public static Utente doRetrieveByID(int id) throws SQLException {
+    public static Utente doRetrieveUtenteByID(int id) throws SQLException {
         if (id <= 0) {
             return null;
         }
@@ -157,7 +157,7 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")){
+                switch (result.getInt("Ruolo")) {
                     case 1:
                         user.setRole(RuoliUtenti.CANDIDATO);
                         break;
@@ -199,12 +199,12 @@ public class UtenteDAO {
      */
 
 
-    public static ArrayList<Utente> doRetrieveUserByRuolo(RuoliUtenti ruolo) throws SQLException {
-        if (ruolo==null) {
+    public static ArrayList<Utente> doRetrieveUtenteByRuolo(RuoliUtenti ruolo) throws SQLException {
+        if (ruolo == null) {
             return null;
         }
         int role = 0;
-        switch (ruolo){
+        switch (ruolo) {
             case CANDIDATO:
                 role = 1;
                 break;
@@ -218,7 +218,7 @@ public class UtenteDAO {
                 role = 4;
                 break;
         }
-        if(role == 0){
+        if (role == 0) {
             return null;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -238,7 +238,7 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")){
+                switch (result.getInt("Ruolo")) {
                     case 1:
                         user.setRole(RuoliUtenti.CANDIDATO);
                         break;
@@ -274,7 +274,7 @@ public class UtenteDAO {
     }
 
     //TODO TEST THIS METHOD
-    public static ArrayList<Utente> doRetrieveCandidatesWithCandidature() throws SQLException {
+    public static ArrayList<Utente> doRetrieveCandidatoConCandidatura() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
@@ -294,7 +294,7 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")){
+                switch (result.getInt("Ruolo")) {
                     case 1:
                         user.setRole(RuoliUtenti.CANDIDATO);
                         break;
@@ -328,7 +328,4 @@ public class UtenteDAO {
             }
         }
     }
-
-
-
 }

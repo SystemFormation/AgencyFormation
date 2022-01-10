@@ -30,13 +30,13 @@
             <p>Crea un team specificando: nome del team, nome del progetto,
                 numero dipendenti e la relativa descrizione</p>
         </div>
-        <div id="home"><a href="DipendenteControl">
+        <div id="home"><a href="ListaDipendentiControl">
             <h2> Lista Dipendenti </h2></a>
             <p>Ottieni la lista dipendenti per scegliere quale dipendente disponibile aggiungere
                 al proprio team oppure a quale dipendente occupato per un altro progetto effettuare
                 la richiesta di disponbilità</p>
         </div>
-        <div id="home"><a href="TeamControl">
+        <div id="home"><a href="ListaTeam">
             <h2> Lista Teams </h2></a>
             <p>Ottieni la lista dei tuoi teams con i relativi dati e la gestione per
                 speficare le competenze richieste</p>

@@ -74,14 +74,14 @@ public class DocumentoDAOTest {
     @Test//not pass, idTM<1
     public void doRetrieveByTeamFail() throws SQLException {
         int idTeam=-1;
-        assertNull(DocumentoDAO.recuperaByTeam(idTeam));
+        assertNull(DocumentoDAO.recuperaDocumentoByTeam(idTeam));
     }
 
     @Test//pass
     public void doRetrieveByTeamPass() throws SQLException {
         //riempire il DB per testarlo
         int idTeam=2;
-        assertNotNull(DocumentoDAO.recuperaByTeam(idTeam));
+        assertNotNull(DocumentoDAO.recuperaDocumentoByTeam(idTeam));
     }
 
 

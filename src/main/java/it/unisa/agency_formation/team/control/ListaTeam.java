@@ -3,11 +3,10 @@ package it.unisa.agency_formation.team.control;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
-import it.unisa.agency_formation.formazione.domain.Documento;
-import it.unisa.agency_formation.formazione.manager.FormazioneManager;
-import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
 import it.unisa.agency_formation.team.domain.Team;
+import it.unisa.agency_formation.team.manager.TeamManager;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -20,33 +19,28 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet("/TeamControl")
-public class TeamControl extends HttpServlet {
-    TeamManagerImpl teamManager = new TeamManagerImpl();
-    AutenticazioneManagerImpl aut2= new AutenticazioneManagerImpl();
-
+@WebServlet("/ListaTeam")
+public class ListaTeam extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         Utente user = (Utente) req.getSession().getAttribute("user");
-        if (user.getRole() == RuoliUtenti.TM) { //sei tm
+        if (user != null && user.getRole() == RuoliUtenti.TM) { //sei tm
             try {
-
-                ArrayList<Dipendente> listaDipsUsers = teamManager.recuperaDipendentiDelTeam();
-                ArrayList<Team> list = teamManager.visualizzaTeams(user.getId());
+                ArrayList<Dipendente> listaDipsUsers = recuperoDipendetiDiUnTeamFromManager();
+                ArrayList<Team> teams = visualizzaTeamOfTMFromManager(user.getId());
                 req.setAttribute("listDip", listaDipsUsers);
-                req.setAttribute("listTeam", list);
+                req.setAttribute("listTeam", teams);
                 resp.getWriter().write("1");
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamTM.jsp");
                 dispatcher.forward(req, resp);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } else if (user.getRole() == RuoliUtenti.HR) {
+        } else if (user != null && user.getRole() == RuoliUtenti.HR) {
             try {
-                ArrayList<Dipendente> listaDip = aut2.getTuttiDipendenti();
-                ArrayList<Team> team = teamManager.visualizzaTuttiTeams();
-
+                ArrayList<Dipendente> listaDip = getAllDipendentiFromManager();
+                ArrayList<Team> team = visuallizzaTeamsForHRFromManager();
                 req.setAttribute("listTeam", team);
                 req.setAttribute("listDip", listaDip);
                 resp.getWriter().write("2");
@@ -57,8 +51,6 @@ public class TeamControl extends HttpServlet {
             }
         } else {
             resp.getWriter().write("3");
-           /* dispatcher = req.getServletContext().getRequestDispatcher("/static/Error.html");
-            dispatcher.forward(req, resp);*/
             resp.sendRedirect("/static/Error.html");
         }
     }
@@ -68,9 +60,23 @@ public class TeamControl extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static Documento getDocumentoFromManager(int idTeam) throws SQLException{
-        FormazioneManager formazioneManager = new FormazioneManagerImpl();
-        return formazioneManager.getMaterialeByIdTeam(idTeam);
+    public static ArrayList<Dipendente> recuperoDipendetiDiUnTeamFromManager() throws SQLException {
+        TeamManager teamManager = new TeamManagerImpl();
+        return teamManager.recuperaDipendentiDelTeam();
     }
 
+    public static ArrayList<Team> visualizzaTeamOfTMFromManager(int idTM) throws SQLException {
+        TeamManager teamManager = new TeamManagerImpl();
+        return teamManager.visualizzaTeams(idTM);
+    }
+
+    public static ArrayList<Dipendente> getAllDipendentiFromManager() throws SQLException {
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+        return autenticazioneManager.getTuttiDipendenti();
+    }
+
+    public static ArrayList<Team> visuallizzaTeamsForHRFromManager() throws SQLException {
+        TeamManager teamManager = new TeamManagerImpl();
+        return teamManager.visualizzaTuttiTeams();
+    }
 }

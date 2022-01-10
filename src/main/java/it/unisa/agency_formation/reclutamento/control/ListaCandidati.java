@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.reclutamento.control;
 
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
@@ -14,28 +15,28 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet("/ViewCandidatiControl")
-public class ViewCandidatiControl extends HttpServlet {
+@WebServlet("/ListaCandidati")
+public class ListaCandidati extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            ArrayList<Utente> candidati = getCandidates();
-            request.setAttribute("candidati", candidati);
-            if(candidati!=null && candidati.size()>0) {
+        Utente user = (Utente) request.getSession().getAttribute("user");
+        if(user !=null && user.getRole()== RuoliUtenti.HR) {
+            try {
+                ArrayList<Utente> candidati = getCandidates();
+                request.setAttribute("candidati", candidati);
+                if (candidati != null && candidati.size() > 0) {
+                    response.getWriter().write("1");//ci sono i candidati
+                } else {
+                    response.getWriter().write("2");//non ci sono candidati
 
-                response.getWriter().write("1");//ci sono i candidati
-
+                }
+                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
+                dispatcher.forward(request, response);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-
-            else{
-                response.getWriter().write("2");//non ci sono candidati
-
-                //response.sendRedirect("/static/Errore.html");
-            }
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
-            dispatcher.forward(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }else{
+            response.sendRedirect("/static/Login.html");
         }
     }
     @Override

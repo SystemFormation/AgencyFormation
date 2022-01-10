@@ -32,16 +32,15 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     }
 
-    //doRetrieveById //Dipendente
     @Override
     public boolean aggiungiSkill(Skill skill) throws SQLException {
 
-            return SkillDAO.doSaveSkill(skill);
+        return SkillDAO.salvaSkill(skill);
 
     }
 
     @Override
-    public void remuoviSkill(Skill skill) {
+    public void rimuoviSkill(Skill skill) {
 
     }
 
@@ -51,22 +50,17 @@ public class FormazioneManagerImpl implements FormazioneManager {
     }
 
     @Override
-    public int getLastIdSkillCreated() throws  SQLException{
-        return SkillDAO.doRetrieveLastId();
+    public int getUltimaSkill() throws SQLException {
+        return SkillDAO.recuperaUltimaSkill();
     }
 
     @Override
-    public boolean addSkillDipendente(int idSkill, Dipendente dip,int skillLivello) throws SQLException{
-         return SkillDAO.doSaveSkillDip(idSkill,dip,skillLivello);
-    }
-
-    @Override
-    public Dipendente getIdEmployee(int idDip) throws SQLException {
-        return DipendenteDAO.doRetrieveById(idDip);
+    public boolean addSkillDipendente(int idSkill, Dipendente dip, int skillLivello) throws SQLException {
+        return SkillDAO.salvaSkillDipendente(idSkill, dip, skillLivello);
     }
 
     private boolean alreadyInsertSkill(Skill skill) throws SQLException {
-        Skill result = SkillDAO.doRetrieveByName(skill.getNomeSkill());
+        Skill result = SkillDAO.recuperaSkillByNome(skill.getNomeSkill());
         if (result == null) {
             return false;
         } else {
@@ -74,13 +68,14 @@ public class FormazioneManagerImpl implements FormazioneManager {
         }
 
     }
+
     @Override
-    public Documento getMaterialeByIdTeam(int idTeam) throws SQLException{
-        return DocumentoDAO.recuperaByTeam(idTeam);
+    public Documento getMaterialeByIdTeam(int idTeam) throws SQLException {
+        return DocumentoDAO.recuperaDocumentoByTeam(idTeam);
     }
 
     @Override
     public ArrayList<Skill> recuperoSkillConIdDipendete(int idDipendete) throws SQLException {
-        return SkillDAO.recuperoSkillIdDip(idDipendete);
+        return SkillDAO.recuperoSkillsByIdDipendente(idDipendete);
     }
 }

@@ -1,7 +1,7 @@
 package agency_formation.reclutamento.control;
 
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
-import it.unisa.agency_formation.reclutamento.control.ViewCandidatiControl;
+import it.unisa.agency_formation.reclutamento.control.ListaCandidati;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mockStatic;
 
-public class ViewCandidatiControlTest {
+public class ListaCandidatiTest {
     private HttpServletRequest request;
     private HttpServletResponse response;
     private HttpSession session;
@@ -38,7 +38,7 @@ public class ViewCandidatiControlTest {
         dispatcher = Mockito.mock(RequestDispatcher.class);
         config = Mockito.mock(ServletConfig.class);
         context = Mockito.mock(ServletContext.class);
-        ViewCandidatiControl servlet = new ViewCandidatiControl();
+        ListaCandidati servlet = new ListaCandidati();
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         StringWriter stringWriter = new StringWriter();
@@ -58,7 +58,7 @@ public class ViewCandidatiControlTest {
         context = Mockito.mock(ServletContext.class);
         AutenticazioneManagerImpl aut = Mockito.mock(AutenticazioneManagerImpl.class);
         Mockito.when(aut.getCandidati()).thenReturn(null);
-        ViewCandidatiControl servlet = new ViewCandidatiControl();
+        ListaCandidati servlet = new ListaCandidati();
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         //Mockito.when(request.getAttribute("aut")).thenReturn(aut);

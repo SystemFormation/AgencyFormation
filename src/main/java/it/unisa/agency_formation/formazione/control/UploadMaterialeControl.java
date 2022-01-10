@@ -1,5 +1,6 @@
 package it.unisa.agency_formation.formazione.control;
 
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.formazione.manager.FormazioneManager;
@@ -25,36 +26,37 @@ public class UploadMaterialeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-        if(user==null){
-            response.getWriter().write("1");//user null
-        }
-        if(request.getParameter("idTeam")==null){
-            response.getWriter().write("2");//idTeam non passato
-        }
-        int idTeam = Integer.parseInt(request.getParameter("idTeam"));
-        File file = new File(pathAbsolute+"\\"+"IdTeam-"+idTeam);
-        Documento documento = new Documento();
-        file.mkdirs();
-        if(request.getPart("materiale")==null){
-            response.getWriter().write("3");//materiale non passato
-        }
-        Part part = (Part) request.getPart("materiale");
-        part.write(file.getAbsolutePath()+"\\"+part.getSubmittedFileName());
-        String pathMaterialeFormazione = pathRelative+"\\"+"IdTeam-"+idTeam+"\\"+part.getSubmittedFileName();
-        documento.setMaterialeDiFormazione(pathMaterialeFormazione);
-        documento.setIdTeam(idTeam);
-        documento.setIdHR(user.getId());
-        try {
-            boolean esito = saveDocument(documento);
-            if(esito){
-                response.getWriter().write("4");//documento salvato
-                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/TeamControl");
-                dispatcher.forward(request,response);
-            }else{
-                response.getWriter().write("5");//documento non salvato
+        if(user !=null && user.getRole()== RuoliUtenti.HR) {
+            if (request.getParameter("idTeam") == null) {
+                response.getWriter().write("2");//idTeam non passato
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            int idTeam = Integer.parseInt(request.getParameter("idTeam"));
+            File file = new File(pathAbsolute + "\\" + "IdTeam-" + idTeam);
+            Documento documento = new Documento();
+            file.mkdirs();
+            if (request.getPart("materiale") == null) {
+                response.getWriter().write("3");//materiale non passato
+            }
+            Part part = (Part) request.getPart("materiale");
+            part.write(file.getAbsolutePath() + "\\" + part.getSubmittedFileName());
+            String pathMaterialeFormazione = pathRelative + "\\" + "IdTeam-" + idTeam + "\\" + part.getSubmittedFileName();
+            documento.setMaterialeDiFormazione(pathMaterialeFormazione);
+            documento.setIdTeam(idTeam);
+            documento.setIdHR(user.getId());
+            try {
+                boolean esito = saveDocument(documento);
+                if (esito) {
+                    response.getWriter().write("4");//documento salvato
+                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/TeamControl");
+                    dispatcher.forward(request, response);
+                } else {
+                    response.getWriter().write("5");//documento non salvato
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else{
+            response.sendRedirect("/static/Login.html");
         }
     }
 

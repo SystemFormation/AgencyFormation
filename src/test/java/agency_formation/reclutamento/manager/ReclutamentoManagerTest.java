@@ -51,7 +51,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         cand.setCurriculum("test");
         cand.setStato(StatiCandidatura.NonRevisionato);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.doRetrieveById(cand.getIdCandidato())).thenReturn(null);
+            mocked.when(() -> CandidaturaDAO.doRetrieveCandidaturaById(cand.getIdCandidato())).thenReturn(null);
         }
         assertTrue(reclutamento.caricaCandidatura(cand));
 
@@ -66,7 +66,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         cand.setCurriculum("test");
         cand.setStato(StatiCandidatura.NonRevisionato);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.doRetrieveById(cand.getIdCandidato())).thenReturn(cand);
+            mocked.when(() -> CandidaturaDAO.doRetrieveCandidaturaById(cand.getIdCandidato())).thenReturn(cand);
         }
         assertFalse(reclutamento.caricaCandidatura(cand));
     }
@@ -86,7 +86,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         int id = 0;
         Candidatura cand = null;
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.doRetrieveById(id)).thenReturn(cand);
+            mocked.when(() -> CandidaturaDAO.doRetrieveCandidaturaById(id)).thenReturn(cand);
         }
         assertNull(reclutamento.getCandidaturaById(id));
     }
@@ -95,7 +95,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         int id = 150;
         Candidatura cand = null;
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.doRetrieveById(id)).thenReturn(cand);
+            mocked.when(() -> CandidaturaDAO.doRetrieveCandidaturaById(id)).thenReturn(cand);
         }
         assertNull(reclutamento.getCandidaturaById(id));
     }

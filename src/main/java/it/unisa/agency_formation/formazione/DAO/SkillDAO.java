@@ -23,7 +23,7 @@ public class SkillDAO {
      * @throws SQLException
      * @pre skill!=null && dip!=null
      */
-    public static boolean doSaveSkill(Skill skill) throws SQLException {
+    public static boolean salvaSkill(Skill skill) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if (skill != null) {
             PreparedStatement save = null;
@@ -58,7 +58,7 @@ public class SkillDAO {
      * @throws SQLException
      * @pre idSkill>1
      */
-    public static boolean doRemoveSkill(int idSkill) throws SQLException {
+    public static boolean rimuoviSkill(int idSkill) throws SQLException {
         if (idSkill < 1) {
             return false;
         }
@@ -92,7 +92,7 @@ public class SkillDAO {
      * @throws SQLException
      * @post skills.size()>0
      */
-    public static ArrayList<Skill> doRetrieveAll() throws SQLException {
+    public static ArrayList<Skill> recuperaSkills() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
         String query = "Select * From " + TABLE_SKILL;
@@ -126,7 +126,7 @@ public class SkillDAO {
      * @throws SQLException
      * @pre nomeSKill!=null
      */
-    public static Skill doRetrieveByName(String nomeSkill) throws SQLException {
+    public static Skill recuperaSkillByNome(String nomeSkill) throws SQLException {
         if (nomeSkill == null) {
             return null;
         }
@@ -171,7 +171,7 @@ public class SkillDAO {
      * @throws SQLException
      * @pre idSkill>0 && dip!=null
      */
-    public static boolean doSaveSkillDip(int idSkill, Dipendente dip, int skillLivello) throws SQLException {
+    public static boolean salvaSkillDipendente(int idSkill, Dipendente dip, int skillLivello) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if (idSkill < 1 || dip == null) {
             return false;
@@ -206,7 +206,7 @@ public class SkillDAO {
      * @return ultima skill
      * @throws SQLException
      */
-    public static int doRetrieveLastId() throws SQLException {
+    public static int recuperaUltimaSkill() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;
@@ -235,7 +235,7 @@ public class SkillDAO {
         }
     }
 
-    public static ArrayList<Skill> recuperoSkillIdDip(int idDip) throws SQLException {
+    public static ArrayList<Skill> recuperoSkillsByIdDipendente(int idDip) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;

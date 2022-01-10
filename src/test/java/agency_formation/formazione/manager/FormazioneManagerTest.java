@@ -20,7 +20,7 @@ public class FormazioneManagerTest {
     public void addSkillFail()throws SQLException {
         Skill skill = new Skill("CSS","Competenza Basilare");
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.doSaveSkill(skill)).thenReturn(false);
+            mocked.when(() -> SkillDAO.salvaSkill(skill)).thenReturn(false);
         }
         assertFalse(aut.aggiungiSkill(skill));
     }
@@ -28,7 +28,7 @@ public class FormazioneManagerTest {
     public void addSkillPass()throws SQLException {
         Skill skill = new Skill("CSS","Competenza Basilare");
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.doSaveSkill(skill)).thenReturn(true);
+            mocked.when(() -> SkillDAO.salvaSkill(skill)).thenReturn(true);
         }
         assertTrue(aut.aggiungiSkill(skill));
     }
@@ -36,9 +36,9 @@ public class FormazioneManagerTest {
     @Test
     public void getLastCreatedIdPass() throws SQLException{
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.doRetrieveLastId()).thenReturn(true);
+            mocked.when(() -> SkillDAO.recuperaUltimaSkill()).thenReturn(true);
         }
-        assertNotNull(aut.getLastIdSkillCreated());
+        assertNotNull(aut.getUltimaSkill());
     }
     @Test
     public void addSkillDipFailId() throws  SQLException{
@@ -49,7 +49,7 @@ public class FormazioneManagerTest {
         int idSkill = 2;
         Dipendente dip = null;
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.doSaveSkillDip(idSkill,dip,3)).thenReturn(false);
+            mocked.when(() -> SkillDAO.salvaSkillDipendente(idSkill,dip,3)).thenReturn(false);
         }
         assertFalse(aut.addSkillDipendente(idSkill,dip,3));
     }

@@ -1,7 +1,9 @@
 package it.unisa.agency_formation.team.control;
 
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.domain.Team;
+import it.unisa.agency_formation.team.manager.TeamManager;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -15,34 +17,38 @@ import java.sql.SQLException;
 
 @WebServlet("/AddTeamControl")
 public class AddTeamControl extends HttpServlet {
-
-    private TeamManagerImpl teamManager = new TeamManagerImpl();
-    //
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher;
-        String action = req.getParameter("action");
-        int idTeam = Integer.parseInt(req.getParameter("idTeam"));
-        try {
-            if(action.equalsIgnoreCase("aggiungi")) {
-                int idDip = Integer.parseInt(req.getParameter("id"));
-                if(idDip != 0){  //messo questo controllo
-                    teamManager.updateDipOnTeam(idDip, idTeam);
-                    resp.getWriter().write("2");//action null
-                    dispatcher = req.getServletContext().getRequestDispatcher("/TeamControl");
-                    dispatcher.forward(req, resp);
-                }else{
-                    resp.sendRedirect("/static/CreaTeam.jsp");
-
+        Utente user = (Utente) req.getSession().getAttribute("user");
+        if(user !=null && user.getRole()== RuoliUtenti.TM) {
+            RequestDispatcher dispatcher;
+            String action = req.getParameter("action");
+            int idTeam = Integer.parseInt(req.getParameter("idTeam"));
+            try {
+                if (action.equalsIgnoreCase("aggiungi")) {
+                    int idDip = Integer.parseInt(req.getParameter("id"));
+                    if (idDip != 0) {  //messo questo controllo
+                        updateDipOnTeamFromManager(idDip,idTeam);
+                        resp.getWriter().write("2");//action null
+                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                        dispatcher.forward(req, resp);
+                    } else {
+                        resp.sendRedirect("/static/CreaTeam.jsp");
+                    }
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        }catch (SQLException e) {
-            e.printStackTrace();
+        }else{
+            resp.sendRedirect("/static/Login.html");
         }
     }
-
     @Override
     public void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+    public static boolean updateDipOnTeamFromManager(int idDip, int idTeam) throws SQLException{
+        TeamManager teamManager = new TeamManagerImpl();
+        return teamManager.updateDipOnTeam(idDip,idTeam);
     }
 }

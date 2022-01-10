@@ -66,13 +66,13 @@ public class UtenteDAOTest {
     @Test
     public void doRetrieveByIDLessZero() throws SQLException {
         int id = -1;
-        assertNull(UtenteDAO.doRetrieveByID(id));
+        assertNull(UtenteDAO.doRetrieveUtenteByID(id));
     }
 
     @Test
     public void doRetrieveByIDPass() throws SQLException {
         int id = 5;
-        assertNotNull(UtenteDAO.doRetrieveByID(id));
+        assertNotNull(UtenteDAO.doRetrieveUtenteByID(id));
     }
 /*
     @Test
@@ -90,14 +90,14 @@ public class UtenteDAOTest {
     //non ci sarà errore perché l'Enum Ruoli non può errare
     @Test
     public void retrieveByRuoloSizeLessOne() throws SQLException {
-        assertNull(UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.HR));
+        assertNull(UtenteDAO.doRetrieveUtenteByRuolo(RuoliUtenti.HR));
     }
 
     @Test
     public void retrieveByRuoloPass() throws SQLException {
-        assertNotNull(UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.HR));
+        assertNotNull(UtenteDAO.doRetrieveUtenteByRuolo(RuoliUtenti.HR));
 
     }
 
-    //Test doRetrieveCandidatesWithCandidature()
+    //Test doRetrieveCandidatoConCandidatura()
 }

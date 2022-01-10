@@ -31,15 +31,15 @@ public class DipendenteDAO {
         PreparedStatement save = null;
         String query = "insert into " + TABLE_DIPENDENTE + " (IdDipendente,Residenza,Telefono,Stato,AnnoDiNascita,idTeam)" +
                 " values(?,?,?,?,?,?)";
-        modificaRuolo(dipendente.getIdDipendente());
+        modificaRuoloUtente(dipendente.getIdDipendente());
         try {
             save = connection.prepareStatement(query);
             save.setInt(1, dipendente.getIdDipendente());
             save.setString(2, dipendente.getResidenza());
             save.setString(3, dipendente.getTelefono());
-            if(dipendente.getStato()==StatiDipendenti.OCCUPATO){
+            if (dipendente.getStato() == StatiDipendenti.OCCUPATO) {
                 save.setBoolean(4, false);
-            }else if(dipendente.getStato()==StatiDipendenti.DISPONIBILE){
+            } else if (dipendente.getStato() == StatiDipendenti.DISPONIBILE) {
                 save.setBoolean(4, true);
             }
             save.setInt(5, dipendente.getAnnoNascita());
@@ -69,7 +69,7 @@ public class DipendenteDAO {
      * @pre id>0
      */
 
-    public static boolean modificaRuolo(int id) throws SQLException {
+    public static boolean modificaRuoloUtente(int id) throws SQLException {
         if (id <= 0) {
             return false;
         }
@@ -108,7 +108,7 @@ public class DipendenteDAO {
      * @pre id>0
      */
 
-    public static Dipendente doRetrieveById(int id) throws SQLException {
+    public static Dipendente doRetrieveDipendenteById(int id) throws SQLException {
         if (id <= 0) {
             return null;
         }
@@ -133,9 +133,8 @@ public class DipendenteDAO {
                     user.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 user.setAnnoNascita(result.getInt("AnnoDiNascita"));
-                    team.setIdTeam(result.getInt("IdTeam"));
-                    user.setTeam(team);
-
+                team.setIdTeam(result.getInt("IdTeam"));
+                user.setTeam(team);
                 user.setId(result.getInt("IdUtente"));
                 user.setName(result.getString("Nome"));
                 user.setSurname(result.getString("Cognome"));
@@ -164,7 +163,6 @@ public class DipendenteDAO {
         }
         return null;
     }
-
     /**
      * Questa funzionalità permette di recuperare tutti i dipendenti
      *
@@ -175,7 +173,7 @@ public class DipendenteDAO {
     public static ArrayList<Dipendente> recuperaDipendenti() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
-        String query= "SELECT * FROM " + TABLE_DIPENDENTE + " inner join utenti on utenti.IdUtente = dipendenti.IdDipendente" ;
+        String query = "SELECT * FROM " + TABLE_DIPENDENTE + " inner join utenti on utenti.IdUtente = dipendenti.IdDipendente";
         ArrayList<Dipendente> DipsUsers = new ArrayList<Dipendente>();
         ResultSet result;
         try {
@@ -187,14 +185,14 @@ public class DipendenteDAO {
                 dipUser.setIdDipendente(result.getInt("idDipendente"));
                 dipUser.setResidenza(result.getString("Residenza"));
                 dipUser.setTelefono(result.getString("Telefono"));
-                if(result.getBoolean("Stato") == false) {
+                if (result.getBoolean("Stato") == false) {
                     dipUser.setStato(StatiDipendenti.OCCUPATO);
 
-                }else if(result.getBoolean("Stato") == true){
+                } else if (result.getBoolean("Stato") == true) {
                     dipUser.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 dipUser.setAnnoNascita(result.getInt("AnnoDiNascita"));
-                if(result.getInt("IdTeam")!=0){
+                if (result.getInt("IdTeam") != 0) {
                     team.setIdTeam(result.getInt("IdTeam"));
                     dipUser.setTeam(team);
                 }
@@ -249,7 +247,7 @@ public class DipendenteDAO {
      * @pre idUtente>0
      * @post setStato(stato)
      */
-    public static boolean modificaStato(int idUtente, StatiDipendenti stato) throws SQLException {
+    public static boolean modificaStatoDipendente(int idUtente, StatiDipendenti stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if (idUtente <= 0) {
             return false;
@@ -258,10 +256,10 @@ public class DipendenteDAO {
         String query = "update " + TABLE_DIPENDENTE + " set Stato= ? where IdDipendente=?";
         try {
             retrieve = connection.prepareStatement(query);
-            if(StatiDipendenti.DISPONIBILE == stato){
+            if (StatiDipendenti.DISPONIBILE == stato) {
                 retrieve.setBoolean(1, true);
             }
-            if(StatiDipendenti.OCCUPATO == stato){
+            if (StatiDipendenti.OCCUPATO == stato) {
                 retrieve.setBoolean(1, false);
             }
 
@@ -301,9 +299,9 @@ public class DipendenteDAO {
         ArrayList<Dipendente> dipendenti = new ArrayList<Dipendente>();
         try {
             retrieve = connection.prepareStatement(query);
-            if(StatiDipendenti.DISPONIBILE == stato){
+            if (StatiDipendenti.DISPONIBILE == stato) {
                 retrieve.setBoolean(1, true);
-            }else if(StatiDipendenti.OCCUPATO == stato){
+            } else if (StatiDipendenti.OCCUPATO == stato) {
                 retrieve.setBoolean(1, false);
             }
             result = retrieve.executeQuery();
@@ -320,7 +318,7 @@ public class DipendenteDAO {
                     dip.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 dip.setAnnoNascita(result.getInt("AnnoDiNascita"));
-                if(result.getInt("IdTeam")!=0){
+                if (result.getInt("IdTeam") != 0) {
                     team.setIdTeam(result.getInt("IdTeam"));
                     dip.setTeam(team);
                 }
@@ -365,14 +363,14 @@ public class DipendenteDAO {
     }
 
     /**
-     * Questa funzionalità di aggiornare idTeam quando un dipendente viene aggiunto
+     * Questa funzionalità permette di aggiornare idTeam quando un dipendente viene aggiunto
      *
      * @param idDip,idTeam
      * @return void
      * @throws SQLException
      */
 
-    public static boolean updateDipTeamAndState(int idDip, int idTeam) throws SQLException {
+    public static boolean aggiuntaDipendenteNelTeam(int idDip, int idTeam) throws SQLException {
         if (idDip <= 0 || idTeam <= 0) {
             return false;
         }

@@ -1,10 +1,11 @@
 package it.unisa.agency_formation.reclutamento.control;
+
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
-import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,54 +24,53 @@ public class AcceptCandidatureControl extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
-        String data = request.getParameter("data1");
-        String tempo = request.getParameter("time");
-        String dataOra = data+" "+tempo;
-        try {
-            Date data1 = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(dataOra);
-            Timestamp timestamp = new Timestamp(data1.getTime());
-            Utente user = (Utente) request.getSession().getAttribute("user");
+        Utente user = (Utente) request.getSession().getAttribute("user");
+        if (user != null && user.getRole() == RuoliUtenti.HR) {
+            int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
+            String data = request.getParameter("data1");
+            String tempo = request.getParameter("time");
+            String dataOra = data + " " + tempo;
             try {
-                Candidatura candidatura = getCandidatura(idCandidato);
-                if(acceptCandidature(candidatura.getIdCandidatura(), user.getId(),timestamp)) {
-                    if(getAllFromManager()==null){
-                        response.getWriter().write("3");
-                    }else {
-
-                        response.getWriter().write("1");//accettazione avvenuta
+                Date data1 = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(dataOra);
+                Timestamp timestamp = new Timestamp(data1.getTime());
+                try {
+                    Candidatura candidatura = getCandidatura(idCandidato);
+                    if (acceptCandidature(candidatura.getIdCandidatura(), user.getId(), timestamp)) {
+                        if (getAllFromManager() == null) {
+                            response.getWriter().write("3");
+                        } else {
+                            response.getWriter().write("1");//accettazione avvenuta
+                        }
+                    } else {
+                        //todo errore nell'accettazione
+                        response.getWriter().write("2");//accettazione non avvenuta
                     }
-                }else{
-                    //todo errore nell'accettazione
-
-                    response.getWriter().write("2");//accettazione non avvenuta
-
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } else {
+            response.sendRedirect("/static/Login.html");
         }
-
-
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req,resp);
+        doGet(req, resp);
     }
 
-    public static Candidatura getCandidatura(int idCandidato) throws SQLException{
+    public static Candidatura getCandidatura(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
 
     public static boolean acceptCandidature(int idCandidatura, int idHR, Timestamp timestamp) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
-        return reclutamentoManager.accettaCandidature(idCandidatura,idHR,timestamp);
+        return reclutamentoManager.accettaCandidatura(idCandidatura, idHR, timestamp);
     }
+
     public static ArrayList<Candidatura> getAllFromManager() throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getTutteCandidature();

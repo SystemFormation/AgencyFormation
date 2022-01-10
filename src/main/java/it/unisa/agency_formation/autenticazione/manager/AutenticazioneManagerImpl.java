@@ -26,31 +26,31 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
         return UtenteDAO.login(email, password);
 
     }
-
+/*
     @Override
     public Utente getDatiUtente(int idUser) throws SQLException {
-        return UtenteDAO.doRetrieveByID(idUser);
+        return UtenteDAO.doRetrieveUtenteByID(idUser);
 
-    }
+    }*/
 
     //Aggiunto questo metodo
     @Override
-    public Dipendente getDatiDipendente(int idUser) throws SQLException {
-        return DipendenteDAO.doRetrieveById(idUser);
+    public Dipendente getDipendente(int idUser) throws SQLException {
+        return DipendenteDAO.doRetrieveDipendenteById(idUser);
     }
-
+/*
     @Override
     public ArrayList<Utente> getCandidati() throws SQLException {
-        return UtenteDAO.doRetrieveUserByRuolo(RuoliUtenti.CANDIDATO);
-    }
+        return UtenteDAO.doRetrieveUtenteByRuolo(RuoliUtenti.CANDIDATO);
+    }*/
     //TODO TEST THIS METHOD
     @Override
     public ArrayList<Utente> getCandidatiConCandidatura() throws SQLException {
-        return UtenteDAO.doRetrieveCandidatesWithCandidature();
+        return UtenteDAO.doRetrieveCandidatoConCandidatura();
     }
     @Override
     public ArrayList<Utente> getUtentiByRuolo(RuoliUtenti ruolo) throws SQLException {
-        return UtenteDAO.doRetrieveUserByRuolo(ruolo);
+        return UtenteDAO.doRetrieveUtenteByRuolo(ruolo);
     }
     @Override
     public ArrayList<Dipendente> getTuttiDipendenti() throws SQLException {
@@ -58,7 +58,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     }
 
     @Override
-    public ArrayList<Dipendente> getDipendenteByStato(StatiDipendenti state) throws SQLException {
+    public ArrayList<Dipendente> getDipendentiByStato(StatiDipendenti state) throws SQLException {
         return DipendenteDAO.recuperaByStato(state);
     }
 

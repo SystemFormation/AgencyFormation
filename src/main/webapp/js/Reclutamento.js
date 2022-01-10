@@ -1,7 +1,7 @@
 function controlCandidates(){
     $.ajax({
         type:'GET',
-        url: 'ViewCandidatiControl',
+        url: 'ListaCandidati',
         success: function (data){
             if(data == "2"){
                 $('#noCandidati').css("display","inline");

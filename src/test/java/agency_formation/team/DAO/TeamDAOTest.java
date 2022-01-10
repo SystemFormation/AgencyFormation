@@ -52,13 +52,13 @@ public class TeamDAOTest {
     @Test
     public void doRetrieveTeamByIdFail() throws SQLException {
         int idTeam = -1;
-        assertNull(TeamDAO.doRetrieveById(idTeam));
+        assertNull(TeamDAO.recuperaTeamById(idTeam));
     }
 
     @Test
     public void doRetrieveTeamByIdOk() throws SQLException {
         int idTeam = 1;
-        assertNull(TeamDAO.doRetrieveById(idTeam));
+        assertNull(TeamDAO.recuperaTeamById(idTeam));
     }
 
     @Test
@@ -125,12 +125,12 @@ public class TeamDAOTest {
     @Test
     public void retrieveAllTMemberFail () throws SQLException {
         int idTeam = -1;
-        assertNull(TeamDAO.recuperaTuttiTMember(idTeam));
+        assertNull(TeamDAO.recuperaTuttiTeamMember(idTeam));
     }
     @Test
     public void retrieveAllTMemberOk () throws SQLException {
         int idTeam = 3;
-        assertNotNull(TeamDAO.recuperaTuttiTMember(idTeam));
+        assertNotNull(TeamDAO.recuperaTuttiTeamMember(idTeam));
     }
     @Test
     public void retrieveNTMemberFail() throws SQLException {

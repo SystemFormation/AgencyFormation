@@ -37,14 +37,14 @@ public class TeamDAO {
                     + " values(?,?,?,?,?,?)";
             try {
                 save = connection.prepareStatement(query);
-                save.setString(1,team.getNomeProgetto());
+                save.setString(1, team.getNomeProgetto());
                 save.setInt(2, team.getNumeroDipendenti());
                 save.setString(3, team.getNomeTeam());
                 save.setString(4, team.getDescrizione());
                 save.setString(5, null);
                 save.setInt(6, idUtente);
-                int result=save.executeUpdate();
-                if(result!=-1) return true;
+                int result = save.executeUpdate();
+                if (result != -1) return true;
                 else return false;
             } finally {
                 try {
@@ -66,7 +66,6 @@ public class TeamDAO {
      * @throws SQLException
      * @pre idTeam>0
      */
-    /* ---------DA CONTROLLARE ----------*/
     public static boolean rimuoviTeam(int idTeam) throws SQLException {
         if (idTeam < 1) return false;
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -81,10 +80,9 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             int res2 = stmt.executeUpdate();
-            if(res1 != -1 && res2!=-1){
+            if (res1 != -1 && res2 != -1) {
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
 
@@ -119,8 +117,8 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             stmt.setInt(2, idDipendente);
-            int result=stmt.executeUpdate();
-            if(result!=-1) return true;
+            int result = stmt.executeUpdate();
+            if (result != -1) return true;
             else return false;
         } finally {
             try {
@@ -137,12 +135,13 @@ public class TeamDAO {
 
     /**
      * Questa funzionalità permette di recuperare un team attraverso il suo id
+     *
      * @param idTeam
      * @return il team
      * @throws SQLException
      */
-    public static Team doRetrieveById(int idTeam) throws SQLException {
-        if(idTeam<1){
+    public static Team recuperaTeamById(int idTeam) throws SQLException {
+        if (idTeam < 1) {
             return null;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -164,7 +163,7 @@ public class TeamDAO {
                 team.setCompetenza(result.getString("Competenza"));
                 team.setIdTM(result.getInt("IdTM"));
             }
-                return team;
+            return team;
 
         } finally {
             try {
@@ -187,7 +186,7 @@ public class TeamDAO {
      * @pre idTeam>0
      * @pre idDipendente>0
      */
-    public static boolean remuoviDipendente(int idDipendente) throws SQLException {
+    public static boolean rimuoviDipendente(int idDipendente) throws SQLException {
         if (idDipendente < 1) return false;
         Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=NULL, Stato=1 WHERE IdDipendente=?";
@@ -328,7 +327,7 @@ public class TeamDAO {
             stmt.setString(1, competence);
             stmt.setInt(2, idTeam);
             result = stmt.executeUpdate();
-            if(result!=-1) return true;
+            if (result != -1) return true;
             return false;
         } finally {
             try {
@@ -362,13 +361,13 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             result = stmt.executeQuery();
-            if(result.next()){
-                path=result.getString("Competenza");
+            if (result.next()) {
+                path = result.getString("Competenza");
             }
 
-            if(path!=null){
+            if (path != null) {
                 return path;
-            }else{
+            } else {
                 return null;
             }
         } finally {
@@ -393,7 +392,7 @@ public class TeamDAO {
      * @pre idTeam>0
      * @post dipendenti.size>0
      */
-    public static ArrayList<Dipendente> recuperaTuttiTMember(int idTeam) throws SQLException {
+    public static ArrayList<Dipendente> recuperaTuttiTeamMember(int idTeam) throws SQLException {
         if (idTeam < 1) return null;
         Connection connection = DatabaseManager.getInstance().getConnection();
         ArrayList<Dipendente> dipendenti = new ArrayList<>();
@@ -458,11 +457,10 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             result = stmt.executeQuery();
-            n=result.getInt(query);
-            if(n>0){
+            n = result.getInt(query);
+            if (n > 0) {
                 return n;
-            }
-            else{
+            } else {
                 return -1;
             }
         } finally {
@@ -477,7 +475,8 @@ public class TeamDAO {
             }
         }
     }
-    public static int doRetrieveLastIDTeam() throws SQLException{
+
+    public static int recuperaIdUltimoTeamCreato() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;
@@ -489,10 +488,9 @@ public class TeamDAO {
             if (result.next()) {
                 idTeam = result.getInt(1);
             }
-            if(idTeam>0){
+            if (idTeam > 0) {
                 return idTeam;
-            }
-            else{
+            } else {
                 return -1;
             }
 
@@ -506,7 +504,8 @@ public class TeamDAO {
             }
         }
     }
-    public static ArrayList<Integer> doRetrieveIdEmployees(int idTeam) throws SQLException {
+    //spostare metodo? Forse va in dipendenteDAO
+    public static ArrayList<Integer> recuperaIdTeamMemberFromTeam(int idTeam) throws SQLException {
 
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
@@ -518,17 +517,20 @@ public class TeamDAO {
             stmt.setInt(1, idTeam);
             result = stmt.executeQuery();
             while (result.next()) {
-                int z = 0;
-                z = result.getInt("idDipendente");
-                listaIdDips.add(z);
-                }
-            } catch (SQLException e) {
+                int id = 0;
+                id = result.getInt("idDipendente");
+                listaIdDips.add(id);
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return listaIdDips;
     }
-    public static boolean updateDipStateDissolution(int idDip) throws SQLException{
-        if(idDip<0){return false;}
+//brainstorming su questo metodo
+    public static boolean updateDipStateDissolution(int idDip) throws SQLException {
+        if (idDip < 0) {
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
         String query = "update " + TABLE_DIPENDENTE + " set Stato = ? where IdDipendente = ?";
@@ -537,9 +539,9 @@ public class TeamDAO {
             stmt.setInt(1, 1);
             stmt.setInt(2, idDip);
             int result = stmt.executeUpdate();
-            if(result!=-1){
+            if (result != -1) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } finally {
@@ -570,10 +572,10 @@ public class TeamDAO {
                 dipUser.setIdDipendente(result.getInt("idDipendente"));
                 dipUser.setResidenza(result.getString("Residenza"));
                 dipUser.setTelefono(result.getString("Telefono"));
-                if(result.getBoolean("Stato") == false) {
+                if (result.getBoolean("Stato") == false) {
                     dipUser.setStato(StatiDipendenti.OCCUPATO);
 
-                }else if(result.getBoolean("Stato") == true){
+                } else if (result.getBoolean("Stato") == true) {
                     dipUser.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 dipUser.setAnnoNascita(result.getInt("AnnoDiNascita"));

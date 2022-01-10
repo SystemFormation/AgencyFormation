@@ -22,8 +22,8 @@ public class DipendenteDAOTest {
 
     @Test
     public void doSaveEmployeeOk() throws SQLException {
-        Utente user = UtenteDAO.doRetrieveByID(2);
-        assertNotNull(UtenteDAO.doRetrieveByID(2));
+        Utente user = UtenteDAO.doRetrieveUtenteByID(2);
+        assertNotNull(UtenteDAO.doRetrieveUtenteByID(2));
         Dipendente dip = new Dipendente();
         dip.setIdDipendente(user.getId());
         dip.setStato(StatiDipendenti.DISPONIBILE);
@@ -35,20 +35,20 @@ public class DipendenteDAOTest {
     @Test
     public void doRetrieveByIdLessZero() throws SQLException {
         int id = -1;
-        assertNull(DipendenteDAO.doRetrieveById(id));
+        assertNull(DipendenteDAO.doRetrieveDipendenteById(id));
     }
 
     @Test
     public void doRetrieveByIdFail() throws SQLException {
         int id = 4845684; //queso id non esiste
-        assertNull(DipendenteDAO.doRetrieveById(id));
+        assertNull(DipendenteDAO.doRetrieveDipendenteById(id));
     }
 
 
     @Test
     public void doRetrieveByIdPass() throws SQLException {
         int id = 2;
-        Dipendente dip = DipendenteDAO.doRetrieveById(id);
+        Dipendente dip = DipendenteDAO.doRetrieveDipendenteById(id);
         assertNotNull(dip);
     }
 //non funziona
@@ -65,14 +65,14 @@ public class DipendenteDAOTest {
     @Test
     public void updateStateFailIdLessOne() throws SQLException {
         int id = -1;
-        assertFalse(DipendenteDAO.modificaStato(id, StatiDipendenti.DISPONIBILE));
+        assertFalse(DipendenteDAO.modificaStatoDipendente(id, StatiDipendenti.DISPONIBILE));
     }
 
 
     @Test
     public void updateStatePass() throws SQLException {
         int id = 2;
-        assertTrue(DipendenteDAO.modificaStato(id, StatiDipendenti.DISPONIBILE));
+        assertTrue(DipendenteDAO.modificaStatoDipendente(id, StatiDipendenti.DISPONIBILE));
     }
 
     //test per dim array minore di uno

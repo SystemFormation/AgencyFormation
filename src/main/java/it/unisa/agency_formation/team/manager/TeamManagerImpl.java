@@ -28,7 +28,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public boolean rimuoviDipendente(int idDip) throws SQLException {
-        return TeamDAO.remuoviDipendente(idDip);
+        return TeamDAO.rimuoviDipendente(idDip);
     }
 
     @Override
@@ -40,25 +40,25 @@ public class TeamManagerImpl implements TeamManager {
     public ArrayList<Team> visualizzaTuttiTeams() throws SQLException {
         return TeamDAO.recuperaTuttiTeam();
     }
-
+/*
     @Override
     public boolean sciogliTeam(int idTeam) throws SQLException {
         return TeamDAO.rimuoviTeam(idTeam);
     }
-
+*/
     @Override
     public int viewLastIdTeam() throws SQLException {
-        return TeamDAO.doRetrieveLastIDTeam();
+        return TeamDAO.recuperaIdUltimoTeamCreato();
     }
 
     @Override
     public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException {
-       return DipendenteDAO.updateDipTeamAndState(idDip, idTeam);
+       return DipendenteDAO.aggiuntaDipendenteNelTeam(idDip, idTeam);
     }
 
     @Override
     public ArrayList<Integer> recuperaIdDipendentiDelTeam(int idTeam) throws SQLException {
-        return TeamDAO.doRetrieveIdEmployees(idTeam);
+        return TeamDAO.recuperaIdTeamMemberFromTeam(idTeam);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public boolean eliminaTeam(int idTeam) throws SQLException {
+    public boolean sciogliTeam(int idTeam) throws SQLException {
         return TeamDAO.rimuoviTeam(idTeam);
 
     }
@@ -80,7 +80,7 @@ public class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public Team getTeamId(int idTeam) throws SQLException {
-        return TeamDAO.doRetrieveById(idTeam);
+    public Team getTeamById(int idTeam) throws SQLException {
+        return TeamDAO.recuperaTeamById(idTeam);
     }
 }

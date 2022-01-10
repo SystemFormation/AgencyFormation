@@ -17,15 +17,13 @@ public class SpecificaCompetenzeControl extends HttpServlet {
     TeamManagerImpl aut = new TeamManagerImpl();
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-            //String comp = TeamDAO.doRetrieveCompetence(idTeam); //<---- fare il manager
-            //                req.setAttribute("Competence",comp);
         if(req.getParameter("action").equalsIgnoreCase("competenze")){ //update competenze
             int idTeam = Integer.parseInt(req.getParameter("idTeam"));
             String competence = req.getParameter("specCompetenze");
             try {
                 TeamDAO.modificaCompetenze(competence,idTeam); //<---- fare il manager
                 resp.getWriter().write("2");
-                dispatcher = req.getServletContext().getRequestDispatcher("/TeamControl");
+                dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                 dispatcher.forward(req, resp);
             } catch (SQLException e) {
                 e.printStackTrace();

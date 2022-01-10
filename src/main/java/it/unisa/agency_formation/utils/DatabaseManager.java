@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseManager {
-    private static Connection conn;
     String url = "jdbc:mysql://localhost:3306/af_db?serverTimezone=UTC";
     String name = "root";
     String pwd = "root11";
@@ -38,6 +37,7 @@ public class DatabaseManager {
         }
         return null;
     }
+
 
 }
 

@@ -3,6 +3,7 @@ package it.unisa.agency_formation.formazione.control;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.formazione.domain.Skill;
 import it.unisa.agency_formation.formazione.manager.FormazioneManager;
@@ -23,43 +24,47 @@ public class SkillControl extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-        Skill skill = new Skill();
 
-        String skillName = request.getParameter("skillName");
-        String skillDescr = request.getParameter("skillDescr");
-        int skillLivello = Integer.parseInt(request.getParameter("quantity"));
+        if(user !=null && user.getRole()== RuoliUtenti.DIPENDENTE) {
+            Skill skill = new Skill();
+            String skillName = request.getParameter("skillName");
+            String skillDescr = request.getParameter("skillDescr");
+            int skillLivello = Integer.parseInt(request.getParameter("quantity"));
 
-        skill.setNomeSkill(skillName);
-        skill.setDescrizioneSkill(skillDescr);
-        if (skillName != null && skillDescr != null) {
-            if(skillName.trim().equalsIgnoreCase("")) {
-                response.getWriter().write("1");// Skillnome vuoto
-            }
-            if(skillDescr.trim().equalsIgnoreCase("")){
-                response.getWriter().write("2"); //Skilldesc vuoto
-            }
-            try {
-                //Da raffinare
-                Dipendente dip = DipendenteDAO.doRetrieveById(user.getId());
-                if(dip !=null){
-                    addSkillFromManager(skill);
-                    int idSkill = getLastIdSkillCreatedFromManager();
-                    addSkillDipFromManager(idSkill,dip,skillLivello);
-                    response.getWriter().write("3"); // aggiunta avvenuta con successo.
-                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");
-                    dispatcher.forward(request, response);
-                } else {
-                    response.getWriter().write("4");// aggiunta fallita.
-                    response.sendRedirect("./static/Profilo.jsp");
+            skill.setNomeSkill(skillName);
+            skill.setDescrizioneSkill(skillDescr);
+            if (skillName != null && skillDescr != null) {
+                if (skillName.trim().equalsIgnoreCase("")) {
+                    response.getWriter().write("1");// Skillnome vuoto
+                }
+                if (skillDescr.trim().equalsIgnoreCase("")) {
+                    response.getWriter().write("2"); //Skilldesc vuoto
+                }
+                try {
+                    //Da raffinare
+                    Dipendente dip = DipendenteDAO.doRetrieveDipendenteById(user.getId());
+                    if (dip != null) {
+                        addSkillFromManager(skill);
+                        int idSkill = getLastIdSkillCreatedFromManager();
+                        addSkillDipFromManager(idSkill, dip, skillLivello);
+                        response.getWriter().write("3"); // aggiunta avvenuta con successo.
+                        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");
+                        dispatcher.forward(request, response);
+                    } else {
+                        response.getWriter().write("4");// aggiunta fallita.
+                        response.sendRedirect("./static/Profilo.jsp");
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
 
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } else {
+                response.getWriter().write("5"); //skillNome e skillDescr null
+                response.sendRedirect("/static/Profilo.jsp");
             }
-
         }else{
-            response.getWriter().write("5"); //skillNome e skillDescr null
-            response.sendRedirect("/static/Profilo.jsp");
+            response.sendRedirect("/static/Login.html");
         }
 
     }
@@ -75,7 +80,7 @@ public class SkillControl extends HttpServlet {
     }
     public static int getLastIdSkillCreatedFromManager() throws SQLException{
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
-        return formazioneManager.getLastIdSkillCreated();
+        return formazioneManager.getUltimaSkill();
     }
     public static boolean addSkillDipFromManager(int idSkill, Dipendente dipendente,int skillLivello)throws SQLException{
         FormazioneManager formazioneManager = new FormazioneManagerImpl();

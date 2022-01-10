@@ -13,21 +13,20 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public boolean caricaCandidatura(Candidatura candidatura) throws SQLException {
-        if(candidatura == null){
+        if (candidatura == null) {
             return false;
-        }else {
-                if(candidatura.getCurriculum()!=null && candidatura.getDocumentiAggiuntivi()==null) {
-                    if(!alreadyLoaded(candidatura.getIdCandidato())) {
-                        return CandidaturaDAO.salvaCandidaturaSenzaDocumenti(candidatura);
-                    }else{
-                        return false;
-                    }
+        } else {
+            if (candidatura.getCurriculum() != null && candidatura.getDocumentiAggiuntivi() == null) {
+                if (!alreadyLoaded(candidatura.getIdCandidato())) {
+                    return CandidaturaDAO.salvaCandidaturaSenzaDocumenti(candidatura);
+                } else {
+                    return false;
                 }
-                else {
-                   return CandidaturaDAO.aggiungiDocumentiAggiuntivi(candidatura.getDocumentiAggiuntivi(), candidatura.getIdCandidato());
-                }
+            } else {
+                return CandidaturaDAO.aggiungiDocumentiAggiuntivi(candidatura.getDocumentiAggiuntivi(), candidatura.getIdCandidato());
             }
         }
+    }
 
 
     @Override
@@ -42,45 +41,47 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public Candidatura getCandidaturaById(int idCandidato) throws SQLException {
-        return CandidaturaDAO.doRetrieveById(idCandidato);
+        return CandidaturaDAO.doRetrieveCandidaturaById(idCandidato);
 
     }
+
     //TODO TEST THIS METHOD
     @Override
-    public boolean accettaCandidature(int idCandidatura, int idHR, Timestamp data) throws SQLException {
-        return CandidaturaDAO.accettaCandidatura(idCandidatura,idHR,data);
+    public boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
+        return CandidaturaDAO.accettaCandidatura(idCandidatura, idHR, data);
     }
+
     //TODO TEST THIS METHOD
     @Override
-    public boolean rifiutaCandidature(int idCandidatura, int idHR) throws SQLException{
-        if(CandidaturaDAO.rifiutaCandidatura(idCandidatura,idHR)){
+    public boolean rifiutaCandidature(int idCandidatura, int idHR) throws SQLException {
+        if (CandidaturaDAO.rifiutaCandidatura(idCandidatura, idHR)) {
             return true;
-        } else{
+        } else {
             return false;
         }
     }
 
     @Override
-    public boolean assumiCandidato(int idUtente) throws SQLException{
+    public boolean assumiCandidato(int idUtente) throws SQLException {
         //TODO
         return false;
     }
+
     @Override
-    public boolean rifiutaCandidato(int idCandidatura) throws SQLException{
-        if(CandidaturaDAO.rimuoviCandidatura(idCandidatura)){
-            CandidaturaDAO.modificaStato(idCandidatura, StatiCandidatura.Rifiutata);
+    public boolean rifiutaCandidato(int idCandidatura) throws SQLException {
+        if (CandidaturaDAO.rimuoviCandidatura(idCandidatura)) {
+            CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Rifiutata);
             return true;
-        } else{
+        } else {
             return false;
         }
     }
 
     private boolean alreadyLoaded(int idUtente) throws SQLException {
-        if (CandidaturaDAO.doRetrieveById(idUtente) == null) {
+        if (CandidaturaDAO.doRetrieveCandidaturaById(idUtente) == null) {
             return false;
         } else {
             return true;
         }
-
     }
 }

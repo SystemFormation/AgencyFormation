@@ -11,11 +11,11 @@ import java.util.ArrayList;
 public interface AutenticazioneManager {
     boolean registrazione(Utente user) throws SQLException;
     Utente login(String email, String password) throws SQLException;
-    Utente getDatiUtente(int idUser) throws SQLException;
-    Dipendente getDatiDipendente(int idUser) throws SQLException; //aggiunto questo
-    ArrayList<Utente> getCandidati() throws SQLException;
+    //Utente getDatiUtente(int idUser) throws SQLException;
+    Dipendente getDipendente(int idUser) throws SQLException; //aggiunto questo
+   // ArrayList<Utente> getCandidati() throws SQLException;
     ArrayList<Utente> getCandidatiConCandidatura() throws SQLException;
     ArrayList<Utente> getUtentiByRuolo(RuoliUtenti ruolo) throws SQLException;
     ArrayList<Dipendente> getTuttiDipendenti() throws SQLException;
-    ArrayList<Dipendente> getDipendenteByStato(StatiDipendenti state) throws SQLException;
+    ArrayList<Dipendente> getDipendentiByStato(StatiDipendenti state) throws SQLException;
 }

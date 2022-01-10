@@ -4,9 +4,8 @@ import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import org.junit.jupiter.api.Test;
-import java.util.Date;
+
 import java.sql.SQLException;
-import java.sql.Timestamp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,13 +53,13 @@ public class CandidaturaDAOTest {
     @Test //id candidato = -1
     public void doRetrieveByIdFail() throws SQLException {
         int idCandidato = -1;
-        assertNull(CandidaturaDAO.doRetrieveById(idCandidato));
+        assertNull(CandidaturaDAO.doRetrieveCandidaturaById(idCandidato));
     }
 
     @Test //id candidato = 1
     public void doRetrieveByIdOk() throws SQLException {
         int idCandidato = 1;
-        assertNotNull(CandidaturaDAO.doRetrieveById(idCandidato));
+        assertNotNull(CandidaturaDAO.doRetrieveCandidaturaById(idCandidato));
     }
 
 
@@ -88,13 +87,13 @@ public class CandidaturaDAOTest {
     @Test //id candidatura = -1
     public void updateStateFail1() throws SQLException {
         int idCandidatura = -1;
-        assertFalse(CandidaturaDAO.modificaStato(idCandidatura, StatiCandidatura.Accettata));
+        assertFalse(CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Accettata));
     }
 
     @Test //id candidatura = 2(questo id esiste)
     public void updateStateOk() throws SQLException {
         int idCandidatura = 2;
-        assertTrue(CandidaturaDAO.modificaStato(idCandidatura, StatiCandidatura.Rifiutata));
+        assertTrue(CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Rifiutata));
     }
 
     @Test //idCandidatura = -1
