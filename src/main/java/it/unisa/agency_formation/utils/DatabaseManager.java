@@ -31,7 +31,7 @@ public class DatabaseManager {
     }
 
     public Connection getConnection() {
-        url = "jdbc:mysql://localhost:3306/" + nomeDB + "?serverTimezone=UTC";
+        url = "jdbc:mysql://localhost:3306/" + nomeDB + "?serverTimezone=UTC&characterEncoding=UTF-8";
         try {
             return this.connect = DriverManager.getConnection(url, name, pwd);
         } catch (SQLException e) {
