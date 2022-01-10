@@ -17,10 +17,14 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
+
+import static java.util.Objects.*;
 
 
 @WebServlet("/RejectCandidatureControl")
 public class RejectCandidatureControl extends HttpServlet {
+    //TODO DA RENDERE FINAL
     private String path ="\\AgencyFormationFile\\Candidature\\";
     private String pathAbsolute = System.getProperty("user.home") + path;
 
@@ -67,7 +71,7 @@ public class RejectCandidatureControl extends HttpServlet {
         return reclutamentoManager.rifiutaCandidature(idCandidatura, idHR);
     }
     public static void delete(File file){
-        for (File subFile : file.listFiles()) {
+        for (File subFile : requireNonNull(file.listFiles())) {
             if(subFile.isDirectory()) {
                 delete(subFile);
             } else {
@@ -76,7 +80,7 @@ public class RejectCandidatureControl extends HttpServlet {
         }
         file.delete();
     }
-
+//TODO metodo mai usato
     public static ArrayList<Utente> getCandidates() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getCandidatiConCandidatura();

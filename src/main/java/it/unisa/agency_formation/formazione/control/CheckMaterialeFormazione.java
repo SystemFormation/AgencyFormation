@@ -1,7 +1,9 @@
 package it.unisa.agency_formation.formazione.control;
+
 import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.formazione.manager.FormazioneManager;
 import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +18,8 @@ public class CheckMaterialeFormazione extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
           int idTeam = Integer.parseInt(request.getParameter("idTeam"));
-            if(idTeam==0){
-                response.getWriter().write("1");//
+            if(idTeam<=0){
+                response.getWriter().write("1");//l'id del team non può  essere minore di 1
             }
             Documento documento = getDocumentofromManager(idTeam);
             if(documento!=null){

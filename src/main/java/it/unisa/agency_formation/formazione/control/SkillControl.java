@@ -44,8 +44,10 @@ public class SkillControl extends HttpServlet {
                     //Da raffinare
                     Dipendente dip = DipendenteDAO.doRetrieveDipendenteById(user.getId());
                     if (dip != null) {
+                        //TODO r:controllare se l'aggiunta è andata a buon fine
                         addSkillFromManager(skill);
                         int idSkill = getLastIdSkillCreatedFromManager();
+                        //TODO r:controllare se l'aggiunta è andata a buon fine
                         addSkillDipFromManager(idSkill, dip, skillLivello);
                         response.getWriter().write("3"); // aggiunta avvenuta con successo.
                         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");

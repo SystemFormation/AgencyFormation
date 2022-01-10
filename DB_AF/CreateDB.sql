@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS af_db;
-CREATE DATABASE af_db;
-use af_db;
+DROP DATABASE IF EXISTS af_db_test;
+CREATE DATABASE af_db_test;
+use af_db_test;
 
 create table Utenti(
 IdUtente int primary key not null auto_increment, 
@@ -10,7 +10,7 @@ Pwd varchar(16) not null,
 Mail varchar(32) not null,
 Ruolo int not null
 );
-use af_db;
+use af_db_test;
 create table Team(
 IdTeam int primary key not null auto_increment,
 NomeProgetto varchar(32) not null, 
@@ -23,7 +23,7 @@ foreign key(IdTM) references Utenti(IdUtente)
 on update cascade
 on delete cascade
 );
-use af_db;
+use af_db_test;
 create table Dipendenti(
 IdDipendente int primary key not null,
 Residenza varchar(128) null, 
@@ -40,7 +40,7 @@ on delete cascade
 
 );
 
-use af_db;
+use af_db_test;
 
 create table Skill(
 IdSkill int primary key not null auto_increment,
@@ -48,7 +48,7 @@ NomeSkill varchar(64) not null,
 DescrizioneSkill varchar(512) not null
 );
 
-use af_db;
+use af_db_test;
 
 create table SkillsDipendenti(
 IdDipendente int not null,
@@ -63,7 +63,7 @@ on update cascade
 on delete cascade
 );
 
-use af_db;
+use af_db_test;
 
 create table Documenti(
 IdDocumento int primary key not null auto_increment,
@@ -78,7 +78,7 @@ on update cascade
 on delete cascade
 );
 
-use af_db;
+use af_db_test;
 
 create table Candidature(
 IdCandidatura int primary key not null auto_increment,

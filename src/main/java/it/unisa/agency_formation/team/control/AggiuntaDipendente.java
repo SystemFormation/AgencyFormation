@@ -9,9 +9,6 @@ import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImp
 import it.unisa.agency_formation.formazione.domain.Skill;
 import it.unisa.agency_formation.formazione.manager.FormazioneManager;
 import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
-import it.unisa.agency_formation.team.domain.Team;
-import it.unisa.agency_formation.team.manager.TeamManager;
-import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,11 +31,11 @@ public class AggiuntaDipendente extends HttpServlet {
            int idTeam = Integer.parseInt(req.getParameter("idTeam"));
            try {
                ArrayList<Dipendente> dipendenti = getTuttiDipendentiFromManager();
-               for (int i = 0; i < dipendenti.size(); i++) {
-                   ArrayList<Skill> skills = new ArrayList<>();
-                   if (getSkillDipendenteFromManager(dipendenti.get(i).getIdDipendente()) != null && getSkillDipendenteFromManager(dipendenti.get(i).getIdDipendente()).size() > 0) {
-                       skills = getSkillDipendenteFromManager(dipendenti.get(i).getIdDipendente());
-                       dipendenti.get(i).setSkills(skills);
+               for (Dipendente dipendente : dipendenti) {
+                   ArrayList<Skill> skills;
+                   if (getSkillDipendenteFromManager(dipendente.getIdDipendente()) != null && getSkillDipendenteFromManager(dipendente.getIdDipendente()).size() > 0) {
+                       skills = getSkillDipendenteFromManager(dipendente.getIdDipendente());
+                       dipendente.setSkills(skills);
                    }
                }
                req.setAttribute("dipendenti", dipendenti);

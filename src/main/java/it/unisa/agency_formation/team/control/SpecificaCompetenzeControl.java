@@ -3,7 +3,6 @@ package it.unisa.agency_formation.team.control;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
-import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +15,6 @@ import java.sql.SQLException;
 
 @WebServlet("/SpecificaCompetenzeControl")
 public class SpecificaCompetenzeControl extends HttpServlet {
-    TeamManagerImpl aut = new TeamManagerImpl();
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         Utente user = (Utente) req.getSession().getAttribute("user");
