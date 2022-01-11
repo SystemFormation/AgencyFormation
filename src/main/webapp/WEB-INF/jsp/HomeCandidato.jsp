@@ -66,9 +66,9 @@
                         <form method="post" id="formDipendente" action="CandidatoAssuntoControl">
                             <input type="hidden" name="action" value="crea">
                             <label for="formDipendente">Anno di nascita:</label>
-                            <input type="number" min="1940" max="2004" id="annoDipendente" name="annoDipendente" placeholder="Anno" required pattern="[0-9]{4}"><br>
+                            <input type="number" min="1940" max="2004" id="annoDipendente" name="annoDipendente" placeholder="Anno" required><br>
                             <label for="formDipendente">Anno di nascita:</label>
-                            <input type="text" id="residenzaDipendente" name="residenzaDipendente" placeholder="Residenza" required pattern=""><br>
+                            <input type="text" id="residenzaDipendente" name="residenzaDipendente" placeholder="Residenza" required><br>
                             <label for="formDipendente">Anno di nascita:</label>
                             <input type="number" id="telefonoDipendente" name="telefonoDipendente" placeholder="Telefono" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}}"><br>
                             <input type="submit" name="crea" value="Crea" id="crea">
