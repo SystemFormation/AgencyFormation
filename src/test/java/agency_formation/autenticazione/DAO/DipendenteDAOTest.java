@@ -6,73 +6,114 @@ import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import org.junit.jupiter.api.Test;
+import it.unisa.agency_formation.utils.Const;
+import it.unisa.agency_formation.utils.DatabaseManager;
+import org.junit.jupiter.api.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DipendenteDAOTest {
+
+    @BeforeAll
+    public static void init() throws SQLException {
+        Const.nomeDB = Const.NOME_DB_TEST;
+        String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(5,'Luca','Rossi','lol','luca@gmail.com',1)";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate(query);
+    }
+    @AfterAll
+    public static void finish() throws SQLException {
+       String delete = "Delete from utenti where IdUtente>4";
+       //String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
+          //     "values (2,'Fisciano','118',false,2000,1)";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(delete);
+        statement.executeUpdate(delete);
+       // statement.executeUpdate(insert);
+        Const.nomeDB = Const.NOME_DB_MANAGER;
+    }
+
+    @Test //not pass id<1
+    @Order(1)
+    public void modificaRuoloUtente1() throws SQLException{
+        assertFalse(DipendenteDAO.modificaRuoloUtente(0));
+    }
+
+    @Test //non passa id non presente nel db
+    @Order(2)
+    public void modificaRuoloUtente2() throws SQLException{
+        assertFalse(DipendenteDAO.modificaRuoloUtente(15));
+    }
+
+    @Test //pass
+    @Order(3)
+    public void modificaRuoloUtente3() throws SQLException{
+        assertTrue(DipendenteDAO.modificaRuoloUtente(5));
+    }
+
+
     @Test
+    @Order(4)
     public void doSaveEmployeeFail() throws SQLException {
         Dipendente dip = null;
         assertFalse(DipendenteDAO.salvaDipendente(dip));
     }
 
+
     @Test
+    @Order(5)
     public void doSaveEmployeeOk() throws SQLException {
-        Utente user = UtenteDAO.doRetrieveUtenteByID(2);
-        assertNotNull(UtenteDAO.doRetrieveUtenteByID(2));
+        Utente user = UtenteDAO.doRetrieveUtenteByID(5);
+        assertNotNull(UtenteDAO.doRetrieveUtenteByID(5));
         Dipendente dip = new Dipendente();
         dip.setIdDipendente(user.getId());
         dip.setStato(StatiDipendenti.DISPONIBILE);
-        dip.setResidenza("Fisciano");
-        dip.setTelefono("118");
+        dip.setResidenza("Boscoreale");
+        dip.setTelefono("333456214");
+        dip.setAnnoNascita(2000);
         assertTrue(DipendenteDAO.salvaDipendente(dip));
     }
 
-    @Test
-    public void doRetrieveByIdLessZero() throws SQLException {
+    @Test // id < 1
+    @Order(6)
+    public void doRetrieveDipendenteById1() throws SQLException {
         int id = -1;
         assertNull(DipendenteDAO.doRetrieveDipendenteById(id));
     }
 
-    @Test
-    public void doRetrieveByIdFail() throws SQLException {
-        int id = 4845684; //queso id non esiste
+    @Test //id non presente nel db
+    @Order(7)
+    public void doRetrieveDipendeteById2() throws SQLException {
+        int id = 484; //queso id non esiste
         assertNull(DipendenteDAO.doRetrieveDipendenteById(id));
     }
 
-
-    @Test
-    public void doRetrieveByIdPass() throws SQLException {
+    @Test //pass
+    @Order(8)
+    public void doRetrieveById3() throws SQLException {
         int id = 2;
         Dipendente dip = DipendenteDAO.doRetrieveDipendenteById(id);
         assertNotNull(dip);
     }
-//non funziona
-    @Test
-    public void doRetrieveAllSizeLessOne() throws SQLException {
+    @Test //non ci sono dipendenti
+    public void doRetrieveAll1() throws SQLException {
+        String query = "Delete from dipendenti";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
         assertNull(DipendenteDAO.recuperaDipendenti());
     }
 
-    @Test
-    public void doRetrieveAllPass() throws SQLException {
+    @Test // pass
+    @Order(9)
+    public void doRetrieveAll2() throws SQLException {
         assertNotNull(DipendenteDAO.recuperaDipendenti().size());
-    }
-
-    @Test
-    public void updateStateFailIdLessOne() throws SQLException {
-        int id = -1;
-        assertFalse(DipendenteDAO.modificaStatoDipendente(id, StatiDipendenti.DISPONIBILE));
-    }
-
-
-    @Test
-    public void updateStatePass() throws SQLException {
-        int id = 2;
-        assertTrue(DipendenteDAO.modificaStatoDipendente(id, StatiDipendenti.DISPONIBILE));
     }
 
     //test per dim array minore di uno
@@ -80,48 +121,17 @@ public class DipendenteDAOTest {
     public void doRetrieveByStateSizeLessOne() throws SQLException {
         assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
     }
-//non funziona
     @Test
     public void doRetrieveByStateSizeMoreZero() throws SQLException {
         assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
     }
 
-    // testa il retreve dei dipendenti con stato true
     @Test
-    public void doRetrieveByStateTrueNotPass() throws SQLException {
+    public void doRetrieveByStatePass() throws SQLException {
         assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
 
     }
-//non funziona- riempire il db
-    @Test
-    public void doRetrieveByStateTruePass() throws SQLException {
-        assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
-    }
 
-    @Test
-    public void doRetrieveByStateFalseNotPass() throws SQLException {
-        assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
-    }
-//non funziona
-    @Test
-    public void doRetrieveByStateFalsePass() throws SQLException {
-        assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
-    }
-
-
-    @Test//not pass with id<1
-    public void updateRole1() {
-
-    }
-
-    @Test//not pass because id doesn't exists
-    public void updateRole2() {
-
-    }
-    @Test//pass
-    public void updateRole3() {
-
-    }
 
     @Test //not pass because idDip<1
     public void updateDipTeamAndState1() {

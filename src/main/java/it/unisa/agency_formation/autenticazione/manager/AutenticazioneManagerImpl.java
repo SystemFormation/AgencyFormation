@@ -65,6 +65,17 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     public boolean modificaRuolo(int idUtente) throws SQLException {
         return DipendenteDAO.modificaRuoloUtente(idUtente);
     }
+
+    @Override
+    public ArrayList<Utente> getCandidatiColloquio() throws SQLException{
+        return UtenteDAO.recuperoCandidatiColloquio();
+    }
+
+    @Override
+    public boolean setTeamDipendente(int dip, int idTeam) throws SQLException{
+        return DipendenteDAO.setTeamDipendente(dip,idTeam);
+    }
+
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {
         if (UtenteDAO.login(user.getEmail(), user.getPwd()) == null) {
             return false;

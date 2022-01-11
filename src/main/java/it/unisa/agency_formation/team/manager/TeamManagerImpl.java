@@ -3,6 +3,8 @@ package it.unisa.agency_formation.team.manager;
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 
@@ -53,7 +55,8 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException {
-       return DipendenteDAO.setTeamDipendente(idDip, idTeam);
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+       return autenticazioneManager.setTeamDipendente(idDip,idTeam);
     }
 
     @Override

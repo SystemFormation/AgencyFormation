@@ -339,4 +339,58 @@ public class UtenteDAO {
             }
         }
     }
+
+    public static ArrayList<Utente> recuperoCandidatiColloquio() throws SQLException {
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        ResultSet result;
+        PreparedStatement retrieve = null;
+        String query = "select * from utenti inner join candidature on " +
+                "IdUtente=IdCandidato and candidature.Stato='Accettata'";
+        ArrayList<Utente> utenti = new ArrayList<>();
+        try {
+            retrieve = connection.prepareStatement(query);
+            result = retrieve.executeQuery();
+            while(result.next()){
+                Utente user = new Utente();
+                user.setId(result.getInt("IdUtente"));
+                user.setName(result.getString("Nome"));
+                user.setSurname(result.getString("Cognome"));
+                user.setPwd(result.getString("Pwd"));
+                user.setEmail(result.getString("Mail"));
+                switch (result.getInt("Ruolo")) {
+                    case 1:
+                        user.setRole(RuoliUtenti.CANDIDATO);
+                        break;
+                    case 2:
+                        user.setRole(RuoliUtenti.DIPENDENTE);
+                        break;
+                    case 3:
+                        user.setRole(RuoliUtenti.TM);
+                        break;
+                    case 4:
+                        user.setRole(RuoliUtenti.HR);
+                        break;
+                    default:
+                        break;
+                }
+                utenti.add(user);
+            }
+            if (utenti.size() < 1){
+                return utenti = null;
+            }
+            return utenti;
+        } finally {
+            try {
+                if (retrieve != null) {
+                    retrieve.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
+        }
+
+
+    }
 }

@@ -29,9 +29,8 @@ public class DipendenteDAO {
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
-        String query = "insert into " + TABLE_DIPENDENTE + " (IdDipendente,Residenza,Telefono,Stato,AnnoDiNascita,idTeam)"
-                + " values(?,?,?,?,?,?)";
-        modificaRuoloUtente(dipendente.getIdDipendente());
+        String query = "insert into " + TABLE_DIPENDENTE + " (IdDipendente,Residenza,Telefono,Stato,AnnoDiNascita)"
+                + " values(?,?,?,?,?)";
         try {
             save = connection.prepareStatement(query);
             save.setInt(1, dipendente.getIdDipendente());
@@ -43,7 +42,6 @@ public class DipendenteDAO {
                 save.setBoolean(4, true);
             }
             save.setInt(5, dipendente.getAnnoNascita());
-            save.setInt(6, dipendente.getTeam().getIdTeam());
             int result = save.executeUpdate();
             if (result != -1) {
                 return true;
@@ -81,8 +79,11 @@ public class DipendenteDAO {
             update = connection.prepareStatement(query);
             update.setInt(1, id);
             int result = update.executeUpdate();
-            return result != -1;
-        } finally {
+            if (result < 1) {
+                return false;
+            }
+            return true;
+            } finally {
             try {
                 if (update != null) {
                     update.close();
@@ -248,6 +249,7 @@ public class DipendenteDAO {
      * @pre idUtente>0
      * @post setStato(stato)
      */
+    /*
     public static boolean modificaStatoDipendente(int idUtente, StatiDipendenti stato) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         if (idUtente <= 0) {
@@ -282,7 +284,7 @@ public class DipendenteDAO {
             }
         }
     }
-
+*/
     /**
      * Questa funzionalità permette di recuperare un dipendente attraverso lo stato
      *

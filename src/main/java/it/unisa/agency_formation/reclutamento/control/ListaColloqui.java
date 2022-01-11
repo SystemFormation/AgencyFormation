@@ -26,14 +26,8 @@ public class ListaColloqui  extends HttpServlet {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             try {
-                ArrayList<Utente> candidati = getCandidates();
+                ArrayList<Utente> candidati = getCandidatiForColloquioFromManager();
                 request.setAttribute("candidati", candidati);
-                ArrayList<Candidatura> candidature = getCandidatures();
-                if (candidature != null && candidature.size() > 0 && candidati != null && candidati.size() > 0) {
-                    response.getWriter().write("1"); //ci sono i candidature
-                } else {
-                    response.getWriter().write("2"); //non ci sono candidature
-                }
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaColloqui.jsp");
                 dispatcher.forward(request, response);
             } catch (SQLException e) {
@@ -47,14 +41,10 @@ public class ListaColloqui  extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-    public static ArrayList<Candidatura> getCandidatures() throws SQLException {
-        ReclutamentoManager reclutamentoManager= new ReclutamentoManagerImpl();
-        return reclutamentoManager.getCandidatiConColloquio(StatiCandidatura.Assunzione);
-    }
 
-    public static ArrayList<Utente> getCandidates() throws SQLException {
+    public static ArrayList<Utente> getCandidatiForColloquioFromManager() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.getCandidatiConCandidatura();
+        return autenticazioneManager.getCandidatiColloquio();
     }
 
 }

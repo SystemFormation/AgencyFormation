@@ -19,4 +19,6 @@ public interface AutenticazioneManager {
     ArrayList<Dipendente> getTuttiDipendenti() throws SQLException;
     ArrayList<Dipendente> getDipendentiByStato(StatiDipendenti state) throws SQLException;
     boolean modificaRuolo(int idUtente) throws SQLException;
+    ArrayList<Utente> getCandidatiColloquio() throws SQLException;
+    boolean setTeamDipendente(int dip, int idTeam) throws SQLException;
 }
