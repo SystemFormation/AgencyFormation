@@ -64,7 +64,23 @@ function assumi(id){
     $.ajax({
         type: 'GET',
         data:{"idCandidato":id},
-        url: 'AssunzioneCandidaturoControl',
+        url: 'AssunzioneCandidatoControl',
+        success: function (data){
+            if(data== "1"){
+                window.location.reload();
+            }else{
+                window.location.reload();
+            }
+        }
+    })
+}
+function rifiuta(id){
+    var id = id;
+
+    $.ajax({
+        type: 'GET',
+        data:{"idCandidato":id},
+        url: 'RifiutaColloquioControl',
         success: function (data){
             if(data== "1"){
                 window.location.reload();
