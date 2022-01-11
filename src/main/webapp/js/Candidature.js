@@ -42,7 +42,7 @@ function checkFile(i){
 
 function acceptCandidature(id,index){
     var id = id;
-    var index = index
+    var index = index;
     var date = document.getElementsByName("data1")[index];
     var time = document.getElementsByName("time")[index];
     $.ajax({
@@ -58,7 +58,22 @@ function acceptCandidature(id,index){
         }
     })
 }
+function assumi(id){
+    var id = id;
 
+    $.ajax({
+        type: 'GET',
+        data:{"idCandidato":id},
+        url: 'AssunzioneCandidaturoControl',
+        success: function (data){
+            if(data== "1"){
+                window.location.reload();
+            }else{
+                window.location.reload();
+            }
+        }
+    })
+}
 function rejectCandidature(id){
     var id = id;
     $.ajax({
