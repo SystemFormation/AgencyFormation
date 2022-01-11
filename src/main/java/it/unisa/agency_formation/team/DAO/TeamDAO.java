@@ -109,6 +109,7 @@ public class TeamDAO {
      * @throws SQLException
      * @pre idTeam>0 && idDipendente>0
      */
+    /*
     public static boolean aggiungiDipendente(int idTeam, int idDipendente) throws SQLException {
         if (idTeam < 1 || idDipendente < 1) {
             return false;
@@ -136,7 +137,7 @@ public class TeamDAO {
                 }
             }
         }
-    }
+    }*/
 
     /**
      * Questa funzionalità permette di recuperare un team attraverso il suo id
@@ -404,7 +405,7 @@ public class TeamDAO {
      * @pre idTeam>0
      * @post dipendenti.size>0
      */
-    public static ArrayList<Dipendente> recuperaTuttiTeamMember(int idTeam) throws SQLException {
+    /*public static ArrayList<Dipendente> recuperaTuttiTeamMember(int idTeam) throws SQLException {
         if (idTeam < 1) {
             return null;
         }
@@ -451,15 +452,16 @@ public class TeamDAO {
             }
         }
     }
-
+*/
     /**
      * Questa funzionalità permette di recuperare il numero massimo di membri in un team
      *
-     * @param idTeam
+     * @param //idTeam
      * @return
      * @throws SQLException
      * @pre idTeam!=null
      */
+    /*
     public static int recuperaNumeroTMember(int idTeam) throws SQLException {
         if (idTeam < 1) {
             return -1;
@@ -491,7 +493,7 @@ public class TeamDAO {
             }
         }
     }
-
+*/
     public static int recuperaIdUltimoTeamCreato() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
@@ -522,9 +524,8 @@ public class TeamDAO {
             }
         }
     }
-    //spostare metodo? Forse va in dipendenteDAO
+    //spostare metodo? Forse va in dipendenteDAO //TODO
     public static ArrayList<Integer> recuperaIdTeamMemberFromTeam(int idTeam) throws SQLException {
-
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;
@@ -539,12 +540,25 @@ public class TeamDAO {
                 id = result.getInt("idDipendente");
                 listaIdDips.add(id);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            if(listaIdDips.size() > 0) {
+                return listaIdDips;
+            } else {
+                listaIdDips = null;
+                return listaIdDips;
+            }
+        }finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } finally {
+                if (connection != null) {
+                    connection.close();
+                }
+            }
         }
-        return listaIdDips;
     }
-//brainstorming su questo metodo
+//brainstorming su questo metodo //TODO
     public static boolean updateDipStateDissolution(int idDip) throws SQLException {
         if (idDip < 0) {
             return false;
