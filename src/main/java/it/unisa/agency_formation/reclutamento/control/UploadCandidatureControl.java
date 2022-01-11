@@ -49,11 +49,9 @@ public class UploadCandidatureControl extends HttpServlet {
             if (scelta == 1) {
                 Part curriculum = request.getPart("curriculum");
                 if (curriculum.getSize() > MAXDIM) {
-                    //TODO ERROR FOR SIZE OF FILE MORE
                     response.getWriter().write("1"); //file troppo grande
                 } else {
                     Candidatura cand = new Candidatura();
-                    //TODO RISULTATO NON GESTITO
                     file.mkdirs();
                     curriculum.write(file.getAbsolutePath() + "\\" + curriculum.getSubmittedFileName());
                     String cv = pathRelative + "\\" + "IdUtente-" + user.getId() + "\\" + curriculum.getSubmittedFileName();

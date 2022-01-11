@@ -42,7 +42,6 @@ public class AcceptCandidatureControl extends HttpServlet {
                             response.getWriter().write("1"); //accettazione avvenuta
                         }
                     } else {
-
                         response.getWriter().write("2"); //accettazione non avvenuta
                     }
                 } catch (SQLException e) {
