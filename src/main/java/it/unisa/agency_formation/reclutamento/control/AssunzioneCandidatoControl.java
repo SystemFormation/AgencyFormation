@@ -33,7 +33,7 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                     response.sendRedirect("./static/Login.html");
                 } else {
                     setStato(idCandidato);
-                    if(setStato(idCandidato)){
+                    if (setStato(idCandidato)) {
                         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
                         dispatcher.forward(request, response);
                     } else {

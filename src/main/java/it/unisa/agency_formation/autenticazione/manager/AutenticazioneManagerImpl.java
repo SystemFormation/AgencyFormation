@@ -67,13 +67,13 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     }
 
     @Override
-    public ArrayList<Utente> getCandidatiColloquio() throws SQLException{
+    public ArrayList<Utente> getCandidatiColloquio() throws SQLException {
         return UtenteDAO.recuperoCandidatiColloquio();
     }
 
     @Override
-    public boolean setTeamDipendente(int dip, int idTeam) throws SQLException{
-        return DipendenteDAO.setTeamDipendente(dip,idTeam);
+    public boolean setTeamDipendente(int dip, int idTeam) throws SQLException {
+        return DipendenteDAO.setTeamDipendente(dip, idTeam);
     }
 
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {

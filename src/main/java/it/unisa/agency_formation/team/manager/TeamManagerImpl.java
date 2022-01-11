@@ -56,7 +56,7 @@ public class TeamManagerImpl implements TeamManager {
     @Override
     public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-       return autenticazioneManager.setTeamDipendente(idDip,idTeam);
+       return autenticazioneManager.setTeamDipendente(idDip, idTeam);
     }
 
     @Override

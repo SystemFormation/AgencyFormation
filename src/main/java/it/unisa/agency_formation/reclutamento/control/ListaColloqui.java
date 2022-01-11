@@ -44,7 +44,7 @@ public class ListaColloqui  extends HttpServlet {
         doGet(req, resp);
     }
     public static ArrayList<Candidatura> getCandidatures() throws SQLException {
-        ReclutamentoManager reclutamentoManager= new ReclutamentoManagerImpl();
+        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidatiConColloquio(StatiCandidatura.Assunzione);
     }
 
