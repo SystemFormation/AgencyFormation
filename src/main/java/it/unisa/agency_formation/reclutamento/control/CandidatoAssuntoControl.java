@@ -10,12 +10,13 @@ import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-
+@WebServlet("/CandidatoAssuntoControl")
 public class CandidatoAssuntoControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,9 +31,9 @@ public class CandidatoAssuntoControl extends HttpServlet {
                     response.getWriter().write("1"); //errore settaggio ruolo
                     response.sendRedirect("/static/Error.html");
                 } else {
-                    int annoNascita = Integer.parseInt(request.getParameter("annoNascita"));
-                    String residenza = request.getParameter("residenza");
-                    String telefono = request.getParameter("telefono");
+                    int annoNascita = Integer.parseInt(request.getParameter("annoDipendente"));
+                    String residenza = request.getParameter("residenzaDipendente");
+                    String telefono = request.getParameter("telefonoDipendente");
 
                     /*POTREMMO SETTARE EMAIL E PASSWORD IN QUESTO MODO VOLENDO.
                     NEL FORM DIREMO AL CANDIDATO CHE LE SUE CREDENZIALI SARANNO
@@ -40,14 +41,18 @@ public class CandidatoAssuntoControl extends HttpServlet {
                     String email=user.getName().charAt(0) +"."+ user.getSurname()+"@afconsulting.it";
                     String password=user.getName()+"."+user.getSurname()+annoNascita;
                     */
-                    Dipendente dipendente = new Dipendente(user.getName(), user.getSurname(), user.getEmail(), user.getPwd(), RuoliUtenti.DIPENDENTE,
-                            idDipendente, annoNascita, residenza, telefono, StatiDipendenti.DISPONIBILE);
-                    assumiCandidato(dipendente);
-                    if (!assumiCandidato(dipendente)) {
+                    Dipendente dipendente = new Dipendente();
+                    dipendente.setIdDipendente(idDipendente);
+                    dipendente.setAnnoNascita(annoNascita);
+                    dipendente.setResidenza(residenza);
+                    dipendente.setTelefono(telefono);
+                    dipendente.setStato(StatiDipendenti.DISPONIBILE);
+                    boolean esito=assumiCandidato(dipendente);
+                    if (!esito) {
                         response.getWriter().write("2"); //errore assunzione
                         response.sendRedirect("/WEB-INF/jsp/HomeCandidato.jsp");
                     } else {
-                        response.sendRedirect("/static/Login.html");
+                        response.sendRedirect("./static/Login.html");
                     }
 
                 }

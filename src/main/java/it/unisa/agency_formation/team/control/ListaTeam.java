@@ -5,6 +5,9 @@ import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.formazione.domain.Documento;
+import it.unisa.agency_formation.formazione.manager.FormazioneManager;
+import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManager;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
@@ -29,6 +32,8 @@ public class ListaTeam extends HttpServlet {
             try {
                 ArrayList<Dipendente> listaDipsUsers = recuperoDipendetiDiUnTeamFromManager();
                 ArrayList<Team> teams = visualizzaTeamOfTMFromManager(user.getId());
+                System.out.println(teams.get(0).getDocumento().getMaterialeDiFormazione());
+
                 req.setAttribute("listDip", listaDipsUsers);
                 req.setAttribute("listTeam", teams);
                 resp.getWriter().write("1");
@@ -79,4 +84,5 @@ public class ListaTeam extends HttpServlet {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.visualizzaTuttiTeams();
     }
+
 }

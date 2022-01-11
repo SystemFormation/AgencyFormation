@@ -288,13 +288,14 @@ public class UtenteDAO {
         ResultSet result;
         PreparedStatement retrieve = null;
         String query = "select IdUtente,Nome,Cognome,Pwd,Mail,Ruolo from utenti inner join candidature "
-                + "on utenti.IdUtente=candidature.IdCandidato and candidature.Stato NOT IN (?,?)";
+                + "on utenti.IdUtente=candidature.IdCandidato and candidature.Stato NOT IN (?,?,?)";
 
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
             retrieve = connection.prepareStatement(query);
             retrieve.setString(1, StatiCandidatura.Rifiutata.toString());
             retrieve.setString(2, StatiCandidatura.Accettata.toString());
+            retrieve.setString(3, StatiCandidatura.Assunzione.toString());
             result = retrieve.executeQuery();
             while (result.next()) {
                 Utente user = new Utente();

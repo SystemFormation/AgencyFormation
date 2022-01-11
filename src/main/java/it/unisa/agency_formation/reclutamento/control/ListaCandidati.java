@@ -22,7 +22,7 @@ public class ListaCandidati extends HttpServlet {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             try {
-                ArrayList<Utente> candidati = getCandidates();
+                ArrayList<Utente> candidati = getCandidatesFromManager();
                 request.setAttribute("candidati", candidati);
                 if (candidati != null && candidati.size() > 0) {
                     response.getWriter().write("1"); //ci sono i candidati
@@ -43,7 +43,7 @@ public class ListaCandidati extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-    public static ArrayList<Utente> getCandidates() throws SQLException {
+    public static ArrayList<Utente> getCandidatesFromManager() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getCandidatiConCandidatura();
     }

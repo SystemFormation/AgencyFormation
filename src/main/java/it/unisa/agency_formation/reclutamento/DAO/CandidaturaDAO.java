@@ -374,20 +374,20 @@ public class CandidaturaDAO {
     /**
      * Questa funzionalità permette di rimuovere una candidatura
      *
-     * @param idCandidatura
+     * @param idCandidato
      * @throws SQLException
      * @pre idCandidatura>0
      */
-    public static boolean rimuoviCandidatura(int idCandidatura) throws SQLException {
-        if (idCandidatura < 1) {
+    public static boolean rimuoviCandidatura(int idCandidato) throws SQLException {
+        if (idCandidato < 1) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = "DELETE FROM " + TABLE_CANDIDATURA + " WHERE idCandidatura=?";
+        String query = "DELETE FROM " + TABLE_CANDIDATURA + " WHERE idCandidato=?";
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement(query);
-            stmt.setInt(1, idCandidatura);
+            stmt.setInt(1, idCandidato);
             int result = stmt.executeUpdate();
             if (result != -1) {
                 return true;
