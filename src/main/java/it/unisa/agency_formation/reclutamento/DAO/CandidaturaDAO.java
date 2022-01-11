@@ -236,7 +236,7 @@ public class CandidaturaDAO {
     }
 
     /**
-     * Questa funzionalità permette di recuperare le candidature in base al loro stato
+     * Questa funzionalitÃ  permette di recuperare le candidature in base al loro stato
      *
      * @param stato
      * @return arraylist di candiature

@@ -83,7 +83,7 @@ public class UploadCandidatureControl extends HttpServlet {
                     cand.setDocumentiAggiuntivi(documentiAggiuntivi);
                     try {
                         uploadCandidatureFromManager(cand);
-                        if(uploadCandidatureFromManager(cand)) {
+                        if (uploadCandidatureFromManager(cand)) {
                             request.setAttribute("candidatura", cand);
                         } else {
                             //TODO PAGINA DI ERRORE

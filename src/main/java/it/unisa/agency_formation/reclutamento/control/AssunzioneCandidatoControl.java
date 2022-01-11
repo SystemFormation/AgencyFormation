@@ -7,6 +7,7 @@ import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +32,14 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                     response.getWriter().write("1"); //errore Candidatura
                     response.sendRedirect("./static/Login.html");
                 } else {
-                    candidatura.setStato(StatiCandidatura.Assunzione);
+                    setStato(idCandidato);
+                    if(setStato(idCandidato)){
+                        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
+                        dispatcher.forward(request, response);
+                    } else {
+                        response.getWriter().write("2"); //errore assunzione
+                        response.sendRedirect("./static/Error.html");
+                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -46,5 +54,9 @@ public class AssunzioneCandidatoControl extends HttpServlet {
     public static Candidatura getCandidatura(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
+    }
+    public static boolean setStato(int idCandidato) throws SQLException {
+        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
+       return reclutamentoManager.modificaStatoCandidatura(idCandidato, StatiCandidatura.Assunzione);
     }
 }

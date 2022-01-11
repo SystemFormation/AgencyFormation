@@ -46,6 +46,11 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
 
     @Override
+    public boolean modificaStatoCandidatura(int idCandidato, StatiCandidatura stato) throws SQLException {
+        return CandidaturaDAO.modificaStatoCandidatura(idCandidato, stato);
+    }
+
+    @Override
     public Candidatura getCandidaturaById(int idCandidato) throws SQLException {
         return CandidaturaDAO.doRetrieveCandidaturaById(idCandidato);
 
