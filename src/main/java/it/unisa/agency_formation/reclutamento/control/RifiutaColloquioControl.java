@@ -1,9 +1,8 @@
-/* package it.unisa.agency_formation.reclutamento.control;
+package it.unisa.agency_formation.reclutamento.control;
 
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
-import it.unisa.agency_formation.reclutamento.domain.Colloquio;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
 
@@ -19,27 +18,22 @@ import static java.util.Objects.requireNonNull;
 
 
 public class RifiutaColloquioControl extends HttpServlet {
-    private String path ="\\AgencyFormationFile\\Candidature\\";
-    private String pathAbsolute = System.getProperty("user.home") + path;
+    private static final String path = "\\AgencyFormationFile\\Candidature\\";
+    private static final String pathAbsolute = System.getProperty("user.home") + path;
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws SecurityException, IOException{
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws SecurityException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-        if(user!=null && user.getRole()== RuoliUtenti.HR){
+        if (user != null && user.getRole() == RuoliUtenti.HR) {
             int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
             try {
-                Colloquio colloquio = getColloquio(idCandidato);
+                Candidatura colloquio = getColloquio(idCandidato);
                 File toDelete = new File(pathAbsolute + "IdUtente-" + colloquio.getIdCandidato());
                 delete(toDelete);
-
-                if (rejectCandidatura(colloquio.getIdColloquio(), user.getId())) {
-
-                    response.getWriter().write("1");
-
+                if (rejectCandidatura(colloquio.getIdCandidatura(), user.getId())) {
+                    response.getWriter().write("1"); // rifiuto avvenuto
                 } else {
-
-
-                    response.getWriter().write("2");
+                    response.getWriter().write("2"); //rifiuto non avvenuto
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -48,21 +42,25 @@ public class RifiutaColloquioControl extends HttpServlet {
             response.sendRedirect("./static/Login.html");
         }
     }
+
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-    public static Candidatura getColloquio(int idCandidato) throws SQLException{
+
+    public static Candidatura getColloquio(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
-    public static boolean rejectCandidatura(int idCandidatura, int idHR) throws SQLException{
+
+    public static boolean rejectCandidatura(int idCandidatura, int idHR) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.rifiutaCandidatura(idCandidatura, idHR);
     }
-    public static void delete(File file){
+
+    public static void delete(File file) {
         for (File subFile : requireNonNull(file.listFiles())) {
-            if(subFile.isDirectory()) {
+            if (subFile.isDirectory()) {
                 delete(subFile);
             } else {
                 subFile.delete();
@@ -71,4 +69,3 @@ public class RifiutaColloquioControl extends HttpServlet {
         file.delete();
     }
 }
-*/
