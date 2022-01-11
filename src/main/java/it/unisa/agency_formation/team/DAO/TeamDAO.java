@@ -3,6 +3,7 @@ package it.unisa.agency_formation.team.DAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
+import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
@@ -154,13 +155,14 @@ public class TeamDAO {
         Team team = null;
         PreparedStatement stmt = null;
         ResultSet result;
-        String query = "SELECT * FROM " + TABLE_TEAM + " WHERE IdTeam=?";
+        String query = "SELECT * FROM " + TABLE_TEAM + " inner join documenti on team.IdTeam=documenti.IdTeam and team.tIdTeam = ?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             result = stmt.executeQuery();
             if (result.next()) {
                 team = new Team();
+                Documento documento = new Documento();
                 team.setIdTeam(result.getInt("IdTeam"));
                 team.setNomeProgetto(result.getString("NomeProgetto"));
                 team.setNumeroDipendenti(result.getInt("NumeroDIpendenti"));
@@ -168,6 +170,10 @@ public class TeamDAO {
                 team.setDescrizione(result.getString("Descrizione"));
                 team.setCompetenza(result.getString("Competenza"));
                 team.setIdTM(result.getInt("IdTM"));
+                if(result.getString("MaterialeDiFormazione")!=null){
+                    documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
+                    team.setDocumento(documento);
+                }
             }
             return team;
 
@@ -228,7 +234,7 @@ public class TeamDAO {
     public static ArrayList<Team> recuperaTuttiTeam() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ArrayList<Team> teams = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLE_TEAM;
+        String query = "SELECT * FROM " + TABLE_TEAM + " inner join documenti on team.IdTeam=documenti.IdTeam";
         PreparedStatement stmt = null;
         ResultSet result;
         try {
@@ -236,6 +242,7 @@ public class TeamDAO {
             result = stmt.executeQuery();
             while (result.next()) {
                 Team team = new Team();
+                Documento documento = new Documento();
                 team.setIdTeam(result.getInt("IdTeam"));
                 team.setNomeProgetto(result.getString("NomeProgetto"));
                 team.setNumeroDipendenti(result.getInt("NumeroDipendenti"));
@@ -243,6 +250,10 @@ public class TeamDAO {
                 team.setDescrizione(result.getString("Descrizione"));
                 team.setCompetenza(result.getString("Competenza"));
                 team.setIdTM(result.getInt("IdTM"));
+                if(result.getString("MaterialeDiFormazione")!=null){
+                    documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
+                    team.setDocumento(documento);
+                }
                 teams.add(team);
             }
             if (teams.size() > 0) {
@@ -280,13 +291,14 @@ public class TeamDAO {
         ArrayList<Team> teams = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet result;
-        String query = "SELECT * FROM " + TABLE_TEAM + " WHERE IdTM=?";
+        String query = "SELECT * FROM " + TABLE_TEAM + " inner join documenti on team.IdTeam=documenti.IdTeam and IdTM=?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idUtente);
             result = stmt.executeQuery();
             while (result.next()) {
                 Team team = new Team();
+                Documento documento = new Documento();
                 team.setIdTeam(result.getInt("IdTeam"));
                 team.setNomeProgetto(result.getString("NomeProgetto"));
                 team.setNumeroDipendenti(result.getInt("NumeroDIpendenti"));
@@ -294,6 +306,10 @@ public class TeamDAO {
                 team.setDescrizione(result.getString("Descrizione"));
                 team.setCompetenza(result.getString("Competenza"));
                 team.setIdTM(result.getInt("IdTM"));
+                if(result.getString("MaterialeDiFormazione")!=null){
+                    documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
+                    team.setDocumento(documento);
+                }
                 teams.add(team);
             }
             if (teams.size() > 0) {
@@ -524,7 +540,6 @@ public class TeamDAO {
             }
         }
     }
-    //spostare metodo? Forse va in dipendenteDAO //TODO
     public static ArrayList<Integer> recuperaIdTeamMemberFromTeam(int idTeam) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
@@ -558,7 +573,7 @@ public class TeamDAO {
             }
         }
     }
-//brainstorming su questo metodo //TODO
+
     public static boolean updateDipStateDissolution(int idDip) throws SQLException {
         if (idDip < 0) {
             return false;

@@ -1,5 +1,9 @@
 package it.unisa.agency_formation.team.domain;
 
+import it.unisa.agency_formation.formazione.domain.Documento;
+
+import java.util.ArrayList;
+
 public class Team {
     private int idTeam;
     private String NomeProgetto;
@@ -7,6 +11,7 @@ public class Team {
     private String NomeTeam;
     private String Descrizione;
     private String Competenza;
+    private Documento documento;
     private int idTM;
 
     public Team(String nomeProgetto, int numeroDipendenti, String nomeTeam, String descrizione, String competenza, int IdTM) {
@@ -69,10 +74,18 @@ public class Team {
     }
 
     public int getIdTM() {
-      return idTM;
+        return idTM;
     }
 
     public void setIdTM(int IdTM) {
         this.idTM = IdTM;
+    }
+
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
 }

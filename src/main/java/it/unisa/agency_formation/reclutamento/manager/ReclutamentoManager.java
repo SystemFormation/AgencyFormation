@@ -17,7 +17,7 @@ public interface ReclutamentoManager {
     ArrayList<Candidatura> getTutteCandidature() throws SQLException;
     boolean assumiCandidato(Dipendente dipendente) throws SQLException;
     boolean rifiutaCandidato(int idCandidatura) throws SQLException;
-    boolean ricandidatura(int idCandidatura) throws SQLException;
+    boolean ricandidatura(int idCandidato) throws SQLException;
     ArrayList<Candidatura> getCandidatiConColloquio(StatiCandidatura stato) throws SQLException;
     boolean modificaStatoCandidatura(int idCandidato, StatiCandidatura stato) throws SQLException;
 }

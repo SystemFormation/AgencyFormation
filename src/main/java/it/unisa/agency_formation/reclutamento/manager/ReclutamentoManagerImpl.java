@@ -36,8 +36,8 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
 
     @Override
-    public boolean ricandidatura(int idCandidatura) throws SQLException {
-        return CandidaturaDAO.rimuoviCandidatura(idCandidatura);
+    public boolean ricandidatura(int idCandidato) throws SQLException {
+        return CandidaturaDAO.rimuoviCandidatura(idCandidato);
     }
 
     @Override
