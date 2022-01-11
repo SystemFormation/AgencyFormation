@@ -26,7 +26,7 @@ public class DownloadControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-        if(user!=null && user.getRole()== RuoliUtenti.HR) {
+        if (user != null && user.getRole() == RuoliUtenti.HR) {
 
             String whatDownload = request.getParameter("toDownload");
             int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
@@ -84,7 +84,7 @@ public class DownloadControl extends HttpServlet {
             } else {
                 //TODO FILE NON ESISTENTI: DA IMPLEMENTARE
             }
-        }else{
+        } else {
             response.sendRedirect("./static/Login.html");
         }
     }

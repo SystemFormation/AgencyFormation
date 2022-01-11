@@ -47,7 +47,7 @@ public class RemoveTeamControl extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static boolean rimuoviDipendenteFromManager(int idDip) throws SQLException{
+    public static boolean rimuoviDipendenteFromManager(int idDip) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.rimuoviDipendente(idDip);
     }

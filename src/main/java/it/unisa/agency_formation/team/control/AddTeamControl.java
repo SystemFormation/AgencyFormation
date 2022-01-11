@@ -19,7 +19,7 @@ public class AddTeamControl extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
-        if(user !=null && user.getRole()== RuoliUtenti.TM) {
+        if (user != null && user.getRole() == RuoliUtenti.TM) {
             RequestDispatcher dispatcher;
             String action = req.getParameter("action");
             int idTeam = Integer.parseInt(req.getParameter("idTeam"));
@@ -27,8 +27,8 @@ public class AddTeamControl extends HttpServlet {
                 if (action.equalsIgnoreCase("aggiungi")) {
                     int idDip = Integer.parseInt(req.getParameter("id"));
                     if (idDip != 0) {  //messo questo controllo
-                        updateDipOnTeamFromManager(idDip,idTeam);
-                        resp.getWriter().write("2");//action null
+                        updateDipOnTeamFromManager(idDip, idTeam);
+                        resp.getWriter().write("2"); //action null
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);
                     } else {
@@ -38,17 +38,19 @@ public class AddTeamControl extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             resp.sendRedirect("./static/Login.html");
         }
     }
+
     @Override
-    public void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
     //TODO non gestito il return
-    public static boolean updateDipOnTeamFromManager(int idDip, int idTeam) throws SQLException{
+    public static boolean updateDipOnTeamFromManager(int idDip, int idTeam) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
-        return teamManager.updateDipOnTeam(idDip,idTeam);
+        return teamManager.updateDipOnTeam(idDip, idTeam);
     }
 }

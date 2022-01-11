@@ -62,15 +62,13 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
         return DipendenteDAO.recuperaByStato(state);
     }
     @Override
-    public boolean modificaRuolo(int idUtente) throws SQLException{
+    public boolean modificaRuolo(int idUtente) throws SQLException {
         return DipendenteDAO.modificaRuoloUtente(idUtente);
     }
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {
-        Utente result = UtenteDAO.login(user.getEmail(), user.getPwd());
-        if (result == null) {
+        if (UtenteDAO.login(user.getEmail(), user.getPwd()) == null) {
             return false;
-        } else {
-            return true;
         }
+            return true;
     }
 }

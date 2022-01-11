@@ -18,31 +18,32 @@ public class DocumentoDAO {
      * @throws SQLException doc!=null
      */
     public static boolean salvaDocumento(Documento doc) throws SQLException {
-        if(doc == null){
+        if (doc == null) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
-        String query = "INSERT INTO " + TABLE_DOCUMENTO + " (MaterialeDiFormazione, IdHR, IdTeam) " +
-                "VALUES(?,?,?)";
+        String query = "INSERT INTO " + TABLE_DOCUMENTO + " (MaterialeDiFormazione, IdHR, IdTeam) "
+                + "VALUES(?,?,?)";
         try {
             save = connection.prepareStatement(query);
             save.setString(1, doc.getMaterialeDiFormazione());
             save.setInt(2, doc.getIdHR());
             save.setInt(3, doc.getIdTeam());
-            int result=save.executeUpdate();
-            if(result!=-1){
+            int result = save.executeUpdate();
+            if (result != -1) {
                 return true;
-            }else{
-                return false;
             }
+            return false;
         } finally {
             try {
-                if (save != null)
+                if (save != null) {
                     save.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -55,7 +56,7 @@ public class DocumentoDAO {
      * @pre matForm!=null
      */
     public static boolean rimuoviDocumento(String materialeFormazione) throws SQLException {
-        if(materialeFormazione==null){
+        if (materialeFormazione == null) {
             return false;
         }
         ResultSet result;
@@ -65,19 +66,17 @@ public class DocumentoDAO {
         try {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, materialeFormazione);
-            result=stmt.executeQuery();
-            if(result.next()){
-                return true;
-            }else {
-                return false;
-            }
+            result = stmt.executeQuery();
+            return result.next();
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -92,7 +91,7 @@ public class DocumentoDAO {
      * @pre idDocument != null && ma != null && idTeam!=null
      */
     public static boolean modificaDocumento(int idHR, String materiale, int idTeam) throws SQLException {
-        if(idHR <1 || materiale==null || idTeam<1){
+        if (idHR < 1 || materiale == null || idTeam < 1) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -103,19 +102,20 @@ public class DocumentoDAO {
             stmt.setString(1, materiale);
             stmt.setInt(2, idHR);
             stmt.setInt(3, idTeam);
-            int result= stmt.executeUpdate();
-            if(result!=-1){
+            int result = stmt.executeUpdate();
+            if (result != -1) {
                 return true;
-            }else{
-                return false;
             }
+            return false;
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -129,7 +129,7 @@ public class DocumentoDAO {
      * @pre idTeam!=null
      */
     public static Documento recuperaDocumentoByTeam(int idTeam) throws SQLException {
-        if(idTeam<1){
+        if (idTeam < 1) {
             return null;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -141,25 +141,27 @@ public class DocumentoDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             result = stmt.executeQuery();
-           if(result.next()){
-               documento = new Documento();
-               documento.setIdDocumento(result.getInt("IdDocumento"));
-               documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
-               documento.setIdHR(result.getInt("IdHR"));
-               documento.setIdTeam(result.getInt("IdTeam"));
-           }
-            if(documento!=null){
+            if (result.next()) {
+                documento = new Documento();
+                documento.setIdDocumento(result.getInt("IdDocumento"));
+                documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
+                documento.setIdHR(result.getInt("IdHR"));
+                documento.setIdTeam(result.getInt("IdTeam"));
+            }
+            if (documento != null) {
                 return documento;
-            }else{
+            } else {
                 return null;
             }
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }

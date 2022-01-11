@@ -29,8 +29,8 @@ public class DipendenteDAO {
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
-        String query = "insert into " + TABLE_DIPENDENTE + " (IdDipendente,Residenza,Telefono,Stato,AnnoDiNascita,idTeam)" +
-                " values(?,?,?,?,?,?)";
+        String query = "insert into " + TABLE_DIPENDENTE + " (IdDipendente,Residenza,Telefono,Stato,AnnoDiNascita,idTeam)"
+                + " values(?,?,?,?,?,?)";
         modificaRuoloUtente(dipendente.getIdDipendente());
         try {
             save = connection.prepareStatement(query);
@@ -47,16 +47,17 @@ public class DipendenteDAO {
             int result = save.executeUpdate();
             if (result != -1) {
                 return true;
-            } else {
-                return false;
             }
+                return false;
         } finally {
             try {
-                if (save != null)
+                if (save != null) {
                     save.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
 
@@ -80,11 +81,7 @@ public class DipendenteDAO {
             update = connection.prepareStatement(query);
             update.setInt(1, id);
             int result = update.executeUpdate();
-            if (result != -1) {
-                return true;
-            } else {
-                return false;
-            }
+            return result != -1;
         } finally {
             try {
                 if (update != null) {
@@ -153,6 +150,8 @@ public class DipendenteDAO {
                     case 4:
                         user.setRole(RuoliUtenti.HR);
                         break;
+                    default:
+                        break;
                 }
                 return user;
             }
@@ -185,10 +184,10 @@ public class DipendenteDAO {
                 dipUser.setIdDipendente(result.getInt("idDipendente"));
                 dipUser.setResidenza(result.getString("Residenza"));
                 dipUser.setTelefono(result.getString("Telefono"));
-                if (result.getBoolean("Stato") == false) {
+                if (!result.getBoolean("Stato")) {
                     dipUser.setStato(StatiDipendenti.OCCUPATO);
-
-                } else if (result.getBoolean("Stato") == true) {
+                }
+                if (result.getBoolean("Stato")) {
                     dipUser.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 dipUser.setAnnoNascita(result.getInt("AnnoDiNascita"));
@@ -215,6 +214,8 @@ public class DipendenteDAO {
                         break;
                     case 4:
                         dipUser.setRole(RuoliUtenti.HR);
+                        break;
+                    default:
                         break;
                 }
                 DipsUsers.add(dipUser);
@@ -267,9 +268,8 @@ public class DipendenteDAO {
             int res = retrieve.executeUpdate();
             if (res != -1) {
                 return true;
-            } else {
-                return false;
             }
+                return false;
         } finally {
             try {
                 if (retrieve != null) {
@@ -340,6 +340,8 @@ public class DipendenteDAO {
                     case 4:
                         dip.setRole(RuoliUtenti.HR);
                         break;
+                    default:
+                        break;
                 }
                 dipendenti.add(dip);
             }
@@ -383,11 +385,7 @@ public class DipendenteDAO {
             stm.setBoolean(2, false);
             stm.setInt(3, idDip);
             int result = stm.executeUpdate();
-            if (result != -1) {
-                return true;
-            } else {
-                return false;
-            }
+            return result != -1;
         } finally {
             try {
                 if (stm != null) {

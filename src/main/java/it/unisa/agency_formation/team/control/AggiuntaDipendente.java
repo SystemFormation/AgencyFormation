@@ -23,9 +23,9 @@ import java.util.ArrayList;
 @WebServlet("/AggiuntaDipendente")
 public class AggiuntaDipendente extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
-       if(user!=null && user.getRole()== RuoliUtenti.TM) {
+       if (user != null && user.getRole() == RuoliUtenti.TM) {
            RequestDispatcher dispatcher;
            /*visualizzo tutti i dipendenti Dispo*/
            int idTeam = Integer.parseInt(req.getParameter("idTeam"));
@@ -45,19 +45,22 @@ public class AggiuntaDipendente extends HttpServlet {
            } catch (SQLException e) {
                e.printStackTrace();
            }
-       }else {
+       } else {
            resp.sendRedirect("./static/Login.html");
        }
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-    public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException{
+
+    public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.recuperoSkillConIdDipendente(idDip);
     }
-    public static ArrayList<Dipendente> getTuttiDipendentiFromManager() throws SQLException{
+
+    public static ArrayList<Dipendente> getTuttiDipendentiFromManager() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getTuttiDipendenti();
     }

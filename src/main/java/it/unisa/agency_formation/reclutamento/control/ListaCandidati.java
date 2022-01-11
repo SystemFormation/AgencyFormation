@@ -20,14 +20,14 @@ public class ListaCandidati extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-        if(user !=null && user.getRole()== RuoliUtenti.HR) {
+        if (user != null && user.getRole() == RuoliUtenti.HR) {
             try {
                 ArrayList<Utente> candidati = getCandidates();
                 request.setAttribute("candidati", candidati);
                 if (candidati != null && candidati.size() > 0) {
-                    response.getWriter().write("1");//ci sono i candidati
+                    response.getWriter().write("1"); //ci sono i candidati
                 } else {
-                    response.getWriter().write("2");//non ci sono candidati
+                    response.getWriter().write("2"); //non ci sono candidati
 
                 }
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
@@ -35,13 +35,13 @@ public class ListaCandidati extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             response.sendRedirect("./static/Login.html");
         }
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req,resp);
+        doGet(req, resp);
     }
     public static ArrayList<Utente> getCandidates() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();

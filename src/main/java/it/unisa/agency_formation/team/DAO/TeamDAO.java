@@ -44,15 +44,19 @@ public class TeamDAO {
                 save.setString(5, null);
                 save.setInt(6, idUtente);
                 int result = save.executeUpdate();
-                if (result != -1) return true;
-                else return false;
+                if (result != -1) {
+                    return true;
+                }
+                return false;
             } finally {
                 try {
-                    if (save != null)
+                    if (save != null) {
                         save.close();
+                    }
                 } finally {
-                    if (connection != null)
+                    if (connection != null) {
                         connection.close();
+                    }
                 }
             }
         }
@@ -67,7 +71,9 @@ public class TeamDAO {
      * @pre idTeam>0
      */
     public static boolean rimuoviTeam(int idTeam) throws SQLException {
-        if (idTeam < 1) return false;
+        if (idTeam < 1) {
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         String query1 = "UPDATE " + TABLE_DIPENDENTE + " set idTeam=null WHERE idTeam=?";
         String query = "DELETE FROM " + TABLE_TEAM + " WHERE idTeam=?";
@@ -80,19 +86,17 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
             int res2 = stmt.executeUpdate();
-            if (res1 != -1 && res2 != -1) {
-                return true;
-            } else {
-                return false;
-            }
+            return res1 != -1 && res2 != -1;
 
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -110,7 +114,9 @@ public class TeamDAO {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (idTeam < 1 || idDipendente < 1) return false;
+        if (idTeam < 1 || idDipendente < 1) {
+            return false;
+        }
         String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=? and Stato=0 WHERE IdDipendente=?";
         PreparedStatement stmt = null;
         try {
@@ -118,8 +124,7 @@ public class TeamDAO {
             stmt.setInt(1, idTeam);
             stmt.setInt(2, idDipendente);
             int result = stmt.executeUpdate();
-            if (result != -1) return true;
-            else return false;
+            return result != -1;
         } finally {
             try {
                 if (stmt != null) {
@@ -187,7 +192,9 @@ public class TeamDAO {
      * @pre idDipendente>0
      */
     public static boolean rimuoviDipendente(int idDipendente) throws SQLException {
-        if (idDipendente < 1) return false;
+        if (idDipendente < 1) {
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "UPDATE " + TABLE_DIPENDENTE + " SET IdTeam=NULL, Stato=1 WHERE IdDipendente=?";
         PreparedStatement stmt = null;
@@ -196,8 +203,7 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idDipendente);
             result = stmt.executeUpdate();
-            if (result != -1) return true;
-            else return false;
+            return result != -1;
         } finally {
             try {
                 if (stmt != null) {
@@ -317,7 +323,9 @@ public class TeamDAO {
      * @pre competence!=null && idTeam>0
      */
     public static boolean modificaCompetenze(String competence, int idTeam) throws SQLException {
-        if (competence == null || idTeam < 1) return false;
+        if (competence == null || idTeam < 1) {
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "UPDATE " + TABLE_TEAM + " SET Competenza=? WHERE IdTeam=?";
         PreparedStatement stmt = null;
@@ -327,7 +335,9 @@ public class TeamDAO {
             stmt.setString(1, competence);
             stmt.setInt(2, idTeam);
             result = stmt.executeUpdate();
-            if (result != -1) return true;
+            if (result != -1) {
+                return true;
+            }
             return false;
         } finally {
             try {
@@ -351,7 +361,9 @@ public class TeamDAO {
      * @pre idTeam>0
      */
     public static String recuperaCompetenza(int idTeam) throws SQLException {
-        if (idTeam < 1) return null;
+        if (idTeam < 1) {
+            return null;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "SELECT Competenza FROM " + TABLE_TEAM + " WHERE IdTeam=?";
         PreparedStatement stmt = null;
@@ -393,7 +405,9 @@ public class TeamDAO {
      * @post dipendenti.size>0
      */
     public static ArrayList<Dipendente> recuperaTuttiTeamMember(int idTeam) throws SQLException {
-        if (idTeam < 1) return null;
+        if (idTeam < 1) {
+            return null;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         ArrayList<Dipendente> dipendenti = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_DIPENDENTE + " WHERE IdTeam=?";
@@ -447,7 +461,9 @@ public class TeamDAO {
      * @pre idTeam!=null
      */
     public static int recuperaNumeroTMember(int idTeam) throws SQLException {
-        if (idTeam < 1) return -1;
+        if (idTeam < 1) {
+            return -1;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "SELECT NumeroDipendenti FROM " + TABLE_TEAM + " WHERE IdTeam=?";
         PreparedStatement stmt = null;
@@ -496,11 +512,13 @@ public class TeamDAO {
 
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -539,11 +557,7 @@ public class TeamDAO {
             stmt.setInt(1, 1);
             stmt.setInt(2, idDip);
             int result = stmt.executeUpdate();
-            if (result != -1) {
-                return true;
-            } else {
-                return false;
-            }
+            return result != -1;
         } finally {
             try {
                 if (stmt != null) {
@@ -572,10 +586,10 @@ public class TeamDAO {
                 dipUser.setIdDipendente(result.getInt("idDipendente"));
                 dipUser.setResidenza(result.getString("Residenza"));
                 dipUser.setTelefono(result.getString("Telefono"));
-                if (result.getBoolean("Stato") == false) {
+                if (!result.getBoolean("Stato")) {
                     dipUser.setStato(StatiDipendenti.OCCUPATO);
 
-                } else if (result.getBoolean("Stato") == true) {
+                } else if (result.getBoolean("Stato")) {
                     dipUser.setStato(StatiDipendenti.DISPONIBILE);
                 }
                 dipUser.setAnnoNascita(result.getInt("AnnoDiNascita"));
@@ -598,6 +612,8 @@ public class TeamDAO {
                         break;
                     case 4:
                         dipUser.setRole(RuoliUtenti.HR);
+                        break;
+                    default:
                         break;
                 }
                 DipsUsers.add(dipUser);

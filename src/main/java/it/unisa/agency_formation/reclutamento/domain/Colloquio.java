@@ -1,24 +1,18 @@
 package it.unisa.agency_formation.reclutamento.domain;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
-
 public class Colloquio {
     private StatiCandidatura stato;
     private int idCandidato;
     private int idHR;
 
-    public Colloquio() {
-
-    }
+    public Colloquio() { }
 
     public StatiCandidatura getStato() {
         return stato;
     }
 
-    public void setStato(StatiCandidatura stato) {
-        this.stato = stato;
+    public void setStato(StatiCandidatura state) {
+        this.stato = state;
     }
 
 
@@ -26,16 +20,16 @@ public class Colloquio {
         return idCandidato;
     }
 
-    public void setIdCandidato(int idCandidato) {
-        this.idCandidato = idCandidato;
+    public void setIdCandidato(int id) {
+        this.idCandidato = id;
     }
 
     public int getIdHR() {
         return idHR;
     }
 
-    public void setIdHR(int idHR) {
-        this.idHR = idHR;
+    public void setIdHR(int IdHR) {
+        this.idHR = IdHR;
     }
 
 

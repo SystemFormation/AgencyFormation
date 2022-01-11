@@ -18,7 +18,7 @@ public class SpecificaCompetenzeControl extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         Utente user = (Utente) req.getSession().getAttribute("user");
-        if(user!=null && user.getRole()== RuoliUtenti.TM) {
+        if (user != null && user.getRole() == RuoliUtenti.TM) {
             if (req.getParameter("action").equalsIgnoreCase("competenze")) { //update competenze
                 int idTeam = Integer.parseInt(req.getParameter("idTeam"));
                 String competence = req.getParameter("specCompetenze");
@@ -35,7 +35,7 @@ public class SpecificaCompetenzeControl extends HttpServlet {
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamTM.jsp");
                 dispatcher.forward(req, resp);
             }
-        }else{
+        } else {
             resp.sendRedirect("./static/Login.html");
         }
     }

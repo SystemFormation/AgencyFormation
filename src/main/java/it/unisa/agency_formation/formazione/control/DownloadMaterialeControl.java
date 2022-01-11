@@ -28,18 +28,17 @@ public class DownloadMaterialeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-        if(user !=null && user.getRole()== RuoliUtenti.DIPENDENTE) {
+        if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
             ServletContext context = request.getServletContext();
             Documento documento = null;
             try {
                 Dipendente dipendente = getDipendentefromManager(user.getId());
                 if (dipendente == null) {
-                    response.getWriter().write("2");//dipendente null
-                }
-                else {
+                    response.getWriter().write("2"); //dipendente null
+                } else {
                     documento = getDocumentofromManager(dipendente.getTeam().getIdTeam());
                     if (documento == null) {
-                        response.getWriter().write("3");//documento null
+                        response.getWriter().write("3"); //documento null
                         //si può rimandare all'homepage?
                     }
                 }
@@ -68,12 +67,12 @@ public class DownloadMaterialeControl extends HttpServlet {
                 }
                 fileIn.close();
                 outStream.close();
-                response.getWriter().write("4");//documento scaricato
+                response.getWriter().write("4"); //documento scaricato
             } else {
                 //TODO NESSUN FILE SCARICATO
-                response.getWriter().write("5");//documento non scaricato
+                response.getWriter().write("5"); //documento non scaricato
             }
-        }else{
+        } else {
             response.sendRedirect("./static/Login.html");
         }
     }

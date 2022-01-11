@@ -1,6 +1,5 @@
 package it.unisa.agency_formation.reclutamento.control;
 
-import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
@@ -21,8 +20,8 @@ public class AssunzioneCandidatoControl extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Utente user= (Utente) request.getSession().getAttribute("user");
-        if(user == null || user.getRole() != RuoliUtenti.HR){
+        Utente user = (Utente) request.getSession().getAttribute("user");
+        if (user == null || user.getRole() != RuoliUtenti.HR) {
             response.sendRedirect("./static/Login.html");
         } else {
             int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
@@ -47,6 +46,4 @@ public class AssunzioneCandidatoControl extends HttpServlet {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
-
-
 }

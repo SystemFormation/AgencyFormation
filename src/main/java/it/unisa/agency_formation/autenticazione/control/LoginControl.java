@@ -1,10 +1,12 @@
 package it.unisa.agency_formation.autenticazione.control;
+
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,7 +51,9 @@ public class LoginControl extends HttpServlet {
                     dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
                     dispatcher.forward(request, response);
                     break;
-
+                default:
+                    response.sendRedirect("/static/Login.html");
+                    break;
             }
         } else {
             String email = request.getParameter("email");
@@ -57,17 +61,17 @@ public class LoginControl extends HttpServlet {
 
             if (email != null && pwd != null) {
                 if (email.trim().length() == 0) {
-                    response.getWriter().write("1");//email vuota
+                    response.getWriter().write("1"); //email vuota
                 }
                 if (pwd.trim().length() == 0) {
-                    response.getWriter().write("2");//password vuota;
+                    response.getWriter().write("2"); //password vuota
                 }
                 try {
-                    user = loginFromManager(email,pwd);
+                    user = loginFromManager(email, pwd);
                     if (user != null) {
                         session = request.getSession(true);
                         session.setAttribute("user", user);
-                        response.getWriter().write("3");//utente loggato
+                        response.getWriter().write("3"); //utente loggato
                         switch (user.getRole()) {
                             case CANDIDATO:
                                 Candidatura candidatura = getCandidaturafromManager(user.getId());
@@ -89,18 +93,19 @@ public class LoginControl extends HttpServlet {
                                 dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
                                 dispatcher.forward(request, response);
                                 break;
-
+                            default:
+                                break;
                         }
                     } else {
-                        response.getWriter().write("4");//utente non valido
+                        response.getWriter().write("4"); //utente non valido
                         response.sendRedirect("./static/Login.html");
                     }
 
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            }else {
-                response.getWriter().write("5");//email e password null
+            } else {
+                response.getWriter().write("5"); //email e password null
                 response.sendRedirect("/static/Login.html");
             }
         }
@@ -115,8 +120,9 @@ public class LoginControl extends HttpServlet {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
-    public static Utente loginFromManager(String email,String pwd) throws SQLException {
+
+    public static Utente loginFromManager(String email, String pwd) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.login(email,pwd);
+        return autenticazioneManager.login(email, pwd);
     }
 }

@@ -53,7 +53,7 @@ public class SkillControl extends HttpServlet {
                         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");
                         dispatcher.forward(request, response);
                     } else {
-                        response.getWriter().write("4");// aggiunta fallita.
+                        response.getWriter().write("4"); // aggiunta fallita.
                         response.sendRedirect("./static/Profilo.jsp");
                     }
 
@@ -65,7 +65,7 @@ public class SkillControl extends HttpServlet {
                 response.getWriter().write("5"); //skillNome e skillDescr null
                 response.sendRedirect("./static/Profilo.jsp");
             }
-        }else{
+        } else {
             response.sendRedirect("./static/Login.html");
         }
 
@@ -76,16 +76,16 @@ public class SkillControl extends HttpServlet {
         doGet(request, response);
     }
 
-    public static boolean addSkillFromManager(Skill skill) throws SQLException{
+    public static boolean addSkillFromManager(Skill skill) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.aggiungiSkill(skill);
     }
-    public static int getLastIdSkillCreatedFromManager() throws SQLException{
+    public static int getLastIdSkillCreatedFromManager() throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.getUltimaSkill();
     }
-    public static boolean addSkillDipFromManager(int idSkill, Dipendente dipendente,int skillLivello)throws SQLException{
+    public static boolean addSkillDipFromManager(int idSkill, Dipendente dipendente, int skillLivello)throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
-        return formazioneManager.addSkillDipendente(idSkill,dipendente,skillLivello);
+        return formazioneManager.addSkillDipendente(idSkill, dipendente, skillLivello);
     }
 }

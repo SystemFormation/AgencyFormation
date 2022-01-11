@@ -6,19 +6,21 @@ import it.unisa.agency_formation.team.domain.Team;
 import java.util.ArrayList;
 
 public class Dipendente extends Utente {
-    private int idDipendente,annoNascita;
-    private String residenza, telefono;
+    private int idDipendente;
+    private int annoNascita;
+    private String residenza;
+    private String telefono;
     private StatiDipendenti stato;
     private Team team;
     private ArrayList<Skill> skills;
 
-    public Dipendente(String nome, String cognome, String email, String pwd, RuoliUtenti ruolo,int idDipendente, int annoNascita, String residenza, String telefono, StatiDipendenti stato){
-       super(nome,cognome,email,pwd,ruolo);
-        this.idDipendente = idDipendente;
-        this.annoNascita = annoNascita;
-        this.residenza = residenza;
-        this.telefono = telefono;
-        this.stato = stato;
+    public Dipendente(String name, String surname, String mail, String password, RuoliUtenti role, int idDip, int yearNascita, String residence, String tel, StatiDipendenti state) {
+        super(name, surname, mail, password, role);
+        this.idDipendente = idDip;
+        this.annoNascita = yearNascita;
+        this.residenza = residence;
+        this.telefono = tel;
+        this.stato = state;
     }
 
     public Dipendente() {
@@ -36,37 +38,39 @@ public class Dipendente extends Utente {
         return annoNascita;
     }
 
-    public void setAnnoNascita(int annoNascita) {
-        this.annoNascita = annoNascita;
+    public void setAnnoNascita(int yearNascita) {
+        this.annoNascita = yearNascita;
     }
 
     public String getResidenza() {
         return residenza;
     }
 
-    public void setResidenza(String residenza) {
-        this.residenza = residenza;
+    public void setResidenza(String residenz) {
+        this.residenza = residenz;
     }
 
     public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setTelefono(String tel) {
+        this.telefono = tel;
     }
 
     public StatiDipendenti getStato() {
         return stato;
     }
 
-    public void setStato(StatiDipendenti stato) {
-        this.stato = stato;
+    public void setStato(StatiDipendenti state) {
+        this.stato = state;
     }
 
-    public void setTeam(Team team){this.team=team;}
+    public void setTeam(Team Team) {
+        this.team = Team;
+    }
 
-    public Team getTeam(){
+    public Team getTeam() {
         return team;
     }
 
@@ -74,7 +78,7 @@ public class Dipendente extends Utente {
         return skills;
     }
 
-    public void setSkills(ArrayList<Skill> skills) {
-        this.skills = skills;
+    public void setSkills(ArrayList<Skill> skill) {
+        this.skills = skill;
     }
 }

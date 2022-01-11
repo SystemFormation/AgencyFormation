@@ -16,7 +16,6 @@ public class SkillDAO {
 
     /**
      * Questa funzionalità permette di salvare una nuova skill
-     * <p>
      * return verifica
      *
      * @param skill
@@ -28,8 +27,8 @@ public class SkillDAO {
         if (skill != null) {
             PreparedStatement save = null;
 
-            String query = "insert into " + TABLE_SKILL + " (NomeSkill, DescrizioneSkill)" +
-                    " values(?,?)";
+            String query = "insert into " + TABLE_SKILL + " (NomeSkill, DescrizioneSkill)"
+                    + " values(?,?)";
 
             try {
                 save = connection.prepareStatement(query);
@@ -39,12 +38,13 @@ public class SkillDAO {
                 return true;
             } finally {
                 try {
-                    if (save != null)
+                    if (save != null) {
                         save.close();
-
+                    }
                 } finally {
-                    if (connection != null)
+                    if (connection != null) {
                         connection.close();
+                    }
                 }
             }
         }
@@ -71,16 +71,16 @@ public class SkillDAO {
             stmt.setInt(1, idSkill);
             result1 = stmt.executeUpdate();
 
-            if (result1 != -1) {
-                return true;
-            } else {
-                return false;
-            }
+            return result1 != -1;
         } finally {
             try {
-                if (stmt != null) stmt.close();
+                if (stmt != null) {
+                    stmt.close();
+                }
             } finally {
-                if (connection != null) connection.close();
+                if (connection != null) {
+                    connection.close();
+                }
             }
         }
     }
@@ -107,15 +107,20 @@ public class SkillDAO {
                 skill.setDescrizioneSkill(result.getString("DescrizioneSkill"));
                 skills.add(skill);
             }
-            if (skills.size() > 0) return skills;
-            else return null;
+            if (skills.size() > 0) {
+                return skills;
+            } else {
+                return null;
+            }
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -156,11 +161,13 @@ public class SkillDAO {
 
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -177,26 +184,24 @@ public class SkillDAO {
             return false;
         }
         PreparedStatement save = null;
-        String query = "insert into " + TABLE_SKILLDIPENDENTE + " (idDipendente, idSkill, Livello) " +
-                " values(?,?,?)";
+        String query = "insert into " + TABLE_SKILLDIPENDENTE + " (idDipendente, idSkill, Livello) "
+                + " values(?,?,?)";
         try {
             save = connection.prepareStatement(query);
             save.setInt(1, dip.getIdDipendente());
             save.setInt(2, idSkill);
             save.setInt(3, skillLivello);
             int result = save.executeUpdate();
-            if (result != -1) {
-                return true;
-            } else {
-                return false;
-            }
+            return result != -1;
         } finally {
             try {
-                if (save != null)
+                if (save != null) {
                     save.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -226,11 +231,13 @@ public class SkillDAO {
 
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -256,19 +263,19 @@ public class SkillDAO {
             if (skills.size() > 0) {
                 return skills;
             } else {
-                return skills = null;
+                return null;
             }
 
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
-
-
     }
 }

@@ -26,11 +26,11 @@ public class UploadCandidatureControl extends HttpServlet {
 
     private static final String pathRelative = "\\AgencyFormationFile\\Candidature\\";
     private static final String pathAbsolute = System.getProperty("user.home") + pathRelative;
-    private static final int MAXDIM = 83886080;//10MB
+    private static final int MAXDIM = 83886080; //10MB
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-        if(user!=null && user.getRole()== RuoliUtenti.CANDIDATO) {
+        if (user != null && user.getRole() == RuoliUtenti.CANDIDATO) {
             if (request.getParameter("sceltaUpload") == null) {
                 try {
                     Candidatura cand = getCandidaturaByIdFromManager(user.getId());
@@ -98,7 +98,7 @@ public class UploadCandidatureControl extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             response.sendRedirect("./static/Login.html");
         }
 
@@ -108,15 +108,18 @@ public class UploadCandidatureControl extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
     public static Candidatura getCandidaturafromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
-    public static boolean uploadCandidatureFromManager(Candidatura candidatura) throws SQLException{
+
+    public static boolean uploadCandidatureFromManager(Candidatura candidatura) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.caricaCandidatura(candidatura);
     }
-    public static Candidatura getCandidaturaByIdFromManager(int idCandidato)throws SQLException{
+
+    public static Candidatura getCandidaturaByIdFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }

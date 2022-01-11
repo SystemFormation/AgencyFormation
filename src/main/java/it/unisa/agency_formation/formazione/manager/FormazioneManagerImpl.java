@@ -1,6 +1,5 @@
 package it.unisa.agency_formation.formazione.manager;
 
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.formazione.DAO.DocumentoDAO;
 import it.unisa.agency_formation.formazione.DAO.SkillDAO;
@@ -63,10 +62,8 @@ public class FormazioneManagerImpl implements FormazioneManager {
         Skill result = SkillDAO.recuperaSkillByNome(skill.getNomeSkill());
         if (result == null) {
             return false;
-        } else {
-            return true;
         }
-
+        return true;
     }
 
     @Override

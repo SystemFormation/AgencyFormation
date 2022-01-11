@@ -17,16 +17,15 @@ public class CheckMaterialeFormazione extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-          int idTeam = Integer.parseInt(request.getParameter("idTeam"));
-            if(idTeam<=0){
-                response.getWriter().write("1");//l'id del team non può  essere minore di 1
+            int idTeam = Integer.parseInt(request.getParameter("idTeam"));
+            if (idTeam <= 0) {
+                response.getWriter().write("1"); //l'id del team non può  essere minore di 1
             }
             Documento documento = getDocumentofromManager(idTeam);
-            if(documento!=null){
-                response.getWriter().write("2");//il documento esiste
-            }
-            else{
-                response.getWriter().write("3");//il documento non esiste
+            if (documento != null) {
+                response.getWriter().write("2"); //il documento esiste
+            } else {
+                response.getWriter().write("3"); //il documento non esiste
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -34,7 +33,7 @@ public class CheckMaterialeFormazione extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req,resp);
+        doGet(req, resp);
     }
     public static Documento getDocumentofromManager(int idTeam) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();

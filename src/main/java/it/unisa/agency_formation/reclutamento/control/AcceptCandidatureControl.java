@@ -39,11 +39,11 @@ public class AcceptCandidatureControl extends HttpServlet {
                         if (getAllFromManager() == null) {
                             response.getWriter().write("3");
                         } else {
-                            response.getWriter().write("1");//accettazione avvenuta
+                            response.getWriter().write("1"); //accettazione avvenuta
                         }
                     } else {
                         //todo errore nell'accettazione
-                        response.getWriter().write("2");//accettazione non avvenuta
+                        response.getWriter().write("2"); //accettazione non avvenuta
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

@@ -9,7 +9,6 @@ import it.unisa.agency_formation.formazione.domain.Skill;
 import it.unisa.agency_formation.formazione.manager.FormazioneManager;
 import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
 
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,12 +35,12 @@ public class ProfiloControl extends HttpServlet {
                     skills = getSkillDipendenteFromManager(dip.getIdDipendente());
                     dip.setSkills(skills);
                 }
-                response.getWriter().write("1");// retrieve data ok
+                response.getWriter().write("1"); // retrieve data ok
                 request.setAttribute("dip", dip);
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Profilo.jsp");
-                dispatcher.forward(request,response);
+                dispatcher.forward(request, response);
             } else {
-                response.getWriter().write("2");//errore
+                response.getWriter().write("2"); //errore
                 response.sendRedirect("./static/Login.html");
             }
         } catch (SQLException e) {
@@ -54,11 +53,12 @@ public class ProfiloControl extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static Dipendente getAllDataDipFromManager(int id) throws SQLException{
+    public static Dipendente getAllDataDipFromManager(int id) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getDipendente(id);
     }
-    public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException{
+
+    public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.recuperoSkillConIdDipendente(idDip);
     }

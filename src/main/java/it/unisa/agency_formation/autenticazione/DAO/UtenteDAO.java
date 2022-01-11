@@ -49,13 +49,14 @@ public class UtenteDAO {
                 case HR:
                     save.setInt(5, 4);
                     break;
+                default:
+                    break;
             }
             int result = save.executeUpdate();
             if (result != -1) {
                 return true;
-            } else {
-                return false;
             }
+                return false;
         } finally {
             try {
                 if (save != null) {
@@ -112,6 +113,8 @@ public class UtenteDAO {
                         break;
                     case 4:
                         user.setRole(RuoliUtenti.HR);
+                        break;
+                    default:
                         break;
                 }
                 return user;
@@ -170,6 +173,8 @@ public class UtenteDAO {
                     case 4:
                         user.setRole(RuoliUtenti.HR);
                         break;
+                    default:
+                        break;
                 }
                 return user;
             }
@@ -217,6 +222,8 @@ public class UtenteDAO {
             case HR:
                 role = 4;
                 break;
+            default:
+                break;
         }
         if (role == 0) {
             return null;
@@ -251,6 +258,8 @@ public class UtenteDAO {
                     case 4:
                         user.setRole(RuoliUtenti.HR);
                         break;
+                    default:
+                        break;
                 }
                 utenti.add(user);
             }
@@ -278,8 +287,8 @@ public class UtenteDAO {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
-        String query = "select IdUtente,Nome,Cognome,Pwd,Mail,Ruolo from utenti inner join candidature " +
-                "on utenti.IdUtente=candidature.IdCandidato and candidature.Stato NOT IN (?,?)";
+        String query = "select IdUtente,Nome,Cognome,Pwd,Mail,Ruolo from utenti inner join candidature "
+                + "on utenti.IdUtente=candidature.IdCandidato and candidature.Stato NOT IN (?,?)";
 
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
@@ -306,6 +315,8 @@ public class UtenteDAO {
                         break;
                     case 4:
                         user.setRole(RuoliUtenti.HR);
+                        break;
+                    default:
                         break;
                 }
                 utenti.add(user);

@@ -21,7 +21,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
-        if(user!=null && user.getRole()== RuoliUtenti.TM) {
+        if (user != null && user.getRole() == RuoliUtenti.TM) {
             int idTeam = Integer.parseInt(req.getParameter("idTeam"));
             RequestDispatcher dispatcher;
             if (idTeam != 0) {
@@ -42,7 +42,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
                 dispatcher.forward(req, resp);
 
             }
-        }else{
+        } else {
             resp.sendRedirect("./static/Login.html");
         }
     }
@@ -52,16 +52,18 @@ public class ScioglimentoTeamControl extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static ArrayList<Integer> recuperaIdDipendentiFromManager(int idTeam) throws SQLException{
+    public static ArrayList<Integer> recuperaIdDipendentiFromManager(int idTeam) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.recuperaIdDipendentiDelTeam(idTeam);
     }
-//TODO GESTIRE I RETURN QUI E DOPO
-    public static boolean updateStatoDipendenteFromManager(int idDipendente) throws SQLException{
+
+    //TODO GESTIRE I RETURN QUI E DOPO
+    public static boolean updateStatoDipendenteFromManager(int idDipendente) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.updateDipsDisso(idDipendente);
     }
-    public static boolean eliminaTeamFromManager(int idTeam) throws SQLException{
+
+    public static boolean eliminaTeamFromManager(int idTeam) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.sciogliTeam(idTeam);
     }

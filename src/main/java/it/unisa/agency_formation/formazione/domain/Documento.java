@@ -14,8 +14,8 @@ public class Documento {
         return materialeDiFormazione;
     }
 
-    public void setMaterialeDiFormazione(String materialeDiFormazione) {
-        this.materialeDiFormazione = materialeDiFormazione;
+    public void setMaterialeDiFormazione(String materialeFormazione) {
+        this.materialeDiFormazione = materialeFormazione;
     }
 
     public int getIdHR() {
@@ -30,15 +30,15 @@ public class Documento {
         return idTeam;
     }
 
-    public void setIdTeam(int idTeam) {
-        this.idTeam = idTeam;
+    public void setIdTeam(int id) {
+        this.idTeam = id;
     }
 
     public int getIdDocumento() {
         return idDocumento;
     }
 
-    public void setIdDocumento(int idDocumento) {
-        this.idDocumento = idDocumento;
+    public void setIdDocumento(int idDoc) {
+        this.idDocumento = idDoc;
     }
 }

@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseManager {
-    String nomeDB = Const.nomeDB;
-    String name = Const.name;
-    String pwd = Const.pwd;
-    String url;
+    private String nomeDB = Const.nomeDB;
+    private String name = Const.name;
+    private String pwd = Const.pwd;
+    private String url;
 
     private static Connection connect;
     private static DatabaseManager instance;

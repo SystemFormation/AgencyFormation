@@ -8,32 +8,32 @@ public class Skill {
     public Skill() {
     }
 
-    public Skill(String nomeSkill, String descrizioneSkill) {
-        this.nomeSkill = nomeSkill;
-        this.descrizioneSkill = descrizioneSkill;
+    public Skill(String nameSkill, String descriptionSkill) {
+        this.nomeSkill = nameSkill;
+        this.descrizioneSkill = descriptionSkill;
     }
 
     public int getIdSkill() {
         return idSkill;
     }
 
-    public void setIdSkill(int idSkill) {
-        this.idSkill = idSkill;
+    public void setIdSkill(int id) {
+        this.idSkill = id;
     }
 
     public String getNomeSkill() {
         return nomeSkill;
     }
 
-    public void setNomeSkill(String nomeSkill) {
-        this.nomeSkill = nomeSkill;
+    public void setNomeSkill(String nameSkill) {
+        this.nomeSkill = nameSkill;
     }
 
     public String getDescrizioneSkill() {
         return descrizioneSkill;
     }
 
-    public void setDescrizioneSkill(String descrizioneSkill) {
-        this.descrizioneSkill = descrizioneSkill;
+    public void setDescrizioneSkill(String descriptionSkill) {
+        this.descrizioneSkill = descriptionSkill;
     }
 }

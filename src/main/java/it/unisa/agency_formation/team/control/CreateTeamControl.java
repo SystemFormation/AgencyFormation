@@ -38,7 +38,7 @@ public class CreateTeamControl extends HttpServlet {
                     String nomeTeam = req.getParameter("fname");
                     String descrizione = req.getParameter("teamDescr");
                     resp.getWriter().write("2");
-                    if (userTM.getRole() == RuoliUtenti.TM) {//ruolo dell'utente è uguale a 3 può salvare
+                    if (userTM.getRole() == RuoliUtenti.TM) { //ruolo dell'utente è uguale a 3 può salvare
                         team.setNomeProgetto(nomeProgetto);
                         team.setDescrizione(descrizione);
                         team.setNomeTeam(nomeTeam);

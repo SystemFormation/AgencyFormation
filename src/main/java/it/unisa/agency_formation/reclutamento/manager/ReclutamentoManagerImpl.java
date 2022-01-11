@@ -71,8 +71,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     private boolean alreadyLoaded(int idUtente) throws SQLException {
         if (CandidaturaDAO.doRetrieveCandidaturaById(idUtente) == null) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 }

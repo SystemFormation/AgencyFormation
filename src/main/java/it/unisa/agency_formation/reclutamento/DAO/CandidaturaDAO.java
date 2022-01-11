@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class CandidaturaDAO {
-    private final static String TABLE_CANDIDATURA = "Candidature";
+    private  static final String TABLE_CANDIDATURA = "Candidature";
 
 
     /**
@@ -26,8 +26,9 @@ public class CandidaturaDAO {
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
-        String query = "insert into " + TABLE_CANDIDATURA +
-                "(Curriculum, Stato, DataCandidatura,IdCandidato) "
+        String query = "insert into "
+                + TABLE_CANDIDATURA
+                + "(Curriculum, Stato, DataCandidatura,IdCandidato) "
                 + "VALUES(?,?,?,?)";
         try {
             save = connection.prepareStatement(query);
@@ -42,6 +43,11 @@ public class CandidaturaDAO {
                 case NonRevisionato:
                     save.setString(2, "NonRevisionato");
                     break;
+                case Assunzione:
+                    save.setString(2, "Assunzione");
+                    break;
+                default:
+                    break;
             }
 
             save.setDate(3, (Date) candidatura.getDataCandidatura());
@@ -49,9 +55,8 @@ public class CandidaturaDAO {
             int result = save.executeUpdate();
             if (result != -1) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         } finally {
             try {
                 if (save != null) {
@@ -90,9 +95,8 @@ public class CandidaturaDAO {
             int result = update.executeUpdate();
             if (result != -1) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
 
         } finally {
             try {
@@ -144,6 +148,11 @@ public class CandidaturaDAO {
                     case "Rifiutata":
                         cand.setStato(StatiCandidatura.Rifiutata);
                         break;
+                    case "Assunzione":
+                        cand.setStato(StatiCandidatura.Assunzione);
+                        break;
+                    default:
+                        break;
                 }
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
@@ -194,6 +203,11 @@ public class CandidaturaDAO {
                         break;
                     case "Rifiutata":
                         cand.setStato(StatiCandidatura.Rifiutata);
+                        break;
+                    case "Assunzione":
+                        cand.setStato(StatiCandidatura.Assunzione);
+                        break;
+                    default:
                         break;
                 }
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
@@ -250,6 +264,11 @@ public class CandidaturaDAO {
                 case NonRevisionato:
                     retrieve.setString(1, "NonRevisionato");
                     break;
+                case Assunzione:
+                    retrieve.setString(1, "Assunzione");
+                    break;
+                default:
+                    break;
             }
             result = retrieve.executeQuery();
             while (result.next()) {
@@ -267,6 +286,11 @@ public class CandidaturaDAO {
                     case "Rifiutata":
                         cand.setStato(StatiCandidatura.Rifiutata);
                         break;
+                    case "Assunzione":
+                        cand.setStato(StatiCandidatura.Assunzione);
+                        break;
+                    default:
+                        break;
                 }
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
@@ -274,8 +298,9 @@ public class CandidaturaDAO {
                 cand.setIdHR(result.getInt("IdHR"));
                 candidature.add(cand);
             }
-            if (candidature.size() > 0) return candidature;
-            else {
+            if (candidature.size() > 0) {
+                return candidature;
+            } else {
                 candidature = null;
                 return candidature;
             }
@@ -319,14 +344,18 @@ public class CandidaturaDAO {
                 case NonRevisionato:
                     retrieve.setString(1, "NonRevisionato");
                     break;
+                case Assunzione:
+                    retrieve.setString(1, "Assunzione");
+                    break;
+                default:
+                    break;
             }
             retrieve.setInt(2, idCandidatura);
             int result = retrieve.executeUpdate();
             if (result != -1) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         } finally {
             try {
                 if (retrieve != null) {
@@ -362,16 +391,17 @@ public class CandidaturaDAO {
             int result = stmt.executeUpdate();
             if (result != -1) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -400,16 +430,17 @@ public class CandidaturaDAO {
             int result = stmt.executeUpdate();
             if (result != -1) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }
@@ -432,16 +463,17 @@ public class CandidaturaDAO {
             int result = stmt.executeUpdate();
             if (result != -1) {
                 return true;
-            } else {
-                return false;
             }
+            return false;
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } finally {
-                if (connection != null)
+                if (connection != null) {
                     connection.close();
+                }
             }
         }
     }

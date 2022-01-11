@@ -56,7 +56,7 @@ public class FiltroDipendentiControl extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static ArrayList<Dipendente> getDipendetiByStatoFromManager(StatiDipendenti stato) throws SQLException{
+    public static ArrayList<Dipendente> getDipendetiByStatoFromManager(StatiDipendenti stato) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getDipendentiByStato(stato);
     }

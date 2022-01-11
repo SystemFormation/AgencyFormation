@@ -14,71 +14,70 @@ public class Candidatura {
     private int idHR;
     private Timestamp dataOraColloquio;
 
-    public Candidatura() {
-    }
+    public Candidatura() { }
 
 
     public int getIdCandidatura() {
         return idCandidatura;
     }
 
-    public void setIdCandidatura(int idCandidatura) {
-        this.idCandidatura = idCandidatura;
+    public void setIdCandidatura(int idCandidature) {
+        this.idCandidatura = idCandidature;
     }
 
     public StatiCandidatura getStato() {
         return stato;
     }
 
-    public void setStato(StatiCandidatura stato) {
-        this.stato = stato;
+    public void setStato(StatiCandidatura state) {
+        this.stato = state;
     }
 
     public Date getDataCandidatura() {
         return dataCandidatura;
     }
 
-    public void setDataCandidatura(Date dataCandidatura) {
-        this.dataCandidatura = dataCandidatura;
+    public void setDataCandidatura(Date dataCand) {
+        this.dataCandidatura = dataCand;
     }
 
     public Timestamp getDataOraColloquio() {
         return dataOraColloquio;
     }
 
-    public void setDataOraColloquio(Timestamp dataOraColloquio) {
-        this.dataOraColloquio = dataOraColloquio;
+    public void setDataOraColloquio(Timestamp dataOraCol) {
+        this.dataOraColloquio = dataOraCol;
     }
 
     public int getIdCandidato() {
         return idCandidato;
     }
 
-    public void setIdCandidato(int idCandidato) {
-        this.idCandidato = idCandidato;
+    public void setIdCandidato(int IdCandidato) {
+        this.idCandidato = IdCandidato;
     }
 
     public int getIdHR() {
         return idHR;
     }
 
-    public void setIdHR(int idHR) {
-        this.idHR = idHR;
+    public void setIdHR(int IdHR) {
+        this.idHR = IdHR;
     }
 
     public String getCurriculum() {
         return curriculum;
     }
 
-    public void setCurriculum(String curriculum) {
-        this.curriculum = curriculum;
+    public void setCurriculum(String cv) {
+        this.curriculum = cv;
     }
 
     public String getDocumentiAggiuntivi() {
         return documentiAggiuntivi;
     }
 
-    public void setDocumentiAggiuntivi(String documentiAggiuntivi) {
-        this.documentiAggiuntivi = documentiAggiuntivi;
+    public void setDocumentiAggiuntivi(String docAggiuntivi) {
+        this.documentiAggiuntivi = docAggiuntivi;
     }
 }
