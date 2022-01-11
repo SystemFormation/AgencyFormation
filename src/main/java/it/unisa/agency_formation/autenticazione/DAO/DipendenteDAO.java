@@ -372,7 +372,7 @@ public class DipendenteDAO {
      * @throws SQLException
      */
 
-    public static boolean aggiuntaDipendenteNelTeam(int idDip, int idTeam) throws SQLException {
+    public static boolean setTeamDipendente(int idDip, int idTeam) throws SQLException {
         if (idDip <= 0 || idTeam <= 0) {
             return false;
         }

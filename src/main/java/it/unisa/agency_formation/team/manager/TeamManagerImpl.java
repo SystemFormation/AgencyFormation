@@ -21,10 +21,10 @@ public class TeamManagerImpl implements TeamManager {
         return DipendenteDAO.recuperaByStato(state);
     }
 
-    @Override
+  /*  @Override
     public boolean addDipendente(int idTeam, Dipendente dip) throws SQLException {
        return TeamDAO.aggiungiDipendente(idTeam, dip.getIdDipendente());
-    }
+    } Non viene utilizzato */
 
     @Override
     public boolean rimuoviDipendente(int idDip) throws SQLException {
@@ -53,7 +53,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public boolean updateDipOnTeam(int idDip, int idTeam) throws SQLException {
-       return DipendenteDAO.aggiuntaDipendenteNelTeam(idDip, idTeam);
+       return DipendenteDAO.setTeamDipendente(idDip, idTeam);
     }
 
     @Override

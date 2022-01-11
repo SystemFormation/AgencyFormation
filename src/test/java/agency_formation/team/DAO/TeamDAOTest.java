@@ -2,39 +2,59 @@ package agency_formation.team.DAO;
 
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
-import org.junit.jupiter.api.Test;
+import it.unisa.agency_formation.utils.Const;
+import it.unisa.agency_formation.utils.DatabaseManager;
+import org.junit.jupiter.api.*;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TeamDAOTest {
-    TeamDAO team= new TeamDAO();
 
-    @Test // Non avviene la creazione del team perche il team è null
+    @BeforeAll
+    public static void init() throws SQLException {
+        Const.nomeDB = Const.NOME_DB_TEST;
+        String query_per_rimozione="insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(2, 'ReqMem',8,'Inspiegabili','Non siamo eroi',null,3)";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query_per_rimozione);
+        statement.executeUpdate(query_per_rimozione);
+
+    }
+    @AfterAll
+    public static void finish() throws SQLException {
+        Const.nomeDB = Const.NOME_DB_MANAGER;
+    }
+    @Test
+    @Order(1)
     public void saveTeamFail() throws SQLException {
         Team team = null;
         int idUtente = -1;
         assertFalse(TeamDAO.salvaTeam(team, idUtente));
     }
     @Test
+    @Order(2)
     public void saveTeamOk() throws SQLException {
-        Team team = new Team("FintDiary", 8, "Bastoncini Fintuss", "Vendiamo Bastoncini Di Pesce", "HTML", 2);
-        int idUtente = 1;
+        Team team = new Team("TestNomeProgetto", 8, "TestNomeTeam", "Esempio di una descrizione", null, 3);
+        int idUtente = 3;
         assertTrue(TeamDAO.salvaTeam(team, idUtente));
     }
     @Test
+    @Order(3)
     public void removeTeamFail() throws SQLException {
         int idTeam = -1;
         assertFalse(TeamDAO.rimuoviTeam(idTeam));
 
     }
     @Test
+    @Order(4)
     public void removeTeamOk() throws SQLException {
-        int idTeam = 1;
+        int idTeam = 2;
         assertTrue(TeamDAO.rimuoviTeam(idTeam));
     }
-    @Test
+    /*@Test
     public void addEmployeeFail() throws SQLException{
         int idTeam = -1;
         int idDipendente = -1;
@@ -45,9 +65,9 @@ public class TeamDAOTest {
     @Test
     public void addEmployeeOk() throws SQLException {
         int idTeam = 1;
-        int idDipendente = 1;
+        int idDipendente = 2;
         assertTrue(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
-    }
+    }*/
 
     @Test
     public void doRetrieveTeamByIdFail() throws SQLException {
@@ -58,22 +78,18 @@ public class TeamDAOTest {
     @Test
     public void doRetrieveTeamByIdOk() throws SQLException {
         int idTeam = 1;
-        assertNull(TeamDAO.recuperaTeamById(idTeam));
+        assertNotNull(TeamDAO.recuperaTeamById(idTeam));
     }
 
     @Test
     public void removeEmployeeFail() throws SQLException {
-        int idTeam = -1;
         int idDipendente = -1;
-        assertFalse(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
-
     }
 
     @Test
     public void removeEmployeeOk() throws SQLException {
         int idTeam = 1;
         int idDipendente = 1;
-        assertTrue(TeamDAO.aggiungiDipendente(idTeam, idDipendente));
 
     }
     @Test // fa questo o quello sotto (non entrambi)

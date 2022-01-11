@@ -12,7 +12,7 @@ public interface TeamManager {
 
     ArrayList<Dipendente> getDipendenti(StatiDipendenti state) throws SQLException;
 
-    boolean addDipendente(int idTeam, Dipendente dip) throws SQLException;
+   // boolean addDipendente(int idTeam, Dipendente dip) throws SQLException;
 
     boolean rimuoviDipendente(int idDip) throws SQLException;
 

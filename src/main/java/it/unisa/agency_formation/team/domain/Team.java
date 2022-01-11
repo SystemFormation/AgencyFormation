@@ -60,17 +60,17 @@ public class Team {
         Descrizione = description;
     }
 
-    //public String getCompetenza() {
-      //  return Competenza;
-    //}
+    public String getCompetenza() {
+        return Competenza;
+    }
 
     public void setCompetenza(String competence) {
         Competenza = competence;
     }
 
-    //public int getIdTM() {
-    //    return idTM;
-    //}
+    public int getIdTM() {
+      return idTM;
+    }
 
     public void setIdTM(int IdTM) {
         this.idTM = IdTM;
