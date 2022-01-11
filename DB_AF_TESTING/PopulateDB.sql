@@ -1,4 +1,4 @@
-use af_db;
+use af_db_test;
 
 /*-------------------  DA POPOLARE INSIEME  -------------------*/
 
