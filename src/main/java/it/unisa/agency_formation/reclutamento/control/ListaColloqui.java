@@ -2,6 +2,8 @@ package it.unisa.agency_formation.reclutamento.control;
 
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
@@ -17,6 +19,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static it.unisa.agency_formation.reclutamento.control.ListaCandidati.getCandidates;
+
 @WebServlet("/ListaColloqui")
 public class ListaColloqui  extends HttpServlet {
     @Override
@@ -24,11 +28,13 @@ public class ListaColloqui  extends HttpServlet {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             try {
+                ArrayList<Utente> candidati = getCandidates();
+                request.setAttribute("candidati", candidati);
                 ArrayList<Candidatura> candidature = getCandidatures();
-                if (candidature != null && candidature.size() > 0) {
-                    response.getWriter().write("1"); //ci sono i candidati
+                if (candidature != null && candidature.size() > 0 && candidati != null && candidati.size() > 0) {
+                    response.getWriter().write("1"); //ci sono i candidature
                 } else {
-                    response.getWriter().write("2"); //non ci sono candidati
+                    response.getWriter().write("2"); //non ci sono candidature
                 }
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaColloqui.jsp");
                 dispatcher.forward(request, response);
@@ -46,6 +52,11 @@ public class ListaColloqui  extends HttpServlet {
     public static ArrayList<Candidatura> getCandidatures() throws SQLException {
         ReclutamentoManager reclutamentoManager= new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidatiConColloquio(StatiCandidatura.Assunzione);
+    }
+
+    public static ArrayList<Utente> getCandidates() throws SQLException {
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+        return autenticazioneManager.getCandidatiConCandidatura();
     }
 
 }

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Luigi
-  Date: 06/01/2022
-  Time: 17:59
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page import="it.unisa.agency_formation.autenticazione.domain.RuoliUtenti" %>
 <%@ page import="it.unisa.agency_formation.reclutamento.domain.Candidatura" %>
 <%@ page import="it.unisa.agency_formation.reclutamento.domain.StatiCandidatura" %>
@@ -62,7 +55,6 @@
                         <p>Non Revisionato</p>
                     </c:when>
                 </c:choose>
-
             </div>
         </c:if>
     </div>

@@ -28,7 +28,7 @@
             <p>Ottieni la lista di tutti i teams con i relativi dati e la gestione del
                 caricamento del materiale di formazione</p>
         </div>
-        <div id="home"><a href="ListaCandidati">
+        <div id="home"><a href="ListaColloqui">
             <h2> Lista Colloqui </h2></a>
             <p>Ottieni la lista dei colloqui per poter assumere o rifiutare un candidato</p>
         </div>

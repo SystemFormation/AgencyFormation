@@ -93,7 +93,7 @@ textarea {
     margin: auto 15%;
 }
 
-.content-candidati {
+.content-candidati, .content-colloqui{
     width: 90%;
     margin: auto 5%;
 }
