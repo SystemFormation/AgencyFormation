@@ -51,6 +51,11 @@
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Rifiutata}">
                         <p>Rifiutata</p>
+                        <div id="home"><a href="RicandidaturaControl">
+                            <h2> Caricamento Documenti </h2></a>
+                            <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
+                            </p>
+                        </div>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">
                         <p>Non Revisionato</p>
@@ -61,7 +66,7 @@
                         <form method="post" id="formDipendente" action="CandidatoAssuntoControl">
                             <input type="hidden" name="action" value="crea">
                             <label for="formDipendente">Anno di nascita:</label>
-                            <input type="number" min="1940" max="2014" id="annoDipendente" name="annoDipendente" placeholder="Anno" required pattern="[0-9]{4}"><br>
+                            <input type="number" min="1940" max="2004" id="annoDipendente" name="annoDipendente" placeholder="Anno" required pattern="[0-9]{4}"><br>
                             <label for="formDipendente">Anno di nascita:</label>
                             <input type="text" id="residenzaDipendente" name="residenzaDipendente" placeholder="Residenza" required pattern=""><br>
                             <label for="formDipendente">Anno di nascita:</label>
