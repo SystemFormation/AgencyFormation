@@ -23,7 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 @WebServlet("/RejectCandidatureControl")
 public class RejectCandidatureControl extends HttpServlet {
-    //TODO DA RENDERE FINAL
+
     private static final String path = "\\AgencyFormationFile\\Candidature\\";
     private static final String pathAbsolute = System.getProperty("user.home") + path;
 
@@ -43,7 +43,6 @@ public class RejectCandidatureControl extends HttpServlet {
 
                 } else {
                     //TODO errore nel rifiutare la candidatura
-
                     response.getWriter().write("2"); //rifiuto non avvenuto
                 }
             } catch (SQLException e) {

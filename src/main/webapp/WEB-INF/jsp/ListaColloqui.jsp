@@ -28,12 +28,12 @@
     <c:if test="${candidati==null}"><h1>Non ci sono colloqui</h1>
     </c:if>
     <c:forEach var="cand" items="${candidati}">
-        <c:if test="${candidatura.getStato() != StatiCandidatura.Accettata}">
+        <c:if test="${candidatura.getStato() == StatiCandidatura.Accettata}">
         <div id="flex">${cand.getId()}</div>
         <div id="flex">${cand.getName()}</div>
         <div id="flex">${cand.getSurname()}</div>
         <div id="flex">
-            <button>Assumi</button>
+            <button onclick="assumi(${cand.getId()})">Assumi</button>
             <button onclick="rejectCandidature(${cand.getId()})">Rifiuta</button>
         </div>
         <c:set var="index" value="${index + 1}" scope="page"/>

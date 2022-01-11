@@ -23,6 +23,7 @@ public class RicandidaturaControl extends HttpServlet {
             try {
                 if (!eliminaCandidaturaFromManager(user.getId())) {
                     response.getWriter().write("1"); //eliminazione candidatura fallita
+                    response.sendRedirect("./static/Error.html");
                 } else {
                     response.getWriter().write("2"); // avvenuta eliminazione candidatura
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");

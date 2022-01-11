@@ -23,7 +23,6 @@ public class CandidatoAssuntoControl extends HttpServlet {
         if (user == null || user.getRole() != RuoliUtenti.CANDIDATO) {
             response.sendRedirect("./static/Login.html");
         } else {
-
             try {
                 int idDipendente = user.getId();
                 boolean set = setRuolo(idDipendente);

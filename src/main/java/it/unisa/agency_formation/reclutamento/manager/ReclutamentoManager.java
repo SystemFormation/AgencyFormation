@@ -2,6 +2,7 @@ package it.unisa.agency_formation.reclutamento.manager;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -17,4 +18,5 @@ public interface ReclutamentoManager {
     boolean assumiCandidato(Dipendente dipendente) throws SQLException;
     boolean rifiutaCandidato(int idCandidatura) throws SQLException;
     boolean ricandidatura(int idCandidatura) throws SQLException;
+    ArrayList<Candidatura> getCandidatiConColloquio(StatiCandidatura stato)throws SQLException;
 }

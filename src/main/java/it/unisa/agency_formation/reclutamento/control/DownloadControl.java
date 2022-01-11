@@ -20,8 +20,8 @@ import java.sql.SQLException;
 
 @WebServlet("/DownloadControl")
 public class DownloadControl extends HttpServlet {
-    //TODO da rendere final
-    private String directory = System.getProperty("user.home");
+
+    private final String directory = System.getProperty("user.home");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

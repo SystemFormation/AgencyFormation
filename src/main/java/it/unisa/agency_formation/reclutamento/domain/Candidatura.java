@@ -3,7 +3,6 @@ package it.unisa.agency_formation.reclutamento.domain;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-//todo refactor
 public class Candidatura {
     private int idCandidatura;
     private String curriculum;
@@ -15,7 +14,6 @@ public class Candidatura {
     private Timestamp dataOraColloquio;
 
     public Candidatura() { }
-
 
     public int getIdCandidatura() {
         return idCandidatura;

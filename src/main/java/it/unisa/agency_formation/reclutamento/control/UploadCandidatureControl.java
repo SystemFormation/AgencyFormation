@@ -82,9 +82,13 @@ public class UploadCandidatureControl extends HttpServlet {
                     cand.setIdCandidato(user.getId());
                     cand.setDocumentiAggiuntivi(documentiAggiuntivi);
                     try {
-                        //TODO return non gestito
                         uploadCandidatureFromManager(cand);
-                        request.setAttribute("candidatura", cand);
+                        if(uploadCandidatureFromManager(cand)) {
+                            request.setAttribute("candidatura", cand);
+                        } else {
+                            //TODO PAGINA DI ERRORE
+                            response.sendRedirect("./static/Error.html");
+                        }
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

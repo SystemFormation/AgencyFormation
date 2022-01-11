@@ -41,6 +41,11 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
 
     @Override
+    public ArrayList<Candidatura> getCandidatiConColloquio(StatiCandidatura stato) throws SQLException {
+        return CandidaturaDAO.recuperaCandidatureByStato(stato);
+    }
+
+    @Override
     public Candidatura getCandidaturaById(int idCandidato) throws SQLException {
         return CandidaturaDAO.doRetrieveCandidaturaById(idCandidato);
 
