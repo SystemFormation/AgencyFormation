@@ -44,6 +44,7 @@
         <c:if test="${candidatura!=null && candidatura.getCurriculum()!=null}">
             <div id="stato">
                 <h2>Stato della tua candidatura:</h2>
+
                 <c:choose>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Accettata}">
                         <p>Accettata</p>
@@ -53,6 +54,20 @@
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">
                         <p>Non Revisionato</p>
+                    </c:when>
+                    <c:when test="${candidatura.getStato() == StatiCandidatura.Assunzione}">
+                        <p>Assunzione</p>
+                        <h3>Compila questi campi per completare la tua assunzione</h3>
+                        <form method="post" id="formDipendente" action="CandidatoAssuntoControl">
+                            <input type="hidden" name="action" value="crea">
+                            <label for="formDipendente">Anno di nascita:</label>
+                            <input type="number" min="1940" max="2014" id="annoDipendente" name="annoDipendente" placeholder="Anno" required pattern="[0-9]{4}"><br>
+                            <label for="formDipendente">Anno di nascita:</label>
+                            <input type="text" id="residenzaDipendente" name="residenzaDipendente" placeholder="Residenza" required pattern=""><br>
+                            <label for="formDipendente">Anno di nascita:</label>
+                            <input type="number" id="telefonoDipendente" name="telefonoDipendente" placeholder="Telefono" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}}"><br>
+                            <input type="submit" name="crea" value="Crea" id="crea">
+                        </form>
                     </c:when>
                 </c:choose>
             </div>
