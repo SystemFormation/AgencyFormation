@@ -34,10 +34,12 @@ public class UtenteDAOTest {
     public static void finish() throws SQLException {
         String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(4,'Domenico','Pagliuca','lol','d.pagliuca@studenti.unisa.it',4)";
         String delete = "Delete from utenti where IdUtente>4";
+        String deleteCand = "Delete from candidature where IdCandidatura=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate(query);
         statement.executeUpdate(delete);
+        statement.executeUpdate(deleteCand);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
@@ -120,7 +122,7 @@ public class UtenteDAOTest {
         assertNotNull(UtenteDAO.doRetrieveCandidatoConCandidatura());
     }
     @Test
-    @Order(12) //fail
+    @Order(14) //fail
     public void retrieveCandidatiConCandidatura2() throws SQLException{
         String query = "Delete from candidature where IdCandidatura=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -128,4 +130,21 @@ public class UtenteDAOTest {
         statement.executeUpdate();
         assertNull(UtenteDAO.doRetrieveCandidatoConCandidatura());
     }
+
+    @Test
+    @Order(12)//not pass
+    public void recuperoCandidatiColloquio1() throws SQLException {
+        assertNull(UtenteDAO.recuperoCandidatiColloquio());
+    }
+
+    @Test
+    @Order(13)//pass
+    public void recuperoCandidatiColloquio2() throws SQLException {
+        String query = "update candidature set Stato='Accettata' where idCandidatura=1";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
+        assertNotNull(UtenteDAO.recuperoCandidatiColloquio());
+    }
+
 }

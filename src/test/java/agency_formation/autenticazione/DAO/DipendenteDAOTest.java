@@ -23,19 +23,25 @@ public class DipendenteDAOTest {
     public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;
         String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(5,'Luca','Rossi','lol','luca@gmail.com',1)";
+        String query1= "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(2,'TestTeam',5,'Test','test descr','Java EE',3)";
+
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate(query);
+        statement.executeUpdate(query1);
     }
     @AfterAll
     public static void finish() throws SQLException {
        String delete = "Delete from utenti where IdUtente>4";
-       //String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
-          //     "values (2,'Fisciano','118',false,2000,1)";
+       String update = "update dipendenti set IdTeam=null where idTeam>1";
+        String delete1 = "Delete from team where IdTeam>1";
+       String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
+                    "values (2,'Fisciano','118',false,2000,1)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(delete);
         statement.executeUpdate(delete);
-       // statement.executeUpdate(insert);
+        statement.executeUpdate(delete1);
+        statement.executeUpdate(insert);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
@@ -102,6 +108,7 @@ public class DipendenteDAOTest {
         assertNotNull(dip);
     }
     @Test //non ci sono dipendenti
+    @Order(16)
     public void doRetrieveAll1() throws SQLException {
         String query = "Delete from dipendenti";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -116,41 +123,39 @@ public class DipendenteDAOTest {
         assertNotNull(DipendenteDAO.recuperaDipendenti().size());
     }
 
-    //test per dim array minore di uno
     @Test
+    @Order(10)
     public void doRetrieveByStateSizeLessOne() throws SQLException {
+        String query = "update dipendenti set Stato=1 where Stato = 0";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
         assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
     }
     @Test
-    public void doRetrieveByStateSizeMoreZero() throws SQLException {
+    @Order(11)
+    public void doRetrieveByStateSizePass() throws SQLException {
         assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
     }
 
-    @Test
-    public void doRetrieveByStatePass() throws SQLException {
-        assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
-
-    }
-
-
     @Test //not pass because idDip<1
-    public void updateDipTeamAndState1() {
-
+    @Order(12)
+    public void setTeamDipendente1() throws SQLException {
+        assertFalse(DipendenteDAO.setTeamDipendente(0,1));
     }
     @Test //not pass because idTeam<1
-    public void updateDipTeamAndState2() {
-
+    @Order(13)
+    public void setTeamDipendente2() throws SQLException {
+        assertFalse(DipendenteDAO.setTeamDipendente(2,0));
     }
     @Test //not pass because idDip doesn't exists
-    public void updateDipTeamAndState3() {
-
-    }
-    @Test //not pass because idTeam doesn't exists
-    public void updateDipTeamAndState4() {
-
+    @Order(14)
+    public void setTeamDipendente3() throws SQLException {
+        assertFalse(DipendenteDAO.setTeamDipendente(200,1));
     }
     @Test //pass
-    public void updateDipTeamAndState5() {
-
+    @Order(15)
+    public void setTeamDipendente4() throws SQLException {
+        assertTrue(DipendenteDAO.setTeamDipendente(5,2));
     }
 }

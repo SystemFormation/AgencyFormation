@@ -297,7 +297,7 @@ public class DipendenteDAO {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
-        String query = "Select * from " + TABLE_DIPENDENTE + " Where Stato=?";
+        String query = "Select * from " + TABLE_DIPENDENTE + " inner join utenti on IdUtente=IdDipendente and Stato=?";
         ArrayList<Dipendente> dipendenti = new ArrayList<Dipendente>();
         try {
             retrieve = connection.prepareStatement(query);
@@ -387,7 +387,10 @@ public class DipendenteDAO {
             stm.setBoolean(2, false);
             stm.setInt(3, idDip);
             int result = stm.executeUpdate();
-            return result != -1;
+           if(result < 1){
+               return false;
+           }
+           return true;
         } finally {
             try {
                 if (stm != null) {

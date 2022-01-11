@@ -21,7 +21,6 @@ public class AutenticazioneManagerTest {
     @Test
     public void registrationFail() throws SQLException {
         Utente user = new Utente("Francesco", "Cecco", "fra@gmail.com", "lol", RuoliUtenti.CANDIDATO);
-
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
             mocked.when(() -> UtenteDAO.salvaUtente(user)).thenReturn(false);
         }
@@ -34,7 +33,6 @@ public class AutenticazioneManagerTest {
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
             mocked.when(() -> UtenteDAO.salvaUtente(user)).thenReturn(true);
         }
-
         assertTrue(aut.registrazione(user));
     }
 
@@ -59,7 +57,7 @@ public class AutenticazioneManagerTest {
         }
         assertNotNull(aut.login(email, pwd));
     }
-
+/*
     @Test
     public void getAllDataFail() throws SQLException {
         Utente user = new Utente("Francesco", "Cecco", "fra@gmail.com", "lol", RuoliUtenti.CANDIDATO);
@@ -78,7 +76,7 @@ public class AutenticazioneManagerTest {
             mocked.when(() -> UtenteDAO.doRetrieveUtenteByID(id)).thenReturn(user);
         }
         //assertNotNull(aut.getDatiUtente(id));
-    }
+    }*/
 /*
     @Test //not pass id<1
     public void getAllDataDip1() throws SQLException {
@@ -90,20 +88,7 @@ public class AutenticazioneManagerTest {
         }
         assertNull(aut.getDipendente(user.getIdDipendente()));
     }
-*/    @Test //pass
-    public void getAllDataDip2(){
-
-    }
-
-    @Test //not pass there aren't candidates
-    public void getCandidates1(){
-
-    }
-    @Test //pass
-    public void getCandidates2(){
-
-    }
-
+*/
     @Test //not pass there aren't candidates with candidature
     public void getCandidatesWithCandidature1(){
 
