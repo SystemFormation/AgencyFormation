@@ -20,26 +20,31 @@ public class DocumentoDAOTest {
     @BeforeAll
     public static void init () throws SQLException{
         Const.nomeDB = Const.NOME_DB_TEST;
+        String query  = "Insert into documenti (IdDocumento, MaterialeDiFormazione, IdHR, IdTeam) values (2, '\', 4, 1)";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate(query);
 
     }
     @AfterAll
     public static void finish() throws SQLException {
-        //String query  = "Insert into documenti (IdDocumento, MaterialeDiFormazione, IdHR, IdTeam) values (1, '/', 4, 1)";
+        String delete= "Delete from documenti where IdDocumento>1";
         Connection connection = DatabaseManager.getInstance().getConnection();
-        //PreparedStatement statement = connection.prepareStatement(query);
-        //statement.executeUpdate(query);
+        PreparedStatement statement = connection.prepareStatement(delete);
+        statement.executeUpdate(delete);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
-    @Test //not pass document == null
+    @Test //non è presente nessun documento
     @Order(1)
-    public void saveDocumentFail() throws SQLException {
-        Documento doc= null;
+    public void salvaDocumentoFail1() throws SQLException {
+        Documento doc = null;
         assertFalse(DocumentoDAO.salvaDocumento(doc));
     }
-    @Test //pass
+
+    @Test //salva il documento
     @Order(2)
-    public void saveDocumentPass() throws SQLException {
+    public void salvaDocumentoOk() throws SQLException {
         Documento doc= new Documento();
         doc.setIdDocumento(2);
         doc.setMaterialeDiFormazione("test");
@@ -47,78 +52,76 @@ public class DocumentoDAOTest {
         doc.setIdTeam(1);
         assertTrue(DocumentoDAO.salvaDocumento(doc));
     }
-    @Test//not pass path == null//
-    @Order(3)
-    public void removeDocumentFail() throws SQLException {
+
+/*
+    @Test//non rimuovi il documento
+    @Order(4)
+    public void rimuoviDocumentoFail() throws SQLException {
         String path= null;
         assertFalse(DocumentoDAO.rimuoviDocumento(path));
     }
-    @Test // execute query deve essere execute Update
-    @Order(4)
-    public void removeDocumentPass() throws SQLException {
-        String path= "";
+
+    @Test // rimuovi il documento
+    @Order(5)
+    public void rimuoviDocumentoOk() throws SQLException {
+        String path= "\\";
         assertTrue(DocumentoDAO.rimuoviDocumento(path));
     }
 
-    @Test//not pass, idHR<1
-    @Order(5)
-    public void updateDocumentHRFail() throws SQLException {
-        int idHR=-1;
-        String materiale="null";
-        int idTeam=2;
-        assertFalse(DocumentoDAO.modificaDocumento(idHR,materiale,idTeam));
-    }
-
-   /* @Test//not pass, idHR doesn't exists
-    public void updateDocumentNotHRFail() throws SQLException {
-        int idHR=6432;
-        String materiale="null";
-        int idTeam=1;
-        assertFalse(DocumentoDAO.modificaDocumento(idHR,materiale,idTeam));
-    }*/
-    @Test//not pass, materiale == null
+    @Test//non aggiunge il documento
     @Order(6)
-    public void updateDocumentMaterialFail() throws SQLException {
-        int idHR=4;
+    public void modificaDocumentoFail1() throws SQLException {
+        int idHR=-1;
+        String materiale=null;
+        int idTeam=-2;
+        assertFalse(DocumentoDAO.modificaDocumento(idHR,materiale,idTeam));
+    }
+
+    @Test//aggiunge il documento
+    @Order(6)
+    public void modificaDocumentoOk() throws SQLException {
         String materiale= null;
+        int idHR=4;
         int idTeam=2;
+        assertFalse(DocumentoDAO.modificaDocumento(idHR,materiale,idTeam));
+    }
+
+    @Test//aggiunge il documento
+    @Order(6)
+    public void modificaDocumentoFail2() throws SQLException {
+        String materiale= null;
+        int idHR=4;
+        int idTeam=3;
         assertFalse(DocumentoDAO.modificaDocumento(idHR,materiale,idTeam));
 
     }
-
-    @Test//not pass, idTM<1
-    @Order(7)
-    public void updateDocumentIdTMFail() throws SQLException {
-        int idHR=4;
-        String materiale="null";
-        int idTeam=0;
-        assertFalse(DocumentoDAO.modificaDocumento(idHR,materiale,idTeam));
-
-    }
-    @Test//pass
-    @Order(8)
-    public void updateDocumentPass() throws SQLException {
-        int idHR=4;
-        String materiale="null";
-        int idTeam=2;
-        assertTrue(DocumentoDAO.modificaDocumento(idHR,materiale,idTeam));
-    }
-    @Test//not pass, idTM<1
-    @Order(9)
-    public void doRetrieveByTeamFail() throws SQLException {
+*/
+    @Test//Il team non esiste
+    @Order(3)
+    public void recuperaDocumentoByTeamFail1() throws SQLException {
         int idTeam=-1;
         assertNull(DocumentoDAO.recuperaDocumentoByTeam(idTeam));
     }
 
-    @Test//pass
-    @Order(10)
-    public void doRetrieveByTeamPass() throws SQLException {
-        //riempire il DB per testarlo
-        int idTeam=2;
+    @Test//Prende le informazioni del documento
+    @Order(4)
+    public void recuperaDocumentoByTeamOk1() throws SQLException {
+        int idTeam=1;
         assertNotNull(DocumentoDAO.recuperaDocumentoByTeam(idTeam));
     }
 
+    @Test//Documento esiste
+    @Order(5)
+    public void recuperaDocumentoByTeamOk2() throws SQLException {
+        int idTeam=1;
+        assertNotNull(DocumentoDAO.recuperaDocumentoByTeam(idTeam));
+    }
 
-
+    @Test//Documento non esiste
+    @Order(6)
+    public void recuperaDocumentoByTeamFail2() throws SQLException {
+        int IdTeam=2;
+        assertNull(DocumentoDAO.recuperaDocumentoByTeam(IdTeam));
+    }
 
 }

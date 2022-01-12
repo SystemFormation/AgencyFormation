@@ -20,7 +20,7 @@ public interface FormazioneManager {
 
     boolean aggiungiSkill(Skill skill) throws SQLException;
 
-    void rimuoviSkill(Skill skill);
+    //void rimuoviSkill(Skill skill);
 
     void visualizzaSkill(int idSkill);
 

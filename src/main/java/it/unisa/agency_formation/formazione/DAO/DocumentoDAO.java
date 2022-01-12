@@ -31,10 +31,7 @@ public class DocumentoDAO {
             save.setInt(2, doc.getIdHR());
             save.setInt(3, doc.getIdTeam());
             int result = save.executeUpdate();
-            if (result != -1) {
                 return true;
-            }
-            return false;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }

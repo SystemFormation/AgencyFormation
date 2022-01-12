@@ -38,10 +38,11 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     }
 
-    @Override
+    /*@Override
     public void rimuoviSkill(Skill skill) {
 
     }
+    */
 
     @Override
     public void visualizzaSkill(int idSkill) {
