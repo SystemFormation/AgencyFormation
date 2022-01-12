@@ -36,15 +36,7 @@ public class DocumentoDAO {
             }
             return false;
         } finally {
-            try {
-                if (save != null) {
-                    save.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -69,15 +61,7 @@ public class DocumentoDAO {
             result = stmt.executeQuery();
             return result.next();
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -108,15 +92,7 @@ public class DocumentoDAO {
             }
             return false;
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -154,15 +130,7 @@ public class DocumentoDAO {
                 return null;
             }
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 }

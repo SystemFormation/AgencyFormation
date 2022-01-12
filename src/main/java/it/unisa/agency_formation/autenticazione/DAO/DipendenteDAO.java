@@ -46,17 +46,9 @@ public class DipendenteDAO {
             if (result != -1) {
                 return true;
             }
-                return false;
+            return false;
         } finally {
-            try {
-                if (save != null) {
-                    save.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
 
     }
@@ -83,16 +75,8 @@ public class DipendenteDAO {
                 return false;
             }
             return true;
-            } finally {
-            try {
-                if (update != null) {
-                    update.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+        } finally {
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -157,12 +141,11 @@ public class DipendenteDAO {
                 return user;
             }
         } finally {
-            if (retrieve != null) {
-                retrieve.close();
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
         return null;
     }
+
     /**
      * Questa funzionalità permette di recuperare tutti i dipendenti
      *
@@ -227,15 +210,7 @@ public class DipendenteDAO {
                 return null;
             }
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -285,6 +260,7 @@ public class DipendenteDAO {
         }
     }
 */
+
     /**
      * Questa funzionalità permette di recuperare un dipendente attraverso lo stato
      *
@@ -353,15 +329,7 @@ public class DipendenteDAO {
                 return null;
             }
         } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
 
     }
@@ -387,20 +355,12 @@ public class DipendenteDAO {
             stm.setBoolean(2, false);
             stm.setInt(3, idDip);
             int result = stm.executeUpdate();
-           if(result < 1){
-               return false;
-           }
-           return true;
-        } finally {
-            try {
-                if (stm != null) {
-                    stm.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
+            if (result < 1) {
+                return false;
             }
+            return true;
+        } finally {
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 }

@@ -58,15 +58,7 @@ public class CandidaturaDAO {
             }
             return false;
         } finally {
-            try {
-                if (save != null) {
-                    save.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -99,15 +91,7 @@ public class CandidaturaDAO {
             return false;
 
         } finally {
-            try {
-                if (update != null) {
-                    update.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -165,9 +149,7 @@ public class CandidaturaDAO {
                 return null;
             }
         } finally {
-            if (retrieve != null) {
-                retrieve.close();
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -223,15 +205,7 @@ public class CandidaturaDAO {
                 return candidature;
             }
         } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -305,15 +279,7 @@ public class CandidaturaDAO {
                 return candidature;
             }
         } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -357,15 +323,7 @@ public class CandidaturaDAO {
             }
             return false;
         } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -394,15 +352,8 @@ public class CandidaturaDAO {
             }
             return false;
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
+
         }
     }
 
@@ -433,15 +384,7 @@ public class CandidaturaDAO {
             }
             return false;
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -466,15 +409,7 @@ public class CandidaturaDAO {
             }
             return false;
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 

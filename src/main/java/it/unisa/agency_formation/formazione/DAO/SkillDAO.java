@@ -37,15 +37,7 @@ public class SkillDAO {
                 save.executeUpdate();
                 return true;
             } finally {
-                try {
-                    if (save != null) {
-                        save.close();
-                    }
-                } finally {
-                    if (connection != null) {
-                        connection.close();
-                    }
-                }
+                DatabaseManager.controlloConnessione(connection);
             }
         }
         return false;
@@ -73,15 +65,7 @@ public class SkillDAO {
 
             return result1 != -1;
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -113,15 +97,7 @@ public class SkillDAO {
                 return null;
             }
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -160,15 +136,8 @@ public class SkillDAO {
             }
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
+
         }
     }
 
@@ -194,15 +163,7 @@ public class SkillDAO {
             int result = save.executeUpdate();
             return result != -1;
         } finally {
-            try {
-                if (save != null) {
-                    save.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -230,15 +191,7 @@ public class SkillDAO {
             }
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -251,7 +204,6 @@ public class SkillDAO {
         stmt = connection.prepareStatement(query);
         try {
             stmt.setInt(1, idDip);
-            result = stmt.executeQuery();
             result = stmt.executeQuery();
             while (result.next()) {
                 Skill skill = new Skill();
@@ -267,15 +219,7 @@ public class SkillDAO {
             }
 
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 }

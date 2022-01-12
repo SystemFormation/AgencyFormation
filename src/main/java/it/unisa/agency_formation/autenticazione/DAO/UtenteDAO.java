@@ -58,15 +58,7 @@ public class UtenteDAO {
             }
                 return false;
         } finally {
-            try {
-                if (save != null) {
-                    save.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -120,15 +112,7 @@ public class UtenteDAO {
                 return user;
             }
         } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+           DatabaseManager.controlloConnessione(connection);
         }
         return null;
     }
@@ -179,15 +163,7 @@ public class UtenteDAO {
                 return user;
             }
         } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
         return null;
     }
@@ -270,15 +246,7 @@ public class UtenteDAO {
                 return utenti;
             }
         } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -328,15 +296,7 @@ public class UtenteDAO {
                 return utenti;
             }
         } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
     }
 
@@ -380,15 +340,7 @@ public class UtenteDAO {
             }
             return utenti;
         } finally {
-            try {
-                if (retrieve != null) {
-                    retrieve.close();
-                }
-            } finally {
-                if (connection != null) {
-                    connection.close();
-                }
-            }
+            DatabaseManager.controlloConnessione(connection);
         }
 
 

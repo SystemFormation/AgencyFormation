@@ -42,6 +42,12 @@ public class DatabaseManager {
         return connect;
     }
 
+    public static void controlloConnessione(Connection connection) throws SQLException {
+        if(connection != null){
+            connection.close();
+        }
+    }
+
 
 }
 
