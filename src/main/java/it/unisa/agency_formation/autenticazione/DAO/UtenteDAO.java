@@ -28,7 +28,7 @@ public class UtenteDAO {
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement save = null;
-        String query = "insert into " + TABLE_UTENTE + "(Nome,Cognome,Pwd,Mail,Ruolo)"
+        String query = "insert into " + TABLE_UTENTE + " (Nome,Cognome,Pwd,Mail,Ruolo)"
                 + " values(?,?,?,?,?)";
         try {
             save = connection.prepareStatement(query);
@@ -52,11 +52,13 @@ public class UtenteDAO {
                 default:
                     break;
             }
+
             int result = save.executeUpdate();
-            if (result != -1) {
+            return true;
+            /*if (result != 0) {
                 return true;
             }
-                return false;
+                return false;*/
         } finally {
             DatabaseManager.controlloConnessione(connection);
         }

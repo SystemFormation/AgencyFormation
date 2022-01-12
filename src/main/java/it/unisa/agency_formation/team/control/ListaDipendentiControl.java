@@ -33,14 +33,16 @@ public class ListaDipendentiControl extends HttpServlet {
             /*visualizzo tutti i dipendenti*/
             try {
                 ArrayList<Dipendente> dipendenti = getTuttiDipendentiFromManager();
-                for (Dipendente dipendente : dipendenti) {
-                    ArrayList<Skill> skills;
-                    if (dipendente.getTeam() != null && dipendente.getTeam().getIdTeam() > 0) {
-                        dipendente.setTeam(getTeamIdFromManager(dipendente.getTeam().getIdTeam()));
-                    }
-                    if (getSkillDipendenteFromManager(dipendente.getIdDipendente()) != null && getSkillDipendenteFromManager(dipendente.getIdDipendente()).size() > 0) {
-                        skills = getSkillDipendenteFromManager(dipendente.getIdDipendente());
-                        dipendente.setSkills(skills);
+                if(dipendenti!=null && dipendenti.size()>0) {
+                    for (Dipendente dipendente : dipendenti) {
+                        ArrayList<Skill> skills;
+                        if (dipendente.getTeam() != null && dipendente.getTeam().getIdTeam() > 0) {
+                            dipendente.setTeam(getTeamIdFromManager(dipendente.getTeam().getIdTeam()));
+                        }
+                        if (getSkillDipendenteFromManager(dipendente.getIdDipendente()) != null && getSkillDipendenteFromManager(dipendente.getIdDipendente()).size() > 0) {
+                            skills = getSkillDipendenteFromManager(dipendente.getIdDipendente());
+                            dipendente.setSkills(skills);
+                        }
                     }
                 }
                 req.setAttribute("dipendenti", dipendenti);
