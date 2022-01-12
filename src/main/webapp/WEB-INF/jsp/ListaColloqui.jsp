@@ -29,7 +29,7 @@
                 <div id="flex">${cand.getSurname()}</div>
                 <div id="flex">
                     <button onclick="assumi(${cand.getId()})">Assumi</button>
-                    <button onclick="rejectCandidature(${cand.getId()})">Rifiuta</button>
+                    <button onclick="rifiuta(${cand.getId()})">Rifiuta</button>
                 </div>
                 <c:set var="index" value="${index + 1}" scope="page"/>
         </c:forEach>
