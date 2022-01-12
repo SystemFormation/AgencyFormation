@@ -2,8 +2,8 @@ package it.unisa.agency_formation.team.control;
 
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.team.manager.TeamManager;
-import it.unisa.agency_formation.team.manager.TeamManagerImpl;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ public class AddTeamControl extends HttpServlet {
                 if (action.equalsIgnoreCase("aggiungi")) {
                     int idDip = Integer.parseInt(req.getParameter("id"));
                     if (idDip != 0) {  //messo questo controllo
-                        updateDipOnTeamFromManager(idDip, idTeam);
+                        setTeamDipendemteFromManager(idDip, idTeam);
                         resp.getWriter().write("2"); //action null
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);
@@ -49,8 +49,8 @@ public class AddTeamControl extends HttpServlet {
     }
 
     //TODO non gestito il return
-    public static boolean updateDipOnTeamFromManager(int idDip, int idTeam) throws SQLException {
-        TeamManager teamManager = new TeamManagerImpl();
-        return teamManager.updateDipOnTeam(idDip, idTeam);
+    public static boolean setTeamDipendemteFromManager(int idDip, int idTeam) throws SQLException {
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+        return autenticazioneManager.setTeamDipendente(idDip,idTeam);
     }
 }
