@@ -60,7 +60,6 @@ function acceptCandidature(id,index){
 }
 function assumi(id){
     var id = id;
-
     $.ajax({
         type: 'GET',
         data:{"idCandidato":id},

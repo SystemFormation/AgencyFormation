@@ -32,19 +32,20 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                     response.getWriter().write("1"); //errore Candidatura
                     response.sendRedirect("./static/Login.html");
                 } else {
-                    boolean esito=setStato(candidatura.getIdCandidato());
+                    boolean esito=setStato(candidatura.getIdCandidatura());
                     if (esito) {
-                        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
-                        dispatcher.forward(request, response);
+                        System.err.println(esito+"Esito");
+                        response.getWriter().write("2"); // assunzione
                     } else {
-                        response.getWriter().write("2"); //errore assunzione
+                        response.getWriter().write("3"); //errore assunzione
                         response.sendRedirect("./static/Error.html");
                     }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -56,8 +57,8 @@ public class AssunzioneCandidatoControl extends HttpServlet {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
-    public static boolean setStato(int idCandidato) throws SQLException {
+    public static boolean setStato(int idCandidatura) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
-       return reclutamentoManager.modificaStatoCandidatura(idCandidato, StatiCandidatura.Assunzione);
+       return reclutamentoManager.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Assunzione);
     }
 }
