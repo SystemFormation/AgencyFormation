@@ -139,7 +139,7 @@ public class TeamDAO {
         Team team = null;
         PreparedStatement stmt = null;
         ResultSet result;
-        String query = "SELECT * FROM " + TABLE_TEAM + " inner join documenti on team.IdTeam=documenti.IdTeam and team.IdTeam = ?";
+        String query = "SELECT * FROM " + TABLE_TEAM + " left join documenti on team.IdTeam=documenti.IdTeam and team.IdTeam = ?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idTeam);
