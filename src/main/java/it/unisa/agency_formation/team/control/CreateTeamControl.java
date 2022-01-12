@@ -20,6 +20,7 @@ public class CreateTeamControl extends HttpServlet {
     //da raffinare
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.setProperty("file.encoding" , "UTF-8");
         Utente user = (Utente) req.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             Team team = new Team();

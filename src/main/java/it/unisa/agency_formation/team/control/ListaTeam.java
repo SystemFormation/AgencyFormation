@@ -32,7 +32,6 @@ public class ListaTeam extends HttpServlet {
             try {
                 ArrayList<Dipendente> listaDipsUsers = recuperoDipendetiDiUnTeamFromManager();
                 ArrayList<Team> teams = visualizzaTeamOfTMFromManager(user.getId());
-
                 req.setAttribute("listDip", listaDipsUsers);
                 req.setAttribute("listTeam", teams);
                 resp.getWriter().write("1");

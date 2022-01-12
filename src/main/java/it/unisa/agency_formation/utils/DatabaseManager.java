@@ -3,6 +3,7 @@ package it.unisa.agency_formation.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.TimeZone;
 
 public class DatabaseManager {
     private String nomeDB = Const.nomeDB;
@@ -24,20 +25,21 @@ public class DatabaseManager {
     public static DatabaseManager getInstance() throws SQLException {
         if (instance == null) {
             instance = new DatabaseManager();
-        } else if (connect != null && connect.isClosed()) {
-            instance = new DatabaseManager();
         }
-        return instance;
+            return instance;
     }
 
     public Connection getConnection() {
-        url = "jdbc:mysql://localhost:3306/" + nomeDB + "?serverTimezone=UTC&characterEncoding=UTF-8";
+        url = "jdbc:mysql://localhost:3306/" + nomeDB + "?characterEncoding=UTF-8&serverTimezone=" + TimeZone.getDefault().getID();
         try {
-            return this.connect = DriverManager.getConnection(url, name, pwd);
+            if(connect == null || connect.isClosed()) {
+                connect = DriverManager.getConnection(url, name, pwd);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+
+        return connect;
     }
 
 
