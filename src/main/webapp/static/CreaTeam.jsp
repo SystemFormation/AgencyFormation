@@ -27,7 +27,7 @@
                 <label for="quantity">Descrizione</label><br>
                 <textarea id="teamDescr" name="teamDescr" rows="6" cols="70" placeholder="Descrizione del Team"
                           required></textarea><br>
-                <input type="submit" name="crea" value="Crea" id="cerca"><br>
+                <input type="submit" name="crea" value="Crea" id="crea"><br>
             </form>
         </div>
     </div>

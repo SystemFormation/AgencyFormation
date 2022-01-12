@@ -40,7 +40,6 @@ input:hover, button:hover, a:hover {
 }
 
 .form input {
-    width: 60%;
     margin: 25px 5% 25px 5%;
     text-align: center;
     font-size: 30px;
@@ -85,7 +84,7 @@ textarea {
 
 #home {
     width: 48%;
-    margin: auto 1%;
+    margin: auto;
 }
 
 .content-createTeam {
@@ -93,7 +92,7 @@ textarea {
     margin: auto 15%;
 }
 
-.content-candidati, .content-colloqui{
+.content-candidati, .content-colloqui {
     width: 90%;
     margin: auto 5%;
 }
@@ -205,7 +204,7 @@ h2 {
 #flex-team-button button, input[type=submit] {
     font-size: 18px;
     border-radius: 2rem;
-    padding: 6px;
+    padding: 10px;
     background-color: #59A5D8;
     font-family: monospace;
     margin-bottom: 20px;

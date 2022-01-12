@@ -27,8 +27,10 @@ public class ScioglimentoTeamControl extends HttpServlet {
             if (idTeam != 0) {
                 try {
                     ArrayList<Integer> listaIdDip = recuperaIdDipendentiFromManager(idTeam);
-                    for (int idDip : listaIdDip) {
-                        updateStatoDipendenteFromManager(idDip);
+                    if (listaIdDip != null && listaIdDip.size() > 1) {
+                        for (int idDip : listaIdDip) {
+                            updateStatoDipendenteFromManager(idDip);
+                        }
                     }
                     eliminaTeamFromManager(idTeam);
                     dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
@@ -45,6 +47,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
         } else {
             resp.sendRedirect("./static/Login.html");
         }
+
     }
 
     @Override

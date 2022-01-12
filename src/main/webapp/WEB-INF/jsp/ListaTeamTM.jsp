@@ -64,8 +64,13 @@
                         </form>
                     </div>
                     <c:choose>
-
-                        <c:when test="${team.getDocumento().getMaterialeDiFormazione() != null}">
+                        <c:when test="${team.getCompetenza() != null && team.getDocumento().getMaterialeDiFormazione() == null}">
+                            <div class="stato">
+                                <h2>Stato della Specifica:</h2>
+                                <p>Effettuata</p>
+                            </div>
+                        </c:when>
+                        <c:when test="${team.getCompetenza() != null && team.getDocumento().getMaterialeDiFormazione() != null}">
                             <div class="stato">
                                 <h2>Stato della Specifica:</h2>
                                 <p>Soddisfatta</p>

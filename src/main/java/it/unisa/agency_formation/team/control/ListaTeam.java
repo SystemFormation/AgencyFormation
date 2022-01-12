@@ -68,7 +68,6 @@ public class ListaTeam extends HttpServlet {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.recuperaDipendentiDelTeam();
     }
-
     public static ArrayList<Team> visualizzaTeamOfTMFromManager(int idTM) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.visualizzaTeams(idTM);

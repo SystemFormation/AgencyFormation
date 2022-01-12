@@ -234,7 +234,7 @@ public class TeamDAO {
     public static ArrayList<Team> recuperaTuttiTeam() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ArrayList<Team> teams = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLE_TEAM + " inner join documenti on team.IdTeam=documenti.IdTeam";
+        String query = "SELECT * FROM " + TABLE_TEAM + " left join documenti on team.IdTeam=documenti.IdTeam";
         PreparedStatement stmt = null;
         ResultSet result;
         try {
@@ -291,7 +291,7 @@ public class TeamDAO {
         ArrayList<Team> teams = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet result;
-        String query = "SELECT * FROM " + TABLE_TEAM + " inner join documenti on team.IdTeam=documenti.IdTeam and IdTM=?";
+        String query = "SELECT * FROM " + TABLE_TEAM + " left join documenti on team.IdTeam=documenti.IdTeam and IdTM=?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idUtente);

@@ -24,7 +24,7 @@
 <div class="home">
     <div class="content flex">
         <c:choose>
-            <c:when test="${candidatura.getStato() != StatiCandidatura.Accettata}">
+            <c:when test="${candidatura.getStato() != StatiCandidatura.Accettata && candidatura.getStato() != StatiCandidatura.Assunzione}">
                 <c:if test="${candidatura==null||candidatura.getDocumentiAggiuntivi()==null}">
                     <div id="home"><a href="UploadCandidatureControl">
                         <h2> Caricamento Documenti </h2></a>
@@ -33,46 +33,50 @@
                     </div>
                 </c:if>
             </c:when>
-            <c:otherwise>
+            <c:when test="${candidatura.getStato() == StatiCandidatura.Accettata}">
                 <div id="home">
                     <h2> Data e ora colloquio:</h2></p>
                     <p> ${candidatura.getDataOraColloquio()} </p>
-
                 </div>
-            </c:otherwise>
+            </c:when>
         </c:choose>
         <c:if test="${candidatura!=null && candidatura.getCurriculum()!=null}">
             <div id="stato">
-                <h2>Stato della tua candidatura:</h2>
-
                 <c:choose>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Accettata}">
+                        <h2>Stato della tua candidatura:</h2>
                         <p>Accettata</p>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Rifiutata}">
+                        <h2>Stato della tua candidatura:</h2>
                         <p>Rifiutata</p>
                         <div id="home"><a href="RicandidaturaControl">
-                            <h2> Caricamento Documenti </h2></a>
-                            <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
+                            <h2> Ricandidatura </h2></a>
+                            <p>Hai la possibilità di poterti ricandidare caricando il tuo curriculum o anche i documenti
                             </p>
                         </div>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">
+                        <h2>Stato della tua candidatura:</h2>
                         <p>Non Revisionato</p>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Assunzione}">
-                        <p>Assunzione</p>
-                        <h3>Compila questi campi per completare la tua assunzione</h3>
-                        <form method="post" id="formDipendente" action="CandidatoAssuntoControl">
-                            <input type="hidden" name="action" value="crea">
-                            <label for="formDipendente">Anno di nascita:</label>
-                            <input type="number" min="1940" max="2004" id="annoDipendente" name="annoDipendente" placeholder="Anno" required><br>
-                            <label for="formDipendente">Anno di nascita:</label>
-                            <input type="text" id="residenzaDipendente" name="residenzaDipendente" placeholder="Residenza" required><br>
-                            <label for="formDipendente">Anno di nascita:</label>
-                            <input type="number" id="telefonoDipendente" name="telefonoDipendente" placeholder="Telefono" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}}"><br>
-                            <input type="submit" name="crea" value="Crea" id="crea">
-                        </form>
+                        <h1>Compila questi campi per completare la tua assunzione</h1>
+                        <div class="form">
+                            <form method="post" id="formDipendente" action="CandidatoAssuntoControl">
+                                <input type="hidden" name="action" value="crea">
+                                <label for="formDipendente">Anno di nascita:</label><br>
+                                <input type="number" min="1940" max="2004" id="annoDipendente" name="annoDipendente"
+                                       placeholder="Anno" required><br>
+                                <label for="formDipendente">Residenza:</label><br>
+                                <input type="text" id="residenzaDipendente" name="residenzaDipendente"
+                                       placeholder="Residenza" required><br>
+                                <label for="formDipendente">Recapito Telefonico:</label><br>
+                                <input type="number" id="telefonoDipendente" name="telefonoDipendente"
+                                       placeholder="Telefono" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}}"><br><br>
+                                <input type="submit" name="invia" value="Invia" id="invia">
+                            </form>
+                        </div>
                     </c:when>
                 </c:choose>
             </div>
