@@ -50,7 +50,7 @@ public class TeamDAO {
                 }
                 return false;
             } finally {
-                DatabaseManager.controlloConnessione(connection);
+                DatabaseManager.closeConnessione(connection);
             }
         }
         return true;
@@ -82,7 +82,7 @@ public class TeamDAO {
             return res1 != -1 && res2 != -1;
 
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -162,7 +162,7 @@ public class TeamDAO {
             return team;
 
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -188,7 +188,7 @@ public class TeamDAO {
             result = stmt.executeUpdate();
             return result != -1;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -231,7 +231,7 @@ public class TeamDAO {
                 return teams;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -279,7 +279,7 @@ public class TeamDAO {
                 return teams;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -309,7 +309,7 @@ public class TeamDAO {
             }
             return false;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -344,7 +344,7 @@ public class TeamDAO {
                 return null;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -393,7 +393,7 @@ public class TeamDAO {
                 return null;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 */
@@ -426,7 +426,7 @@ public class TeamDAO {
                 return -1;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 */
@@ -449,7 +449,7 @@ public class TeamDAO {
             }
 
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
     public static ArrayList<Integer> recuperaIdTeamMemberFromTeam(int idTeam) throws SQLException {
@@ -474,7 +474,7 @@ public class TeamDAO {
                 return listaIdDips;
             }
         }finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -492,7 +492,7 @@ public class TeamDAO {
             int result = stmt.executeUpdate();
             return result != -1;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -549,7 +549,7 @@ public class TeamDAO {
                 return null;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 

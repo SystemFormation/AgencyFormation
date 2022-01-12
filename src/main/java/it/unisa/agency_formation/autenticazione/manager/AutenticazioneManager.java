@@ -15,7 +15,7 @@ public interface AutenticazioneManager {
     Dipendente getDipendente(int idUser) throws SQLException; //aggiunto questo
    // ArrayList<Utente> getCandidati() throws SQLException;
     ArrayList<Utente> getCandidatiConCandidatura() throws SQLException;
-    ArrayList<Utente> getUtentiByRuolo(RuoliUtenti ruolo) throws SQLException;
+    //ArrayList<Utente> getUtentiByRuolo(RuoliUtenti ruolo) throws SQLException;
     ArrayList<Dipendente> getTuttiDipendenti() throws SQLException;
     ArrayList<Dipendente> getDipendentiByStato(StatiDipendenti state) throws SQLException;
     boolean modificaRuolo(int idUtente) throws SQLException;

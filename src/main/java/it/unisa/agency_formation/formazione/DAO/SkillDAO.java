@@ -37,7 +37,7 @@ public class SkillDAO {
                 save.executeUpdate();
                 return true;
             } finally {
-                DatabaseManager.controlloConnessione(connection);
+                DatabaseManager.closeConnessione(connection);
             }
         }
         return false;
@@ -65,7 +65,7 @@ public class SkillDAO {
 
             return result1 != -1;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -97,7 +97,7 @@ public class SkillDAO {
                 return null;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -136,7 +136,7 @@ public class SkillDAO {
             }
 
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
 
         }
     }
@@ -163,7 +163,7 @@ public class SkillDAO {
             int result = save.executeUpdate();
             return result != -1;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -191,7 +191,7 @@ public class SkillDAO {
             }
 
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -219,7 +219,7 @@ public class SkillDAO {
             }
 
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 }

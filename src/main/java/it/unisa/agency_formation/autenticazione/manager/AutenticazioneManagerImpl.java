@@ -48,10 +48,10 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     public ArrayList<Utente> getCandidatiConCandidatura() throws SQLException {
         return UtenteDAO.doRetrieveCandidatoConCandidatura();
     }
-    @Override
+   /* @Override
     public ArrayList<Utente> getUtentiByRuolo(RuoliUtenti ruolo) throws SQLException {
         return UtenteDAO.doRetrieveUtenteByRuolo(ruolo);
-    }
+    }*/
     @Override
     public ArrayList<Dipendente> getTuttiDipendenti() throws SQLException {
         return DipendenteDAO.recuperaDipendenti();

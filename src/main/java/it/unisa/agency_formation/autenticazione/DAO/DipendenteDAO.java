@@ -48,7 +48,7 @@ public class DipendenteDAO {
             }
             return false;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
 
     }
@@ -76,7 +76,7 @@ public class DipendenteDAO {
             }
             return true;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -141,7 +141,7 @@ public class DipendenteDAO {
                 return user;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
         return null;
     }
@@ -210,7 +210,7 @@ public class DipendenteDAO {
                 return null;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -329,7 +329,7 @@ public class DipendenteDAO {
                 return null;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
 
     }
@@ -360,7 +360,7 @@ public class DipendenteDAO {
             }
             return true;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 }

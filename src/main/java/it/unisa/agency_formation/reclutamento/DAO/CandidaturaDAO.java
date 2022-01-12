@@ -58,7 +58,7 @@ public class CandidaturaDAO {
             }
             return false;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -91,7 +91,7 @@ public class CandidaturaDAO {
             return false;
 
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -149,7 +149,7 @@ public class CandidaturaDAO {
                 return null;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -205,7 +205,7 @@ public class CandidaturaDAO {
                 return candidature;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -279,7 +279,7 @@ public class CandidaturaDAO {
                 return candidature;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -323,7 +323,7 @@ public class CandidaturaDAO {
             }
             return false;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -352,7 +352,7 @@ public class CandidaturaDAO {
             }
             return false;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
 
         }
     }
@@ -367,9 +367,11 @@ public class CandidaturaDAO {
             if (idCandidatura < 1 || idHR < 1) {
                 return false;
             }
+            //Connection connection = DatabaseManager.getInstance().getConnection();
             Connection connection = DatabaseManager.getInstance().getConnection();
             String delete = "deleted";
             modificaStatoCandidatura(idCandidatura, StatiCandidatura.Rifiutata);
+
         String query = "update " + TABLE_CANDIDATURA + " set Curriculum=?, DocumentiAggiuntivi=?, IdHR=? where IdCandidatura=?";
         PreparedStatement stmt = null;
         try {
@@ -384,7 +386,7 @@ public class CandidaturaDAO {
             }
             return false;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -392,8 +394,9 @@ public class CandidaturaDAO {
         if (idCandidatura < 1 || idHR < 1) {
             return false;
         }
-        Connection connection = DatabaseManager.getInstance().getConnection();
+
         modificaStatoCandidatura(idCandidatura, StatiCandidatura.Accettata);
+        Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "update " + TABLE_CANDIDATURA + " set Stato=?, IdHR=?, DataOraColloquio=? where IdCandidatura=?";
         PreparedStatement stmt = null;
         try {
@@ -409,7 +412,7 @@ public class CandidaturaDAO {
             }
             return false;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 

@@ -34,9 +34,9 @@ public class UtenteDAOTest {
     public static void finish() throws SQLException {
         String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(4,'Domenico','Pagliuca','lol','d.pagliuca@studenti.unisa.it',4)";
         String delete = "Delete from utenti where IdUtente>4";
-        String deleteCand = "Delete from candidature where IdCandidatura>1";
+        String deleteCand = "Delete from candidature where IdCandidatura>=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
+        PreparedStatement statement = connection.prepareStatement(delete);
         statement.executeUpdate(query);
         statement.executeUpdate(delete);
         statement.executeUpdate(deleteCand);
@@ -96,6 +96,14 @@ public class UtenteDAOTest {
     }
 
     @Test
+    @Order(7)
+    public void loginEmailPwdNull() throws SQLException {
+        String email = null;
+        String pwd = null;
+        assertNull(UtenteDAO.login(email, pwd));
+    }
+
+    @Test
     @Order(8)
     public void loginPass() throws SQLException {
         String email = "genny@libero.it";
@@ -120,48 +128,84 @@ public class UtenteDAOTest {
 
     @Test
     @Order(11)
-    public void doRetrieveByIDPass() throws SQLException {
+    public void doRetrieveByIDPass1() throws SQLException {
         int id = 3;
         assertNotNull(UtenteDAO.doRetrieveUtenteByID(id));
     }
-
     @Test
     @Order(12)
-    public void retrieveByRuoloSizeLessOne() throws SQLException {
+    public void doRetrieveByIDPass2() throws SQLException {
+        int id = 1;
+        assertNotNull(UtenteDAO.doRetrieveUtenteByID(id));
+    }
+    @Test
+    @Order(13)
+    public void doRetrieveByIDPass3() throws SQLException {
+        int id = 2;
+        assertNotNull(UtenteDAO.doRetrieveUtenteByID(id));
+    }
+    @Test
+    @Order(14)
+    public void doRetrieveByIDPass4() throws SQLException {
+        String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(4,'Domenico','Pagliuca','lol','d.pagliuca@studenti.unisa.it',4)";
+        String delete = "Delete from utenti where IdUtente=4";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
+        int id = 4;
+        assertNotNull(UtenteDAO.doRetrieveUtenteByID(id));
+        Connection connection1 = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement1 = connection1.prepareStatement(delete);
+        statement1.executeUpdate();
+    }
+/*
+    @Test
+    @Order(15)
+    public void retrieveByRuoloSizeLessOne1() throws SQLException {
         String query = "Delete from utenti where Ruolo=4";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate();
         assertNull(UtenteDAO.doRetrieveUtenteByRuolo(RuoliUtenti.HR));
     }
+    @Test
+    @Order(15)
+    public void retrieveByRuoloSizeLessOne2() throws SQLException {
+        String query = "Delete from utenti where Ruolo=4";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
+        assertNull(UtenteDAO.doRetrieveUtenteByRuolo(RuoliUtenti.));
+    }
 
     @Test
-    @Order(13)
-    public void retrieveByRuoloSizeLessOne2() throws SQLException {
+    @Order(16)
+    public void retrieveByRuoloSizeLessOne3() throws SQLException {
         assertNull(UtenteDAO.doRetrieveUtenteByRuolo(null));
     }
 
     @Test
-    @Order(14)
+    @Order(17)
     public void retrieveByRuoloPass() throws SQLException {
         assertNotNull(UtenteDAO.doRetrieveUtenteByRuolo(RuoliUtenti.CANDIDATO));
 
     }
-
+*/
     @Test
-    @Order(15) //pass
+    @Order(18) //pass
     public void retrieveCandidatiConCandidatura1() throws SQLException {
         assertNotNull(UtenteDAO.doRetrieveCandidatoConCandidatura());
     }
 
+
     @Test
-    @Order(16)//not pass
+    @Order(19)//not pass
     public void recuperoCandidatiColloquio1() throws SQLException {
         assertNull(UtenteDAO.recuperoCandidatiColloquio());
     }
 
     @Test
-    @Order(17)//pass
+    @Order(20)//pass
     public void recuperoCandidatiColloquio2() throws SQLException {
         String query = "update candidature set Stato='Accettata' where idCandidatura=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -171,9 +215,9 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(18) //fail
+    @Order(21) //fail
     public void retrieveCandidatiConCandidatura2() throws SQLException{
-        String query = "Delete from candidature where IdCandidatura>1";
+        String query = "Delete from candidature where IdCandidatura>=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate();

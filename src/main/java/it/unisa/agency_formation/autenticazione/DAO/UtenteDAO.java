@@ -60,7 +60,7 @@ public class UtenteDAO {
             }
                 return false;*/
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -114,7 +114,7 @@ public class UtenteDAO {
                 return user;
             }
         } finally {
-           DatabaseManager.controlloConnessione(connection);
+           DatabaseManager.closeConnessione(connection);
         }
         return null;
     }
@@ -165,7 +165,7 @@ public class UtenteDAO {
                 return user;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
         return null;
     }
@@ -174,14 +174,14 @@ public class UtenteDAO {
     /**
      * Questo metodo permette di recuperare degli utenti attraverso il ruolo
      *
-     * @param ruolo
+     * @param
      * @return arraylist di utenti
      * @throws SQLException
      * @pre ruolo>0 and ruolo<=4
      * @post utenti.size()>0
      */
 
-
+/*
     public static ArrayList<Utente> doRetrieveUtenteByRuolo(RuoliUtenti ruolo) throws SQLException {
         if (ruolo == null) {
             return null;
@@ -248,9 +248,9 @@ public class UtenteDAO {
                 return utenti;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
-    }
+    }*/
 
     public static ArrayList<Utente> doRetrieveCandidatoConCandidatura() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -273,21 +273,8 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")) {
-                    case 1:
-                        user.setRole(RuoliUtenti.CANDIDATO);
-                        break;
-                    case 2:
-                        user.setRole(RuoliUtenti.DIPENDENTE);
-                        break;
-                    case 3:
-                        user.setRole(RuoliUtenti.TM);
-                        break;
-                    case 4:
-                        user.setRole(RuoliUtenti.HR);
-                        break;
-                    default:
-                        break;
+                if(result.getInt("Ruolo")==1){
+                    user.setRole(RuoliUtenti.CANDIDATO);
                 }
                 utenti.add(user);
             }
@@ -298,7 +285,7 @@ public class UtenteDAO {
                 return utenti;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -319,21 +306,8 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")) {
-                    case 1:
-                        user.setRole(RuoliUtenti.CANDIDATO);
-                        break;
-                    case 2:
-                        user.setRole(RuoliUtenti.DIPENDENTE);
-                        break;
-                    case 3:
-                        user.setRole(RuoliUtenti.TM);
-                        break;
-                    case 4:
-                        user.setRole(RuoliUtenti.HR);
-                        break;
-                    default:
-                        break;
+                if(result.getInt("Ruolo")==1){
+                    user.setRole(RuoliUtenti.CANDIDATO);
                 }
                 utenti.add(user);
             }
@@ -342,7 +316,7 @@ public class UtenteDAO {
             }
             return utenti;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
 
 

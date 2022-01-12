@@ -152,7 +152,7 @@ public class AutenticazioneManagerTest {
             assertNotNull(aut.getCandidatiConCandidatura());
         }
     }
-
+/*
     @Test //fail non ci sono utenti con quel ruolo
     public void getUtentiByRuoloFail() throws SQLException {
         try (MockedStatic mockedStatic = mockStatic(UtenteDAO.class)) {
@@ -171,7 +171,7 @@ public class AutenticazioneManagerTest {
             assertNotNull(aut.getUtentiByRuolo(RuoliUtenti.CANDIDATO));
         }
     }
-
+*/
     @Test // non ci sono dipendenti
     public void getTuttiDipendentiFail() throws SQLException {
         try (MockedStatic mockedStatic = mockStatic(DipendenteDAO.class)) {

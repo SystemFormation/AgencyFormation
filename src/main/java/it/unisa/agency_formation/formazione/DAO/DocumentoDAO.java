@@ -36,7 +36,7 @@ public class DocumentoDAO {
             }
             return false;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -61,7 +61,7 @@ public class DocumentoDAO {
             result = stmt.executeQuery();
             return result.next();
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -92,7 +92,7 @@ public class DocumentoDAO {
             }
             return false;
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 
@@ -130,7 +130,7 @@ public class DocumentoDAO {
                 return null;
             }
         } finally {
-            DatabaseManager.controlloConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
     }
 }

@@ -28,7 +28,7 @@ public class DatabaseManager {
         }
             return instance;
     }
-
+/*
     public Connection getConnection() {
         url = "jdbc:mysql://localhost:3306/" + nomeDB + "?characterEncoding=UTF-8&serverTimezone=" + TimeZone.getDefault().getID();
         try {
@@ -40,10 +40,16 @@ public class DatabaseManager {
         }
 
         return connect;
+    }*/
+
+    public Connection getConnection() throws SQLException {
+        url = "jdbc:mysql://localhost:3306/" + nomeDB + "?characterEncoding=UTF-8&serverTimezone=" + TimeZone.getDefault().getID();
+        return DriverManager.getConnection(url, name, pwd);
+
     }
 
-    public static void controlloConnessione(Connection connection) throws SQLException {
-        if(connection != null){
+    public static void closeConnessione(Connection connection) throws SQLException {
+        if(connection != null && !connection.isClosed()){
             connection.close();
         }
     }
