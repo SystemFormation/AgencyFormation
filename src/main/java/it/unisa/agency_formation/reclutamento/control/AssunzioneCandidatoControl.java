@@ -32,9 +32,10 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                     response.getWriter().write("1"); //errore Candidatura
                     response.sendRedirect("./static/Login.html");
                 } else {
-                    setStato(candidatura.getIdCandidatura());
-                    if (setStato(idCandidato)) {
-
+                    boolean esito=setStato(candidatura.getIdCandidato());
+                    if (esito) {
+                        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
+                        dispatcher.forward(request, response);
                     } else {
                         response.getWriter().write("2"); //errore assunzione
                         response.sendRedirect("./static/Error.html");
@@ -43,8 +44,7 @@ public class AssunzioneCandidatoControl extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
-            dispatcher.forward(request, response);
+
         }
     }
 
