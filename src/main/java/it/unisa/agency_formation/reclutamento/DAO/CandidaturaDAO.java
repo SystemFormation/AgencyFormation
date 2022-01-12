@@ -33,30 +33,11 @@ public class CandidaturaDAO {
         try {
             save = connection.prepareStatement(query);
             save.setString(1, candidatura.getCurriculum());
-            switch (candidatura.getStato()) {
-                case Accettata:
-                    save.setString(2, "Accettata");
-                    break;
-                case Rifiutata:
-                    save.setString(2, "Rifiutata");
-                    break;
-                case NonRevisionato:
-                    save.setString(2, "NonRevisionato");
-                    break;
-                case Assunzione:
-                    save.setString(2, "Assunzione");
-                    break;
-                default:
-                    break;
-            }
-
+            save.setString(2, "NonRevisionato");
             save.setDate(3, (Date) candidatura.getDataCandidatura());
             save.setInt(4, candidatura.getIdCandidato());
             int result = save.executeUpdate();
-            if (result != -1) {
-                return true;
-            }
-            return false;
+            return true;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -85,11 +66,7 @@ public class CandidaturaDAO {
             update.setInt(2, idUtente);
 
             int result = update.executeUpdate();
-            if (result != -1) {
-                return true;
-            }
-            return false;
-
+            return true;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -126,7 +103,7 @@ public class CandidaturaDAO {
                     case "NonRevisionato":
                         cand.setStato(StatiCandidatura.NonRevisionato);
                         break;
-                    case "Accettata":
+                    /*case "Accettata":
                         cand.setStato(StatiCandidatura.Accettata);
                         break;
                     case "Rifiutata":
@@ -136,7 +113,7 @@ public class CandidaturaDAO {
                         cand.setStato(StatiCandidatura.Assunzione);
                         break;
                     default:
-                        break;
+                        break;*/
                 }
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
@@ -176,34 +153,17 @@ public class CandidaturaDAO {
                 cand.setIdCandidatura(result.getInt("IdCandidatura"));
                 cand.setCurriculum(result.getString("Curriculum"));
                 cand.setDocumentiAggiuntivi(result.getString("DocumentiAggiuntivi"));
-                switch (result.getString("Stato")) {
-                    case "NonRevisionato":
-                        cand.setStato(StatiCandidatura.NonRevisionato);
-                        break;
-                    case "Accettata":
-                        cand.setStato(StatiCandidatura.Accettata);
-                        break;
-                    case "Rifiutata":
-                        cand.setStato(StatiCandidatura.Rifiutata);
-                        break;
-                    case "Assunzione":
-                        cand.setStato(StatiCandidatura.Assunzione);
-                        break;
-                    default:
-                        break;
-                }
+                cand.setStato(StatiCandidatura.NonRevisionato);
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
                 cand.setIdCandidato(result.getInt("IdCandidato"));
                 cand.setIdHR(result.getInt("IdHR"));
                 candidature.add(cand);
             }
-            if (candidature.size() > 0) {
-                return candidature;
-            } else {
+            if (candidature.size() <= 0) {
                 candidature = null;
-                return candidature;
             }
+            return candidature;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -272,12 +232,10 @@ public class CandidaturaDAO {
                 cand.setIdHR(result.getInt("IdHR"));
                 candidature.add(cand);
             }
-            if (candidature.size() > 0) {
-                return candidature;
-            } else {
+            if (candidature.size() <= 0) {
                 candidature = null;
-                return candidature;
             }
+            return candidature;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -318,10 +276,7 @@ public class CandidaturaDAO {
             }
             retrieve.setInt(2, idCandidatura);
             int result = retrieve.executeUpdate();
-            if (result != -1) {
-                return true;
-            }
-            return false;
+            return true;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -347,10 +302,7 @@ public class CandidaturaDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idCandidato);
             int result = stmt.executeUpdate();
-            if (result != -1) {
-                return true;
-            }
-            return false;
+            return true;
         } finally {
             DatabaseManager.closeConnessione(connection);
 
@@ -381,10 +333,7 @@ public class CandidaturaDAO {
             stmt.setInt(3, idHR);
             stmt.setInt(4, idCandidatura);
             int result = stmt.executeUpdate();
-            if (result != -1) {
-                return true;
-            }
-            return false;
+            return true;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -407,10 +356,7 @@ public class CandidaturaDAO {
             stmt.setInt(4, idCandidatura);
 
             int result = stmt.executeUpdate();
-            if (result != -1) {
-                return true;
-            }
-            return false;
+            return true;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }

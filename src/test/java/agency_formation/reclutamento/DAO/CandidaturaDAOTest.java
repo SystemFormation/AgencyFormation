@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO.accettaCandidatura;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CandidaturaDAOTest {
@@ -29,8 +30,10 @@ public class CandidaturaDAOTest {
         String query1 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(1,'test','test','NonRevisionato','2022-01-10', 1);";
         String query2 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(2,'test','test','Accettata','2022-01-10', 1);";
         String query3 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(3,'test','test','Rifiutata','2022-01-10', 1)";
+        String query4 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(4,'test','test','Assunzione','2022-01-10', 1)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query1);
+        statement.executeUpdate(query4);
         statement.executeUpdate(query3);
         statement.executeUpdate(query2);
         statement.executeUpdate(query1);
@@ -54,7 +57,33 @@ public class CandidaturaDAOTest {
 
     @Test
     @Order(2) //salva il candidatura
-    public void salvaCandidaturaSenzaDocumentiOk() throws SQLException {
+    public void salvaCandidaturaSenzaDocumentiOk1() throws SQLException {
+        Candidatura cand = new Candidatura();
+        java.util.Date date = new java.util.Date();
+        java.sql.Date data = new java.sql.Date(date.getTime());
+        cand.setDataCandidatura(data);
+        cand.setIdCandidato(1);
+        cand.setCurriculum("test");
+        cand.setStato(StatiCandidatura.Accettata);
+        assertTrue(CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand));
+    }
+
+    @Test
+    @Order(3) //salva il candidatura
+    public void salvaCandidaturaSenzaDocumentiOk2() throws SQLException {
+        Candidatura cand = new Candidatura();
+        java.util.Date date = new java.util.Date();
+        java.sql.Date data = new java.sql.Date(date.getTime());
+        cand.setDataCandidatura(data);
+        cand.setIdCandidato(1);
+        cand.setCurriculum("test");
+        cand.setStato(StatiCandidatura.Rifiutata);
+        assertTrue(CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand));
+    }
+
+    @Test
+    @Order(4) //salva il candidatura
+    public void salvaCandidaturaSenzaDocumentiOk3() throws SQLException {
         Candidatura cand = new Candidatura();
         java.util.Date date = new java.util.Date();
         java.sql.Date data = new java.sql.Date(date.getTime());
@@ -66,7 +95,20 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(3) //document = null
+    @Order(5) //salva il candidatura
+    public void salvaCandidaturaSenzaDocumentiOk4() throws SQLException {
+        Candidatura cand = new Candidatura();
+        java.util.Date date = new java.util.Date();
+        java.sql.Date data = new java.sql.Date(date.getTime());
+        cand.setDataCandidatura(data);
+        cand.setIdCandidato(1);
+        cand.setCurriculum("test");
+        cand.setStato(StatiCandidatura.Assunzione);
+        assertTrue(CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand));
+    }
+
+    @Test
+    @Order(6) //document = null
     public void aggiungiDocumentiAggiuntiviFail1() throws SQLException {
         String document = null;
         int idUtente = 1;
@@ -74,7 +116,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(4) //id = -1
+    @Order(7) //id = -1
     public void aggiungiDocumentiAggiuntiviFail2() throws SQLException {
         String document = "Test";
         int idUtente = -1;
@@ -82,7 +124,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(5) //aggiunge il document Test con id 1
+    @Order(8) //aggiunge il document Test con id 1
     public void aggiungiDocumentiAggiuntiviOk() throws SQLException {
         String document = "Test";
         int idUtente = 1;
@@ -90,65 +132,98 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(6) //id candidato = -1
+    @Order(9) //id candidato = -1
     public void retrieveCandidaturaByIdFail() throws SQLException {
         int idCandidato = -1;
         assertNull(CandidaturaDAO.doRetrieveCandidaturaById(idCandidato));
     }
 
     @Test
-    @Order(7) //id candidato = 1
+    @Order(10) //id candidato = 1
     public void retrieveCandidaturaByIdOk() throws SQLException {
         int idCandidato = 1;
         assertNotNull(CandidaturaDAO.doRetrieveCandidaturaById(idCandidato));
     }
 
     @Test
-    @Order(8)
+    @Order(11)
+    public void recuperaCandidatureByStatoFail1() throws SQLException {
+        StatiCandidatura stato = StatiCandidatura.Accettata;
+        assertNotNull(CandidaturaDAO.recuperaCandidatureByStato(stato));
+    }
+
+    @Test
+    @Order(12)
     public void recuperaCandidatureByStatoFail2() throws SQLException {
-        String query = "Delete from candidature where IdCandidatura=2";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.executeUpdate();
-        assertNull(CandidaturaDAO.recuperaCandidatureByStato(StatiCandidatura.Accettata));
+        StatiCandidatura stato = StatiCandidatura.Rifiutata;
+        assertNotNull(CandidaturaDAO.recuperaCandidatureByStato(stato));
     }
 
     @Test
-    @Order(9) //assicurati di avere candidature con stato non revisionato
-    public void recuperaCandidatureByStatoOk() throws SQLException {
-        assertNotNull(CandidaturaDAO.recuperaCandidatureByStato(StatiCandidatura.NonRevisionato));
+    @Order(13)
+    public void recuperaCandidatureByStatoFail3() throws SQLException {
+        StatiCandidatura stato = StatiCandidatura.NonRevisionato;
+        assertNotNull(CandidaturaDAO.recuperaCandidatureByStato(stato));
     }
 
     @Test
-    @Order(10) //id candidatura = -1
+    @Order(14)
+    public void recuperaCandidatureByStatoFail4() throws SQLException {
+        StatiCandidatura stato = StatiCandidatura.Assunzione;
+        assertNotNull(CandidaturaDAO.recuperaCandidatureByStato(stato));
+    }
+
+    @Test
+    @Order(16) //assicurati di avere candidature con stato non revisionato
+    public void recuperaCandidatureByStatoFail6() throws SQLException {
+        StatiCandidatura stato = null;
+        assertNull(CandidaturaDAO.recuperaCandidatureByStato(stato));
+    }
+
+    @Test
+    @Order(17) //id candidatura = -1
     public void modificaStatoCandidaturaFail() throws SQLException {
         int idCandidatura = -1;
         assertFalse(CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Accettata));
     }
 
     @Test
-    @Order(11) //id candidatura = 2
-    public void modificaStatoCandidaturaOk() throws SQLException {
+    @Order(18) //id candidatura = 2
+    public void modificaStatoCandidaturaOk1() throws SQLException {
         int idCandidatura = 2;
         assertTrue(CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Rifiutata));
     }
 
     @Test
-    @Order(12) //idCandidatura = -1
+    @Order(18) //id candidatura = 2
+    public void modificaStatoCandidaturaOk2() throws SQLException {
+        int idCandidatura = 2;
+        assertTrue(CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.NonRevisionato));
+    }
+
+    @Test
+    @Order(18) //id candidatura = 2
+    public void modificaStatoCandidaturaOk3() throws SQLException {
+        int idCandidatura = 2;
+        assertTrue(CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Assunzione));
+    }
+
+    @Test
+    @Order(19) //idCandidatura = -1
     public void rimuoviCandidaturaFail() throws SQLException {
         int idCandidatura = -1;
         assertFalse(CandidaturaDAO.rimuoviCandidatura(idCandidatura));
     }
 
     @Test
-    @Order(13) //idCandidatura = 2
+    @Order(20) //idCandidatura = 2
     public void rimuoviCandidaturaOk() throws SQLException {
         int idCandidatura = 2;
         assertTrue(CandidaturaDAO.rimuoviCandidatura(idCandidatura));
     }
 
     @Test
-    @Order(14) //idCandidatura non esiste
+    @Order(21) //idCandidatura non esiste
     public void rifiutaCandidaturaFail1() throws SQLException {
         int idCandidatura = -1;
         int idHR = 4;
@@ -156,7 +231,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(15) //idHR<1
+    @Order(22) //idHR<1
     public void rifiutaCandidaturaFail2() throws SQLException {
         int idCandidatura = 1;
         int idHR = -4;
@@ -165,7 +240,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(16) //Rifiuta con successo la candidatura
+    @Order(23) //Rifiuta con successo la candidatura
     public void rifiutaCandidaturaPass() throws SQLException {
         int idCandidatura = 1;
         int idHR = 4;
@@ -173,7 +248,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(17)//idCandidatura<1
+    @Order(24)//idCandidatura<1
     public void accettaCandidaturaFail1() throws SQLException, ParseException {
         int idCandidatura = -1;
         int idHR = 4;
@@ -182,12 +257,12 @@ public class CandidaturaDAOTest {
         String dataOra = data + " " + tempo;
         Date data1 = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(dataOra);
         Timestamp timestamp = new Timestamp(data1.getTime());
-        assertFalse(CandidaturaDAO.accettaCandidatura(idCandidatura, idHR, timestamp));
+        assertFalse(accettaCandidatura(idCandidatura, idHR, timestamp));
 
     }
 
     @Test
-    @Order(18) //idHR<1
+    @Order(25) //idHR<1
     public void accettaCandidaturaFail2() throws SQLException, ParseException {
         int idCandidatura = 1;
         int idHR = -1;
@@ -196,12 +271,12 @@ public class CandidaturaDAOTest {
         String dataOra = data + " " + tempo;
         Date data1 = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(dataOra);
         Timestamp timestamp = new Timestamp(data1.getTime());
-        assertFalse(CandidaturaDAO.accettaCandidatura(idCandidatura, idHR, timestamp));
+        assertFalse(accettaCandidatura(idCandidatura, idHR, timestamp));
 
     }
 
     @Test
-    @Order(19) //Accetta con successo la candidatura
+    @Order(26) //Accetta con successo la candidatura
     public void accettaCandidaturaPass() throws SQLException, ParseException {
         int idCandidatura = 1;
         int idHR = 4;
@@ -214,13 +289,17 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(20) //Recupera tutte le candidature
+    @Order(27) //Recupera tutte le candidature
     public void recuperaCandidatureOk() throws SQLException {
+        String query = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(5,'test','test','NonRevisionato','2022-01-10', 1)";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
         assertNotNull(CandidaturaDAO.recuperaCandidature());
     }
 
     @Test
-    @Order(21) //Nessuna candidatura
+    @Order(28) //Nessuna candidatura
     public void recuperaCandidatureFail() throws SQLException {
         String delete = "Delete from candidature where IdCandidatura>=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
