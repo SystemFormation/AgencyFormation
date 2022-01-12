@@ -52,6 +52,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
                         response.getWriter().write("2"); //errore assunzione
                         response.sendRedirect("/WEB-INF/jsp/HomeCandidato.jsp");
                     } else {
+                        request.getSession().invalidate();
                         response.sendRedirect("./static/Login.html");
                     }
 

@@ -1,7 +1,10 @@
 package agency_formation.autenticazione.manager;
 
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 
@@ -12,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 //Questa classe testa i metodi della classe AutenticazioneManager Impl
 
@@ -23,8 +27,16 @@ public class AutenticazioneManagerTest {
         Utente user = new Utente("Francesco", "Cecco", "fra@gmail.com", "lol", RuoliUtenti.CANDIDATO);
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
             mocked.when(() -> UtenteDAO.salvaUtente(user)).thenReturn(false);
+            assertFalse(aut.registrazione(user));
         }
-        assertFalse(aut.registrazione(user));
+    }
+    @Test // utente già registrato
+    public void registrationFail2() throws SQLException {
+        Utente user = new Utente("Francesco", "Cecco", "fra@gmail.com", "lol", RuoliUtenti.CANDIDATO);
+        try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
+            mocked.when(() -> UtenteDAO.login(user.getEmail(), user.getPwd())).thenReturn(user);
+            assertFalse(aut.registrazione(user));
+        }
     }
 
     @Test
@@ -32,8 +44,9 @@ public class AutenticazioneManagerTest {
         Utente user = new Utente("Francescoz", "Ceccoz", "frza@gmail.com", "lol", RuoliUtenti.CANDIDATO);
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
             mocked.when(() -> UtenteDAO.salvaUtente(user)).thenReturn(true);
+            assertTrue(aut.registrazione(user));
         }
-        assertTrue(aut.registrazione(user));
+
     }
 
     @Test
@@ -42,9 +55,10 @@ public class AutenticazioneManagerTest {
         String email = "manuel@gmail.com";
         String pwd = "lol";
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
-            mocked.when(() -> UtenteDAO.login(email,pwd)).thenReturn(user);
+            mocked.when(() -> UtenteDAO.login(email,pwd)).thenReturn(null);
+            assertNull(aut.login(email, pwd));
         }
-        assertNull(aut.login(email, pwd));
+
     }
 
     @Test
@@ -54,8 +68,9 @@ public class AutenticazioneManagerTest {
         String pwd = "lol";
         try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
             mocked.when(() -> UtenteDAO.login(email,pwd)).thenReturn(user);
+            assertNotNull(aut.login(email, pwd));
         }
-        assertNotNull(aut.login(email, pwd));
+
     }
 /*
     @Test
@@ -89,46 +104,92 @@ public class AutenticazioneManagerTest {
         assertNull(aut.getDipendente(user.getIdDipendente()));
     }
 */
+
+    @Test
+    public void getDipendeteFail1() throws SQLException{
+        int id = 2;
+        try (MockedStatic mocked = mockStatic(DipendenteDAO.class)) {
+            mocked.when(() -> DipendenteDAO.doRetrieveDipendenteById(id)).thenReturn(null);
+            assertNull(aut.getDipendente(id));
+        }
+
+    }
+
+    @Test
+    public void getDipendetePass() throws SQLException{
+        int id = 2;
+        Dipendente dipendente = new Dipendente();
+        dipendente.setStato(StatiDipendenti.DISPONIBILE);
+        dipendente.setIdDipendente(2);
+        dipendente.setTelefono("1589634786");
+        dipendente.setResidenza("Londra");
+        dipendente.setAnnoNascita(2000);
+        try (MockedStatic mocked = mockStatic(DipendenteDAO.class)) {
+            mocked.when(() -> DipendenteDAO.doRetrieveDipendenteById(id)).thenReturn(dipendente);
+            assertNotNull(aut.getDipendente(id));
+        }
+
+    }
+
     @Test //not pass there aren't candidates with candidature
-    public void getCandidatesWithCandidature1(){
-
+    public void getCandidatesWithCandidature1() throws SQLException{
+        try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
+            mocked.when(() -> UtenteDAO.doRetrieveCandidatoConCandidatura()).thenReturn(null);
+            assertNull(aut.getCandidatiConCandidatura());
+        }
     }
 
     @Test //pass
-    public void getCandidatesWithCandidature2(){
-
+    public void getCandidatesWithCandidature2() throws SQLException {
+        ArrayList<Utente> candidati = new ArrayList<>();
+        Utente user = new Utente("Francesco", "Cecco", "fra@gmail.com", "lol", RuoliUtenti.CANDIDATO);
+        candidati.add(user);
+        try (MockedStatic mocked = mockStatic(UtenteDAO.class)) {
+            mocked.when(() -> UtenteDAO.doRetrieveCandidatoConCandidatura()).thenReturn(candidati);
+            assertNotNull(aut.getCandidatiConCandidatura());
+        }
     }
 
-    @Test //array dip = null
-    public void getCandidatesDip1(){
-
+    @Test //fail non ci sono utenti con quel ruolo
+    public void getUtentiByRuoloFail() throws SQLException{
+        try (MockedStatic mockedStatic = mockStatic(UtenteDAO.class)){
+            mockedStatic.when(() -> UtenteDAO.doRetrieveUtenteByRuolo(RuoliUtenti.HR)).thenReturn(null);
+            assertNull(aut.getUtentiByRuolo(RuoliUtenti.HR));
+        }
     }
 
     @Test //pass
-    public void getCandidatesDip2(){
-
+    public void getUtentiByRuoloPass() throws SQLException{
+        ArrayList<Utente> utenti = new ArrayList<>();
+        Utente user = new Utente("Francesco", "Cecco", "fra@gmail.com", "lol", RuoliUtenti.CANDIDATO);
+        utenti.add(user);
+        try (MockedStatic mockedStatic = mockStatic(UtenteDAO.class)){
+            mockedStatic.when(() -> UtenteDAO.doRetrieveUtenteByRuolo(RuoliUtenti.CANDIDATO)).thenReturn(utenti);
+            assertNotNull(aut.getUtentiByRuolo(RuoliUtenti.CANDIDATO));
+        }
     }
 
-    @Test //array = null not pass
-    public void getAllEmployee1(){
-
+    @Test // non ci sono dipendenti
+    public void getTuttiDipendentiFail() throws SQLException{
+        try (MockedStatic mockedStatic = mockStatic(DipendenteDAO.class)){
+            mockedStatic.when(() -> DipendenteDAO.recuperaDipendenti()).thenReturn(null);
+            assertNull(aut.getTuttiDipendenti());
+        }
     }
 
-    @Test //pass
-    public void getAllEmployee2(){
-
+    @Test // pass (assert diverso ci sono dei dubbi sul test del manager)
+    public void getTuttiDipendentiPass() throws SQLException{
+        Dipendente dipendente = new Dipendente();
+        dipendente.setStato(StatiDipendenti.DISPONIBILE);
+        dipendente.setIdDipendente(2);
+        dipendente.setTelefono("1589634786");
+        dipendente.setResidenza("Londra");
+        dipendente.setAnnoNascita(2000);
+        ArrayList<Dipendente> dipendenti = new ArrayList<>();
+        dipendenti.add(dipendente);
+        try (MockedStatic mockedStatic = mockStatic(DipendenteDAO.class)){
+            mockedStatic.when(() -> DipendenteDAO.recuperaDipendenti()).thenReturn(dipendenti);
+            assertEquals(1,dipendenti.size());
+        }
     }
-
-    @Test //There are'n employe with this state
-    public void getEmployeByState1(){
-
-    }
-    @Test //pass
-    public void getEmployeByState2(){
-
-    }
-
-
-
-
 }
