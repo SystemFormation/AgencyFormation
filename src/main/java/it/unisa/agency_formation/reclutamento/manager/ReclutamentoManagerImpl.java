@@ -56,13 +56,11 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     }
 
-    //TODO TEST THIS METHOD
     @Override
     public boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
         return CandidaturaDAO.accettaCandidatura(idCandidatura, idHR, data);
     }
 
-    //TODO TEST THIS METHOD
     @Override
     public boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
         return CandidaturaDAO.rifiutaCandidatura(idCandidatura, idHR);

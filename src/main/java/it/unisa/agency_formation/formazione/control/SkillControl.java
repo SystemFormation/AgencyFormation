@@ -41,7 +41,6 @@ public class SkillControl extends HttpServlet {
                     response.getWriter().write("2"); //Skilldesc vuoto
                 }
                 try {
-                    //Da raffinare
                     Dipendente dip = DipendenteDAO.doRetrieveDipendenteById(user.getId());
                     if (dip != null) {
                         //TODO r:controllare se l'aggiunta è andata a buon fine

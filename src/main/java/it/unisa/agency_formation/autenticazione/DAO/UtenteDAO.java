@@ -282,7 +282,6 @@ public class UtenteDAO {
         }
     }
 
-    //TODO TEST THIS METHOD
     public static ArrayList<Utente> doRetrieveCandidatoConCandidatura() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;

@@ -29,7 +29,6 @@ public class RegistrazioneControlTest extends Mockito {
 
     @BeforeAll
     public static void setup(){
-        System.out.println("ciao");
     }
 
 

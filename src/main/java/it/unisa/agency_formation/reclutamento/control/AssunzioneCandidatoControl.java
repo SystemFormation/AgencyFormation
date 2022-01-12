@@ -34,7 +34,6 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                 } else {
                     boolean esito=setStato(candidatura.getIdCandidatura());
                     if (esito) {
-                        System.err.println(esito+"Esito");
                         response.getWriter().write("2"); // assunzione
                     } else {
                         response.getWriter().write("3"); //errore assunzione
