@@ -36,17 +36,13 @@ public class DipendenteDAO {
             save.setInt(1, dipendente.getIdDipendente());
             save.setString(2, dipendente.getResidenza());
             save.setString(3, dipendente.getTelefono());
-            if (dipendente.getStato() == StatiDipendenti.OCCUPATO) {
-                save.setBoolean(4, false);
-            } else if (dipendente.getStato() == StatiDipendenti.DISPONIBILE) {
+            if (dipendente.getStato() == StatiDipendenti.DISPONIBILE) {
                 save.setBoolean(4, true);
             }
             save.setInt(5, dipendente.getAnnoNascita());
-            int result = save.executeUpdate();
-            if (result != -1) {
+            save.executeUpdate();
                 return true;
-            }
-            return false;
+
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -122,22 +118,8 @@ public class DipendenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")) {
-                    case 1:
-                        user.setRole(RuoliUtenti.CANDIDATO);
-                        break;
-                    case 2:
-                        user.setRole(RuoliUtenti.DIPENDENTE);
-                        break;
-                    case 3:
-                        user.setRole(RuoliUtenti.TM);
-                        break;
-                    case 4:
-                        user.setRole(RuoliUtenti.HR);
-                        break;
-                    default:
-                        break;
-                }
+                user.setRole(RuoliUtenti.DIPENDENTE);
+
                 return user;
             }
         } finally {
@@ -179,29 +161,12 @@ public class DipendenteDAO {
                     team.setIdTeam(result.getInt("IdTeam"));
                     dipUser.setTeam(team);
                 }
-                team.setIdTeam(result.getInt("IdTeam"));
-                dipUser.setTeam(team);
                 dipUser.setId(result.getInt("IdUtente"));
                 dipUser.setName(result.getString("Nome"));
                 dipUser.setSurname(result.getString("Cognome"));
                 dipUser.setPwd(result.getString("Pwd"));
                 dipUser.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")) {
-                    case 1:
-                        dipUser.setRole(RuoliUtenti.CANDIDATO);
-                        break;
-                    case 2:
-                        dipUser.setRole(RuoliUtenti.DIPENDENTE);
-                        break;
-                    case 3:
-                        dipUser.setRole(RuoliUtenti.TM);
-                        break;
-                    case 4:
-                        dipUser.setRole(RuoliUtenti.HR);
-                        break;
-                    default:
-                        break;
-                }
+                dipUser.setRole(RuoliUtenti.DIPENDENTE);
                 DipsUsers.add(dipUser);
             }
             if (DipsUsers.size() > 0) {
@@ -305,22 +270,7 @@ public class DipendenteDAO {
                 dip.setSurname(result.getString("Cognome"));
                 dip.setPwd(result.getString("Pwd"));
                 dip.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")) {
-                    case 1:
-                        dip.setRole(RuoliUtenti.CANDIDATO);
-                        break;
-                    case 2:
-                        dip.setRole(RuoliUtenti.DIPENDENTE);
-                        break;
-                    case 3:
-                        dip.setRole(RuoliUtenti.TM);
-                        break;
-                    case 4:
-                        dip.setRole(RuoliUtenti.HR);
-                        break;
-                    default:
-                        break;
-                }
+                dip.setRole(RuoliUtenti.DIPENDENTE);
                 dipendenti.add(dip);
             }
             if (dipendenti.size() > 0) {

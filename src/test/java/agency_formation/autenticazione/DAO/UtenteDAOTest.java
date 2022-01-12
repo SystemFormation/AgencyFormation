@@ -23,11 +23,9 @@ public class UtenteDAOTest {
     @BeforeAll
     public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;
-        String query= "Delete from utenti where IdUtente=4";
         String candidatura="Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(1,'test','test','NonRevisionato','2022-01-10', 1)";
         Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.executeUpdate(query);
+        PreparedStatement statement = connection.prepareStatement(candidatura);
         statement.executeUpdate(candidatura);
     }
     @AfterAll
@@ -35,11 +33,13 @@ public class UtenteDAOTest {
         String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(4,'Domenico','Pagliuca','lol','d.pagliuca@studenti.unisa.it',4)";
         String delete = "Delete from utenti where IdUtente>4";
         String deleteCand = "Delete from candidature where IdCandidatura>=1";
+        String update = "update candidature set Stato='NonRevisionato' where idCandidatura=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(delete);
         statement.executeUpdate(query);
         statement.executeUpdate(delete);
         statement.executeUpdate(deleteCand);
+        statement.executeUpdate(update);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
@@ -105,10 +105,38 @@ public class UtenteDAOTest {
 
     @Test
     @Order(8)
-    public void loginPass() throws SQLException {
+    public void loginPassCand() throws SQLException {
         String email = "genny@libero.it";
         String pwd = "lol";
         assertNotNull(UtenteDAO.login(email,pwd));
+    }
+
+    @Test
+    @Order(8)
+    public void loginPassDip() throws SQLException {
+        String email = "p.severino@studenti.unisa.it";
+        String pwd = "lol";
+        assertNotNull(UtenteDAO.login(email,pwd));
+    }
+
+    @Test
+    @Order(8)
+    public void loginPassTM() throws SQLException {
+        String email = "m.nocerino@studenti.unisa.it";
+        String pwd = "lol";
+        assertNotNull(UtenteDAO.login(email,pwd));
+    }
+
+    @Test
+    @Order(8)
+    public void loginPassHR() throws SQLException {
+        String email = "d.pagliuca@studenti.unisa.it";
+        String pwd = "lol";
+        assertNotNull(UtenteDAO.login(email,pwd));
+        String query= "Delete from utenti where IdUtente=4";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate(query);
     }
 
     @Test
@@ -201,6 +229,10 @@ public class UtenteDAOTest {
     @Test
     @Order(19)//not pass
     public void recuperoCandidatiColloquio1() throws SQLException {
+        String query = "update candidature set Stato='Rifiutata' where idCandidatura=1";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
         assertNull(UtenteDAO.recuperoCandidatiColloquio());
     }
 

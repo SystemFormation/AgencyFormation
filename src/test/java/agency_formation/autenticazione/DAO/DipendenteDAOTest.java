@@ -22,25 +22,38 @@ public class DipendenteDAOTest {
     @BeforeAll
     public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;
-        String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(5,'Luca','Rossi','lol','luca@gmail.com',1)";
-        String query1= "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(2,'TestTeam',5,'Test','test descr','Java EE',3)";
+        String queryTeam1= "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(2,'TestTeam',5,'Test','test descr','Java EE',3)";
+        String queryUtente0= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(5,'Test','Rossi','lol','test@gmail.com',1)";
+        String queryUtente1= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(6,'Luca','Rossi','lol','luca@gmail.com',2)";
+        String queryUtente2= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(7,'Maria','Espo','lol','maria@gmail.com',2)";
+        String queryDipendente1 = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita) " +
+                "values (6,'Londra','118',true,2000)";
+        String queryDipendente2 = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
+                "values (7,'Parigi','148',false,2000,2)";
 
         Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.executeUpdate(query);
-        statement.executeUpdate(query1);
+        PreparedStatement statement = connection.prepareStatement(queryUtente1);
+        statement.executeUpdate(queryUtente0);
+        statement.executeUpdate(queryUtente1);
+        statement.executeUpdate(queryTeam1);
+        statement.executeUpdate(queryUtente2);
+        statement.executeUpdate(queryDipendente1);
+        statement.executeUpdate(queryDipendente2);
     }
     @AfterAll
     public static void finish() throws SQLException {
-       String delete = "Delete from utenti where IdUtente>4";
-       String update = "update dipendenti set IdTeam=null where idTeam>1";
-        String delete1 = "Delete from team where IdTeam>1";
+       String delete0 = "Delete from utenti where IdUtente>4";
+       String update = "update dipendenti set IdTeam=null where IdTeam>1";
+       String delete1 = "Delete from dipendenti where IdDipendente>2";
+        String delete2 = "Delete from team where IdTeam>1";
        String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
                     "values (2,'Fisciano','118',false,2000,1)";
         Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(delete);
-        statement.executeUpdate(delete);
+        PreparedStatement statement = connection.prepareStatement(delete0);
+        statement.executeUpdate(delete0);
+        statement.executeUpdate(update);
         statement.executeUpdate(delete1);
+        statement.executeUpdate(delete2);
         statement.executeUpdate(insert);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
@@ -103,29 +116,38 @@ public class DipendenteDAOTest {
     @Test //pass
     @Order(8)
     public void doRetrieveById3() throws SQLException {
-        int id = 2;
-        Dipendente dip = DipendenteDAO.doRetrieveDipendenteById(id);
-        assertNotNull(dip);
+        int id = 7;
+        assertNotNull(DipendenteDAO.doRetrieveDipendenteById(id));
     }
-    @Test //non ci sono dipendenti
-    @Order(16)
+    @Test //pass
+    @Order(8)
+    public void doRetrieveById4() throws SQLException {
+        int id = 5;
+        assertNotNull(DipendenteDAO.doRetrieveDipendenteById(id));
+    }
+
+
+    @Test // pass
+    @Order(9)
     public void doRetrieveAll1() throws SQLException {
-        String query = "Delete from dipendenti";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.executeUpdate();
-        assertNull(DipendenteDAO.recuperaDipendenti());
+        assertNotNull(DipendenteDAO.recuperaDipendenti());
+    }
+    @Test // pass
+    @Order(9)
+    public void doRetrieveAll3() throws SQLException {
+        assertNotNull(DipendenteDAO.recuperaDipendenti());
     }
 
     @Test // pass
     @Order(9)
-    public void doRetrieveAll2() throws SQLException {
-        assertNotNull(DipendenteDAO.recuperaDipendenti().size());
+    public void doRetrieveAll4() throws SQLException {
+        assertNotNull(DipendenteDAO.recuperaDipendenti());
     }
+
 
     @Test
     @Order(10)
-    public void doRetrieveByStateSizeLessOne() throws SQLException {
+    public void recuperaByStateSizeLessOne1() throws SQLException {
         String query = "update dipendenti set Stato=1 where Stato = 0";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
@@ -133,9 +155,55 @@ public class DipendenteDAOTest {
         assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
     }
     @Test
+    @Order(10)
+    public void recuperaByStateSizeLessOne2() throws SQLException {
+        String query = "update dipendenti set Stato=0 where Stato = 1";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
+        assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
+    }
+    @Test
     @Order(11)
-    public void doRetrieveByStateSizePass() throws SQLException {
+    public void doRetrieveByStateSize3() throws SQLException {
+        String query = "update dipendenti set Stato=1, IdTeam=null where Stato = 0";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
         assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
+    }
+
+    @Test
+    @Order(11)
+    public void doRetrieveByStateSize4() throws SQLException {
+        String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(8,'Luca','Rossi','lol','luca@gmail.com',2)";
+        String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita) " +
+                "values (8,'Fisciano','118',true,2000)";
+        String query1= "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(4,'TestTeam',5,'Test','test descr','Java EE',3)";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement1 = connection.prepareStatement(query);
+        PreparedStatement statement2 = connection.prepareStatement(query1);
+        PreparedStatement statement3 = connection.prepareStatement(insert);
+        statement1.executeUpdate();
+        statement2.executeUpdate();
+        statement3.executeUpdate();
+        assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
+    }
+    @Test
+    @Order(11)
+    public void doRetrieveByStateSize5() throws SQLException {
+        String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(9,'Luca','Rossi','lol','luca@gmail.com',2)";
+        String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
+                "values (9,'Fisciano','118',false,2000,5)";
+        String query1= "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(5,'TestTeam',5,'Test','test descr','Java EE',3)";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement1 = connection.prepareStatement(query);
+        PreparedStatement statement2 = connection.prepareStatement(query1);
+        PreparedStatement statement3 = connection.prepareStatement(insert);
+        statement1.executeUpdate();
+        statement2.executeUpdate();
+        statement3.executeUpdate();
+        assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
     }
 
     @Test //not pass because idDip<1
@@ -157,5 +225,15 @@ public class DipendenteDAOTest {
     @Order(15)
     public void setTeamDipendente4() throws SQLException {
         assertTrue(DipendenteDAO.setTeamDipendente(5,2));
+    }
+
+    @Test //non ci sono dipendenti
+    @Order(16)
+    public void doRetrieveAll2() throws SQLException {
+        String query = "Delete from dipendenti";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.executeUpdate();
+        assertNull(DipendenteDAO.recuperaDipendenti());
     }
 }
