@@ -47,7 +47,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
                     dipendente.setResidenza(residenza);
                     dipendente.setTelefono(telefono);
                     dipendente.setStato(StatiDipendenti.DISPONIBILE);
-                    boolean esito=assumiCandidato(dipendente);
+                    boolean esito = assumiCandidato(dipendente);
                     if (!esito) {
                         response.getWriter().write("2"); //errore assunzione
                         response.sendRedirect("/WEB-INF/jsp/HomeCandidato.jsp");

@@ -55,8 +55,8 @@ public class FormazioneManagerImpl implements FormazioneManager {
     }
 
     @Override
-    public boolean addSkillDipendente(int idSkill, Dipendente dip, int skillLivello) throws SQLException {
-        return SkillDAO.salvaSkillDipendente(idSkill, dip, skillLivello);
+    public boolean addSkillDipendente(int idSkill, int iddip, int skillLivello) throws SQLException {
+        return SkillDAO.salvaSkillDipendente(idSkill, iddip, skillLivello);
     }
 
     private boolean alreadyInsertSkill(Skill skill) throws SQLException {

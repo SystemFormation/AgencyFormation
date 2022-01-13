@@ -1,6 +1,5 @@
 package it.unisa.agency_formation.formazione.manager;
 
-import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.formazione.domain.Skill;
 
@@ -26,7 +25,7 @@ public interface FormazioneManager {
 
     int getUltimaSkill() throws SQLException;
 
-    boolean addSkillDipendente(int idSkill, Dipendente dip, int skillLivello) throws SQLException;
+    boolean addSkillDipendente(int idSkill, int iddip, int skillLivello) throws SQLException;
 
     ArrayList<Skill> recuperoSkillConIdDipendente(int idDipendete) throws SQLException;
 }

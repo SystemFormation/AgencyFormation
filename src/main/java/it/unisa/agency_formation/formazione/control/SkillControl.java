@@ -47,7 +47,7 @@ public class SkillControl extends HttpServlet {
                         addSkillFromManager(skill);
                         int idSkill = getLastIdSkillCreatedFromManager();
                         //TODO r:controllare se l'aggiunta è andata a buon fine
-                        addSkillDipFromManager(idSkill, dip, skillLivello);
+                        addSkillDipFromManager(idSkill, dip.getIdDipendente(), skillLivello);
                         response.getWriter().write("3"); // aggiunta avvenuta con successo.
                         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");
                         dispatcher.forward(request, response);
@@ -83,8 +83,8 @@ public class SkillControl extends HttpServlet {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.getUltimaSkill();
     }
-    public static boolean addSkillDipFromManager(int idSkill, Dipendente dipendente, int skillLivello)throws SQLException {
+    public static boolean addSkillDipFromManager(int idSkill, int idDipendente, int skillLivello)throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
-        return formazioneManager.addSkillDipendente(idSkill, dipendente, skillLivello);
+        return formazioneManager.addSkillDipendente(idSkill, idDipendente, skillLivello);
     }
 }

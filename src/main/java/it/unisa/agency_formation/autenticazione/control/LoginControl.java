@@ -36,26 +36,27 @@ public class LoginControl extends HttpServlet {
                     if (candidatura != null) {
                         request.setAttribute("candidatura", candidatura);
                     }
-                    response.getWriter().write("6");//sono un candidato
+                    response.getWriter().write("6"); //sono un candidato
                     dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");
                     dispatcher.forward(request, response);
                     break;
                 case DIPENDENTE:
-                    response.getWriter().write("7");//sono un dipendente
+                    response.getWriter().write("7"); //sono un dipendente
                     dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");
                     dispatcher.forward(request, response);
                     break;
                 case TM:
-                    response.getWriter().write("8");//sono un TM
+                    response.getWriter().write("8"); //sono un TM
                     dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeTM.jsp");
                     dispatcher.forward(request, response);
                     break;
                 case HR:
-                    response.getWriter().write("9");//sono un HR
+                    response.getWriter().write("9"); //sono un HR
                     dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
                     dispatcher.forward(request, response);
                     break;
-
+                default:
+                    break;
             }
         } else {
             String email = request.getParameter("email");

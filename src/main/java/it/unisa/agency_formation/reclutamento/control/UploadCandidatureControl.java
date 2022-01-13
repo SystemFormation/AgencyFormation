@@ -91,7 +91,7 @@ public class UploadCandidatureControl extends HttpServlet {
                         e.printStackTrace();
                     }
                 }
-            }else if (scelta == 3){
+            } else if (scelta == 3) {
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Upload.jsp");
                 dispatcher.forward(request, response);
             }

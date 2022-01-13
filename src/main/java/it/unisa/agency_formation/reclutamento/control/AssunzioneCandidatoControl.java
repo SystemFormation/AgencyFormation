@@ -32,7 +32,7 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                     response.getWriter().write("1"); //errore Candidatura
                     response.sendRedirect("./static/Login.html");
                 } else {
-                    boolean esito=setStato(candidatura.getIdCandidatura());
+                    boolean esito = setStato(candidatura.getIdCandidatura());
                     if (esito) {
                         response.getWriter().write("2"); // assunzione
                     } else {

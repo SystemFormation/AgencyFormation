@@ -4,10 +4,6 @@ import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
-import it.unisa.agency_formation.reclutamento.domain.Candidatura;
-import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
-import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
-import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

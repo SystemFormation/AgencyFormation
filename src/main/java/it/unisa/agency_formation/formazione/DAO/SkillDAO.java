@@ -1,6 +1,5 @@
 package it.unisa.agency_formation.formazione.DAO;
 
-import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.formazione.domain.Skill;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
@@ -143,13 +142,14 @@ public class SkillDAO {
 
     /**
      * @param idSkill
-     * @param dip
+     * @param idDip
+     * @param skillLivello
      * @throws SQLException
      * @pre idSkill>0 && dip!=null
      */
-    public static boolean salvaSkillDipendente(int idSkill, Dipendente dip, int skillLivello) throws SQLException {
+    public static boolean salvaSkillDipendente(int idSkill, int idDip, int skillLivello) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (idSkill < 1 || dip == null) {
+        if (idSkill < 1 || idDip < 1) {
             return false;
         }
         PreparedStatement save = null;
@@ -157,11 +157,14 @@ public class SkillDAO {
                 + " values(?,?,?)";
         try {
             save = connection.prepareStatement(query);
-            save.setInt(1, dip.getIdDipendente());
+            save.setInt(1, idDip);
             save.setInt(2, idSkill);
             save.setInt(3, skillLivello);
             int result = save.executeUpdate();
-            return result != -1;
+            if (result != -1) {
+                return true;
+            }
+            return false;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }

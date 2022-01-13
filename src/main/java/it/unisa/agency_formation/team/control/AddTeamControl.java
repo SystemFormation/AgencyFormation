@@ -51,6 +51,6 @@ public class AddTeamControl extends HttpServlet {
     //TODO non gestito il return
     public static boolean setTeamDipendemteFromManager(int idDip, int idTeam) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.setTeamDipendente(idDip,idTeam);
+        return autenticazioneManager.setTeamDipendente(idDip, idTeam);
     }
 }

@@ -48,15 +48,17 @@ public class DocumentoDAO {
         if (materialeFormazione == null) {
             return false;
         }
-        ResultSet result;
         Connection connection = DatabaseManager.getInstance().getConnection();
         String query = "DELETE FROM " + TABLE_DOCUMENTO + " WHERE MaterialeDiFormazione=?";
         PreparedStatement stmt = null;
         try {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, materialeFormazione);
-            result = stmt.executeQuery();
-            return result.next();
+            int result = stmt.executeUpdate();
+            if (result != -1) {
+                return true;
+            }
+            return false;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -77,7 +79,7 @@ public class DocumentoDAO {
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
-        String query = "UPDATE " + TABLE_DOCUMENTO + " SET MaterialeDiFormazione=? WHERE IdUtente=? and IdTeam=?";
+        String query = "UPDATE " + TABLE_DOCUMENTO + " SET MaterialeDiFormazione=? WHERE IdHR=? and IdTeam=?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, materiale);

@@ -27,7 +27,7 @@ public class RicandidaturaControl extends HttpServlet {
                     response.sendRedirect("./static/Error.html");
                 } else {
                     response.getWriter().write("2"); // avvenuta eliminazione candidatura
-                    request.setAttribute("sceltaUpload",3);
+                    request.setAttribute("sceltaUpload", 3);
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/UploadCandidatureControl");
                     dispatcher.forward(request, response);
                 }

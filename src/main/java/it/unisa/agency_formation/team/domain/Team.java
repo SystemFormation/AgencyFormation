@@ -2,8 +2,6 @@ package it.unisa.agency_formation.team.domain;
 
 import it.unisa.agency_formation.formazione.domain.Documento;
 
-import java.util.ArrayList;
-
 public class Team {
     private int idTeam;
     private String NomeProgetto;
@@ -85,7 +83,7 @@ public class Team {
         return documento;
     }
 
-    public void setDocumento(Documento documento) {
-        this.documento = documento;
+    public void setDocumento(Documento document) {
+        this.documento = document;
     }
 }

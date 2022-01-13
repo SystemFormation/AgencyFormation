@@ -41,7 +41,7 @@ public class RifiutaColloquioControl extends HttpServlet {
                 e.printStackTrace();
             }
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         } else {
             response.sendRedirect("./static/Login.html");
         }

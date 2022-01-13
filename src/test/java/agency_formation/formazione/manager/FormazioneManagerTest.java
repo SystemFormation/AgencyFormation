@@ -49,9 +49,9 @@ public class FormazioneManagerTest {
         int idSkill = 2;
         Dipendente dip = null;
         try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.salvaSkillDipendente(idSkill,dip,3)).thenReturn(false);
+            mocked.when(() -> SkillDAO.salvaSkillDipendente(idSkill,dip.getIdDipendente() ,3)).thenReturn(false);
         }
-        assertFalse(aut.addSkillDipendente(idSkill,dip,3));
+        assertFalse(aut.addSkillDipendente(idSkill, dip.getIdDipendente() ,3));
     }
     @Test
     public void addSkillDipPass() throws SQLException{
