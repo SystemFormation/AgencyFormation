@@ -2,8 +2,11 @@ package agency_formation.autenticazione.control;
 
 import it.unisa.agency_formation.autenticazione.control.LoginControl;
 import it.unisa.agency_formation.autenticazione.control.RegistrazioneControl;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import javax.servlet.RequestDispatcher;
@@ -21,16 +24,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /*Questa classe testa la registrazione di un utente*/
 public class RegistrazioneControlTest extends Mockito {
-    private HttpServletRequest request;
-    private HttpServletResponse response;
-    private HttpSession session;
-    private RequestDispatcher dispatcher;
-
-
-    @BeforeAll
-    public static void setup(){
-    }
-
+    private static HttpServletRequest request;
+    private static HttpServletResponse response;
+    private static HttpSession session;
+    private static RequestDispatcher dispatcher;
+    private static ServletContext context;
+    private static ServletConfig config;
 
     @Test //nome==null
     public void regTestNome1() throws IOException, ServletException {
@@ -223,25 +222,37 @@ public class RegistrazioneControlTest extends Mockito {
 
     @Test //da controllare
     public void regPass() throws IOException, ServletException {
-        ServletConfig config = Mockito.mock(ServletConfig.class);
+        config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
+        context = Mockito.mock(ServletContext.class);
         LoginControl servlet = new LoginControl();
+        Utente user = Mockito.mock(Utente.class);
+        user.setName("Manuel");
+        user.setSurname("Nocerino");
+        user.setRole(RuoliUtenti.CANDIDATO);
+        user.setEmail("manuel@gmail.com");
+        user.setPwd("lol");
         Mockito.when(request.getParameter("nome")).thenReturn("Manuel");
         Mockito.when(request.getParameter("cognome")).thenReturn("Nocerino");
         Mockito.when(request.getParameter("email")).thenReturn("manuel@gmail.com");
         Mockito.when(request.getParameter("pwd")).thenReturn("lol");
-        Mockito.when(request.getSession(true)).thenReturn(session);
-        ServletContext context = Mockito.mock(ServletContext.class);
+        Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
-        Mockito.when(response.getWriter()).thenReturn(writer);
-        servlet.init(config);
-        servlet.doGet(request,response);
-        assertTrue(stringWriter.toString().equals("5"));
+        try (MockedStatic mockedStatic = mockStatic(RegistrazioneControl.class)) {
+            mockedStatic.when(() -> RegistrazioneControl.registrazioneFromManager(user)).thenReturn(true);
+            mockedStatic.when(() -> RegistrazioneControl.loginFromManager(user.getEmail(),user.getPwd())).thenReturn(user);
+
+
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            Mockito.when(response.getWriter()).thenReturn(writer);
+            servlet.init(config);
+            servlet.doGet(request, response);
+            assertTrue(stringWriter.toString().equals("5"));
+        }
     }
 }

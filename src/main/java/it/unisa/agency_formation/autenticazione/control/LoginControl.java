@@ -55,8 +55,6 @@ public class LoginControl extends HttpServlet {
                     dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
                     dispatcher.forward(request, response);
                     break;
-                default:
-                    break;
             }
         } else {
             String email = request.getParameter("email");
@@ -81,22 +79,24 @@ public class LoginControl extends HttpServlet {
                                 if (candidatura != null) {
                                     request.setAttribute("candidatura", candidatura);
                                 }
+                                response.getWriter().write("-10"); //utente CAND
                                 dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");
                                 dispatcher.forward(request, response);
                                 break;
                             case DIPENDENTE:
+                                response.getWriter().write("-11"); //utente DIP
                                 dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");
                                 dispatcher.forward(request, response);
                                 break;
                             case TM:
+                                response.getWriter().write("-12"); //utente TM
                                 dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeTM.jsp");
                                 dispatcher.forward(request, response);
                                 break;
                             case HR:
+                                response.getWriter().write("-13"); //utente HR
                                 dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
                                 dispatcher.forward(request, response);
-                                break;
-                            default:
                                 break;
                         }
                     } else {

@@ -120,7 +120,7 @@ public class DipendenteDAOTest {
         assertNotNull(DipendenteDAO.doRetrieveDipendenteById(id));
     }
     @Test //pass
-    @Order(8)
+    @Order(9)
     public void doRetrieveById4() throws SQLException {
         int id = 5;
         assertNotNull(DipendenteDAO.doRetrieveDipendenteById(id));
@@ -128,25 +128,25 @@ public class DipendenteDAOTest {
 
 
     @Test // pass
-    @Order(9)
+    @Order(10)
     public void doRetrieveAll1() throws SQLException {
         assertNotNull(DipendenteDAO.recuperaDipendenti());
     }
     @Test // pass
-    @Order(9)
+    @Order(11)
     public void doRetrieveAll3() throws SQLException {
         assertNotNull(DipendenteDAO.recuperaDipendenti());
     }
 
     @Test // pass
-    @Order(9)
+    @Order(12)
     public void doRetrieveAll4() throws SQLException {
         assertNotNull(DipendenteDAO.recuperaDipendenti());
     }
 
 
     @Test
-    @Order(10)
+    @Order(13)
     public void recuperaByStateSizeLessOne1() throws SQLException {
         String query = "update dipendenti set Stato=1 where Stato = 0";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -155,7 +155,7 @@ public class DipendenteDAOTest {
         assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
     }
     @Test
-    @Order(10)
+    @Order(14)
     public void recuperaByStateSizeLessOne2() throws SQLException {
         String query = "update dipendenti set Stato=0 where Stato = 1";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -164,7 +164,7 @@ public class DipendenteDAOTest {
         assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
     }
     @Test
-    @Order(11)
+    @Order(15)
     public void doRetrieveByStateSize3() throws SQLException {
         String query = "update dipendenti set Stato=1, IdTeam=null where Stato = 0";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -174,7 +174,7 @@ public class DipendenteDAOTest {
     }
 
     @Test
-    @Order(11)
+    @Order(16)
     public void doRetrieveByStateSize4() throws SQLException {
         String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(8,'Luca','Rossi','lol','luca@gmail.com',2)";
         String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita) " +
@@ -190,12 +190,12 @@ public class DipendenteDAOTest {
         assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
     }
     @Test
-    @Order(11)
+    @Order(17)
     public void doRetrieveByStateSize5() throws SQLException {
         String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(9,'Luca','Rossi','lol','luca@gmail.com',2)";
         String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
-                "values (9,'Fisciano','118',false,2000,5)";
-        String query1= "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(5,'TestTeam',5,'Test','test descr','Java EE',3)";
+                "values (9,'Fisciano','118',false,2000,100)";
+        String query1= "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(100,'TestTeam',5,'Test','test descr','Java EE',3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement1 = connection.prepareStatement(query);
         PreparedStatement statement2 = connection.prepareStatement(query1);
@@ -207,28 +207,28 @@ public class DipendenteDAOTest {
     }
 
     @Test //not pass because idDip<1
-    @Order(12)
+    @Order(18)
     public void setTeamDipendente1() throws SQLException {
         assertFalse(DipendenteDAO.setTeamDipendente(0,1));
     }
     @Test //not pass because idTeam<1
-    @Order(13)
+    @Order(19)
     public void setTeamDipendente2() throws SQLException {
         assertFalse(DipendenteDAO.setTeamDipendente(2,0));
     }
     @Test //not pass because idDip doesn't exists
-    @Order(14)
+    @Order(20)
     public void setTeamDipendente3() throws SQLException {
         assertFalse(DipendenteDAO.setTeamDipendente(200,1));
     }
     @Test //pass
-    @Order(15)
+    @Order(21)
     public void setTeamDipendente4() throws SQLException {
         assertTrue(DipendenteDAO.setTeamDipendente(5,2));
     }
 
     @Test //non ci sono dipendenti
-    @Order(16)
+    @Order(22)
     public void doRetrieveAll2() throws SQLException {
         String query = "Delete from dipendenti";
         Connection connection = DatabaseManager.getInstance().getConnection();

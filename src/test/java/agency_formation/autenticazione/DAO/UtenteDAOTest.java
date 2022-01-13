@@ -96,7 +96,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(7)
+    @Order(8)
     public void loginEmailPwdNull() throws SQLException {
         String email = null;
         String pwd = null;
@@ -104,7 +104,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(8)
+    @Order(9)
     public void loginPassCand() throws SQLException {
         String email = "genny@libero.it";
         String pwd = "lol";
@@ -112,7 +112,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(8)
+    @Order(10)
     public void loginPassDip() throws SQLException {
         String email = "p.severino@studenti.unisa.it";
         String pwd = "lol";
@@ -120,7 +120,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(8)
+    @Order(11)
     public void loginPassTM() throws SQLException {
         String email = "m.nocerino@studenti.unisa.it";
         String pwd = "lol";
@@ -128,7 +128,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(8)
+    @Order(12)
     public void loginPassHR() throws SQLException {
         String email = "d.pagliuca@studenti.unisa.it";
         String pwd = "lol";
@@ -140,7 +140,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(9)
+    @Order(13)
     public void loginFail() throws SQLException {
         String email = "genny158@gmail.it";
         String pwd = "lol";
@@ -148,32 +148,32 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(10)
+    @Order(14)
     public void doRetrieveByIDLessZero() throws SQLException {
         int id = -1;
         assertNull(UtenteDAO.doRetrieveUtenteByID(id));
     }
 
     @Test
-    @Order(11)
+    @Order(15)
     public void doRetrieveByIDPass1() throws SQLException {
         int id = 3;
         assertNotNull(UtenteDAO.doRetrieveUtenteByID(id));
     }
     @Test
-    @Order(12)
+    @Order(16)
     public void doRetrieveByIDPass2() throws SQLException {
         int id = 1;
         assertNotNull(UtenteDAO.doRetrieveUtenteByID(id));
     }
     @Test
-    @Order(13)
+    @Order(17)
     public void doRetrieveByIDPass3() throws SQLException {
         int id = 2;
         assertNotNull(UtenteDAO.doRetrieveUtenteByID(id));
     }
     @Test
-    @Order(14)
+    @Order(18)
     public void doRetrieveByIDPass4() throws SQLException {
         String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(4,'Domenico','Pagliuca','lol','d.pagliuca@studenti.unisa.it',4)";
         String delete = "Delete from utenti where IdUtente=4";
@@ -220,16 +220,16 @@ public class UtenteDAOTest {
     }
 */
     @Test
-    @Order(18) //pass
+    @Order(19) //pass
     public void retrieveCandidatiConCandidatura1() throws SQLException {
         assertNotNull(UtenteDAO.doRetrieveCandidatoConCandidatura());
     }
 
 
     @Test
-    @Order(19)//not pass
+    @Order(20)//not pass
     public void recuperoCandidatiColloquio1() throws SQLException {
-        String query = "update candidature set Stato='Rifiutata' where idCandidatura=1";
+        String query = "update candidature set Stato='Rifiutata' where idCandidatura>=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate();
@@ -237,7 +237,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(20)//pass
+    @Order(21)//pass
     public void recuperoCandidatiColloquio2() throws SQLException {
         String query = "update candidature set Stato='Accettata' where idCandidatura=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -247,7 +247,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(21) //fail
+    @Order(22) //fail
     public void retrieveCandidatiConCandidatura2() throws SQLException{
         String query = "Delete from candidature where IdCandidatura>=1";
         Connection connection = DatabaseManager.getInstance().getConnection();

@@ -103,7 +103,7 @@ public class CandidaturaDAO {
                     case "NonRevisionato":
                         cand.setStato(StatiCandidatura.NonRevisionato);
                         break;
-                    /*case "Accettata":
+                    case "Accettata":
                         cand.setStato(StatiCandidatura.Accettata);
                         break;
                     case "Rifiutata":
@@ -113,7 +113,7 @@ public class CandidaturaDAO {
                         cand.setStato(StatiCandidatura.Assunzione);
                         break;
                     default:
-                        break;*/
+                        break;
                 }
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));

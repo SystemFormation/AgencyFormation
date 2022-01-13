@@ -106,10 +106,10 @@ function viewCompetenze(i){
 function viewSkill(i){
     var index = i;
     var x = document.getElementsByName("drop")[index];
+    console.log(index);
     var setting = x.style.display;
     if (setting == "none") {
         x.style.display = "inline";
     } else
         x.style.display = "none";
-
 }
