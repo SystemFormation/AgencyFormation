@@ -53,8 +53,7 @@ public class DocumentoDAOTest {
         assertTrue(DocumentoDAO.salvaDocumento(doc));
     }
 
-/*
-    @Test//non rimuovi il documento
+@Test//non rimuovi il documento
     @Order(4)
     public void rimuoviDocumentoFail() throws SQLException {
         String path= null;
@@ -95,7 +94,7 @@ public class DocumentoDAOTest {
         assertFalse(DocumentoDAO.modificaDocumento(idHR,materiale,idTeam));
 
     }
-*/
+
     @Test//Il team non esiste
     @Order(3)
     public void recuperaDocumentoByTeamFail1() throws SQLException {
