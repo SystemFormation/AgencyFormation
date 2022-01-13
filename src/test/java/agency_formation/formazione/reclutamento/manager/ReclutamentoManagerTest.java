@@ -1,5 +1,8 @@
-package agency_formation.reclutamento.manager;
+package agency_formation.formazione.reclutamento.manager;
 
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
@@ -9,6 +12,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
@@ -106,32 +114,69 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
 
     @Test //non ci devono essere candidature
     public void getTutteCandidature1() throws SQLException{
-
+        ArrayList<Candidatura> candidature =null;
+        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
+            mocked.when(() -> CandidaturaDAO.recuperaCandidature()).thenReturn(candidature);
+        }
+        assertNull(reclutamento.getTutteCandidature());
     }
-    @Test //pass
-    public void getTutteCandidature2() throws SQLException{
 
-    }
+
 
     @Test //not pass , mi aspetto false
-    public void accettaCandidatura1(){
+    public void accettaCandidatura() {
+        int idCandidatura = 1;
+        int idHR = 4;
+        String data = ("2022-04-03");
+        String tempo = ("17:30");
+        String dataOra = data + " " + tempo;
+        Date data1 = null;
+        try {
+            data1 = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(dataOra);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Timestamp timestamp = new Timestamp(data1.getTime());
+        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
+            mocked.when(() -> CandidaturaDAO.accettaCandidatura(idCandidatura, idHR, timestamp )).thenReturn(true);
+        }
+        try {
+            assertTrue(reclutamento.accettaCandidatura(idCandidatura, idHR, timestamp));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
-    @Test //pass
-    public void accettaCandidatura2(){
 
+
+
+
+    @Test //not pass , mi aspetto false
+    public void rifiutaCandidatura() {
+        int idCandidatura = 1;
+        int idHR = 4;
+        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
+            mocked.when(() -> CandidaturaDAO.rifiutaCandidatura(idCandidatura, idHR )).thenReturn(true);
+        }
+        try {
+            assertTrue(reclutamento.rifiutaCandidatura(idCandidatura, idHR));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    @Test//not pass mi aspetto false
-    public void rifiutaCandidatura1(){
-
+    @Test
+    public void assumiCandidato() throws SQLException {
+        Dipendente dipendente = new Dipendente();
+            dipendente.setAnnoNascita(2000);
+            dipendente.setIdDipendente(1);
+            dipendente.setResidenza("test");
+            dipendente.setTelefono("118");
+            dipendente.setStato(StatiDipendenti.DISPONIBILE);
+            try (MockedStatic mocked = mockStatic(DipendenteDAO.class)) {
+                mocked.when(() -> DipendenteDAO.salvaDipendente(dipendente)).thenReturn(true);
+                assertTrue(reclutamento.assumiCandidato(dipendente));
+            }
     }
-
-    @Test//pass
-    public void rifiutaCandidatura2(){
-
-    }
-
-
 
 }
