@@ -31,11 +31,13 @@ public class AggiuntaDipendente extends HttpServlet {
            int idTeam = Integer.parseInt(req.getParameter("idTeam"));
            try {
                ArrayList<Dipendente> dipendenti = getTuttiDipendentiFromManager();
-               for (Dipendente dipendente : dipendenti) {
-                   ArrayList<Skill> skills;
-                   if (getSkillDipendenteFromManager(dipendente.getIdDipendente()) != null && getSkillDipendenteFromManager(dipendente.getIdDipendente()).size() > 0) {
-                       skills = getSkillDipendenteFromManager(dipendente.getIdDipendente());
-                       dipendente.setSkills(skills);
+               if(dipendenti != null && dipendenti.size() > 0) {
+                   for (Dipendente dipendente : dipendenti) {
+                       ArrayList<Skill> skills;
+                       if (getSkillDipendenteFromManager(dipendente.getIdDipendente()) != null && getSkillDipendenteFromManager(dipendente.getIdDipendente()).size() > 0) {
+                           skills = getSkillDipendenteFromManager(dipendente.getIdDipendente());
+                           dipendente.setSkills(skills);
+                       }
                    }
                }
                req.setAttribute("dipendenti", dipendenti);

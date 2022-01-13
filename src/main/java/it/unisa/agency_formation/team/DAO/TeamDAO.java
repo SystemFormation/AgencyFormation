@@ -21,7 +21,8 @@ public class TeamDAO {
     /**
      * Questa funzionalità permette di salvare un team
      *
-     * @param team
+     * @param team team scelto
+     * @param idUtente utente scelto
      * @return boolean
      * @throws SQLException
      * @pre team>0
@@ -44,11 +45,7 @@ public class TeamDAO {
                 save.setString(4, team.getDescrizione());
                 save.setString(5, null);
                 save.setInt(6, idUtente);
-                int result = save.executeUpdate();
-                if (result != -1) {
-                    return true;
-                }
-                return false;
+                save.executeUpdate();
             } finally {
                 DatabaseManager.closeConnessione(connection);
             }
@@ -160,7 +157,6 @@ public class TeamDAO {
                 }
             }
             return team;
-
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -307,10 +303,10 @@ public class TeamDAO {
             if (result != -1) {
                 return true;
             }
-            return false;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
+        return false;
     }
 
     /**
@@ -490,7 +486,12 @@ public class TeamDAO {
             stmt.setInt(1, 1);
             stmt.setInt(2, idDip);
             int result = stmt.executeUpdate();
-            return result != -1;
+
+            if(result != -1){
+                return true;
+            }else{
+                return false;
+            }
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -525,21 +526,8 @@ public class TeamDAO {
                 dipUser.setSurname(result.getString("Cognome"));
                 dipUser.setPwd(result.getString("Pwd"));
                 dipUser.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")) {
-                    case 1:
-                        dipUser.setRole(RuoliUtenti.CANDIDATO);
-                        break;
-                    case 2:
-                        dipUser.setRole(RuoliUtenti.DIPENDENTE);
-                        break;
-                    case 3:
-                        dipUser.setRole(RuoliUtenti.TM);
-                        break;
-                    case 4:
-                        dipUser.setRole(RuoliUtenti.HR);
-                        break;
-                    default:
-                        break;
+                if(result.getInt("Ruolo") == 2){
+                    dipUser.setRole(RuoliUtenti.DIPENDENTE);
                 }
                 DipsUsers.add(dipUser);
             }
