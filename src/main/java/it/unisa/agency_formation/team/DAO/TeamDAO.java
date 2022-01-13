@@ -449,6 +449,7 @@ public class TeamDAO {
         }
     }
     public static ArrayList<Integer> recuperaIdTeamMemberFromTeam(int idTeam) throws SQLException {
+        System.out.println("Dentro il metodo è : "+idTeam);
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;
@@ -459,11 +460,10 @@ public class TeamDAO {
             stmt.setInt(1, idTeam);
             result = stmt.executeQuery();
             while (result.next()) {
-                int id = 0;
-                id = result.getInt("idDipendente");
-                listaIdDips.add(id);
+                int idDipendente = result.getInt("IdDipendente");
+                listaIdDips.add(idDipendente);
             }
-            if(listaIdDips.size() > 0) {
+            if(listaIdDips.size()>0) {
                 return listaIdDips;
             } else {
                 listaIdDips = null;

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 @WebServlet("/AggiuntaDipendente")
 public class AggiuntaDipendente extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
        if (user != null && user.getRole() == RuoliUtenti.TM) {
            RequestDispatcher dispatcher;
@@ -42,18 +42,20 @@ public class AggiuntaDipendente extends HttpServlet {
                }
                req.setAttribute("dipendenti", dipendenti);
                req.setAttribute("idTeam", idTeam);
+               resp.getWriter().write("1");
                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaDipendenti.jsp");
                dispatcher.forward(req, resp);
            } catch (SQLException e) {
                e.printStackTrace();
            }
        } else {
+           resp.getWriter().write("2");
            resp.sendRedirect("./static/Login.html");
        }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 

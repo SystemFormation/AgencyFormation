@@ -22,23 +22,29 @@ public class AddTeamControl extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             RequestDispatcher dispatcher;
             String action = req.getParameter("action");
-            int idTeam = Integer.parseInt(req.getParameter("idTeam"));
             try {
                 if (action.equalsIgnoreCase("aggiungi")) {
                     int idDip = Integer.parseInt(req.getParameter("id"));
-                    if (idDip != 0) {  //messo questo controllo
+                    if (idDip > 0) {
+                        int idTeam = Integer.parseInt(req.getParameter("idTeam"));//messo questo controllo
                         setTeamDipendemteFromManager(idDip, idTeam);
-                        resp.getWriter().write("2"); //action null
+                        resp.getWriter().write("1");
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);
                     } else {
+                        resp.getWriter().write("2");
                         resp.sendRedirect("/static/CreaTeam.jsp");
                     }
+                }else{
+                    resp.getWriter().write("4");
+                    resp.sendRedirect("/static/CreaTeam.jsp");
                 }
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
+            resp.getWriter().write("3");
             resp.sendRedirect("./static/Login.html");
         }
     }

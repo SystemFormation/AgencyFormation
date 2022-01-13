@@ -182,7 +182,7 @@ public class TeamDAOTest {
         assertNull(TeamDAO.recuperaIdTeamMemberFromTeam(idTeam));
     }
 
-    @Test
+    /*@Test
     @Order(21)
     public void retrieveAllIdEmployeesfromTeamOK() throws SQLException{
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -195,7 +195,8 @@ public class TeamDAOTest {
         statement1.executeUpdate(query_safe0);
         statement2.executeUpdate(query_set_dipendente_team);
         statement3.executeUpdate(query_safe1);
-        int idTeam =  5;
+
+        int idTeam = 5;
         assertNotNull(TeamDAO.recuperaIdTeamMemberFromTeam(idTeam));
        // String query_delete ="delete from team where idTM = 3";
        //PreparedStatement statement4 = connection.prepareStatement(query_delete);
@@ -222,8 +223,8 @@ public class TeamDAOTest {
         int idDip = 2;
         assertTrue(TeamDAO.updateDipStateDissolution(idDip));
     }
-    /*
-    @Test
+
+   /* @Test
     @Order(24)
     public void recoverEmployeesState0() throws SQLException{
         String query = "update dipendenti set Stato = 0 where idDipendente = 2";
@@ -241,23 +242,13 @@ public class TeamDAOTest {
         statement.executeUpdate(query);
         assertNotNull(TeamDAO.recuperaDipendentiDelTeam());
     }
-   /* @Test
-    @Order(25)
+    @Test
+    @Order(26)
     public void recoverEmployeesFail() throws SQLException{
         String query = "delete from dipendenti where idDipendente = 2";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate(query);
         assertNull(TeamDAO.recuperaDipendentiDelTeam());
-    }*/
-    /*
-    @Test
-    @Order(26) //il database deve essere vuoto per farlo funzionare
-    public void retrieveAllTeamFail() throws SQLException   {
-        String query = "delete from team where idTM = 3";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.executeUpdate(query);
-        assertNull(TeamDAO.recuperaTuttiTeam());
     }*/
 }
