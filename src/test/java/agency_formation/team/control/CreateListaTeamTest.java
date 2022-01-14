@@ -78,6 +78,43 @@ public class CreateListaTeamTest {
     }
 
     @Test
+    public void createTeamActionNull() throws ServletException, IOException {
+        int idUser = 10;
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
+        Team team = new Team();
+        user.setId(idUser);
+        int idTM = user.getId();
+        int numeroDipendenti = 10;
+        String nomeProgetto = "Agency Formation";
+        config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        context = Mockito.mock(ServletContext.class);
+        String action = "bad action";
+
+        CreateTeamControl servlet = Mockito.spy(CreateTeamControl.class);
+
+        Mockito.when(request.getSession()).thenReturn(session);
+        Mockito.when(session.getAttribute("user")).thenReturn(user);
+
+        Mockito.when(request.getParameter("action")).thenReturn(action);
+        Mockito.when(request.getServletContext()).thenReturn(context);
+        Mockito.when(request.getParameter("idTM")).thenReturn(String.valueOf(idTM));
+
+
+
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
+        Mockito.when(response.getWriter()).thenReturn(writer);
+        servlet.init(config);
+        servlet.doGet(request, response);
+        writer.flush();
+        assertTrue(stringWriter.toString().contains("3"));
+
+    }
+    @Test
     public void createTeamNumEmployeeMoreThan8() throws ServletException, IOException {
         int idUser = 10;
         Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);

@@ -50,6 +50,10 @@ public class CreateTeamControl extends HttpServlet {
                         dispatcher.forward(req, resp);
                     }
                 }
+                else{
+                    resp.getWriter().write("3");
+                    resp.sendRedirect("/static/CreaTeam.jsp");
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
