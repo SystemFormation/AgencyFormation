@@ -19,27 +19,25 @@ import java.sql.SQLException;
 public class CreateTeamControl extends HttpServlet {
     //da raffinare
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.setProperty("file.encoding" , "UTF-8");
         Utente user = (Utente) req.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             Team team = new Team();
             RequestDispatcher dispatcher;
             String action = req.getParameter("action");
-            Utente userTM = (Utente) req.getSession().getAttribute("user");
-            int idTM = userTM.getId();
+        //    Utente userTM = (Utente) req.getSession().getAttribute("user");
+            int idTM = user.getId();
             try {
                 if (action.equalsIgnoreCase("crea")) {
                     String nomeProgetto = req.getParameter("lname");
                     int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
                     if (numeroDipendenti > 8) {
+                        resp.getWriter().write("1");
                         resp.sendRedirect("/static/CreaTeam.jsp");
-                    }
-
-                    String nomeTeam = req.getParameter("fname");
-                    String descrizione = req.getParameter("teamDescr");
-                    resp.getWriter().write("2");
-                    if (userTM.getRole() == RuoliUtenti.TM) { //ruolo dell'utente è uguale a 3 può salvare
+                    }else{
+                        String nomeTeam = req.getParameter("fname");
+                        String descrizione = req.getParameter("teamDescr");
                         team.setNomeProgetto(nomeProgetto);
                         team.setDescrizione(descrizione);
                         team.setNomeTeam(nomeTeam);
@@ -47,17 +45,16 @@ public class CreateTeamControl extends HttpServlet {
                         creaTeamFromManager(team, idTM);
                         int idTeam = getIdUltimoTeamCreatoFromManager();
                         req.setAttribute("idTeam", idTeam);
-                        resp.getWriter().write("3");
+                        resp.getWriter().write("2");
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);
-                    } else {
-                        resp.getWriter().write("4");
                     }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
+            resp.getWriter().write("4");
             resp.sendRedirect("./static/Login.html");
         }
     }

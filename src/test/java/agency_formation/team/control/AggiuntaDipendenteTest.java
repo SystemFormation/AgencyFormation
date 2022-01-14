@@ -270,4 +270,42 @@ public class AggiuntaDipendenteTest {
             assertTrue(stringWriter.toString().contains("1"));
         }
     }
+    @Test
+    public void addEmployeesPassSkillPass2() throws IOException, ServletException {
+        ArrayList<Skill> skills= new ArrayList<Skill>();
+        Skill skill = new Skill("HTML","Conoscenza base");
+        ArrayList<Dipendente> dipendenti = new ArrayList<Dipendente>();
+        int idUser = 10;
+        int idTeam = 5;
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
+        Dipendente dip = new Dipendente(user.getName(), user.getSurname(),user.getEmail(),user.getPwd(),user.getRole(),idUser,1999,"Scafati","113", StatiDipendenti.DISPONIBILE);
+        user.setId(idUser);
+        dipendenti.add(dip);
+        skills.add(skill);
+        config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        context = Mockito.mock(ServletContext.class);
+
+        AggiuntaDipendente servlet = Mockito.spy(AggiuntaDipendente.class);
+
+
+        Mockito.when(request.getSession()).thenReturn(session);
+        Mockito.when(session.getAttribute("user")).thenReturn(user);
+        Mockito.when(request.getSession(true)).thenReturn(session);
+        Mockito.when(request.getServletContext()).thenReturn(context);
+
+        Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
+
+        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            Mockito.when(response.getWriter()).thenReturn(writer);
+            servlet.init(config);
+            servlet.doGet(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("1"));
+        }
 }
