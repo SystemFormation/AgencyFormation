@@ -24,7 +24,7 @@
 <h1>Lista Dipendenti</h1>
 
 <div class="content">
-    <div class="information">
+    <div class="lista">
         <div id="flex-head">Dipendente</div>
         <div id="flex-head">Competenze</div>
         <div id="flex-head">Azione</div>
@@ -33,7 +33,6 @@
         <c:forEach var="dip" items="${dipendenti}">
             <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
                 <div id="flex">${dip.getName()} ${dip.getSurname()}</div>
-
                 <div id="flex">
                     <c:choose>
                         <c:when test="${dip.getSkills() != null}">

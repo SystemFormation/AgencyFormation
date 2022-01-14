@@ -21,8 +21,8 @@
 </jsp:include>
 
 <h1>Bentornato ${user.getName()}</h1>
-<div class="home">
-    <div class="content flex">
+<div class="content">
+    <div class="flex">
         <c:choose>
             <c:when test="${candidatura.getStato() != StatiCandidatura.Accettata && candidatura.getStato() != StatiCandidatura.Assunzione}">
                 <c:if test="${candidatura==null||candidatura.getDocumentiAggiuntivi()==null}">
@@ -41,7 +41,7 @@
             </c:when>
         </c:choose>
         <c:if test="${candidatura!=null && candidatura.getCurriculum()!=null}">
-            <div id="stato">
+            <div id="stato"> <!-- NON HA CSS -->
                 <c:choose>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Accettata}">
                         <h2>Stato della tua candidatura:</h2>

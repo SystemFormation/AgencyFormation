@@ -20,7 +20,7 @@ function viewLink() {
                 document.getElementById('materiale').removeAttribute("onclick");
                 $('#noMateriale').css("display", "inline");
                 $('#noMateriale').css("color", "red");
-                $('#noMateriale').css("font-size", "14px").html("<br>Al momento non è presente materiale");
+                $('#noMateriale').css("font-size", "14px").html("<br>Al momento non &egrave; presente materiale");
             }
         }
     })

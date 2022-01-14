@@ -15,8 +15,8 @@
     <jsp:param value="false" name="sameLocation"/>
 </jsp:include>
 <h1>Bentornato ${user.getName()}</h1>
-<div class="home">
-    <div class="content flex">
+<div class="content">
+    <div class="flex">
         <div id="home"><a href="ProfiloControl">
             <h2> Profilo </h2></a>
             <p>Accedi al tuo profilo personale per gestire le tue skill e i tuoi dati personali

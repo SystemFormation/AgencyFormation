@@ -23,8 +23,8 @@
     <jsp:param value="false" name="sameLocation"/>
 </jsp:include>
 <h1>Bentornato ${user.getName()}</h1>
-<div class="home">
-    <div class="content flex">
+<div class="content">
+    <div class="flex">
         <div id="home"><a href="./static/CreaTeam.jsp">
             <h2> Creazione Team </h2></a>
             <p>Crea un team specificando: nome del team, nome del progetto,

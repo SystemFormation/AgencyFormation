@@ -15,8 +15,8 @@
     <jsp:param value="false" name="sameLocation"/>
 </jsp:include>
 <h1>Bentornato ${user.getName()}</h1>
-<div class="home">
-    <div class="content flex">
+<div class="content">
+    <div class="flex">
         <div id="home"><a href="ListaCandidati">
             <h2> Lista Candidati </h2></a>
             <span id="noCandidati"></span>

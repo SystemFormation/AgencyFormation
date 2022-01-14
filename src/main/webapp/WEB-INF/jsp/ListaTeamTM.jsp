@@ -21,7 +21,6 @@
 <body>
 <c:import url="/static/Header.jsp"/>
 <h1>Team</h1>
-<div class="flex">
     <c:set var="indexSkill" value="0" scope="page"/>
     <c:forEach var="team" items="${listTeam}">
         <div class="team">
@@ -101,6 +100,5 @@
         </div>
         <c:set var="indexSkill" value="${indexSkill + 1}" scope="page"/>
     </c:forEach>
-</div>
 </body>
 </html>

@@ -17,8 +17,8 @@
 <body>
 <c:import url="/static/Header.jsp"/>
 <h1>Lista Candidati</h1>
-<div class="content-candidati">
-    <div class="content">
+<div class="content">
+    <div class="lista">
         <div id="flex-head">ID</div>
         <div id="flex-head">Nome</div>
         <div id="flex-head">Cognome</div>
@@ -30,7 +30,7 @@
             <div id="flex">${cand.getName()}</div>
             <div id="flex">${cand.getSurname()}</div>
             <div id="flex">
-                <button onclick="checkFile(${index});viewFile(${cand.getId()},${index})">Mostra file</button><br>
+                <button onclick="checkFile(${index});viewFile(${cand.getId()},${index})">Mostra file</button>
                 <div class="dropdown">
                     <button id="apriColloquio" onclick="openColloquio(${index})">Accetta</button>
                 </div>
