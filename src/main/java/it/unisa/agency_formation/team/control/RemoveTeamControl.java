@@ -25,7 +25,7 @@ public class RemoveTeamControl extends HttpServlet {
             int idDip = Integer.parseInt(req.getParameter("idDip"));
             if (idDip != 0) {
                 try {
-                   rimuoviDipendenteFromManager(idDip);
+                    rimuoviDipendenteFromManager(idDip);
                     resp.getWriter().write("1");
                     dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                     dispatcher.forward(req, resp);
@@ -38,6 +38,7 @@ public class RemoveTeamControl extends HttpServlet {
                 dispatcher.forward(req, resp);
             }
         } else {
+            resp.getWriter().write("3");
             resp.sendRedirect("./static/Login.html");
         }
     }
