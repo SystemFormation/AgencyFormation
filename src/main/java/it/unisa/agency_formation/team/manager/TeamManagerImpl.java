@@ -16,10 +16,10 @@ public class TeamManagerImpl implements TeamManager {
        return TeamDAO.salvaTeam(team, idUtente);
     }
 
-    @Override
+/*    @Override
     public ArrayList<Dipendente> getDipendenti(StatiDipendenti state) throws SQLException {
         return DipendenteDAO.recuperaByStato(state);
-    }
+    }*/
 
   /*  @Override
     public boolean addDipendente(int idTeam, Dipendente dip) throws SQLException {
@@ -78,4 +78,10 @@ public class TeamManagerImpl implements TeamManager {
     public Team getTeamById(int idTeam) throws SQLException {
         return TeamDAO.recuperaTeamById(idTeam);
     }
+
+    @Override
+    public boolean modificaLeCompetenze(String competence, int idTeam) throws SQLException {
+        return TeamDAO.modificaCompetenze(competence,idTeam);
+    }
+
 }

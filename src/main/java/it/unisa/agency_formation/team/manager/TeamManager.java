@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public interface TeamManager {
     boolean creaTeam(Team team, int idUser) throws SQLException;
 
-    ArrayList<Dipendente> getDipendenti(StatiDipendenti state) throws SQLException;
+   // ArrayList<Dipendente> getDipendenti(StatiDipendenti state) throws SQLException;
 
    // boolean addDipendente(int idTeam, Dipendente dip) throws SQLException;
 
@@ -33,4 +33,6 @@ public interface TeamManager {
     ArrayList<Dipendente> recuperaDipendentiDelTeam() throws SQLException;
 
     Team getTeamById(int idTeam) throws SQLException;
+
+    boolean modificaLeCompetenze(String competence,int idTeam) throws SQLException;
 }
