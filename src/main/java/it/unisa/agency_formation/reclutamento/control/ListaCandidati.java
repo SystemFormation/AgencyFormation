@@ -24,18 +24,14 @@ public class ListaCandidati extends HttpServlet {
             try {
                 ArrayList<Utente> candidati = getCandidatesFromManager();
                 request.setAttribute("candidati", candidati);
-                if (candidati != null && candidati.size() > 0) {
-                    response.getWriter().write("1"); //ci sono i candidati
-                } else {
-                    response.getWriter().write("2"); //non ci sono candidati
-
-                }
+                response.getWriter().write("1"); //ci sono i candidati
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
                 dispatcher.forward(request, response);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
+            response.getWriter().write("2"); //non è un HR
             response.sendRedirect("./static/Login.html");
         }
     }

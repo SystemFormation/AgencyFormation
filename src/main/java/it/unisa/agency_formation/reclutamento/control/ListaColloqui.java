@@ -24,12 +24,14 @@ public class ListaColloqui  extends HttpServlet {
             try {
                 ArrayList<Utente> candidati = getCandidatiForColloquioFromManager();
                 request.setAttribute("candidati", candidati);
+                response.getWriter().write("1"); //ci sono i candidati
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaColloqui.jsp");
                 dispatcher.forward(request, response);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
+            response.getWriter().write("2"); //non è un HR
             response.sendRedirect("./static/Login.html");
         }
     }

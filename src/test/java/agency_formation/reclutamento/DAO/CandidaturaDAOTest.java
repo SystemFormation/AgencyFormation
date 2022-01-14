@@ -30,8 +30,12 @@ public class CandidaturaDAOTest {
         String query2 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(2,'test','test','Accettata','2022-01-10', 1);";
         String query3 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(3,'test','test','Rifiutata','2022-01-10', 1)";
         String query4 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(4,'test','test','Assunzione','2022-01-10', 1)";
+        String query5 = "Insert into Utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(5,'test','test','test','test', 1)";
+        String query6 = "Insert into Utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(6,'test','test','test','test', 1)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query1);
+        statement.executeUpdate(query6);
+        statement.executeUpdate(query5);
         statement.executeUpdate(query4);
         statement.executeUpdate(query3);
         statement.executeUpdate(query2);
@@ -40,10 +44,12 @@ public class CandidaturaDAOTest {
 
     @AfterAll
     public static void finish() throws SQLException {
-        String delete = "Delete from candidature where IdCandidatura>=1";
+        String delete1 = "Delete from candidature where IdCandidatura>=1";
+        String delete2 = "Delete from utenti where IdUtente>4";
         Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(delete);
-        statement.executeUpdate(delete);
+        PreparedStatement statement = connection.prepareStatement(delete1);
+        statement.executeUpdate(delete1);
+        statement.executeUpdate(delete2);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
@@ -139,90 +145,112 @@ public class CandidaturaDAOTest {
 
     @Test
     @Order(10) //id candidato = 1
-    public void retrieveCandidaturaByIdOk() throws SQLException {
+    public void retrieveCandidaturaByIdOk1() throws SQLException {
         int idCandidato = 1;
         assertNotNull(CandidaturaDAO.doRetrieveCandidaturaById(idCandidato));
     }
 
     @Test
-    @Order(11)
+    @Order(11) //id candidato = 1
+    public void retrieveCandidaturaByIdOk2() throws SQLException {
+        String query1 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(5,'test','test','Rifiutata','2022-01-10', 5);";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query1);
+        statement.executeUpdate(query1);
+        int idCandidato = 5;
+        assertNotNull(CandidaturaDAO.doRetrieveCandidaturaById(idCandidato));
+    }
+
+    @Test
+    @Order(12) //id candidato = 1
+    public void retrieveCandidaturaByIdOk3() throws SQLException {
+        String query1 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(6,'test','test','Assunzione','2022-01-10', 6);";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(query1);
+        statement.executeUpdate(query1);
+        int idCandidato = 6;
+        assertNotNull(CandidaturaDAO.doRetrieveCandidaturaById(idCandidato));
+    }
+
+    @Test
+    @Order(13)
     public void recuperaCandidatureByStatoFail1() throws SQLException {
         StatiCandidatura stato = StatiCandidatura.Accettata;
         assertNotNull(CandidaturaDAO.recuperaCandidatureByStato(stato));
     }
 
     @Test
-    @Order(12)
+    @Order(14)
     public void recuperaCandidatureByStatoFail2() throws SQLException {
         StatiCandidatura stato = StatiCandidatura.Rifiutata;
         assertNotNull(CandidaturaDAO.recuperaCandidatureByStato(stato));
     }
 
     @Test
-    @Order(13)
+    @Order(15)
     public void recuperaCandidatureByStatoFail3() throws SQLException {
         StatiCandidatura stato = StatiCandidatura.NonRevisionato;
         assertNotNull(CandidaturaDAO.recuperaCandidatureByStato(stato));
     }
 
     @Test
-    @Order(14)
+    @Order(16)
     public void recuperaCandidatureByStatoFail4() throws SQLException {
         StatiCandidatura stato = StatiCandidatura.Assunzione;
         assertNotNull(CandidaturaDAO.recuperaCandidatureByStato(stato));
     }
 
     @Test
-    @Order(16) //assicurati di avere candidature con stato non revisionato
+    @Order(17) //assicurati di avere candidature con stato non revisionato
     public void recuperaCandidatureByStatoFail6() throws SQLException {
         StatiCandidatura stato = null;
         assertNull(CandidaturaDAO.recuperaCandidatureByStato(stato));
     }
 
     @Test
-    @Order(17) //id candidatura = -1
+    @Order(18) //id candidatura = -1
     public void modificaStatoCandidaturaFail() throws SQLException {
         int idCandidatura = -1;
         assertFalse(CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Accettata));
     }
 
     @Test
-    @Order(18) //id candidatura = 2
+    @Order(19) //id candidatura = 2
     public void modificaStatoCandidaturaOk1() throws SQLException {
         int idCandidatura = 2;
         assertTrue(CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Rifiutata));
     }
 
     @Test
-    @Order(18) //id candidatura = 2
+    @Order(20) //id candidatura = 2
     public void modificaStatoCandidaturaOk2() throws SQLException {
         int idCandidatura = 2;
         assertTrue(CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.NonRevisionato));
     }
 
     @Test
-    @Order(18) //id candidatura = 2
+    @Order(21) //id candidatura = 2
     public void modificaStatoCandidaturaOk3() throws SQLException {
         int idCandidatura = 2;
         assertTrue(CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Assunzione));
     }
 
     @Test
-    @Order(19) //idCandidatura = -1
+    @Order(22) //idCandidatura = -1
     public void rimuoviCandidaturaFail() throws SQLException {
         int idCandidatura = -1;
         assertFalse(CandidaturaDAO.rimuoviCandidatura(idCandidatura));
     }
 
     @Test
-    @Order(20) //idCandidatura = 2
+    @Order(23) //idCandidatura = 2
     public void rimuoviCandidaturaOk() throws SQLException {
         int idCandidatura = 2;
         assertTrue(CandidaturaDAO.rimuoviCandidatura(idCandidatura));
     }
 
     @Test
-    @Order(21) //idCandidatura non esiste
+    @Order(24) //idCandidatura non esiste
     public void rifiutaCandidaturaFail1() throws SQLException {
         int idCandidatura = -1;
         int idHR = 4;
@@ -230,7 +258,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(22) //idHR<1
+    @Order(25) //idHR<1
     public void rifiutaCandidaturaFail2() throws SQLException {
         int idCandidatura = 1;
         int idHR = -4;
@@ -239,7 +267,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(23) //Rifiuta con successo la candidatura
+    @Order(26) //Rifiuta con successo la candidatura
     public void rifiutaCandidaturaPass() throws SQLException {
         int idCandidatura = 1;
         int idHR = 4;
@@ -247,7 +275,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(24)//idCandidatura<1
+    @Order(27)//idCandidatura<1
     public void accettaCandidaturaFail1() throws SQLException, ParseException {
         int idCandidatura = -1;
         int idHR = 4;
@@ -261,7 +289,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(25) //idHR<1
+    @Order(28) //idHR<1
     public void accettaCandidaturaFail2() throws SQLException, ParseException {
         int idCandidatura = 1;
         int idHR = -1;
@@ -275,7 +303,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(26) //Accetta con successo la candidatura
+    @Order(29) //Accetta con successo la candidatura
     public void accettaCandidaturaPass() throws SQLException, ParseException {
         int idCandidatura = 1;
         int idHR = 4;
@@ -284,11 +312,12 @@ public class CandidaturaDAOTest {
         String dataOra = data + " " + tempo;
         Date data1 = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(dataOra);
         Timestamp timestamp = new Timestamp(data1.getTime());
+        System.out.println(timestamp);
         assertTrue(CandidaturaDAO.accettaCandidatura(idCandidatura, idHR, timestamp));
     }
 
     @Test
-    @Order(27) //Recupera tutte le candidature
+    @Order(30) //Recupera tutte le candidature
     public void recuperaCandidatureOk() throws SQLException {
         String query = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(5,'test','test','NonRevisionato','2022-01-10', 1)";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -298,7 +327,7 @@ public class CandidaturaDAOTest {
     }
 
     @Test
-    @Order(28) //Nessuna candidatura
+    @Order(31) //Nessuna candidatura
     public void recuperaCandidatureFail() throws SQLException {
         String delete = "Delete from candidature where IdCandidatura>=1";
         Connection connection = DatabaseManager.getInstance().getConnection();

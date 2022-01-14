@@ -2,11 +2,8 @@ package agency_formation.reclutamento.control;
 
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.reclutamento.control.ListaCandidati;
-import it.unisa.agency_formation.reclutamento.control.ViewCandidaturaControl;
-import it.unisa.agency_formation.reclutamento.domain.Candidatura;
-import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
+import it.unisa.agency_formation.reclutamento.control.ListaColloqui;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -18,19 +15,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mockStatic;
 
-public class ListaCandidatiTest {
+public class ListaColloquiTest {
     private HttpServletRequest request;
     private HttpServletResponse response;
     private HttpSession session;
@@ -54,13 +49,13 @@ public class ListaCandidatiTest {
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
-        ListaCandidati servlet = Mockito.spy(ListaCandidati.class);
+        ListaColloqui servlet = Mockito.spy(ListaColloqui.class);
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
-        try (MockedStatic mockedStatic = mockStatic(ListaCandidati.class)) {
-            mockedStatic.when(() -> ListaCandidati.getCandidatesFromManager()).thenReturn(List);
+        try (MockedStatic mockedStatic = mockStatic(ListaColloqui.class)) {
+            mockedStatic.when(() -> ListaColloqui.getCandidatiForColloquioFromManager()).thenReturn(List);
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);
@@ -85,13 +80,13 @@ public class ListaCandidatiTest {
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
-        ListaCandidati servlet = Mockito.spy(ListaCandidati.class);
+        ListaColloqui servlet = Mockito.spy(ListaColloqui.class);
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
-        try (MockedStatic mockedStatic = mockStatic(ListaCandidati.class)) {
-            mockedStatic.when(() -> ListaCandidati.getCandidatesFromManager()).thenReturn(List);
+        try (MockedStatic mockedStatic = mockStatic(ListaColloqui.class)) {
+            mockedStatic.when(() -> ListaColloqui.getCandidatiForColloquioFromManager()).thenReturn(List);
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);
