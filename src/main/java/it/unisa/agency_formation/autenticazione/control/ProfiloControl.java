@@ -26,10 +26,9 @@ public class ProfiloControl extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-        int id = user.getId();
         try {
             if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
-                Dipendente dip = getAllDataDipFromManager(id);
+                Dipendente dip = getAllDataDipFromManager(user.getId());
                 ArrayList<Skill> skills = new ArrayList<>();
                 if (getSkillDipendenteFromManager(dip.getIdDipendente()) != null && getSkillDipendenteFromManager(dip.getIdDipendente()).size() > 0) {
                     skills = getSkillDipendenteFromManager(dip.getIdDipendente());

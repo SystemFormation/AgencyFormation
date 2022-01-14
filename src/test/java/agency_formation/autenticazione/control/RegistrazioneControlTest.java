@@ -4,6 +4,7 @@ import it.unisa.agency_formation.autenticazione.control.LoginControl;
 import it.unisa.agency_formation.autenticazione.control.RegistrazioneControl;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.utils.Check;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
@@ -13,12 +14,14 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.http.HttpRequest;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -35,7 +38,7 @@ public class RegistrazioneControlTest extends Mockito {
     public void regTestNome1() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
+        RegistrazioneControl servlet = Mockito.spy(RegistrazioneControl.class);
         Mockito.when(request.getParameter("nome")).thenReturn(null);
         Mockito.when(request.getParameter("cognome")).thenReturn("Cecco");
         Mockito.when(request.getParameter("email")).thenReturn("genny@gmail.com");
@@ -51,7 +54,7 @@ public class RegistrazioneControlTest extends Mockito {
     public void regTestNome2() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
+        RegistrazioneControl servlet = Mockito.spy(RegistrazioneControl.class);
         Mockito.when(request.getParameter("nome")).thenReturn("");
         Mockito.when(request.getParameter("cognome")).thenReturn("Cecco");
         Mockito.when(request.getParameter("email")).thenReturn("genny@gmail.com");
@@ -67,7 +70,7 @@ public class RegistrazioneControlTest extends Mockito {
     public void regTestNome3() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
+        RegistrazioneControl servlet = Mockito.spy(RegistrazioneControl.class);
         Mockito.when(request.getParameter("nome")).thenReturn("434324");
         Mockito.when(request.getParameter("cognome")).thenReturn("Cecco");
         Mockito.when(request.getParameter("email")).thenReturn("genny@gmail.com");
@@ -83,7 +86,7 @@ public class RegistrazioneControlTest extends Mockito {
     public void regTestCognome1() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
+        RegistrazioneControl servlet = Mockito.spy(RegistrazioneControl.class);
         Mockito.when(request.getParameter("nome")).thenReturn("Gennaro");
         Mockito.when(request.getParameter("cognome")).thenReturn(null);
         Mockito.when(request.getParameter("email")).thenReturn("genny@gmail.com");
@@ -99,7 +102,7 @@ public class RegistrazioneControlTest extends Mockito {
     public void regTestCognome2() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
+        RegistrazioneControl servlet = Mockito.spy(RegistrazioneControl.class);
         Mockito.when(request.getParameter("nome")).thenReturn("Gennaro");
         Mockito.when(request.getParameter("cognome")).thenReturn("");
         Mockito.when(request.getParameter("email")).thenReturn("genny@gmail.com");
@@ -115,7 +118,7 @@ public class RegistrazioneControlTest extends Mockito {
     public void regTestCognome3() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
+        RegistrazioneControl servlet = Mockito.spy(RegistrazioneControl.class);
         Mockito.when(request.getParameter("nome")).thenReturn("Gennaro");
         Mockito.when(request.getParameter("cognome")).thenReturn("453543");
         Mockito.when(request.getParameter("email")).thenReturn("genny@gmail.com");
@@ -131,7 +134,7 @@ public class RegistrazioneControlTest extends Mockito {
     public void regTestEmail1() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
+        RegistrazioneControl servlet = Mockito.spy(RegistrazioneControl.class);
         Mockito.when(request.getParameter("nome")).thenReturn("Gennaro");
         Mockito.when(request.getParameter("cognome")).thenReturn("Cecco");
         Mockito.when(request.getParameter("email")).thenReturn(null);
@@ -147,7 +150,7 @@ public class RegistrazioneControlTest extends Mockito {
     public void regTestEmail2() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
+        RegistrazioneControl servlet = Mockito.spy(RegistrazioneControl.class);
         Mockito.when(request.getParameter("nome")).thenReturn("Gennaro");
         Mockito.when(request.getParameter("cognome")).thenReturn("Cecco");
         Mockito.when(request.getParameter("email")).thenReturn("");
@@ -163,7 +166,7 @@ public class RegistrazioneControlTest extends Mockito {
     public void regTestEmail3() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
+        RegistrazioneControl servlet = Mockito.spy(RegistrazioneControl.class);
         Mockito.when(request.getParameter("nome")).thenReturn("Gennaro");
         Mockito.when(request.getParameter("cognome")).thenReturn("Cecco");
         Mockito.when(request.getParameter("email")).thenReturn("432@gmail.32com");
@@ -174,6 +177,7 @@ public class RegistrazioneControlTest extends Mockito {
         servlet.doPost(request, response);
         assertTrue(stringWriter.toString().contains("3"));
     }
+    /*
     @Test //password=null
     public void regTestPass1() throws IOException, ServletException {
         request = Mockito.mock(HttpServletRequest.class);
@@ -218,18 +222,18 @@ public class RegistrazioneControlTest extends Mockito {
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.doPost(request, response);
         assertTrue(stringWriter.toString().contains("4"));
-    }
+    }*/
 
     @Test //da controllare
     public void regPass() throws IOException, ServletException {
         config = Mockito.mock(ServletConfig.class);
-        request = Mockito.mock(HttpServletRequest.class);
-        response = Mockito.mock(HttpServletResponse.class);
+        HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+        HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
-        LoginControl servlet = new LoginControl();
-        Utente user = Mockito.mock(Utente.class);
+        RegistrazioneControl servlet = Mockito.spy(RegistrazioneControl.class);
+        Utente user = new Utente();
         user.setName("Manuel");
         user.setSurname("Nocerino");
         user.setRole(RuoliUtenti.CANDIDATO);
@@ -245,13 +249,11 @@ public class RegistrazioneControlTest extends Mockito {
         try (MockedStatic mockedStatic = mockStatic(RegistrazioneControl.class)) {
             mockedStatic.when(() -> RegistrazioneControl.registrazioneFromManager(user)).thenReturn(true);
             mockedStatic.when(() -> RegistrazioneControl.loginFromManager(user.getEmail(),user.getPwd())).thenReturn(user);
-
-
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);
             servlet.init(config);
-            servlet.doGet(request, response);
+            servlet.doPost(request, response);
             assertTrue(stringWriter.toString().equals("5"));
         }
     }

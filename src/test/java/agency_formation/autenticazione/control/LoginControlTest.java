@@ -204,13 +204,14 @@ public class LoginControlTest {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
         session = Mockito.mock(HttpSession.class);
+        LoginControl servlet = Mockito.spy(LoginControl.class);
         Mockito.when(request.getParameter("email")).thenReturn(null);
         Mockito.when(request.getParameter("password")).thenReturn("lol");
         Mockito.when(request.getSession()).thenReturn(session);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
-        new LoginControl().doPost(request, response);
+        servlet.doPost(request, response);
         writer.flush();
         assertTrue(stringWriter.toString().contains("5"));
     }
@@ -220,13 +221,14 @@ public class LoginControlTest {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
         session = Mockito.mock(HttpSession.class);
+        LoginControl servlet = Mockito.spy(LoginControl.class);
         Mockito.when(request.getParameter("email")).thenReturn("alberto@gmail.com");
         Mockito.when(request.getParameter("password")).thenReturn(null);
         Mockito.when(request.getSession()).thenReturn(session);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
-        new LoginControl().doPost(request, response);
+        servlet.doPost(request, response);
         writer.flush();
         assertTrue(stringWriter.toString().contains("5"));
     }
@@ -236,13 +238,14 @@ public class LoginControlTest {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
         session = Mockito.mock(HttpSession.class);
+        LoginControl servlet = Mockito.spy(LoginControl.class);
         Mockito.when(request.getParameter("email")).thenReturn(" ");
         Mockito.when(request.getParameter("password")).thenReturn("lol");
         Mockito.when(request.getSession()).thenReturn(session);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
-        new LoginControl().doPost(request, response);
+        servlet.doPost(request, response);
         writer.flush();
         assertTrue(stringWriter.toString().contains("1"));
     }
@@ -252,13 +255,14 @@ public class LoginControlTest {
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
         session = Mockito.mock(HttpSession.class);
+        LoginControl servlet = Mockito.spy(LoginControl.class);
         Mockito.when(request.getParameter("email")).thenReturn("fra@gmail.com");
         Mockito.when(request.getParameter("password")).thenReturn(" ");
         Mockito.when(request.getSession()).thenReturn(session);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
-        new LoginControl().doPost(request, response);
+        servlet.doPost(request, response);
         writer.flush();
         assertTrue(stringWriter.toString().contains("2"));
     }

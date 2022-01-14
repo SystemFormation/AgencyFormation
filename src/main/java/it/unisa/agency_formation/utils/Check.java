@@ -6,7 +6,7 @@ public class Check {
         if (email == null) {
             return false;
         }
-        String regular = "^[A-z0-9\\.\\+_-]+@[A-z0-9\\._-]+\\.[A-z]{2,6}$";
+        String regular = "^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$";
         return email.matches(regular);
     }
 
@@ -22,14 +22,14 @@ public class Check {
         if (name == null) {
             return false;
         }
-        String regular = "^[A-Za-z ’]+$";
+        String regular = "^[A-Za-z]{2,32}$";
         return name.matches(regular);
     }
     public static boolean checkSurname(String surname) {
         if (surname == null) {
             return false;
         }
-        String regular = "^[A-Za-z ’]+$";
+        String regular = "^[A-Za-z]{2,32}$";
         return surname.matches(regular);
     }
     /*----------check per la creazione di un team----------*/

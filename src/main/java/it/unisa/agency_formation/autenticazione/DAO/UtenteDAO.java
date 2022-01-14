@@ -49,16 +49,8 @@ public class UtenteDAO {
                 case HR:
                     save.setInt(5, 4);
                     break;
-                default:
-                    break;
             }
-
-            int result = save.executeUpdate();
-            return true;
-            /*if (result != 0) {
-                return true;
-            }
-                return false;*/
+            return save.executeUpdate()!=0;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }

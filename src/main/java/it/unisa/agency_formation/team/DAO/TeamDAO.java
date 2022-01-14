@@ -45,12 +45,12 @@ public class TeamDAO {
                 save.setString(4, team.getDescrizione());
                 save.setString(5, null);
                 save.setInt(6, idUtente);
-                save.executeUpdate();
+                return save.executeUpdate()!=0;
             } finally {
                 DatabaseManager.closeConnessione(connection);
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -299,14 +299,11 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, competence);
             stmt.setInt(2, idTeam);
-            result = stmt.executeUpdate();
-            if (result != -1) {
-                return true;
-            }
+           return stmt.executeUpdate()!=0;
+
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
-        return false;
     }
 
     /**
@@ -333,12 +330,7 @@ public class TeamDAO {
             if (result.next()) {
                 path = result.getString("Competenza");
             }
-
-            if (path != null) {
-                return path;
-            } else {
-                return null;
-            }
+           return path;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -438,12 +430,7 @@ public class TeamDAO {
             if (result.next()) {
                 idTeam = result.getInt(1);
             }
-            if (idTeam > 0) {
-                return idTeam;
-            } else {
-                return -1;
-            }
-
+            return idTeam;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -485,13 +472,7 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, 1);
             stmt.setInt(2, idDip);
-            int result = stmt.executeUpdate();
-
-            if(result != -1){
-                return true;
-            }else{
-                return false;
-            }
+            return stmt.executeUpdate()!=0;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }

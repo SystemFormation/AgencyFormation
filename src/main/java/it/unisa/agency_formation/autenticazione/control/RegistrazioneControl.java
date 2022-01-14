@@ -22,8 +22,7 @@ public class RegistrazioneControl extends HttpServlet {
         Utente user = new Utente();
             if (Check.checkName(request.getParameter("nome"))
                     && Check.checkSurname(request.getParameter("cognome"))
-                    && Check.checkEmail(request.getParameter("email"))
-                    && Check.checkPwd(request.getParameter("pwd"))) {
+                    && Check.checkEmail(request.getParameter("email"))) {
                 user.setName(request.getParameter("nome"));
                 user.setSurname(request.getParameter("cognome"));
                 user.setEmail(request.getParameter("email"));
@@ -33,9 +32,10 @@ public class RegistrazioneControl extends HttpServlet {
                     registrazioneFromManager(user);
                     Utente result = loginFromManager(user.getEmail(), user.getPwd());
                     request.getSession().setAttribute("user", result);
+                    response.getWriter().write("5"); //registrazione avvenuta con successo
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");
                     dispatcher.forward(request, response);
-                    response.getWriter().write("5"); //registrazione avvenuta con successo
+
                     return;
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -50,9 +50,9 @@ public class RegistrazioneControl extends HttpServlet {
                 if (!Check.checkEmail(request.getParameter("email"))) {
                     response.getWriter().write("3"); //email non corretto
                 }
-                if (!Check.checkPwd(request.getParameter("pwd"))) {
+                /*if (!Check.checkPwd(request.getParameter("pwd"))) {
                     response.getWriter().write("4"); //password non corretto
-                }
+                }*/
                 response.sendRedirect("./static/Registrazione.html");
             }
     }
