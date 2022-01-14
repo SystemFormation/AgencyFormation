@@ -30,8 +30,8 @@ public class ProfiloControl extends HttpServlet {
             if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
                 Dipendente dip = getAllDataDipFromManager(user.getId());
                 ArrayList<Skill> skills = new ArrayList<>();
-                if (getSkillDipendenteFromManager(dip.getIdDipendente()) != null && getSkillDipendenteFromManager(dip.getIdDipendente()).size() > 0) {
-                    skills = getSkillDipendenteFromManager(dip.getIdDipendente());
+                skills = getSkillDipendenteFromManager(dip.getIdDipendente());
+                if (skills!= null && skills.size()>=1) {
                     dip.setSkills(skills);
                 }
                 response.getWriter().write("1"); // retrieve data ok
@@ -43,6 +43,7 @@ public class ProfiloControl extends HttpServlet {
                 response.sendRedirect("./static/Login.html");
             }
         } catch (SQLException e) {
+            response.getWriter().write("3");
             e.printStackTrace();
         }
     }

@@ -330,7 +330,7 @@ public class LoginControlTest {
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         try (MockedStatic mockedStatic = mockStatic(LoginControl.class)) {
             mockedStatic.when(() -> LoginControl.loginFromManager("l.giacchetti@studenti.unisa.it", "lol1")).thenReturn(user);
-            mockedStatic.when(() -> LoginControl.getCandidaturafromManager(user.getId())).thenReturn(candidatura);
+            mockedStatic.when(() -> LoginControl.getCandidaturafromManager(1)).thenReturn(candidatura);
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);
