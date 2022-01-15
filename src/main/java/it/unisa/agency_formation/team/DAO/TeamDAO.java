@@ -30,13 +30,11 @@ public class TeamDAO {
     public static boolean salvaTeam(Team team, int idUtente) throws SQLException {
         if (team == null || idUtente < 1) {
             return false;
-        }
-        Connection connection = DatabaseManager.getInstance().getConnection();
-
-        if (team != null) {
+        } else {
+            Connection connection = DatabaseManager.getInstance().getConnection();
             PreparedStatement save = null;
             String query = "insert into " + TABLE_TEAM + "(NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM)"
-                    + " values(?,?,?,?,?,?)";
+                        + " values(?,?,?,?,?,?)";
             try {
                 save = connection.prepareStatement(query);
                 save.setString(1, team.getNomeProgetto());
@@ -50,7 +48,6 @@ public class TeamDAO {
                 DatabaseManager.closeConnessione(connection);
             }
         }
-        return false;
     }
 
     /**
@@ -317,22 +314,23 @@ public class TeamDAO {
     public static String recuperaCompetenza(int idTeam) throws SQLException {
         if (idTeam < 1) {
             return null;
-        }
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = "SELECT Competenza FROM " + TABLE_TEAM + " WHERE IdTeam=?";
-        PreparedStatement stmt = null;
-        String path = null;
-        ResultSet result;
-        try {
-            stmt = connection.prepareStatement(query);
-            stmt.setInt(1, idTeam);
-            result = stmt.executeQuery();
-            if (result.next()) {
-                path = result.getString("Competenza");
+        } else {
+            Connection connection = DatabaseManager.getInstance().getConnection();
+            String query = "SELECT Competenza FROM " + TABLE_TEAM + " WHERE IdTeam=?";
+            PreparedStatement stmt = null;
+            String path = null;
+            ResultSet result;
+            try {
+                stmt = connection.prepareStatement(query);
+                stmt.setInt(1, idTeam);
+                result = stmt.executeQuery();
+                if (result.next()) {
+                    path = result.getString("Competenza");
+                }
+                return path;
+            } finally {
+                DatabaseManager.closeConnessione(connection);
             }
-           return path;
-        } finally {
-            DatabaseManager.closeConnessione(connection);
         }
     }
 

@@ -18,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static it.unisa.agency_formation.reclutamento.domain.StatiCandidatura.NonRevisionato;
+import static it.unisa.agency_formation.reclutamento.domain.StatiCandidatura.Rifiutata;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
 
@@ -32,12 +34,12 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         cand.setDataCandidatura(data);
         cand.setIdCandidato(1);
         cand.setCurriculum("test");
-        cand.setStato(StatiCandidatura.NonRevisionato);
+        cand.setDocumentiAggiuntivi("test");
+        cand.setStato(NonRevisionato);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.salvaCandidaturaSenzaDocumenti(cand)).thenReturn(true);
         }
         assertTrue(reclutamento.caricaCandidatura(cand));
-
     }
 
     @Test //candidatura = null not pass
@@ -57,12 +59,13 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         cand.setDataCandidatura(data);
         cand.setIdCandidato(1);
         cand.setCurriculum("test");
-        cand.setStato(StatiCandidatura.NonRevisionato);
+        cand.setStato(NonRevisionato);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.doRetrieveCandidaturaById(cand.getIdCandidato())).thenReturn(null);
         }
         assertTrue(reclutamento.caricaCandidatura(cand));
     }
+
     @Test //candidatura  alreadyLoaded
     public void caricaCandidatura4() throws SQLException {
         Candidatura cand = new Candidatura();
@@ -71,11 +74,27 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         cand.setDataCandidatura(data);
         cand.setIdCandidato(1);
         cand.setCurriculum("test");
-        cand.setStato(StatiCandidatura.NonRevisionato);
+        cand.setDocumentiAggiuntivi("test");
+        cand.setStato(NonRevisionato);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.doRetrieveCandidaturaById(cand.getIdCandidato())).thenReturn(cand);
         }
-        assertFalse(reclutamento.caricaCandidatura(cand));
+        assertTrue(reclutamento.caricaCandidatura(cand));
+    }
+
+    @Test //candidatura con curriculum null
+    public void caricaCandidatura5() throws SQLException {
+        Candidatura cand = new Candidatura();
+        java.util.Date date = new java.util.Date();
+        java.sql.Date data = new java.sql.Date(date.getTime());
+        cand.setDataCandidatura(data);
+        cand.setIdCandidato(1);
+        cand.setDocumentiAggiuntivi("test");
+        cand.setStato(NonRevisionato);
+        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
+            mocked.when(() -> CandidaturaDAO.doRetrieveCandidaturaById(cand.getIdCandidato())).thenReturn(cand);
+        }
+        assertTrue(reclutamento.caricaCandidatura(cand));
     }
 
     @Test
@@ -86,9 +105,9 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         cand.setDataCandidatura(data);
         cand.setIdCandidato(1);
         cand.setCurriculum("test");
-        cand.setStato(StatiCandidatura.NonRevisionato);
+        cand.setStato(NonRevisionato);
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
-            mocked.when(() -> CandidaturaDAO.modificaStatoCandidatura(cand.getIdCandidato(), cand.getStato())).thenReturn(cand);
+            mocked.when(() -> CandidaturaDAO.modificaStatoCandidatura(cand.getIdCandidato(), cand.getStato())).thenReturn(true);
         }
         assertFalse(reclutamento.caricaCandidatura(cand));
     }
@@ -118,10 +137,49 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
             mocked.when(() -> CandidaturaDAO.recuperaCandidature()).thenReturn(candidature);
         }
-        assertNull(reclutamento.getTutteCandidature());
+        assertNotNull(reclutamento.getTutteCandidature());
     }
 
+    @Test
+    public void ricandidatura() throws SQLException {
+        Candidatura candidatura = new Candidatura();
+        candidatura.setStato(StatiCandidatura.Rifiutata);
+        candidatura.setIdCandidatura(1);
+        candidatura.setIdCandidato(1);
+        candidatura.setCurriculum("test");
+        java.util.Date date = new java.util.Date();
+        java.sql.Date data = new java.sql.Date(date.getTime());
+        candidatura.setDataCandidatura(data);
+        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
+            mocked.when(() -> CandidaturaDAO.rimuoviCandidatura(candidatura.getIdCandidato())).thenReturn(true);
+            assertTrue(reclutamento.ricandidatura(candidatura.getIdCandidato()));
+        }
+    }
 
+    @Test
+    public void getCandidatiConColloquio() throws SQLException {
+        ArrayList<Candidatura> candidature = null;
+        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
+            mocked.when(() -> CandidaturaDAO.recuperaCandidatureByStato(NonRevisionato)).thenReturn(candidature);
+            assertNull(reclutamento.getCandidatiConColloquio(NonRevisionato));
+        }
+    }
+
+    @Test
+    public void modificaStatoCandidatura() throws SQLException{
+        Candidatura cand = new Candidatura();
+        cand.setStato(StatiCandidatura.NonRevisionato);
+        cand.setIdCandidatura(1);
+        cand.setIdCandidato(1);
+        cand.setCurriculum("test");
+        java.util.Date date = new java.util.Date();
+        java.sql.Date data = new java.sql.Date(date.getTime());
+        cand.setDataCandidatura(data);
+        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
+            mocked.when(() -> CandidaturaDAO.modificaStatoCandidatura(cand.getIdCandidatura(), cand.getStato())).thenReturn(true);
+            assertTrue(reclutamento.modificaStatoCandidatura(cand.getIdCandidatura(), cand.getStato()));
+        }
+    }
 
     @Test //not pass , mi aspetto false
     public void accettaCandidatura() {
@@ -147,9 +205,6 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         }
 
     }
-
-
-
 
     @Test //not pass , mi aspetto false
     public void rifiutaCandidatura() {
@@ -179,4 +234,19 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
             }
     }*/
 
+    @Test
+    public void rifiutaCandidato() throws SQLException {
+        Candidatura cand = new Candidatura();
+        cand.setStato(StatiCandidatura.NonRevisionato);
+        cand.setIdCandidatura(1);
+        cand.setIdCandidato(1);
+        cand.setCurriculum("test");
+        java.util.Date date = new java.util.Date();
+        java.sql.Date data = new java.sql.Date(date.getTime());
+        cand.setDataCandidatura(data);
+        try (MockedStatic mocked = mockStatic(CandidaturaDAO.class)) {
+            mocked.when(() -> CandidaturaDAO.modificaStatoCandidatura(cand.getIdCandidatura(), Rifiutata)).thenReturn(true);
+            assertTrue(reclutamento.rifiutaCandidato(cand.getIdCandidatura()));
+        }
+    }
 }

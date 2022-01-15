@@ -16,9 +16,10 @@ import java.sql.SQLException;
 @WebServlet("/RicandidaturaControl")
 public class RicandidaturaControl extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user == null || user.getRole() != RuoliUtenti.CANDIDATO) {
+            response.getWriter().write("3"); //utente nullo o ruolo diverso da Candidato
             response.sendRedirect("./static/Login.html");
         } else {
             try {
