@@ -53,7 +53,7 @@ public class CreateListaTeamTest {
         Mockito.when(response.getWriter()).thenReturn(writer);
         new CreateTeamControl().doPost(request, response);
         writer.flush();
-        assertTrue(stringWriter.toString().contains("4"));
+        assertTrue(stringWriter.toString().contains("5"));
     }
     @Test
     public void rolefail() throws IOException, ServletException {
@@ -74,7 +74,7 @@ public class CreateListaTeamTest {
         Mockito.when(response.getWriter()).thenReturn(writer);
         new CreateTeamControl().doPost(request, response);
         writer.flush();
-        assertTrue(stringWriter.toString().contains("4"));
+        assertTrue(stringWriter.toString().contains("5"));
     }
 
     @Test
@@ -111,7 +111,7 @@ public class CreateListaTeamTest {
         servlet.init(config);
         servlet.doGet(request, response);
         writer.flush();
-        assertTrue(stringWriter.toString().contains("3"));
+        assertTrue(stringWriter.toString().contains("4"));
 
     }
     @Test
@@ -154,6 +154,51 @@ public class CreateListaTeamTest {
         assertTrue(stringWriter.toString().contains("1"));
 
     }
+    @Test
+    public void createTeamNumEmployeeFail() throws ServletException, IOException {
+        int idUser = 10;
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
+        user.setId(idUser);
+        int idTM = user.getId();
+        int numeroDipendenti = 7;
+        String nomeProgetto = "Agency Formation";
+        Team team = new Team(nomeProgetto,numeroDipendenti,"System Errors","Ragazzi molto bravi",null,idTM);
+
+        team.setIdTeam(3);
+        config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        context = Mockito.mock(ServletContext.class);
+        String action = "crea";
+
+        CreateTeamControl servlet = Mockito.spy(CreateTeamControl.class);
+
+        Mockito.when(request.getSession()).thenReturn(session);
+        Mockito.when(session.getAttribute("user")).thenReturn(user);
+
+        Mockito.when(request.getParameter("action")).thenReturn(action);
+        Mockito.when(request.getServletContext()).thenReturn(context);
+        Mockito.when(request.getParameter("idTM")).thenReturn(String.valueOf(idTM));
+        Mockito.when(request.getParameter("lname")).thenReturn(nomeProgetto);
+        Mockito.when(request.getParameter("quantity")).thenReturn(String.valueOf(numeroDipendenti));
+        Mockito.when(request.getParameter("fname")).thenReturn(team.getNomeTeam());
+        Mockito.when(request.getParameter("teamDescr")).thenReturn(team.getDescrizione());
+
+        try (MockedStatic mockedStatic = mockStatic(CreateTeamControl.class)) {
+            mockedStatic.when(() -> CreateTeamControl.creaTeamFromManager(team,idTM)).thenReturn(false);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            Mockito.when(response.getWriter()).thenReturn(writer);
+            servlet.init(config);
+            servlet.doGet(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("2"));
+        }
+
+    }
+
    @Test
     public void createTeamNumEmployee() throws ServletException, IOException {
         int idUser = 10;
@@ -188,6 +233,7 @@ public class CreateListaTeamTest {
 
        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
        try (MockedStatic mockedStatic = mockStatic(CreateTeamControl.class)) {
+           mockedStatic.when(() -> CreateTeamControl.creaTeamFromManager(team,idTM)).thenReturn(true);
            mockedStatic.when(() -> CreateTeamControl.getIdUltimoTeamCreatoFromManager()).thenReturn(team.getIdTeam());
            StringWriter stringWriter = new StringWriter();
            PrintWriter writer = new PrintWriter(stringWriter);
@@ -199,7 +245,7 @@ public class CreateListaTeamTest {
        }
 
     }
-    @Test
+    /*@Test
     public void createTeamNumEmployee2() throws ServletException, IOException {
         int idUser = 10;
         Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
@@ -240,5 +286,5 @@ public class CreateListaTeamTest {
             writer.flush();
             assertTrue(stringWriter.toString().contains("2"));
 
-    }
+    }*/
 }
