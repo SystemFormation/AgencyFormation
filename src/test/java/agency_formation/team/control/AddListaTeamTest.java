@@ -76,7 +76,7 @@ public class AddListaTeamTest {
     @Test
     public void addTeamPass() throws IOException, ServletException {
         int idDip = 10;
-        int idTeam = 01;
+        int idTeam = 1;
         Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
         user.setId(idDip);
         config = Mockito.mock(ServletConfig.class);

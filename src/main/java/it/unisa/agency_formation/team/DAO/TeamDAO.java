@@ -436,7 +436,6 @@ public class TeamDAO {
         }
     }
     public static ArrayList<Integer> recuperaIdTeamMemberFromTeam(int idTeam) throws SQLException {
-        System.out.println("Dentro il metodo è : "+idTeam);
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;

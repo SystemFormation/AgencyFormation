@@ -13,6 +13,7 @@ public interface AutenticazioneManager {
     Utente login(String email, String password) throws SQLException;
     //Utente getDatiUtente(int idUser) throws SQLException;
     Dipendente getDipendente(int idUser) throws SQLException; //aggiunto questo
+    boolean assumiCandidato(Dipendente dipendente) throws SQLException;
    // ArrayList<Utente> getCandidati() throws SQLException;
     ArrayList<Utente> getCandidatiConCandidatura() throws SQLException;
     //ArrayList<Utente> getUtentiByRuolo(RuoliUtenti ruolo) throws SQLException;

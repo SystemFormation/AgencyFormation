@@ -75,7 +75,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
     }
 
     public static boolean assumiCandidato(Dipendente dipendente) throws SQLException {
-        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
-        return reclutamentoManager.assumiCandidato(dipendente);
+      AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+      return autenticazioneManager.assumiCandidato(dipendente);
     }
 }

@@ -66,6 +66,11 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     }
 
     @Override
+    public boolean assumiCandidato(Dipendente dipendente) throws SQLException {
+        return (DipendenteDAO.salvaDipendente(dipendente));
+    }
+
+    @Override
     public ArrayList<Utente> getCandidatiColloquio() throws SQLException {
         return UtenteDAO.recuperoCandidatiColloquio();
     }

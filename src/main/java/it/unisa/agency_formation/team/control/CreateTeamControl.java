@@ -34,23 +34,25 @@ public class CreateTeamControl extends HttpServlet {
                     if (numeroDipendenti > 8) {
                         resp.getWriter().write("1");
                         resp.sendRedirect("/static/CreaTeam.jsp");
-                    }else{
+                    }else {
                         String nomeTeam = req.getParameter("fname");
                         String descrizione = req.getParameter("teamDescr");
                         team.setNomeProgetto(nomeProgetto);
                         team.setDescrizione(descrizione);
                         team.setNomeTeam(nomeTeam);
                         team.setNumeroDipendenti(numeroDipendenti);
-                        if(!creaTeamFromManager(team, idTM)){
+                        boolean res = creaTeamFromManager(team, idTM);
+                        if (!res) {
                             resp.getWriter().write("2");//errore creazione team
                             resp.sendRedirect("./static/Error.html");
-                            return;
                         }
-                        int idTeam = getIdUltimoTeamCreatoFromManager();
-                        req.setAttribute("idTeam", idTeam);
-                        resp.getWriter().write("3");
-                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
-                        dispatcher.forward(req, resp);
+                            if(true) {
+                                int idTeam = getIdUltimoTeamCreatoFromManager();
+                                req.setAttribute("idTeam", idTeam);
+                                resp.getWriter().write("3");
+                                dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                                dispatcher.forward(req, resp);
+                            }
                     }
                 }
                 else{
@@ -73,6 +75,7 @@ public class CreateTeamControl extends HttpServlet {
     public static boolean creaTeamFromManager(Team team, int idTM) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.creaTeam(team, idTM);
+
     }
 
     public static int getIdUltimoTeamCreatoFromManager() throws SQLException {

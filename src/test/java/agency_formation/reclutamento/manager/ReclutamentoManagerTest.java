@@ -164,7 +164,7 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
             e.printStackTrace();
         }
     }
-
+/*
     @Test
     public void assumiCandidato() throws SQLException {
         Dipendente dipendente = new Dipendente();
@@ -177,6 +177,6 @@ private ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
                 mocked.when(() -> DipendenteDAO.salvaDipendente(dipendente)).thenReturn(true);
                 assertTrue(reclutamento.assumiCandidato(dipendente));
             }
-    }
+    }*/
 
 }

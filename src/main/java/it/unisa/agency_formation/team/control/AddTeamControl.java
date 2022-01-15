@@ -30,7 +30,6 @@ public class AddTeamControl extends HttpServlet {
                         if(!setTeamDipendenteFromManager(idDip, idTeam)){
                             resp.getWriter().write("1"); // errore setTeam
                             resp.sendRedirect("./static/Error.html");
-                            return;
                         }
                         resp.getWriter().write("2");// set ok
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");

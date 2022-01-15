@@ -232,16 +232,16 @@ public class CreateListaTeamTest {
         Mockito.when(request.getParameter("teamDescr")).thenReturn(team.getDescrizione());
 
        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
-       try (MockedStatic mockedStatic = mockStatic(CreateTeamControl.class)) {
+       try (MockedStatic<CreateTeamControl> mockedStatic = mockStatic(CreateTeamControl.class,Mockito.RETURNS_MOCKS)) {
            mockedStatic.when(() -> CreateTeamControl.creaTeamFromManager(team,idTM)).thenReturn(true);
-           mockedStatic.when(() -> CreateTeamControl.getIdUltimoTeamCreatoFromManager()).thenReturn(team.getIdTeam());
+           mockedStatic.when(() -> CreateTeamControl.getIdUltimoTeamCreatoFromManager()).thenReturn(999);
            StringWriter stringWriter = new StringWriter();
            PrintWriter writer = new PrintWriter(stringWriter);
            Mockito.when(response.getWriter()).thenReturn(writer);
            servlet.init(config);
            servlet.doGet(request, response);
            writer.flush();
-           assertTrue(stringWriter.toString().contains("2"));
+           assertTrue(stringWriter.toString().contains("3"));
        }
 
     }

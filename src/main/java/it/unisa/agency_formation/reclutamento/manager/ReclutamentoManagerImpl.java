@@ -67,11 +67,6 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     }
 
     @Override
-    public boolean assumiCandidato(Dipendente dipendente) throws SQLException {
-        return (DipendenteDAO.salvaDipendente(dipendente));
-    }
-
-    @Override
     public boolean rifiutaCandidato(int idCandidatura) throws SQLException {
         return CandidaturaDAO.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Rifiutata);
     }

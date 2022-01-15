@@ -22,8 +22,11 @@ public class SkillDAO {
      * @pre skill!=null && dip!=null
      */
     public static boolean salvaSkill(Skill skill) throws SQLException {
+        if(skill==null){
+            return false;
+        }
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (skill != null) {
+
             PreparedStatement save = null;
 
             String query = "insert into " + TABLE_SKILL + " (NomeSkill, DescrizioneSkill)"
@@ -33,14 +36,12 @@ public class SkillDAO {
                 save = connection.prepareStatement(query);
                 save.setString(1, skill.getNomeSkill());
                 save.setString(2, skill.getDescrizioneSkill());
-                save.executeUpdate();
-                return true;
+                return save.executeUpdate()!=0;
             } finally {
                 DatabaseManager.closeConnessione(connection);
             }
         }
-        return false;
-    }
+
 
     /**
      * Questa funzionalità permette di rimuovere una skill persa
