@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ScioglimentoTeamControl extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             int idTeam = Integer.parseInt(req.getParameter("idTeam"));
@@ -27,7 +27,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
             if (idTeam > 0) {
                 try {
                     ArrayList<Integer> listaIdDip = recuperaIdDipendentiFromManager(idTeam);
-                    if (listaIdDip != null && listaIdDip.size() > 1) {
+                    if (listaIdDip != null && listaIdDip.size() > 0) { // cambiato da 1 a 0
                         for (int idDip : listaIdDip) {
                             if(!updateStatoDipendenteFromManager(idDip)){
                                 resp.getWriter().write("1");// errore aggiornamento stato dip
@@ -35,30 +35,33 @@ public class ScioglimentoTeamControl extends HttpServlet {
                                 return;
                             }
                         }
+                        //Mettere quello di sotto qui forse
                     }
                     if(!eliminaTeamFromManager(idTeam)){
-                        resp.getWriter().write("2");//errore eliminizaione team
+                        resp.getWriter().write("2");
                         resp.sendRedirect("./static/Error.html");
                         return;
                     }
+                    resp.getWriter().write("3");
                     dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                     dispatcher.forward(req, resp);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             } else {
+                resp.getWriter().write("4");
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamTM.jsp");
                 dispatcher.forward(req, resp);
-
             }
         } else {
+            resp.getWriter().write("5");
             resp.sendRedirect("./static/Login.html");
         }
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
