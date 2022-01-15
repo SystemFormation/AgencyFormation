@@ -30,8 +30,7 @@ public class DocumentoDAO {
             save.setString(1, doc.getMaterialeDiFormazione());
             save.setInt(2, doc.getIdHR());
             save.setInt(3, doc.getIdTeam());
-            int result = save.executeUpdate();
-                return true;
+            return save.executeUpdate() != 0;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -54,11 +53,7 @@ public class DocumentoDAO {
         try {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, materialeFormazione);
-            int result = stmt.executeUpdate();
-            if (result != -1) {
-                return true;
-            }
-            return false;
+            return stmt.executeUpdate() != 0;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -73,7 +68,7 @@ public class DocumentoDAO {
      * @throws SQLException
      * @pre idDocument != null && ma != null && idTeam!=null
      */
-    public static boolean modificaDocumento(int idHR, String materiale, int idTeam) throws SQLException {
+    /*public static boolean modificaDocumento(int idHR, String materiale, int idTeam) throws SQLException {
         if (idHR < 1 || materiale == null || idTeam < 1) {
             return false;
         }
@@ -94,7 +89,7 @@ public class DocumentoDAO {
             DatabaseManager.closeConnessione(connection);
         }
     }
-
+*/
     /**
      * Questa funzionalità permette di recuperare del materiale attraverso il team
      *
@@ -122,14 +117,11 @@ public class DocumentoDAO {
                 documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
                 documento.setIdHR(result.getInt("IdHR"));
                 documento.setIdTeam(result.getInt("IdTeam"));
-            }
-            if (documento != null) {
                 return documento;
-            } else {
-                return null;
             }
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
+        return null;
     }
 }

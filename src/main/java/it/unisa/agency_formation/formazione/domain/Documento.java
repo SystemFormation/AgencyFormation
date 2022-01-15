@@ -9,6 +9,13 @@ public class Documento {
     public Documento() {
     }
 
+    public Documento(int idDocumento, String materialeDiFormazione, int idHR, int idTeam) {
+        this.idDocumento = idDocumento;
+        this.materialeDiFormazione = materialeDiFormazione;
+        this.idHR = idHR;
+        this.idTeam = idTeam;
+    }
+
 
     public String getMaterialeDiFormazione() {
         return materialeDiFormazione;
