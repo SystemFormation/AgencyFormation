@@ -217,9 +217,9 @@ public class SkillDAO {
             }
             if (skills.size() > 0) {
                 return skills;
-            } else {
-                return null;
             }
+                return null;
+
 
         } finally {
             DatabaseManager.closeConnessione(connection);
