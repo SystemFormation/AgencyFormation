@@ -16,7 +16,7 @@
 <c:import url="/static/Header.jsp"/>
 <h1>Lista Colloqui</h1>
 <div class="content">
-    <div class="lista">
+    <div class="liste">
         <div id="flex-head">ID</div>
         <div id="flex-head">Nome</div>
         <div id="flex-head">Cognome</div>

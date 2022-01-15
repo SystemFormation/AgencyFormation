@@ -24,7 +24,7 @@
 <h1>Lista Dipendenti</h1>
 
 <div class="content">
-    <div class="information">
+    <div class="lista">
         <div id="flex-head">Dipendente</div>
         <div id="flex-head">Team</div>
         <div id="flex-head">Competenze</div>

@@ -19,8 +19,7 @@
     <div class="flex">
         <div id="home"><a href="ProfiloControl">
             <h2> Profilo </h2></a>
-            <p>Accedi al tuo profilo personale per gestire le tue skill e i tuoi dati personali
-                e visualizzare il proprio stato</p>
+            <p>Accedi al tuo profilo personale.</p>
         </div>
         <div name="materialeDaNascondere" id="home">
             <h2 id="materiale" onclick="view()" onmouseover="viewLink()" onmouseleave="deleteSpanMateriale()"> Materiale

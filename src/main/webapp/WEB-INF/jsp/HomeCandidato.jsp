@@ -28,8 +28,7 @@
                 <c:if test="${candidatura==null||candidatura.getDocumentiAggiuntivi()==null}">
                     <div id="home"><a href="UploadCandidatureControl">
                         <h2> Caricamento Documenti </h2></a>
-                        <p>Carica il tuo curriculum o anche i documenti per avviare il tuo processo di candidatura
-                        </p>
+                        <p> Carica il tuo curriculum e in seguito anche i documenti, per proporre la tua candidatura </p>
                     </div>
                 </c:if>
             </c:when>
@@ -52,8 +51,7 @@
                         <p>Rifiutata</p>
                         <div id="home"><a href="RicandidaturaControl">
                             <h2> Ricandidatura </h2></a>
-                            <p>Hai la possibilità di poterti ricandidare caricando il tuo curriculum o anche i documenti
-                            </p>
+                            <p>Ricandidati caricando il tuo curriculum e in seguito anche i documenti</p>
                         </div>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">

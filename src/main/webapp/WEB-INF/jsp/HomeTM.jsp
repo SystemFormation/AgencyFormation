@@ -27,19 +27,15 @@
     <div class="flex">
         <div id="home"><a href="./static/CreaTeam.jsp">
             <h2> Creazione Team </h2></a>
-            <p>Crea un team specificando: nome del team, nome del progetto,
-                numero dipendenti e la relativa descrizione</p>
+            <p>Crea un nuovo team per il progetto da svolgere.</p>
         </div>
         <div id="home"><a href="ListaDipendentiControl">
             <h2> Lista Dipendenti </h2></a>
-            <p>Ottieni la lista dipendenti per scegliere quale dipendente disponibile aggiungere
-                al proprio team oppure a quale dipendente occupato per un altro progetto effettuare
-                la richiesta di disponbilità</p>
+            <p>Visualizza tutti i dipendenti presenti nell'azienda.</p>
         </div>
         <div id="home"><a href="ListaTeam">
             <h2> Lista Teams </h2></a>
-            <p>Ottieni la lista dei tuoi teams con i relativi dati e la gestione per
-                speficare le competenze richieste</p>
+            <p>Visualizza tutti i team che hai creato.</p>
         </div>
     </div>
 </div>

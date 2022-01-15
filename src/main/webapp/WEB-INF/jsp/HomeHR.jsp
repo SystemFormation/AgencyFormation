@@ -20,17 +20,15 @@
         <div id="home"><a href="ListaCandidati">
             <h2> Lista Candidati </h2></a>
             <span id="noCandidati"></span>
-            <p>Ottieni la lista candidati per poter controllare: i file caricati da un candidato,
-                il loro rispettivo nome e cognome</p>
+            <p>Visualizza tutti i candidati che hanno proposto una candidatura.</p>
         </div>
         <div id="home"><a href="ListaTeam">
             <h2> Lista Teams </h2></a>
-            <p>Ottieni la lista di tutti i teams con i relativi dati e la gestione del
-                caricamento del materiale di formazione</p>
+            <p>Visualizza tutti i team presenti nell'azienda.</p>
         </div>
         <div id="home"><a href="ListaColloqui">
             <h2> Lista Colloqui </h2></a>
-            <p>Ottieni la lista dei colloqui per poter assumere o rifiutare un candidato</p>
+            <p>Visualizza tutti i candidati che hanno svolto il colloquio.</p>
         </div>
     </div>
 </div>

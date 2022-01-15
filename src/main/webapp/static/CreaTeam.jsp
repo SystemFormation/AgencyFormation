@@ -25,7 +25,7 @@
                 <label for="quantity">Numero Dipendenti</label><br>
                 <input type="number" id="quantity" name="quantity" min="1" max="8" required><br>
                 <label for="quantity">Descrizione</label><br>
-                <textarea id="teamDescr" name="teamDescr" rows="6" cols="70" placeholder="Descrizione del Team"
+                <textarea id="teamDescr" name="teamDescr" placeholder="Descrizione del Team"
                           required></textarea><br>
                 <input type="submit" name="crea" value="Crea" id="crea"><br>
             </form>

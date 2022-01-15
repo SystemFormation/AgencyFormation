@@ -11,10 +11,9 @@
     <h1>BENVENUTO IN AF CONSULTING</h1>
     <div class="wrap">
         <div class="text-block">
-            L'azienda AF Consulting ha lo scopo di ricercare nuovo personale, inserirlo all'interno dei team
-            in cui verrano svolti progetti agevolati dal materiale di formazione fornito dalle Risorse Umane.
-            Infatti l'azienda intende fornire ai propri dipendenti una formazione ed un orientamento sempre
-            più di qualità, per rendere più facile per il nuovo dipendente adattarsi alle esigenze dell'azienda.<br>
+            AF Consulting è alla ricerca di nuovo personale!
+            L'azienda fornisce ai propri dipendenti una formazione ed un orientamento di qualità,
+            rendendo più facile per il nuovo dipendente adattarsi all'esigenze dell'azienda.<br>
             <button><a href="static/Registrazione.html">Lavora con noi</a></button>
         </div>
         <div class="image"></div>
