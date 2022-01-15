@@ -26,7 +26,7 @@ public class UploadCandidatureControl extends HttpServlet {
 
     private static final String pathRelative = "\\AgencyFormationFile\\Candidature\\";
     private static final String pathAbsolute = System.getProperty("user.home") + pathRelative;
-    private static final int MAXDIM = 83886080; //10MB
+    private static final int MAXDIM = 10485760; //10MB
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
@@ -50,6 +50,8 @@ public class UploadCandidatureControl extends HttpServlet {
                 Part curriculum = request.getPart("curriculum");
                 if (curriculum.getSize() > MAXDIM) {
                     response.getWriter().write("1"); //file troppo grande
+                    response.sendRedirect("./static/Error.html");
+                    return;
                 } else {
                     Candidatura cand = new Candidatura();
                     file.mkdirs();
@@ -72,9 +74,9 @@ public class UploadCandidatureControl extends HttpServlet {
             } else if (scelta == 2) {
                 Part documenti = request.getPart("documenti");
                 if (documenti.getSize() > MAXDIM) {
-                    //TODO ERROR FOR SIZE OF FILE MORE
-                    response.getWriter().write("1");
+                    response.getWriter().write("1"); //file troppo grande
                     response.sendRedirect("./static/Error.html");
+                    return;
                 } else {
                     Candidatura cand = new Candidatura();
                     documenti.write(file.getAbsolutePath() + "\\" + documenti.getSubmittedFileName());

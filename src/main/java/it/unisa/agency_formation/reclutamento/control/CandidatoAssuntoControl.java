@@ -30,6 +30,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
                 if (!set) {
                     response.getWriter().write("1"); //errore settaggio ruolo
                     response.sendRedirect("/static/Error.html");
+                    return;
                 } else {
                     int annoNascita = Integer.parseInt(request.getParameter("annoDipendente"));
                     String residenza = request.getParameter("residenzaDipendente");

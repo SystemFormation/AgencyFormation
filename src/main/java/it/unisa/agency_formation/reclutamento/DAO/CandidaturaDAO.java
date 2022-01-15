@@ -80,7 +80,6 @@ public class CandidaturaDAO {
      * @throws SQLException
      * @pre idCandidato >0
      */
-    // todo refactor
     public static Candidatura doRetrieveCandidaturaById(int idCandidato) throws SQLException {
         if (idCandidato < 1) {
             return null;

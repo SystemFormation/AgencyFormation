@@ -43,16 +43,23 @@ public class SkillControl extends HttpServlet {
                 try {
                     Dipendente dip = DipendenteDAO.doRetrieveDipendenteById(user.getId());
                     if (dip != null) {
-                        //TODO r:controllare se l'aggiunta è andata a buon fine
-                        addSkillFromManager(skill);
+                        //TODO SI DEVE FARE UNA PAGINA DIVERSA PER GLI ERRORI
+                        if(!addSkillFromManager(skill)){
+                            response.getWriter().write("2"); // aggiunta in skill non avvenuta con successo.
+                            response.sendRedirect("./static/Error.html");
+                            return;
+                        }
                         int idSkill = getLastIdSkillCreatedFromManager();
-                        //TODO r:controllare se l'aggiunta è andata a buon fine
-                        addSkillDipFromManager(idSkill, dip.getIdDipendente(), skillLivello);
-                        response.getWriter().write("3"); // aggiunta avvenuta con successo.
+                        if(!addSkillDipFromManager(idSkill, dip.getIdDipendente(), skillLivello)){
+                            response.getWriter().write("3"); // aggiunta in skillDip non avvenuta con successo.
+                            response.sendRedirect("./static/Error.html");
+                            return;
+                        }
+                        response.getWriter().write("4"); // aggiunta avvenuta con successo.
                         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");
                         dispatcher.forward(request, response);
                     } else {
-                        response.getWriter().write("4"); // aggiunta fallita.
+                        response.getWriter().write("5"); // aggiunta fallita.
                         response.sendRedirect("./static/Profilo.jsp");
                     }
 
@@ -61,7 +68,7 @@ public class SkillControl extends HttpServlet {
                 }
 
             } else {
-                response.getWriter().write("5"); //skillNome e skillDescr null
+                response.getWriter().write("6"); //skillNome e skillDescr null
                 response.sendRedirect("./static/Profilo.jsp");
             }
         } else {

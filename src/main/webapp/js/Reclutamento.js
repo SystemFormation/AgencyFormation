@@ -22,28 +22,53 @@ function deleteSpan(){
     $('#noCandidati').css("display","none");
 }
 
+
 function checkFileCurriculum(){
     var fileUpload = document.getElementById("fileCurriculum");
     var button = document.getElementById("uploadCurriculum");
-    if (fileUpload.files.length == 0) {
-        $('#curriculumNotUpload').css("display","inline");
-        $('#curriculumNotUpload').css("color","red");
-        $('#curriculumNotUpload').css("font-size","14px").html("<br>Seleziona un file");
-    }
-    else{
-        button.setAttribute('type',"submit")
-    }
+    var filePath = fileUpload.value;
+    var estensione = /(.pdf)$/i;
+     if(!estensione.exec(filePath)){
+         $('#curriculumNotUpload').css("display","inline");
+         $('#curriculumNotUpload').css("color","red");
+         $('#curriculumNotUpload').css("font-size","14px").html("<br>Formato non valido, seleziona un pdf");
+     }else {
+
+         if (fileUpload.files.item(0).size == 0) {
+             $('#curriculumNotUpload').css("display", "inline");
+             $('#curriculumNotUpload').css("color", "red");
+             $('#curriculumNotUpload').css("font-size", "14px").html("<br>Seleziona un file");
+         } else if (fileUpload.files.item(0).size > 10485760) {
+             $('#curriculumNotUpload').css("display", "inline");
+             $('#curriculumNotUpload').css("color", "red");
+             $('#curriculumNotUpload').css("font-size", "14px").html("<br>File troppo grande");
+         } else {
+             button.setAttribute('type', "submit")
+         }
+     }
 }
 
 function checkFileDocumenti(){
     var fileUpload = document.getElementById("fileDocumenti");
     var button = document.getElementById("uploadDocumenti");
-    if (fileUpload.files.length == 0) {
+    var filePath = fileUpload.value;
+    var estensione = /(.pdf)$/i;
+    if(!estensione.exec(filePath)){
         $('#documentNotUpload').css("display","inline");
         $('#documentNotUpload').css("color","red");
-        $('#documentNotUpload').css("font-size","14px").html("<br>Seleziona un file");
-    }
-    else{
-        button.setAttribute('type',"submit")
+        $('#documentNotUpload').css("font-size","14px").html("<br>Formato non valido, seleziona un pdf");
+    }else {
+
+        if (fileUpload.files.item(0).size == 0) {
+            $('#documentNotUpload').css("display", "inline");
+            $('#documentNotUpload').css("color", "red");
+            $('#documentNotUpload').css("font-size", "14px").html("<br>Seleziona un file");
+        } else if (fileUpload.files.item(0).size > 10485760) {
+            $('#documentNotUpload').css("display", "inline");
+            $('#documentNotUpload').css("color", "red");
+            $('#documentNotUpload').css("font-size", "14px").html("<br>File troppo grande");
+        } else {
+            button.setAttribute('type', "submit")
+        }
     }
 }

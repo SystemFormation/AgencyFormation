@@ -38,6 +38,7 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                     } else {
                         response.getWriter().write("3"); //errore assunzione
                         response.sendRedirect("./static/Error.html");
+                        return;
                     }
                 }
             } catch (SQLException e) {

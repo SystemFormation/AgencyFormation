@@ -27,12 +27,16 @@ public class AddTeamControl extends HttpServlet {
                     int idDip = Integer.parseInt(req.getParameter("id"));
                     if (idDip > 0) {
                         int idTeam = Integer.parseInt(req.getParameter("idTeam"));//messo questo controllo
-                        setTeamDipendemteFromManager(idDip, idTeam);
-                        resp.getWriter().write("1");
+                        if(!setTeamDipendenteFromManager(idDip, idTeam)){
+                            resp.getWriter().write("1"); // errore setTeam
+                            resp.sendRedirect("./static/Error.html");
+                            return;
+                        }
+                        resp.getWriter().write("2");// set ok
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);
                     } else {
-                        resp.getWriter().write("2");
+                        resp.getWriter().write("3"); // idDip <1
                         resp.sendRedirect("/static/CreaTeam.jsp");
                     }
                 }else{
@@ -44,7 +48,7 @@ public class AddTeamControl extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
-            resp.getWriter().write("3");
+            resp.getWriter().write("5");
             resp.sendRedirect("./static/Login.html");
         }
     }
@@ -54,8 +58,7 @@ public class AddTeamControl extends HttpServlet {
         doGet(req, resp);
     }
 
-    //TODO non gestito il return
-    public static boolean setTeamDipendemteFromManager(int idDip, int idTeam) throws SQLException {
+    public static boolean setTeamDipendenteFromManager(int idDip, int idTeam) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.setTeamDipendente(idDip, idTeam);
     }

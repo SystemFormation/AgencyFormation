@@ -43,7 +43,6 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     public ArrayList<Utente> getCandidati() throws SQLException {
         return UtenteDAO.doRetrieveUtenteByRuolo(RuoliUtenti.CANDIDATO);
     }*/
-    //TODO TEST THIS METHOD
     @Override
     public ArrayList<Utente> getCandidatiConCandidatura() throws SQLException {
         return UtenteDAO.doRetrieveCandidatoConCandidatura();

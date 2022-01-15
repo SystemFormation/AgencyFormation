@@ -37,8 +37,8 @@ public class RejectCandidatureControl extends HttpServlet {
                 if (rejectCandidatura(candidatura.getIdCandidatura(), user.getId())) {
                     response.getWriter().write("1"); //rifiuto ok
                 } else {
-                    //TODO errore nel rifiutare la candidatura
                     response.getWriter().write("2"); //rifiuto non avvenuto
+                    response.sendRedirect("./static/Error.html");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

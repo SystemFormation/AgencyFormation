@@ -26,7 +26,6 @@ public class CreateTeamControl extends HttpServlet {
             Team team = new Team();
             RequestDispatcher dispatcher;
             String action = req.getParameter("action");
-        //    Utente userTM = (Utente) req.getSession().getAttribute("user");
             int idTM = user.getId();
             try {
                 if (action.equalsIgnoreCase("crea")) {
@@ -42,23 +41,27 @@ public class CreateTeamControl extends HttpServlet {
                         team.setDescrizione(descrizione);
                         team.setNomeTeam(nomeTeam);
                         team.setNumeroDipendenti(numeroDipendenti);
-                        creaTeamFromManager(team, idTM);
+                        if(!creaTeamFromManager(team, idTM)){
+                            resp.getWriter().write("2");//errore creazione team
+                            resp.sendRedirect("./static/Error.html");
+                            return;
+                        }
                         int idTeam = getIdUltimoTeamCreatoFromManager();
                         req.setAttribute("idTeam", idTeam);
-                        resp.getWriter().write("2");
+                        resp.getWriter().write("3");
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);
                     }
                 }
                 else{
-                    resp.getWriter().write("3");
+                    resp.getWriter().write("4");
                     resp.sendRedirect("/static/CreaTeam.jsp");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
-            resp.getWriter().write("4");
+            resp.getWriter().write("5");
             resp.sendRedirect("./static/Login.html");
         }
     }
@@ -67,7 +70,6 @@ public class CreateTeamControl extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-//TODO GESTIRE IL RETURN
     public static boolean creaTeamFromManager(Team team, int idTM) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.creaTeam(team, idTM);

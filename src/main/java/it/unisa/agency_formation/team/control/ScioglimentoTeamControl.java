@@ -24,22 +24,29 @@ public class ScioglimentoTeamControl extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             int idTeam = Integer.parseInt(req.getParameter("idTeam"));
             RequestDispatcher dispatcher;
-            if (idTeam != 0) {
+            if (idTeam > 0) {
                 try {
                     ArrayList<Integer> listaIdDip = recuperaIdDipendentiFromManager(idTeam);
                     if (listaIdDip != null && listaIdDip.size() > 1) {
                         for (int idDip : listaIdDip) {
-                            updateStatoDipendenteFromManager(idDip);
+                            if(!updateStatoDipendenteFromManager(idDip)){
+                                resp.getWriter().write("1");// errore aggiornamento stato dip
+                                resp.sendRedirect("./static/Error.html");
+                                return;
+                            }
                         }
                     }
-                    eliminaTeamFromManager(idTeam);
+                    if(!eliminaTeamFromManager(idTeam)){
+                        resp.getWriter().write("2");//errore eliminizaione team
+                        resp.sendRedirect("./static/Error.html");
+                        return;
+                    }
                     dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                     dispatcher.forward(req, resp);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             } else {
-                //Errore TODO
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamTM.jsp");
                 dispatcher.forward(req, resp);
 
@@ -60,7 +67,6 @@ public class ScioglimentoTeamControl extends HttpServlet {
         return teamManager.recuperaIdDipendentiDelTeam(idTeam);
     }
 
-    //TODO GESTIRE I RETURN QUI E DOPO
     public static boolean updateStatoDipendenteFromManager(int idDipendente) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.updateDipsDisso(idDipendente);

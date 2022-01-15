@@ -60,11 +60,6 @@ public class ListaDipendentiControl extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-    //TODO metodo mai usato
-    public static ArrayList<Team> viewAllTeamsFromManager() throws SQLException {
-        TeamManager teamManager = new TeamManagerImpl();
-        return teamManager.visualizzaTuttiTeams();
-    }
 
     public static Team getTeamIdFromManager(int idTeam) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
