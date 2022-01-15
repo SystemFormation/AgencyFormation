@@ -15,7 +15,7 @@ import java.sql.SQLException;
 @WebServlet("/CheckMaterialeFormazione")
 public class CheckMaterialeFormazione extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             int idTeam = Integer.parseInt(request.getParameter("idTeam"));
             if (idTeam <= 0) {
@@ -26,13 +26,14 @@ public class CheckMaterialeFormazione extends HttpServlet {
                 response.getWriter().write("2"); //il documento esiste
             } else {
                 response.getWriter().write("3"); //il documento non esiste
+                response.sendRedirect("./static/Error.html");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
     public static Documento getDocumentofromManager(int idTeam) throws SQLException {

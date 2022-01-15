@@ -63,7 +63,7 @@ public class SkillDAO {
             stmt.setInt(1, idSkill);
             result1 = stmt.executeUpdate();
 
-            return result1 != -1;
+            return result1 != 0;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -129,12 +129,7 @@ public class SkillDAO {
                 skill.setDescrizioneSkill(result.getString("DescrizioneSkill"));
                 skill.setIdSkill(result.getInt("IdSkill"));
             }
-            if (skill != null) {
                 return skill;
-            } else {
-                return null;
-            }
-
         } finally {
             DatabaseManager.closeConnessione(connection);
 
@@ -161,11 +156,8 @@ public class SkillDAO {
             save.setInt(1, idDip);
             save.setInt(2, idSkill);
             save.setInt(3, skillLivello);
-            int result = save.executeUpdate();
-            if (result != -1) {
-                return true;
-            }
-            return false;
+            return save.executeUpdate()!=0;
+
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -181,19 +173,14 @@ public class SkillDAO {
         ResultSet result;
         PreparedStatement stmt = null;
         String query = " SELECT max(IdSkill) FROM " + TABLE_SKILL;
-        int n = 0;
+        int n = -1;
         try {
             stmt = connection.prepareStatement(query);
             result = stmt.executeQuery();
             if (result.next()) {
                 n = result.getInt(1);
             }
-            if (n > 0) {
                 return n;
-            } else {
-                return -1;
-            }
-
         } finally {
             DatabaseManager.closeConnessione(connection);
         }

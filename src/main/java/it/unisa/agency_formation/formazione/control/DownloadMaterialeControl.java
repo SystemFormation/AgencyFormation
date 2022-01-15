@@ -25,8 +25,11 @@ import java.sql.SQLException;
 public class DownloadMaterialeControl extends HttpServlet {
 
     private static final String directory = System.getProperty("user.home");
+
+
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
             ServletContext context = request.getServletContext();
@@ -34,11 +37,11 @@ public class DownloadMaterialeControl extends HttpServlet {
             try {
                 Dipendente dipendente = getDipendentefromManager(user.getId());
                 if (dipendente == null) {
-                    response.getWriter().write("2"); //dipendente null
+                    response.getWriter().write("1"); //dipendente null
                 } else {
                     documento = getDocumentofromManager(dipendente.getTeam().getIdTeam());
                     if (documento == null) {
-                        response.getWriter().write("3"); //documento null
+                        response.getWriter().write("2"); //documento null
                         //si può rimandare all'homepage?
                     }
                 }
@@ -67,17 +70,18 @@ public class DownloadMaterialeControl extends HttpServlet {
                 }
                 fileIn.close();
                 outStream.close();
-                response.getWriter().write("4"); //documento scaricato
+                response.getWriter().write("3"); //documento scaricato
             } else {
-                response.getWriter().write("5"); //documento non scaricato
+                response.getWriter().write("4"); //documento non scaricato
             }
         } else {
+            response.getWriter().write("5");
             response.sendRedirect("./static/Login.html");
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
     public static Dipendente getDipendentefromManager(int idUtente) throws SQLException {

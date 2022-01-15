@@ -53,6 +53,20 @@ public class SkillDAOTest {
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
+    public void inserisciSkill() throws SQLException {
+        String insertSkill1="INSERT INTO skill (IdSkill,NomeSkill, DescrizioneSkill) VALUES (1,'HTML', 'Conoscenze generali di HTML')";
+        String insertSkill2="INSERT INTO skill (IdSkill,NomeSkill, DescrizioneSkill) VALUES (2,'CSS', 'Conoscenze BASILARI di CSS')";
+        String insertSkillDip1="INSERT INTO skillsdipendenti(IdDipendente,IdSkill, Livello) VALUES (2,1, 5)";
+        String insertSkillDip2="INSERT INTO skillsdipendenti(IdDipendente,IdSkill, Livello) VALUES (2,2, 3)";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(insertSkill1);
+        statement.executeUpdate(insertSkill1);
+        statement.executeUpdate(insertSkill2);
+        statement.executeUpdate(insertSkillDip1);
+        statement.executeUpdate(insertSkillDip2);
+
+    }
+
     @Test
     @Order(1)
     public void saveSkillFail() throws SQLException {
@@ -80,97 +94,90 @@ public class SkillDAOTest {
     }
 
 
-
     @Test // Funziona con il db popolato
-    @Order(10)
+    @Order(5)
     public void doRetrieveAllPass() throws SQLException {
         assertNotNull(SkillDAO.recuperaSkills());
     }
 
-
-
     @Test //pass
-    @Order(13)
+    @Order(6)
     public void doRetrieveByNamePass() throws SQLException {
         String nomeSkill = "HTML";
         assertNotNull(SkillDAO.recuperaSkillByNome(nomeSkill));
     }
 
+    @Test
+    @Order(7)
+    public void doRetrieveByNameNull() throws SQLException {
+        String nomeSkill = null;
+        assertNull(SkillDAO.recuperaSkillByNome(nomeSkill));
+    }
+
+
     @Test //not pass idSkill<1
-    @Order(5)
+    @Order(8)
     public void saveSkillDipIdSkillFail() throws SQLException {
         assertFalse(SkillDAO.salvaSkillDipendente(0, 1, 4));
     }
 
     @Test //not pass idDip < 1
-    @Order(6)
+    @Order(9)
     public void saveSkillDipIdDipNull() throws SQLException {
         assertFalse(SkillDAO.salvaSkillDipendente(1, 0, 4));
     }
 
     @Test //not pass idDip < 1 && idSkill < 1
-    @Order(7)
+    @Order(10)
     public void saveSkillDipNullAndFail() throws SQLException {
         assertFalse(SkillDAO.salvaSkillDipendente(0, 0, 4));
     }
 
-//NON FUNZIONA
     @Test //pass
-    @Order(14)
+    @Order(11)
     public void saveSkillDipPass() throws SQLException {
         assertTrue(SkillDAO.salvaSkillDipendente(1, 100, 4));
     }
 
     @Test
-    @Order(8)
+    @Order(12)
     public void retrieveLastIdPass() throws SQLException {
         assertNotNull(SkillDAO.recuperaUltimaSkill());
     }
 
 
     @Test
-    @Order(15)//dip non ha skill
+    @Order(13)//dip non ha skill
     public void doRetrieveSkillByIdDipendenteFail() throws SQLException {
     assertNull(SkillDAO.recuperoSkillsByIdDipendente(101));
 
     }
 
     @Test // idDip<1
-    @Order(11)
+    @Order(14)
      public void doRetrieveSkillByIdDipendenteFail1() throws SQLException {
         assertNull(SkillDAO.recuperoSkillsByIdDipendente(0));
     }
 
     @Test
-    @Order(12)
+    @Order(15)
     public void doRetrieveSkillByIdDipendentePass() throws SQLException {
-    /*Skill skill = new Skill();
-    skill.setIdSkill(10);
-    skill.setNomeSkill("C++");
-    skill.setDescrizioneSkill("Linguaggio C++");
-    ArrayList<Skill> list = new ArrayList<>();
-    list.add(skill);
-    Dipendente dip = new Dipendente();
-        dip.setSkills(list);
-        dip.setIdDipendente(15);
-        System.out.println(dip.getSkills());*/
         assertNotNull(SkillDAO.recuperoSkillsByIdDipendente(2));
     }
 
 
     @Test // Funziona con il db vuoto
-    @Order(17)
+    @Order(16)
     public void doRetrieveAllFail() throws SQLException {
+        String deleteSkill = "Delete from skill where IdSkill>=1";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(deleteSkill);
+        preparedStatement.executeUpdate(deleteSkill);
         assertNull(SkillDAO.recuperaSkills());
+        inserisciSkill();
     }
 
 
-    @Test
-    @Order(18)
-    public void doRetrieveByNameNull() throws SQLException {
-        String nomeSkill = null;
-        assertNull(SkillDAO.recuperaSkillByNome(nomeSkill));
-    }
 
 
 
