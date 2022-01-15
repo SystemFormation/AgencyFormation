@@ -34,25 +34,23 @@ public class CreateTeamControl extends HttpServlet {
                     if (numeroDipendenti > 8) {
                         resp.getWriter().write("1");
                         resp.sendRedirect("/static/CreaTeam.jsp");
-                    }else {
+                    }else{
                         String nomeTeam = req.getParameter("fname");
                         String descrizione = req.getParameter("teamDescr");
                         team.setNomeProgetto(nomeProgetto);
                         team.setDescrizione(descrizione);
                         team.setNomeTeam(nomeTeam);
                         team.setNumeroDipendenti(numeroDipendenti);
-                        boolean res = creaTeamFromManager(team, idTM);
-                        if (!res) {
+                        if (!creaTeamFromManager(team, idTM)) {
                             resp.getWriter().write("2");//errore creazione team
                             resp.sendRedirect("./static/Error.html");
+                            return;
                         }
-                            if(true) {
-                                int idTeam = getIdUltimoTeamCreatoFromManager();
-                                req.setAttribute("idTeam", idTeam);
-                                resp.getWriter().write("3");
-                                dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
-                                dispatcher.forward(req, resp);
-                            }
+                        int idTeam = getIdUltimoTeamCreatoFromManager();
+                        req.setAttribute("idTeam", idTeam);
+                        resp.getWriter().write("3");
+                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                        dispatcher.forward(req, resp);
                     }
                 }
                 else{

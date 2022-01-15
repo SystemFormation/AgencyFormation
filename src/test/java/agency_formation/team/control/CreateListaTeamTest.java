@@ -26,7 +26,7 @@ import java.io.StringWriter;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mockStatic;
 
 public class CreateListaTeamTest {
@@ -78,14 +78,10 @@ public class CreateListaTeamTest {
     }
 
     @Test
-    public void createTeamActionNull() throws ServletException, IOException {
+    public void createTeamActionWrong() throws ServletException, IOException {
         int idUser = 10;
         Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
-        Team team = new Team();
         user.setId(idUser);
-        int idTM = user.getId();
-        int numeroDipendenti = 10;
-        String nomeProgetto = "Agency Formation";
         config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
@@ -98,12 +94,8 @@ public class CreateListaTeamTest {
 
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
-
         Mockito.when(request.getParameter("action")).thenReturn(action);
         Mockito.when(request.getServletContext()).thenReturn(context);
-        Mockito.when(request.getParameter("idTM")).thenReturn(String.valueOf(idTM));
-
-
 
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
@@ -232,9 +224,9 @@ public class CreateListaTeamTest {
         Mockito.when(request.getParameter("teamDescr")).thenReturn(team.getDescrizione());
 
        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
-       try (MockedStatic<CreateTeamControl> mockedStatic = mockStatic(CreateTeamControl.class,Mockito.RETURNS_MOCKS)) {
-           mockedStatic.when(() -> CreateTeamControl.creaTeamFromManager(team,idTM)).thenReturn(true);
-           mockedStatic.when(() -> CreateTeamControl.getIdUltimoTeamCreatoFromManager()).thenReturn(999);
+       try (MockedStatic mockedStatic = mockStatic(CreateTeamControl.class)) {
+           mockedStatic.when(() -> CreateTeamControl.creaTeamFromManager(any(Team.class),eq(idTM))).thenReturn(true);
+           mockedStatic.when(() -> CreateTeamControl.getIdUltimoTeamCreatoFromManager()).thenReturn(team.getIdTeam());
            StringWriter stringWriter = new StringWriter();
            PrintWriter writer = new PrintWriter(stringWriter);
            Mockito.when(response.getWriter()).thenReturn(writer);
