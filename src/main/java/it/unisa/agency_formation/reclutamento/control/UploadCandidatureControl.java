@@ -73,6 +73,8 @@ public class UploadCandidatureControl extends HttpServlet {
                 Part documenti = request.getPart("documenti");
                 if (documenti.getSize() > MAXDIM) {
                     //TODO ERROR FOR SIZE OF FILE MORE
+                    response.getWriter().write("1");
+                    response.sendRedirect("./static/Error.html");
                 } else {
                     Candidatura cand = new Candidatura();
                     documenti.write(file.getAbsolutePath() + "\\" + documenti.getSubmittedFileName());
@@ -84,7 +86,6 @@ public class UploadCandidatureControl extends HttpServlet {
                         if (uploadCandidatureFromManager(cand)) {
                             request.setAttribute("candidatura", cand);
                         } else {
-                            //TODO PAGINA DI ERRORE
                             response.sendRedirect("./static/Error.html");
                         }
                     } catch (SQLException e) {

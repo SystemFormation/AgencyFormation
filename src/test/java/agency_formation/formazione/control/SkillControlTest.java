@@ -1,7 +1,6 @@
 package agency_formation.formazione.control;
 
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
-import it.unisa.agency_formation.autenticazione.control.LoginControl;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.formazione.control.SkillControl;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,6 @@ public class SkillControlTest {
     private HttpSession session;
     private RequestDispatcher dispatcher;
 
-    //
     @Test
     public void skillNameDescNull() throws IOException, ServletException, SQLException {
         Utente user = UtenteDAO.login("p.severino@studenti.unisa.it","lol");
@@ -38,7 +36,7 @@ public class SkillControlTest {
         session = Mockito.mock(HttpSession.class);
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(request.getParameter("skillName")).thenReturn(null);
-        Mockito.when(request.getParameter("skillDescr")).thenReturn(null);
+        Mockito.when(request.getParameter("skillDescr")).thenReturn("");
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
@@ -105,7 +103,7 @@ public class SkillControlTest {
         assertTrue(stringWriter.toString().equals("3"));
     }
 
-    @Test//aggiuntaFallita
+    @Test //aggiuntaFallita
     public void aggiuntaFallita(){
 
     }

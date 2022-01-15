@@ -101,7 +101,7 @@ public class DocumentoDAO {
      * @param idTeam
      * @return
      * @throws SQLException
-     * @pre idTeam!=null
+     * @pre idTeam>0
      */
     public static Documento recuperaDocumentoByTeam(int idTeam) throws SQLException {
         if (idTeam < 1) {

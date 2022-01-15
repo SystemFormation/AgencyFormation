@@ -1,4 +1,4 @@
-package agency_formation.formazione.reclutamento.manager;
+package agency_formation.reclutamento.manager;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;

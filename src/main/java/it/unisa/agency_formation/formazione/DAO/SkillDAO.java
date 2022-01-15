@@ -179,7 +179,7 @@ public class SkillDAO {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement stmt = null;
-        String query = " SELECT max(IdSkill)  FROM " + TABLE_SKILL;
+        String query = " SELECT max(IdSkill) FROM " + TABLE_SKILL;
         int n = 0;
         try {
             stmt = connection.prepareStatement(query);

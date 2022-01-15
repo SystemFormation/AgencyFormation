@@ -18,7 +18,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 
 public class AcceptCandidatureControlTest {
@@ -29,7 +28,7 @@ public class AcceptCandidatureControlTest {
 
     @Test
     public void dataPass() throws ServletException, IOException {
-        Utente user = new Utente("Manuel", "Nocerino", "lol", "m.nocerino@studenti.unisa.it", RuoliUtenti.HR);
+        Utente user = new Utente("Manuel", "Nocerino",  "m.nocerino@studenti.unisa.it", "lol",RuoliUtenti.HR);
         user.setId(1);
         ServletConfig config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);
@@ -55,7 +54,7 @@ public class AcceptCandidatureControlTest {
 
     @Test
     public void dataNull() throws IOException, ServletException {
-        Utente user = new Utente("Manuel", "Nocerino", "lol", "m.nocerino@studenti.unisa.it", RuoliUtenti.HR);
+        Utente user = new Utente("Manuel", "Nocerino",  "m.nocerino@studenti.unisa.it","lol", RuoliUtenti.HR);
         user.setId(0);
         ServletConfig config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);

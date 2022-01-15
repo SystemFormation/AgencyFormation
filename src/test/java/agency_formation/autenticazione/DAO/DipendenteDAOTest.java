@@ -176,7 +176,7 @@ public class DipendenteDAOTest {
     @Test
     @Order(16)
     public void doRetrieveByStateSize4() throws SQLException {
-        String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(8,'Luca','Rossi','lol','luca@gmail.com',2)";
+        String query= "Insert into utenti (IdUtente, Nome,Cognome,Pwd,Mail,Ruolo) values(8,'Luca','Rossi','lol','luca@gmail.com',2)";
         String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita) " +
                 "values (8,'Fisciano','118',true,2000)";
         String query1= "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(4,'TestTeam',5,'Test','test descr','Java EE',3)";
