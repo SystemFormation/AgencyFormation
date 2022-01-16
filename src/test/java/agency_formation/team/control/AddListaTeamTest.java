@@ -4,6 +4,8 @@ import it.unisa.agency_formation.autenticazione.control.LoginControl;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.control.AddTeamControl;
+import it.unisa.agency_formation.team.control.CreateTeamControl;
+import it.unisa.agency_formation.team.domain.Team;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
@@ -22,7 +24,10 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.AdditionalMatchers.eq;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mockStatic;
 
@@ -50,7 +55,7 @@ public class AddListaTeamTest {
         Mockito.when(response.getWriter()).thenReturn(writer);
         new AddTeamControl().doPost(request, response);
         writer.flush();
-        assertTrue(stringWriter.toString().contains("3"));
+        assertTrue(stringWriter.toString().contains("5"));
     }
     @Test
     public void rolefail() throws IOException, ServletException {
@@ -70,6 +75,36 @@ public class AddListaTeamTest {
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
         new AddTeamControl().doPost(request, response);
+        writer.flush();
+        assertTrue(stringWriter.toString().contains("5"));
+    }
+    @Test
+    public void addTeamIdDipMoreThan0() throws IOException, ServletException {
+        int idDip = -1;
+        int idTeam = 01;
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
+        user.setId(idDip);
+        config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        context = Mockito.mock(ServletContext.class);
+        String action = "aggiungi";
+
+        AddTeamControl servlet = Mockito.spy(AddTeamControl.class);
+        Mockito.when(request.getSession()).thenReturn(session);
+        Mockito.when(session.getAttribute("user")).thenReturn(user);
+
+        Mockito.when(request.getServletContext()).thenReturn(context);
+        Mockito.when(request.getParameter("action")).thenReturn(action);
+        Mockito.when(request.getParameter("id")).thenReturn(String.valueOf(idDip));
+
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter writer = new PrintWriter(stringWriter);
+        Mockito.when(response.getWriter()).thenReturn(writer);
+        servlet.init(config);
+        servlet.doGet(request, response);
         writer.flush();
         assertTrue(stringWriter.toString().contains("3"));
     }
@@ -96,23 +131,27 @@ public class AddListaTeamTest {
         Mockito.when(request.getParameter("id")).thenReturn(String.valueOf(idDip));
         Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
 
+
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
 
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
-        Mockito.when(response.getWriter()).thenReturn(writer);
-        servlet.init(config);
-        servlet.doGet(request, response);
-        writer.flush();
-        assertTrue(stringWriter.toString().contains("1"));
+        try (MockedStatic mockedStatic = mockStatic(AddTeamControl.class)) {
+            mockedStatic.when(() -> AddTeamControl.setTeamDipendenteFromManager(idDip, idTeam)).thenReturn(true);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            Mockito.when(response.getWriter()).thenReturn(writer);
+            servlet.init(config);
+            servlet.doGet(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("2"));
+        }
     }
 
     @Test
-    public void addTeamIDUserFail() throws IOException, ServletException {
-        int idDip = -1;
+    public void addTeamFail() throws IOException, ServletException {
+        int idDip = 10;
         int idTeam = 01;
         Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
-        user.setId(idDip);
+        user.setId(10);
         config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
@@ -130,15 +169,16 @@ public class AddListaTeamTest {
         Mockito.when(request.getParameter("id")).thenReturn(String.valueOf(idDip));
         Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
 
-        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
-
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
-        Mockito.when(response.getWriter()).thenReturn(writer);
-        servlet.init(config);
-        servlet.doGet(request, response);
-        writer.flush();
-        assertTrue(stringWriter.toString().contains("2"));
+        try (MockedStatic mockedStatic = mockStatic(AddTeamControl.class)) {
+            mockedStatic.when(() -> AddTeamControl.setTeamDipendenteFromManager(idDip,idTeam)).thenReturn(false);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            Mockito.when(response.getWriter()).thenReturn(writer);
+            servlet.init(config);
+            servlet.doGet(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("1"));
+        }
     }
     @Test
     public void addTeamBadAction() throws IOException, ServletException {
@@ -161,9 +201,7 @@ public class AddListaTeamTest {
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(request.getParameter("action")).thenReturn(action);
         Mockito.when(request.getParameter("id")).thenReturn(String.valueOf(idDip));
-        Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
 
-        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
 
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
