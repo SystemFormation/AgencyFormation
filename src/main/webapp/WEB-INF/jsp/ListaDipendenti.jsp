@@ -26,7 +26,7 @@
 <div class="content">
     <div class="lista">
         <div id="flex-head">Dipendente</div>
-        <div id="flex-head">Competenze</div>
+        <div id="flex-head">Skills</div>
         <div id="flex-head">Azione</div>
         <div id="flex-head">Stato</div>
         <c:set var="index" value="0"/>
@@ -50,11 +50,11 @@
                         <c:otherwise> Non sono presenti Skills </c:otherwise>
                     </c:choose>
                 </div>
-
                 <div id="flex">
                     <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}&idTeam=${idTeam}">Aggiungi</a>
                 </div>
                 <div id="flex">
+                    <div id="stato-dipendente">Disponibile</div>
                     <div class="disponibile">.</div>
                 </div>
             </c:if>

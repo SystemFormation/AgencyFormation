@@ -62,11 +62,13 @@
             <c:choose>
                 <c:when test="${dip.getStato() == StatiDipendenti.OCCUPATO}">
                     <div id="flex">
+                        <div id="stato-dipendente">Occupato</div>
                         <div class="occupato">.</div>
                     </div>
                 </c:when>
                 <c:when test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
                     <div id="flex">
+                        <div id="stato-dipendente">Disponibile</div>
                         <div class="disponibile">.</div>
                     </div>
                 </c:when>

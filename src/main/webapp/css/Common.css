@@ -1,7 +1,7 @@
 /*OVUNQUE*/
 body {
     margin: 0;
-    font-family: monospace;
+    font-family: -webkit-pictograph;
 }
 
 h1 {
@@ -11,13 +11,14 @@ h1 {
 }
 
 h2 {
-    font-size: 25px;
+    font-size: 30px;
 }
 
 p {
-    font-size: 20px;
+    font-size: 25px;
     margin-top: 0;
     margin-bottom: 0;
+    color: #1e1e24;
 }
 
 a {
@@ -49,7 +50,7 @@ input, button {
 input[type=file]::file-selector-button {
     border: 2px solid #1E1E24;
     padding: .5em 1em;
-    border-radius: .5em;
+    border-radius: 1em;
     background-color: #9CC9E8;
     transition: 1s ease;
     margin-bottom: 20px;
@@ -61,19 +62,32 @@ input[type=file]::file-selector-button:hover {
 
 /*TUTTI I CLASS*/
 .content {
-    box-shadow: 15px 15px 30px rgb(71, 71, 71);
+    box-shadow: 25px 30px 110px rgb(200 200 200);
     border-radius: 1rem;
     border-style: groove;
     background-color: #9CC9E8;
     text-align: center;
     padding: 10px;
-    margin: 0px 50px 20px 50px;
+    margin: 20px 50px;
+    border-color: #59A5D8;
+}
+
+.content-home {
+    box-shadow: 25px 30px 110px rgb(200 200 200);
+    border-radius: 1rem;
+    border-style: groove;
+    background-color: #9CC9E8;
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    width: 40%;
+    border-color: #59A5D8;
 }
 
 .flex {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
 }
 
 .form textarea {
@@ -100,12 +114,14 @@ input[type=file]::file-selector-button:hover {
 
 .form textarea::placeholder {
     text-align: center;
+    color: #383A43;
 }
 
 .form-button {
-    float: right;
-    margin: 15px 15px auto 10px;
-    text-align: center;
+    float: left;
+    margin: 35px 15px auto 10px;
+    display: flex;
+    align-items: center;
 }
 
 .form-button button {
@@ -113,8 +129,8 @@ input[type=file]::file-selector-button:hover {
     text-decoration: none;
     margin-bottom: 20px;
     font-size: 18px;
-    font-family: monospace;
-    border-radius: 7rem;
+    font-family: -webkit-pictograph;
+    border-radius: 1rem;
 }
 
 .form-button a:hover {
@@ -125,12 +141,14 @@ input[type=file]::file-selector-button:hover {
     width: 70%;
     margin: auto 15%;
 }
-
+/*
 .content-competenze {
     width: 60%;
     margin: auto;
+    border-color: #59A5D8;
+    border-style: groove;
 }
-
+*/
 .content hr {
     background-color: #101d42;
     border: solid 2px #101d42;
@@ -158,7 +176,7 @@ input[type=file]::file-selector-button:hover {
 .error {
     font-size: 60px;
     font-weight: bold;
-    font-family: monospace;
+    font-family: -webkit-pictograph;
     text-align: center;
     position: absolute;
     left: 50%;
@@ -167,29 +185,39 @@ input[type=file]::file-selector-button:hover {
 }
 
 .team {
-    box-shadow: 15px 15px 30px rgb(71 71 71);
+    box-shadow: 25px 30px 110px rgb(200 200 200);
     border-radius: 1rem;
     border-style: groove;
     background-color: #9CC9E8;
     text-align: center;
     padding: 30px 10px 10px 10px;
     display: flex;
-    align-items: center;
+    align-items:flex-start;
     width: 90%;
     margin: 0px 5% 20px 5%;
+    border-color: #9CC9E8;
 }
 
-.team-inf, .team-descr, .team-button, .team-dip {
-    display: inline-block;
+.team-inf, .team-descr, .team-dip {
     font-size: 23px;
     width: 25%;
 }
 
-.team-button p, .skills {
+.team-button {
+    width: 25%;
+    margin: auto;
+}
+
+.team-button p{
     border-bottom: solid #101D42 2px;
     margin: auto;
 }
 
+.skills {
+    border-bottom: solid #101D42 2px;
+    margin: auto;
+    font-size: 20px;
+}
 .colloquio {
     display: none;
     position: relative;
@@ -200,33 +228,33 @@ input[type=file]::file-selector-button:hover {
     background-color: #59A5D8;
     border: 2px solid black;
     border-radius: 2rem;
-    font-family: monospace;
+    font-family: -webkit-pictograph;
     margin: auto;
     padding-bottom: 10px;
 }
 
 .colloquio input {
     font-size: 18px;
-    font-family: monospace;
+    font-family: -webkit-pictograph;
     margin-bottom: 10px;
     border: none;
-    border-radius: unset;
+    border-radius: 1rem;
     border-bottom: 2px solid #1E1E24;
 }
 
 .colloquio button {
     display: inline-block;
     border: none;
-    border-radius: unset;
+    border-radius: 1rem;
     border-bottom: 2px solid #1E1E24;
 }
 
 .content-upload input[type=button], .team-button input[type=button] {
     border: 2px solid #1E1E24;
     padding: .5em 1em;
-    border-radius: .5em;
+    border-radius: 1rem;
     background-color: #9CC9E8;
-    font-family: monospace;
+    font-family: -webkit-pictograph;
     font-size: 15px;
 }
 
@@ -236,24 +264,19 @@ input[type=file]::file-selector-button:hover {
 }
 
 .content-upload {
-    display: flex;
-    width: 60%;
+    width: 50%;
     margin: auto;
-    align-items: center;
+    padding: 50px;
+    border-color: #59A5D8;
 }
 
 .content-upload form {
     margin: auto;
-    display: inline-block;
-    font-size: 28px;
-    width: 50%;
+    font-size: 26px;
 }
 
 .text-block {
-    display: inline-block;
-    width: 50%;
-    text-align: center;
-    font-size: 26px;
+    font-size: 20px;
 }
 
 .occupato {
@@ -265,6 +288,7 @@ input[type=file]::file-selector-button:hover {
     color: red;
 }
 
+
 .disponibile {
     width: 23px;
     display: inline-block;
@@ -272,6 +296,10 @@ input[type=file]::file-selector-button:hover {
     font-size: 20px;
     border-radius: 5rem;
     color: green;
+}
+
+#stato-dipendente {
+    margin-bottom: 10px;
 }
 
 .lista {
@@ -283,65 +311,59 @@ input[type=file]::file-selector-button:hover {
 
 .listSkill {
     text-align: center;
-    display: inline-block;
-    box-shadow: 15px 15px 15px rgb(71 71 71);
+    box-shadow: 25px 30px 110px rgb(200 200 200);
     border-radius: 2rem;
     border-style: groove;
     padding: 10px;
     background-color: #9CC9E8;
-    vertical-align: top;
-    width: 10%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: auto;
+    width: 150px;
+    border-color: #59A5D8;
 }
 
 .content-profile {
-    display: inline-block;
-    box-shadow: 15px 15px 15px rgb(71 71 71);
+    box-shadow: 25px 30px 110px rgb(200 200 200);
     border-radius: 2rem;
     border-style: groove;
-    height: 300px;
     background-color: #9CC9E8;
-    margin-left: 5%;
-    margin-right: 5%;
-}
-
-.identity ul {
-    list-style-type: none;
-    padding: 0;
-    font-size: 25px;
+    border-color: #59A5D8;
+    margin-bottom: 50px;
 }
 
 .identity {
-    height: 100%;
     text-align: center;
-    float: left;
+    height: 100%;
+    font-size: 25px;
+    padding: 20px;
 }
 
-.identity li {
-    margin: 20px 0% 25px 15px;
-    border-bottom: solid 3px #101D42;
+.nome {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.stato-dip {
+    margin-right: 90px;
+    float: right;
+    text-align: center;
 }
 
 .addSkill {
-    margin-top: 100px;
-    font-size: 20px;
     text-align: center;
 }
 
 .addSkill input {
     border: groove;
-    background-color: #9cc9e8;
+    background-color: #c5e4fa;
     font-size: 18px;
-    border-radius: 10px;
+    border-radius: 1rem;
     margin-bottom: 20px;
     padding: 6px;
+    color: black;
 }
 
 .addSkill textarea {
     border: inset;
-    background-color: #9cc9e8;
+    background-color: #c5e4fa;
     border-radius: 1rem;
     margin-bottom: 20px;
     resize: none;
@@ -350,6 +372,7 @@ input[type=file]::file-selector-button:hover {
 
 .addSkill input::placeholder, .addSkill textarea::placeholder {
     text-align: center;
+    color: #383A43;
 }
 
 .stato {
@@ -367,8 +390,16 @@ input[type=file]::file-selector-button:hover {
 }
 
 #home {
-    width: 48%;
-    margin: auto 1%;
+    padding: 50px 0px;
+    width: 100%;
+}
+
+#home button {
+    padding: 5px;
+    margin-top: 15px;
+    border-radius: 0.5rem;
+    font-family: -webkit-pictograph;
+    font-size: 20px;
 }
 
 #flex {
@@ -387,10 +418,10 @@ input[type=file]::file-selector-button:hover {
 
 #flex input, #flex button {
     font-size: 18px;
-    border-radius: 2rem;
+    border-radius: 1rem;
     padding: 6px;
-    background-color: #59A5D8;
-    font-family: monospace;
+    background-color: white;
+    font-family: -webkit-pictograph;
     margin-bottom: auto;
 }
 
@@ -410,14 +441,14 @@ input[type=file]::file-selector-button:hover {
 
 #flex-team-button button, input[type=submit] {
     font-size: 18px;
-    border-radius: 2rem;
-    padding: 10px;
-    background-color: #59A5D8;
-    font-family: monospace;
+    border-radius: 1rem;
+    background-color: white;
+    font-family: -webkit-pictograph;
     margin-bottom: 20px;
+    padding: 10px;
 }
 
-#teamDescr, #specCompetenze {
+#teamDescr{
     border: inset;
     background-color: white;
     border-radius: 1rem;
@@ -425,6 +456,18 @@ input[type=file]::file-selector-button:hover {
     resize: none;
     font-size: 20px;
     margin-top: 10px;
+}
+
+#specCompetenze {
+    border: inset;
+    background-color: white;
+    border-radius: 1rem;
+    margin-bottom: 20px;
+    resize: none;
+    font-size: 20px;
+    margin-top: 10px;
+    width: 90%;
+    height: 120px;
 }
 
 #quantity, #skillName {

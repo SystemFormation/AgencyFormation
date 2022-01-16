@@ -15,20 +15,23 @@
     <jsp:param value="false" name="sameLocation"/>
 </jsp:include>
 <h1>Bentornato ${user.getName()}</h1>
-<div class="content">
+<div class="content-home">
     <div class="flex">
-        <div id="home"><a href="ListaCandidati">
-            <h2> Lista Candidati </h2></a>
+        <div id="home">
+            <h2> Lista Candidati </h2>
             <span id="noCandidati"></span>
             <p>Visualizza tutti i candidati che hanno proposto una candidatura.</p>
+            <button><a href="ListaCandidati">Accedi all'area</a></button>
         </div>
-        <div id="home"><a href="ListaTeam">
-            <h2> Lista Teams </h2></a>
+        <div id="home">
+            <h2> Lista Teams </h2>
             <p>Visualizza tutti i team presenti nell'azienda.</p>
+            <button><a href="ListaTeam">Accedi all'area</a></button>
         </div>
-        <div id="home"><a href="ListaColloqui">
-            <h2> Lista Colloqui </h2></a>
+        <div id="home">
+            <h2> Lista Colloqui </h2>
             <p>Visualizza tutti i candidati che hanno svolto il colloquio.</p>
+            <button><a href="ListaColloqui">Accedi all'area</a></button>
         </div>
     </div>
 </div>

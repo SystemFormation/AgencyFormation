@@ -7,11 +7,11 @@
 </head>
 <body>
 <%@include file="/static/Header.jsp" %>
-<div class="content">
+<div class="content-home">
     <h1>BENVENUTO IN AF CONSULTING</h1>
     <div class="wrap">
         <div class="text-block">
-            AF Consulting è alla ricerca di nuovo personale!
+            AF Consulting ricerca nuovo personale!
             L'azienda fornisce ai propri dipendenti una formazione ed un orientamento di qualità,
             rendendo più facile per il nuovo dipendente adattarsi all'esigenze dell'azienda.<br>
             <button><a href="static/Registrazione.html">Lavora con noi</a></button>
