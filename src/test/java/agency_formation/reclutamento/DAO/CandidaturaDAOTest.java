@@ -153,7 +153,7 @@ public class CandidaturaDAOTest {
     @Test
     @Order(11) //id candidato = 1
     public void retrieveCandidaturaByIdOk2() throws SQLException {
-        String query1 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(5,'test','test','Rifiutata','2022-01-10', 5);";
+        String query1 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(100,'test','test','Rifiutata','2022-01-10', 5);";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query1);
         statement.executeUpdate(query1);
@@ -164,7 +164,7 @@ public class CandidaturaDAOTest {
     @Test
     @Order(12) //id candidato = 1
     public void retrieveCandidaturaByIdOk3() throws SQLException {
-        String query1 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(6,'test','test','Assunzione','2022-01-10', 6);";
+        String query1 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(21,'test','test','Assunzione','2022-01-10', 6);";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query1);
         statement.executeUpdate(query1);

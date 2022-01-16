@@ -21,8 +21,8 @@ public class TeamDAOTest {
         Const.nomeDB = Const.NOME_DB_TEST;
         String insertDocumento = "insert into documenti (IdDocumento,MaterialeDiFormazione,IdHR,IdTeam) values (2,'//test',4,2)";
         String insertTeam = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(2, 'ReqMem',8,'Inspiegabili','Non siamo eroi',null,3)";
-        String insertUtente = "Insert into Utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(5,'test','test','test','test', 1)";
-        String insertDipendente = "insert into dipendenti (IdDipendente,Residenza, Telefono, Stato, AnnoDiNascita, IdTeam) values(5, 'Fisciano','77777',1,2000,2)";
+        String insertUtente = "Insert into Utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(201,'test','test','test','test', 1)";
+        String insertDipendente = "insert into dipendenti (IdDipendente,Residenza, Telefono, Stato, AnnoDiNascita, IdTeam) values(201, 'Fisciano','77777',1,2000,2)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement1 = connection.prepareStatement(insertDocumento);
         PreparedStatement statement2 = connection.prepareStatement(insertTeam);
@@ -43,6 +43,8 @@ public class TeamDAOTest {
         String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'Fitdiary', '8', 'Bastoncini Fitnuss', 'Vendiamo bastoncini di pesce', 'HTML', 3)";
         String insertDipendenteDefault = "insert into dipendenti (IdDipendente,Residenza, Telefono, Stato, AnnoDiNascita, IdTeam) values(2,'Fisciano', 118, 0, 2000, 1)";
         String insertDocumentoDefault = "insert into documenti (IdDocumento,MaterialeDiFormazione,IdHR,IdTeam) values (1,'\\\\', 4, 1)";
+        String insertSkills1 = "insert into skillsdipendenti(IdDipendente,IdSkill,Livello) values(2,1,5)";
+        String insertSkills2 = "insert into skillsdipendenti(IdDipendente,IdSkill,Livello) values(2,2,3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement1 = connection.prepareStatement(deleteDocumento);
         PreparedStatement statement2 = connection.prepareStatement(deleteTeam);
@@ -58,6 +60,8 @@ public class TeamDAOTest {
         statement5.executeUpdate(insertTeamDefault);
         statement6.executeUpdate(insertDipendenteDefault);
         statement7.executeUpdate(insertDocumentoDefault);
+        statement7.executeUpdate(insertSkills1);
+        statement7.executeUpdate(insertSkills2);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
@@ -288,7 +292,7 @@ public class TeamDAOTest {
         PreparedStatement statement = connection.prepareStatement(query_team_order);
         statement.executeUpdate(query_team_order);
         String query_safe0 = "SET SQL_SAFE_UPDATES=0";
-        String query_set_dipendente_team = "update dipendenti set Stato = 0, IdTeam = 5 where IdDipendente = 5";
+        String query_set_dipendente_team = "update dipendenti set Stato = 0, IdTeam = 5 where IdDipendente = 201";
         String query_safe1 = "SET SQL_SAFE_UPDATES=1";
         PreparedStatement statement1 = connection.prepareStatement(query_safe0);
         PreparedStatement statement2 = connection.prepareStatement(query_set_dipendente_team);
@@ -329,13 +333,13 @@ public class TeamDAOTest {
     @Test
     @Order(27)
     public void updateEmployeesStateWhenTeamDissolutionOK() throws SQLException {
-        String query_team_order = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(5, 'RTresd',8,'PolloFlitto','Non siamo eroi',null,3)";
+        String query_team_order = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(100, 'RTresd',8,'PolloFlitto','Non siamo eroi',null,3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query_team_order);
         statement.executeUpdate(query_team_order);
         int idDip = 2;
         assertTrue(TeamDAO.updateDipStateDissolution(idDip));
-        String query_delete = "delete from team where idTeam = 5";
+        String query_delete = "delete from team where idTeam = 100";
         PreparedStatement statement2 = connection.prepareStatement(query_delete);
         statement2.executeUpdate(query_delete);
     }

@@ -62,7 +62,6 @@ public class SkillDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idSkill);
             result1 = stmt.executeUpdate();
-
             return result1 != 0;
         } finally {
             DatabaseManager.closeConnessione(connection);

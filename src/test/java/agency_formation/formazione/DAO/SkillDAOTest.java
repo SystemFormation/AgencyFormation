@@ -90,6 +90,12 @@ public class SkillDAOTest {
     @Test
     @Order(4)
     public void removeSkillOK() throws SQLException {
+        String insertSkill1="INSERT INTO skill (IdSkill,NomeSkill, DescrizioneSkill) VALUES (200,'HTML', 'Conoscenze generali di HTML')";
+        String insertSkillDip1="INSERT INTO skillsdipendenti(IdDipendente,IdSkill, Livello) VALUES (2,200, 5)";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement statement = connection.prepareStatement(insertSkill1);
+        statement.executeUpdate(insertSkill1);
+        statement.executeUpdate(insertSkillDip1);
         assertTrue(SkillDAO.rimuoviSkill(3));
     }
 
