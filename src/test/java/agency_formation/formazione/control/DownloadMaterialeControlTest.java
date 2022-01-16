@@ -12,15 +12,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -92,7 +90,7 @@ public class DownloadMaterialeControlTest {
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);
             servlet.init(config);
-            servlet.doGet(request, response);
+            servlet.doPost(request, response);
             assertTrue(stringWriter.toString().equals("14")); //14 perchè 1 è il dip nul e 4 è il documento null
                                                              // iltest esegui l'if di dip e anche else di documento che da 4
         }
@@ -148,7 +146,8 @@ public class DownloadMaterialeControlTest {
         team.setIdTeam(1);
         dipendente.setTeam(team);
         Documento documento = new Documento();
-        documento.setMaterialeDiFormazione("\\IdeaProjects\\AgencyFormation\\src\\test\\test.pdf");
+        documento.setMaterialeDiFormazione("\\AgencyFormationFile\\Test\\test.pdf");
+
         config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
@@ -158,6 +157,22 @@ public class DownloadMaterialeControlTest {
         DownloadMaterialeControl servlet = Mockito.spy(DownloadMaterialeControl.class);
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(request.getSession()).thenReturn(session);
+        Mockito.when(response.getOutputStream()).thenReturn(new ServletOutputStream() {
+            @Override
+            public boolean isReady() {
+                return false;
+            }
+
+            @Override
+            public void setWriteListener(WriteListener writeListener) {
+
+            }
+
+            @Override
+            public void write(int b) throws IOException {
+
+            }
+        });
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);

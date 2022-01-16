@@ -5,6 +5,8 @@ import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
 import it.unisa.agency_formation.formazione.domain.Skill;
 import it.unisa.agency_formation.formazione.manager.FormazioneManager;
 import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
@@ -30,18 +32,19 @@ public class SkillControl extends HttpServlet {
             String skillName = request.getParameter("skillName");
             String skillDescr = request.getParameter("skillDescr");
             int skillLivello = Integer.parseInt(request.getParameter("quantity"));
-
-            skill.setNomeSkill(skillName);
-            skill.setDescrizioneSkill(skillDescr);
             if (skillName != null && skillDescr != null) {
-                if (skillName.trim().equalsIgnoreCase("")) {
+                if (skillName.trim().length()==0) {
                     response.getWriter().write("1"); // Skillnome vuoto
+                }else{
+                    skill.setNomeSkill(skillName);
                 }
-                if (skillDescr.trim().equalsIgnoreCase("")) {
+                if (skillDescr.trim().length()==0) {
                     response.getWriter().write("2"); //Skilldesc vuoto
+                }else{
+                    skill.setDescrizioneSkill(skillDescr);
                 }
                 try {
-                    Dipendente dip = DipendenteDAO.doRetrieveDipendenteById(user.getId());
+                    Dipendente dip = getDipendenteByIdFromManager(user.getId());
                     if (dip != null) {
                         //TODO SI DEVE FARE UNA PAGINA DIVERSA PER GLI ERRORI
                         if(!addSkillFromManager(skill)){
@@ -72,6 +75,7 @@ public class SkillControl extends HttpServlet {
                 response.sendRedirect("./static/Profilo.jsp");
             }
         } else {
+            response.getWriter().write("7"); //user null oppure non dipendente
             response.sendRedirect("./static/Login.html");
         }
 
@@ -93,5 +97,10 @@ public class SkillControl extends HttpServlet {
     public static boolean addSkillDipFromManager(int idSkill, int idDipendente, int skillLivello)throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.addSkillDipendente(idSkill, idDipendente, skillLivello);
+    }
+
+    public static Dipendente getDipendenteByIdFromManager(int idDip)throws SQLException {
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+        return autenticazioneManager.getDipendente(idDip);
     }
 }
