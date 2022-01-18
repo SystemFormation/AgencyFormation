@@ -20,7 +20,7 @@ public class CreateTeamControl extends HttpServlet {
     //da raffinare
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.setProperty("file.encoding" , "UTF-8");
+        System.setProperty("file.encoding", "UTF-8");
         Utente user = (Utente) req.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             Team team = new Team();
@@ -34,7 +34,7 @@ public class CreateTeamControl extends HttpServlet {
                     if (numeroDipendenti > 8) {
                         resp.getWriter().write("1");
                         resp.sendRedirect("/static/CreaTeam.jsp");
-                    }else{
+                    } else {
                         String nomeTeam = req.getParameter("fname");
                         String descrizione = req.getParameter("teamDescr");
                         team.setNomeProgetto(nomeProgetto);
@@ -42,7 +42,7 @@ public class CreateTeamControl extends HttpServlet {
                         team.setNomeTeam(nomeTeam);
                         team.setNumeroDipendenti(numeroDipendenti);
                         if (!creaTeamFromManager(team, idTM)) {
-                            resp.getWriter().write("2");//errore creazione team
+                            resp.getWriter().write("2"); //errore creazione team
                             resp.sendRedirect("./static/Error.html");
                             return;
                         }
@@ -52,8 +52,7 @@ public class CreateTeamControl extends HttpServlet {
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);
                     }
-                }
-                else{
+                } else {
                     resp.getWriter().write("4");
                     resp.sendRedirect("/static/CreaTeam.jsp");
                 }

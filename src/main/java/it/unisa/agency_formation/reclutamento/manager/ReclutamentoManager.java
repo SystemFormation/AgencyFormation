@@ -1,6 +1,5 @@
 package it.unisa.agency_formation.reclutamento.manager;
 
-import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 

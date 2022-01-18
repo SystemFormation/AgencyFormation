@@ -82,7 +82,7 @@ public class DownloadControl extends HttpServlet {
                     outStream.close();
                 }
             } else {
-               response.getWriter().write("1");//file non esistente
+               response.getWriter().write("1"); //file non esistente
                 response.sendRedirect("./static/Error.html");
             }
         } else {

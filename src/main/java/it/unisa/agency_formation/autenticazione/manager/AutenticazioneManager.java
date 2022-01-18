@@ -1,7 +1,6 @@
 package it.unisa.agency_formation.autenticazione.manager;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 

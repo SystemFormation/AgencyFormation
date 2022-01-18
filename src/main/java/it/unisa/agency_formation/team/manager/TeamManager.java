@@ -1,7 +1,6 @@
 package it.unisa.agency_formation.team.manager;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.team.domain.Team;
 
 import java.sql.SQLException;
@@ -34,5 +33,5 @@ public interface TeamManager {
 
     Team getTeamById(int idTeam) throws SQLException;
 
-    boolean modificaLeCompetenze(String competence,int idTeam) throws SQLException;
+    boolean modificaLeCompetenze(String competence, int idTeam) throws SQLException;
 }

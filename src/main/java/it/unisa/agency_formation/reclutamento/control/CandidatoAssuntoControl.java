@@ -6,8 +6,6 @@ import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
 import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
-import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
-import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

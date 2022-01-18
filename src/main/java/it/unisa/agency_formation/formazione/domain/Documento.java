@@ -9,11 +9,11 @@ public class Documento {
     public Documento() {
     }
 
-    public Documento(int idDocumento, String materialeDiFormazione, int idHR, int idTeam) {
-        this.idDocumento = idDocumento;
-        this.materialeDiFormazione = materialeDiFormazione;
-        this.idHR = idHR;
-        this.idTeam = idTeam;
+    public Documento(int IdDocumento, String MaterialeDiFormazione, int IdHR, int IdTeam) {
+        this.idDocumento = IdDocumento;
+        this.materialeDiFormazione = MaterialeDiFormazione;
+        this.idHR = IdHR;
+        this.idTeam = IdTeam;
     }
 
 

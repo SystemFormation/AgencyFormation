@@ -1,6 +1,5 @@
 package it.unisa.agency_formation.formazione.manager;
 
-import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.formazione.DAO.DocumentoDAO;
 import it.unisa.agency_formation.formazione.DAO.SkillDAO;
 import it.unisa.agency_formation.formazione.domain.Documento;

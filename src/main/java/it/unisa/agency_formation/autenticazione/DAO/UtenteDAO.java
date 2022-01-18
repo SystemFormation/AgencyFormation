@@ -50,7 +50,7 @@ public class UtenteDAO {
                     save.setInt(5, 4);
                     break;
             }
-            return save.executeUpdate()!=0;
+            return save.executeUpdate() != 0;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -265,7 +265,7 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                if(result.getInt("Ruolo")==1){
+                if (result.getInt("Ruolo") == 1) {
                     user.setRole(RuoliUtenti.CANDIDATO);
                 }
                 utenti.add(user);
@@ -285,26 +285,26 @@ public class UtenteDAO {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
-        String query = "select * from utenti inner join candidature on " +
-                "IdUtente=IdCandidato and candidature.Stato='Accettata'";
+        String query = "select * from utenti inner join candidature on "
+                + "IdUtente=IdCandidato and candidature.Stato='Accettata'";
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
             retrieve = connection.prepareStatement(query);
             result = retrieve.executeQuery();
-            while(result.next()){
+            while (result.next()) {
                 Utente user = new Utente();
                 user.setId(result.getInt("IdUtente"));
                 user.setName(result.getString("Nome"));
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                if(result.getInt("Ruolo")==1){
+                if (result.getInt("Ruolo") == 1) {
                     user.setRole(RuoliUtenti.CANDIDATO);
                 }
                 utenti.add(user);
             }
-            if (utenti.size() < 1){
-                return utenti = null;
+            if (utenti.size() < 1) {
+                return null;
             }
             return utenti;
         } finally {

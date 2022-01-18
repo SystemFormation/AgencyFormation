@@ -43,7 +43,7 @@ public class TeamDAO {
                 save.setString(4, team.getDescrizione());
                 save.setString(5, null);
                 save.setInt(6, idUtente);
-                return save.executeUpdate()!=0;
+                return save.executeUpdate() != 0;
             } finally {
                 DatabaseManager.closeConnessione(connection);
             }
@@ -148,7 +148,7 @@ public class TeamDAO {
                 team.setDescrizione(result.getString("Descrizione"));
                 team.setCompetenza(result.getString("Competenza"));
                 team.setIdTM(result.getInt("IdTM"));
-                if(result.getString("MaterialeDiFormazione")!=null){
+                if (result.getString("MaterialeDiFormazione") != null) {
                     documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
                     team.setDocumento(documento);
                 }
@@ -211,7 +211,7 @@ public class TeamDAO {
                 team.setDescrizione(result.getString("Descrizione"));
                 team.setCompetenza(result.getString("Competenza"));
                 team.setIdTM(result.getInt("IdTM"));
-                if(result.getString("MaterialeDiFormazione")!=null){
+                if (result.getString("MaterialeDiFormazione") != null) {
                     documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
                     team.setDocumento(documento);
                 }
@@ -259,7 +259,7 @@ public class TeamDAO {
                 team.setDescrizione(result.getString("Descrizione"));
                 team.setCompetenza(result.getString("Competenza"));
                 team.setIdTM(result.getInt("IdTM"));
-                if(result.getString("MaterialeDiFormazione")!=null){
+                if (result.getString("MaterialeDiFormazione") != null) {
                     documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
                     team.setDocumento(documento);
                 }
@@ -296,7 +296,7 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setString(1, competence);
             stmt.setInt(2, idTeam);
-           return stmt.executeUpdate()!=0;
+            return stmt.executeUpdate() != 0;
 
         } finally {
             DatabaseManager.closeConnessione(connection);
@@ -447,13 +447,13 @@ public class TeamDAO {
                 int idDipendente = result.getInt("IdDipendente");
                 listaIdDips.add(idDipendente);
             }
-            if(listaIdDips.size()>0) {
+            if (listaIdDips.size() > 0) {
                 return listaIdDips;
             } else {
                 listaIdDips = null;
                 return listaIdDips;
             }
-        }finally {
+        } finally {
             DatabaseManager.closeConnessione(connection);
         }
     }
@@ -469,7 +469,7 @@ public class TeamDAO {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, 1);
             stmt.setInt(2, idDip);
-            return stmt.executeUpdate()!=0;
+            return stmt.executeUpdate() != 0;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -504,7 +504,7 @@ public class TeamDAO {
                 dipUser.setSurname(result.getString("Cognome"));
                 dipUser.setPwd(result.getString("Pwd"));
                 dipUser.setEmail(result.getString("Mail"));
-                if(result.getInt("Ruolo") == 2){
+                if (result.getInt("Ruolo") == 2) {
                     dipUser.setRole(RuoliUtenti.DIPENDENTE);
                 }
                 DipsUsers.add(dipUser);

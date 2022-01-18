@@ -26,20 +26,20 @@ public class AddTeamControl extends HttpServlet {
                 if (action.equalsIgnoreCase("aggiungi")) {
                     int idDip = Integer.parseInt(req.getParameter("id"));
                     if (idDip > 0) {
-                        int idTeam = Integer.parseInt(req.getParameter("idTeam"));//messo questo controllo
-                        if(!setTeamDipendenteFromManager(idDip, idTeam)){
+                        int idTeam = Integer.parseInt(req.getParameter("idTeam")); //messo questo controllo
+                        if (!setTeamDipendenteFromManager(idDip, idTeam)) {
                             resp.getWriter().write("1"); // errore setTeam
                             resp.sendRedirect("./static/Error.html");
                             return;
                         }
-                        resp.getWriter().write("2");// set ok
+                        resp.getWriter().write("2"); // set ok
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);
                     } else {
                         resp.getWriter().write("3"); // idDip <1
                         resp.sendRedirect("/static/CreaTeam.jsp");
                     }
-                }else{
+                } else {
                     resp.getWriter().write("4");
                     resp.sendRedirect("/static/CreaTeam.jsp");
                 }

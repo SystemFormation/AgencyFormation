@@ -22,7 +22,7 @@ public class SkillDAO {
      * @pre skill!=null && dip!=null
      */
     public static boolean salvaSkill(Skill skill) throws SQLException {
-        if(skill==null){
+        if (skill == null) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -36,7 +36,7 @@ public class SkillDAO {
                 save = connection.prepareStatement(query);
                 save.setString(1, skill.getNomeSkill());
                 save.setString(2, skill.getDescrizioneSkill());
-                return save.executeUpdate()!=0;
+                return save.executeUpdate() != 0;
             } finally {
                 DatabaseManager.closeConnessione(connection);
             }
@@ -92,9 +92,8 @@ public class SkillDAO {
             }
             if (skills.size() > 0) {
                 return skills;
-            } else {
-                return null;
             }
+                return null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -155,7 +154,7 @@ public class SkillDAO {
             save.setInt(1, idDip);
             save.setInt(2, idSkill);
             save.setInt(3, skillLivello);
-            return save.executeUpdate()!=0;
+            return save.executeUpdate() != 0;
 
         } finally {
             DatabaseManager.closeConnessione(connection);
