@@ -34,8 +34,8 @@ public class AcceptCandidatureControl extends HttpServlet {
                 Date data1 = new SimpleDateFormat("yyyy-MM-dd hh:mm").parse(dataOra);
                 Timestamp timestamp = new Timestamp(data1.getTime());
                 try {
-                    Candidatura candidatura = getCandidatura(idCandidato);
-                    if (acceptCandidature(candidatura.getIdCandidatura(), user.getId(), timestamp)) {
+                    Candidatura candidatura = getCandidaturaFromManager(idCandidato);
+                    if (acceptCandidatureFromManager(candidatura.getIdCandidatura(), user.getId(), timestamp)) {
                         if (getAllFromManager() == null) {
                             response.getWriter().write("3");
                         } else {
@@ -60,12 +60,12 @@ public class AcceptCandidatureControl extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static Candidatura getCandidatura(int idCandidato) throws SQLException {
+    public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
 
-    public static boolean acceptCandidature(int idCandidatura, int idHR, Timestamp timestamp) throws SQLException {
+    public static boolean acceptCandidatureFromManager(int idCandidatura, int idHR, Timestamp timestamp) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.accettaCandidatura(idCandidatura, idHR, timestamp);
     }

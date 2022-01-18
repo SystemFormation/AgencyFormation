@@ -60,7 +60,7 @@ public class CandidaturaDAO {
             update.setString(1, document);
             update.setInt(2, idUtente);
             int result = update.executeUpdate();
-            return result != 0;
+            return result != -1;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -150,10 +150,7 @@ public class CandidaturaDAO {
                 cand.setIdHR(result.getInt("IdHR"));
                 candidature.add(cand);
             }
-            if (candidature.size() <= 0) {
-                candidature = null;
-            }
-            return candidature;
+          return candidature.size()>0 ? candidature : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -194,7 +191,7 @@ public class CandidaturaDAO {
             }
             retrieve.setInt(2, idCandidatura);
             int result = retrieve.executeUpdate();
-            return result != 0;
+            return result != -1;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -268,7 +265,7 @@ public class CandidaturaDAO {
      * @throws SQLException
      */
     public static boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
-        if (idCandidatura < 1 || idHR < 1 || data.after(new Timestamp(new java.util.Date().getTime()))) {
+        if (idCandidatura < 1 || idHR < 1) {
             return false;
         }
         modificaStatoCandidatura(idCandidatura, StatiCandidatura.Accettata);

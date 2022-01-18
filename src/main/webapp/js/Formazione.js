@@ -34,12 +34,16 @@ function checkFileMateriale(index) {
     var index = index;
     var fileUpload = document.getElementsByName("materiale")[index];
     var button = document.getElementsByName("uploadMateriale")[index];
-    if (fileUpload.files.length == 0) {
-        $('#materialeNotUpload').css("display", "inline");
-        $('#materialeNotUpload').css("color", "red");
-        $('#materialeNotUpload').css("font-size", "14px").html("<br>Seleziona un file");
+    if (fileUpload.files.item(0).size == 0) {
+        $('#curriculumNotUpload').css("display", "inline");
+        $('#curriculumNotUpload').css("color", "red");
+        $('#curriculumNotUpload').css("font-size", "14px").html("<br>Seleziona un file");
+    } else if (fileUpload.files.item(0).size > 10485760) {
+        $('#curriculumNotUpload').css("display", "inline");
+        $('#curriculumNotUpload').css("color", "red");
+        $('#curriculumNotUpload').css("font-size", "14px").html("<br>File troppo grande");
     } else {
-        button.setAttribute('type', "submit");
+        button.setAttribute('type', "submit")
     }
 }
 

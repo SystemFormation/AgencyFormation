@@ -41,7 +41,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      * Questa funzionalità permette di recuperare un dipendente
      * @param idDip, rappresenta l'id del dipendente
      * @throws SQLException
-     * return Dipendente se il dipendente esiste, null altrimenti
+     * @return Dipendente se il dipendente esiste, null altrimenti
      * */
     @Override
     public Dipendente getDipendente(int idDip) throws SQLException {

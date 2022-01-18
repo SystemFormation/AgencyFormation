@@ -36,12 +36,11 @@ public class TeamDAOTest {
     @AfterAll
     public static void finish() throws SQLException {
         String deleteUtente = "delete from Utenti where IdUtente=201";
-        String deleteDocumento = "delete from documenti where IdDocumento>1";
+        String deleteDocumento = "delete from documenti where IdDocumento>=1";
         String deleteTeam = "delete from team where idTeam>=1";
         String deleteDipendente = "delete from dipendenti where idDipendente > 2";
         String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'Fitdiary', '8', 'Bastoncini Fitnuss', 'Vendiamo bastoncini di pesce', 'HTML', 3)";
         String insertDipendenteDefault = "insert into dipendenti (IdDipendente,Residenza, Telefono, Stato, AnnoDiNascita, IdTeam) values(2,'Fisciano', 118, 0, 2000, 1)";
-        String insertDocumentoDefault = "insert into documenti (IdDocumento,MaterialeDiFormazione,IdHR,IdTeam) values (1,'\\\\', 4, 1)";
         String insertSkills1 = "insert into skillsdipendenti(IdDipendente,IdSkill,Livello) values(2,1,5)";
         String insertSkills2 = "insert into skillsdipendenti(IdDipendente,IdSkill,Livello) values(2,2,3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -51,18 +50,15 @@ public class TeamDAOTest {
         PreparedStatement statement4 = connection.prepareStatement(deleteUtente);
         PreparedStatement statement5 = connection.prepareStatement(insertTeamDefault);
         PreparedStatement statement6 = connection.prepareStatement(insertDipendenteDefault);
-        PreparedStatement statement7 = connection.prepareStatement(insertDocumentoDefault);
         PreparedStatement statement8 = connection.prepareStatement(insertDipendenteDefault);
-        PreparedStatement statement9 = connection.prepareStatement(insertDocumentoDefault);
         statement1.executeUpdate(deleteDocumento);
         statement2.executeUpdate(deleteTeam);
         statement3.executeUpdate(deleteDipendente);
         statement4.executeUpdate(deleteUtente);
         statement5.executeUpdate(insertTeamDefault);
         statement6.executeUpdate(insertDipendenteDefault);
-        statement7.executeUpdate(insertDocumentoDefault);
         statement8.executeUpdate(insertSkills1);
-        statement9.executeUpdate(insertSkills2);
+        statement8.executeUpdate(insertSkills2);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 

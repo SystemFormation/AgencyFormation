@@ -32,14 +32,10 @@ public class UtenteDAOTest {
     public static void finish() throws SQLException {
         String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(4,'Domenico','Pagliuca','lol','d.pagliuca@studenti.unisa.it',4)";
         String delete = "Delete from utenti where IdUtente>4";
-        String deleteCand = "Delete from candidature where IdCandidatura>=1";
-        String update = "update candidature set Stato='NonRevisionato' where idCandidatura=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(delete);
         statement.executeUpdate(query);
         statement.executeUpdate(delete);
-        statement.executeUpdate(deleteCand);
-        statement.executeUpdate(update);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
@@ -61,21 +57,21 @@ public class UtenteDAOTest {
     @Test
     @Order(3)
     public void salvataggioOK2() throws SQLException {
-        Utente user = new Utente("Gennaro", "Cecco", "genny@libero.it", "lol", RuoliUtenti.DIPENDENTE);
+        Utente user = new Utente("Mario", "Rossi", "mario@libero.it", "lol", RuoliUtenti.DIPENDENTE);
         assertTrue(UtenteDAO.salvaUtente(user));
     }
 
     @Test
     @Order(4)
     public void salvataggioOK3() throws SQLException {
-        Utente user = new Utente("Gennaro", "Cecco", "genny@libero.it", "lol", RuoliUtenti.HR);
+        Utente user = new Utente("Paki", "Espo", "paki@libero.it", "lol", RuoliUtenti.HR);
         assertTrue(UtenteDAO.salvaUtente(user));
     }
 
     @Test
     @Order(5)
     public void salvataggioOK4() throws SQLException {
-        Utente user = new Utente("Gennaro", "Cecco", "genny@libero.it", "lol", RuoliUtenti.TM);
+        Utente user = new Utente("Manu", "Sola", "manu@libero.it", "lol", RuoliUtenti.TM);
         assertTrue(UtenteDAO.salvaUtente(user));
     }
 
@@ -148,14 +144,14 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(19) //pass
+    @Order(14) //pass
     public void retrieveCandidatiConCandidatura1() throws SQLException {
         assertNotNull(UtenteDAO.doRetrieveCandidatoConCandidatura());
     }
 
 
     @Test
-    @Order(20)//not pass
+    @Order(15)//not pass
     public void recuperoCandidatiColloquio1() throws SQLException {
         String query = "update candidature set Stato='Rifiutata' where idCandidatura>=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -165,7 +161,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(21)//pass
+    @Order(16)//pass
     public void recuperoCandidatiColloquio2() throws SQLException {
         String query = "update candidature set Stato='Accettata' where idCandidatura=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -175,7 +171,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(22) //fail
+    @Order(17) //fail
     public void retrieveCandidatiConCandidatura2() throws SQLException{
         String query = "Delete from candidature where IdCandidatura>=1";
         Connection connection = DatabaseManager.getInstance().getConnection();

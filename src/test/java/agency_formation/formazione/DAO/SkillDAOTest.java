@@ -51,20 +51,6 @@ public class SkillDAOTest {
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
-    public void inserisciSkill() throws SQLException {
-        String insertSkill1="INSERT INTO skill (IdSkill,NomeSkill, DescrizioneSkill) VALUES (1,'HTML', 'Conoscenze generali di HTML')";
-        String insertSkill2="INSERT INTO skill (IdSkill,NomeSkill, DescrizioneSkill) VALUES (2,'CSS', 'Conoscenze BASILARI di CSS')";
-        String insertSkillDip1="INSERT INTO skillsdipendenti(IdDipendente,IdSkill, Livello) VALUES (2,1, 5)";
-        String insertSkillDip2="INSERT INTO skillsdipendenti(IdDipendente,IdSkill, Livello) VALUES (2,2, 3)";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(insertSkill1);
-        statement.executeUpdate(insertSkill1);
-        statement.executeUpdate(insertSkill2);
-        statement.executeUpdate(insertSkillDip1);
-        statement.executeUpdate(insertSkillDip2);
-
-    }
-
     @Test
     @Order(1)
     public void saveSkillFail() throws SQLException {
