@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'war'
     id 'checkstyle'
+    id 'jacoco'
 }
 
 test{

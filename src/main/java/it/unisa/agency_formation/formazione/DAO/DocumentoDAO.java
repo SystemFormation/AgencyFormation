@@ -13,9 +13,9 @@ public class DocumentoDAO {
 
     /**
      * Questa funzionalità permette di salvare un documento
-     *
-     * @param doc
+     * @param doc != null, rappresenta il documento da salvare
      * @throws SQLException doc!=null
+     * @return boolean true se il salvataggio va a buon fine, false altrimenti
      */
     public static boolean salvaDocumento(Documento doc) throws SQLException {
         if (doc == null) {
@@ -36,67 +36,13 @@ public class DocumentoDAO {
         }
     }
 
-    /**
-     * Questa funzionalità permette di eliminare un documento
-     *
-     * @param materialeFormazione
-     * @throws SQLException
-     * @pre matForm!=null
-     */
-    public static boolean rimuoviDocumento(String materialeFormazione) throws SQLException {
-        if (materialeFormazione == null) {
-            return false;
-        }
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        String query = "DELETE FROM " + TABLE_DOCUMENTO + " WHERE MaterialeDiFormazione=?";
-        PreparedStatement stmt = null;
-        try {
-            stmt = connection.prepareStatement(query);
-            stmt.setString(1, materialeFormazione);
-            return stmt.executeUpdate() != 0;
-        } finally {
-            DatabaseManager.closeConnessione(connection);
-        }
-    }
+
 
     /**
-     * Questa funzionalità permette di modificare il materiale di formazione di un team
-     *
-     * @param idHR
-     * @param materiale
-     * @param idTeam
-     * @throws SQLException
-     * @pre idDocument != null && ma != null && idTeam!=null
-     */
-    /*public static boolean modificaDocumento(int idHR, String materiale, int idTeam) throws SQLException {
-        if (idHR < 1 || materiale == null || idTeam < 1) {
-            return false;
-        }
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement stmt = null;
-        String query = "UPDATE " + TABLE_DOCUMENTO + " SET MaterialeDiFormazione=? WHERE IdHR=? and IdTeam=?";
-        try {
-            stmt = connection.prepareStatement(query);
-            stmt.setString(1, materiale);
-            stmt.setInt(2, idHR);
-            stmt.setInt(3, idTeam);
-            int result = stmt.executeUpdate();
-            if (result != -1) {
-                return true;
-            }
-            return false;
-        } finally {
-            DatabaseManager.closeConnessione(connection);
-        }
-    }
-*/
-    /**
      * Questa funzionalità permette di recuperare del materiale attraverso il team
-     *
-     * @param idTeam
-     * @return
+     * @param idTeam > 0, rappresenta l'id del team
+     * @return Documento se esiste, null altrimenti
      * @throws SQLException
-     * @pre idTeam>0
      */
     public static Documento recuperaDocumentoByTeam(int idTeam) throws SQLException {
         if (idTeam < 1) {
@@ -117,11 +63,10 @@ public class DocumentoDAO {
                 documento.setMaterialeDiFormazione(result.getString("MaterialeDiFormazione"));
                 documento.setIdHR(result.getInt("IdHR"));
                 documento.setIdTeam(result.getInt("IdTeam"));
-                return documento;
             }
+            return documento;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
-        return null;
     }
 }

@@ -24,22 +24,9 @@ public class CandidatoAssuntoControl extends HttpServlet {
         } else {
             try {
                 int idDipendente = user.getId();
-                boolean set = setRuolo(idDipendente);
-                if (!set) {
-                    response.getWriter().write("1"); //errore settaggio ruolo
-                    response.sendRedirect("/static/Error.html");
-                    return;
-                } else {
                     int annoNascita = Integer.parseInt(request.getParameter("annoDipendente"));
                     String residenza = request.getParameter("residenzaDipendente");
                     String telefono = request.getParameter("telefonoDipendente");
-
-                    /*POTREMMO SETTARE EMAIL E PASSWORD IN QUESTO MODO VOLENDO.
-                    NEL FORM DIREMO AL CANDIDATO CHE LE SUE CREDENZIALI SARANNO
-                    EMAIL:N.COGNOME@AFCONSULTING.IT E PWD:NOME.COGNOMEANNO
-                    String email=user.getName().charAt(0) +"."+ user.getSurname()+"@afconsulting.it";
-                    String password=user.getName()+"."+user.getSurname()+annoNascita;
-                    */
                     Dipendente dipendente = new Dipendente();
                     dipendente.setIdDipendente(idDipendente);
                     dipendente.setAnnoNascita(annoNascita);
@@ -54,8 +41,6 @@ public class CandidatoAssuntoControl extends HttpServlet {
                         request.getSession().invalidate();
                         response.sendRedirect("./static/Login.html");
                     }
-
-                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -67,10 +52,6 @@ public class CandidatoAssuntoControl extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static boolean setRuolo(int idCandidato) throws SQLException {
-        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-        return autenticazioneManager.modificaRuolo(idCandidato);
-    }
 
     public static boolean assumiCandidato(Dipendente dipendente) throws SQLException {
       AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();

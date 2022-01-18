@@ -88,8 +88,7 @@ public class DipendenteDAOTest {
     @Test
     @Order(5)
     public void doSaveEmployeeOk() throws SQLException {
-        Utente user = UtenteDAO.doRetrieveUtenteByID(5);
-        assertNotNull(UtenteDAO.doRetrieveUtenteByID(5));
+       Utente user = UtenteDAO.login("test@gmail.com","lol");
         Dipendente dip = new Dipendente();
         dip.setIdDipendente(user.getId());
         dip.setStato(StatiDipendenti.DISPONIBILE);
@@ -103,27 +102,27 @@ public class DipendenteDAOTest {
     @Order(6)
     public void doRetrieveDipendenteById1() throws SQLException {
         int id = -1;
-        assertNull(DipendenteDAO.doRetrieveDipendenteById(id));
+        assertNull(DipendenteDAO.recuperoDipendenteById(id));
     }
 
     @Test //id non presente nel db
     @Order(7)
     public void doRetrieveDipendeteById2() throws SQLException {
         int id = 484; //queso id non esiste
-        assertNull(DipendenteDAO.doRetrieveDipendenteById(id));
+        assertNull(DipendenteDAO.recuperoDipendenteById(id));
     }
 
     @Test //pass
     @Order(8)
     public void doRetrieveById3() throws SQLException {
         int id = 7;
-        assertNotNull(DipendenteDAO.doRetrieveDipendenteById(id));
+        assertNotNull(DipendenteDAO.recuperoDipendenteById(id));
     }
     @Test //pass
     @Order(9)
     public void doRetrieveById4() throws SQLException {
         int id = 5;
-        assertNotNull(DipendenteDAO.doRetrieveDipendenteById(id));
+        assertNotNull(DipendenteDAO.recuperoDipendenteById(id));
     }
 
 
@@ -144,87 +143,25 @@ public class DipendenteDAOTest {
         assertNotNull(DipendenteDAO.recuperaDipendenti());
     }
 
-
-    @Test
-    @Order(13)
-    public void recuperaByStateSizeLessOne1() throws SQLException {
-        String query = "update dipendenti set Stato=1 where Stato = 0";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.executeUpdate();
-        assertNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
-    }
-    @Test
-    @Order(14)
-    public void recuperaByStateSizeLessOne2() throws SQLException {
-        String query = "update dipendenti set Stato=0 where Stato = 1";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.executeUpdate();
-        assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
-    }
-    @Test
-    @Order(15)
-    public void doRetrieveByStateSize3() throws SQLException {
-        String query = "update dipendenti set Stato=1, IdTeam=null where Stato = 0";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.executeUpdate();
-        assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
-    }
-
-    @Test
-    @Order(16)
-    public void doRetrieveByStateSize4() throws SQLException {
-        String query= "Insert into utenti (IdUtente, Nome,Cognome,Pwd,Mail,Ruolo) values(8,'Luca','Rossi','lol','luca@gmail.com',2)";
-        String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita) " +
-                "values (8,'Fisciano','118',true,2000)";
-        String query1= "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(4,'TestTeam',5,'Test','test descr','Java EE',3)";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement1 = connection.prepareStatement(query);
-        PreparedStatement statement2 = connection.prepareStatement(query1);
-        PreparedStatement statement3 = connection.prepareStatement(insert);
-        statement1.executeUpdate();
-        statement2.executeUpdate();
-        statement3.executeUpdate();
-        assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.DISPONIBILE));
-    }
-    @Test
-    @Order(17)
-    public void doRetrieveByStateSize5() throws SQLException {
-        String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(9,'Luca','Rossi','lol','luca@gmail.com',2)";
-        String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
-                "values (9,'Fisciano','118',false,2000,100)";
-        String query1= "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(100,'TestTeam',5,'Test','test descr','Java EE',3)";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement1 = connection.prepareStatement(query);
-        PreparedStatement statement2 = connection.prepareStatement(query1);
-        PreparedStatement statement3 = connection.prepareStatement(insert);
-        statement1.executeUpdate();
-        statement2.executeUpdate();
-        statement3.executeUpdate();
-        assertNotNull(DipendenteDAO.recuperaByStato(StatiDipendenti.OCCUPATO));
-    }
-
     @Test //not pass because idDip<1
     @Order(18)
     public void setTeamDipendente1() throws SQLException {
-        assertFalse(DipendenteDAO.setTeamDipendente(0,1));
+        assertFalse(DipendenteDAO.setIdTeamDipendente(0,1));
     }
     @Test //not pass because idTeam<1
     @Order(19)
     public void setTeamDipendente2() throws SQLException {
-        assertFalse(DipendenteDAO.setTeamDipendente(2,0));
+        assertFalse(DipendenteDAO.setIdTeamDipendente(2,0));
     }
     @Test //not pass because idDip doesn't exists
     @Order(20)
     public void setTeamDipendente3() throws SQLException {
-        assertFalse(DipendenteDAO.setTeamDipendente(200,1));
+        assertFalse(DipendenteDAO.setIdTeamDipendente(200,1));
     }
     @Test //pass
     @Order(21)
     public void setTeamDipendente4() throws SQLException {
-        assertTrue(DipendenteDAO.setTeamDipendente(5,2));
+        assertTrue(DipendenteDAO.setIdTeamDipendente(5,2));
     }
 
     @Test //non ci sono dipendenti

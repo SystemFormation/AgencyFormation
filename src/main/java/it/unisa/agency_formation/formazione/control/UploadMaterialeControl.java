@@ -44,7 +44,7 @@ public class UploadMaterialeControl extends HttpServlet {
             documento.setIdTeam(idTeam);
             documento.setIdHR(user.getId());
             try {
-                boolean esito = saveDocument(documento);
+                boolean esito = saveDocumentFromManager(documento);
                 if (esito) {
                     response.getWriter().write("4"); //documento salvato
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ListaTeam");
@@ -64,7 +64,7 @@ public class UploadMaterialeControl extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-    public static boolean saveDocument(Documento documento) throws SQLException {
+    public static boolean saveDocumentFromManager(Documento documento) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.salvaDocumento(documento);
 
