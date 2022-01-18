@@ -2,7 +2,6 @@ package agency_formation.formazione.DAO;
 
 import it.unisa.agency_formation.formazione.DAO.DocumentoDAO;
 import it.unisa.agency_formation.formazione.domain.Documento;
-import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.utils.Const;
 import it.unisa.agency_formation.utils.DatabaseManager;
 import org.junit.jupiter.api.*;
@@ -60,7 +59,7 @@ public class DocumentoDAOTest {
         Documento doc = new Documento(2,"/",4,4);
         assertTrue(DocumentoDAO.salvaDocumento(doc));
     }
-
+/*
     @Test //non rimuovi il documento
     @Order(3)
     public void rimuoviDocumentoFail() throws SQLException {
@@ -74,7 +73,7 @@ public class DocumentoDAOTest {
         String path= "/";
         assertTrue(DocumentoDAO.rimuoviDocumento(path));
     }
-
+*/
     /*@Test //non aggiunge il documento
     @Order(5)
     public void modificaDocumentoFail1() throws SQLException {

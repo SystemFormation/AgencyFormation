@@ -1,24 +1,22 @@
 package agency_formation.formazione.DAO;
 
 
-import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.formazione.DAO.SkillDAO;
 import it.unisa.agency_formation.formazione.domain.Skill;
 import it.unisa.agency_formation.utils.Const;
 import it.unisa.agency_formation.utils.DatabaseManager;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
- * Questa classe racchiude tutti i casi di test riguardante SkillDAO
- */
+
 public class SkillDAOTest {
 
     @BeforeAll
@@ -81,110 +79,67 @@ public class SkillDAOTest {
         assertTrue(SkillDAO.salvaSkill(skill));
     }
 
-    @Test
-    @Order(3)
-    public void removeSkillFail() throws SQLException {
-        assertFalse(SkillDAO.rimuoviSkill(0));
-    }
-
-    @Test
-    @Order(4)
-    public void removeSkillOK() throws SQLException {
-        String insertSkill1="INSERT INTO skill (IdSkill,NomeSkill, DescrizioneSkill) VALUES (200,'HTML', 'Conoscenze generali di HTML')";
-        String insertSkillDip1="INSERT INTO skillsdipendenti(IdDipendente,IdSkill, Livello) VALUES (2,200, 5)";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(insertSkill1);
-        statement.executeUpdate(insertSkill1);
-        statement.executeUpdate(insertSkillDip1);
-        assertTrue(SkillDAO.rimuoviSkill(200));
-    }
-
-
-    @Test // Funziona con il db popolato
-    @Order(5)
-    public void doRetrieveAllPass() throws SQLException {
-        assertNotNull(SkillDAO.recuperaSkills());
-    }
-
     @Test //pass
-    @Order(6)
+    @Order(3)
     public void doRetrieveByNamePass() throws SQLException {
         String nomeSkill = "HTML";
         assertNotNull(SkillDAO.recuperaSkillByNome(nomeSkill));
     }
 
     @Test
-    @Order(7)
+    @Order(4)
     public void doRetrieveByNameNull() throws SQLException {
         String nomeSkill = null;
         assertNull(SkillDAO.recuperaSkillByNome(nomeSkill));
     }
 
-
     @Test //not pass idSkill<1
-    @Order(8)
+    @Order(5)
     public void saveSkillDipIdSkillFail() throws SQLException {
         assertFalse(SkillDAO.salvaSkillDipendente(0, 1, 4));
     }
 
     @Test //not pass idDip < 1
-    @Order(9)
+    @Order(6)
     public void saveSkillDipIdDipNull() throws SQLException {
         assertFalse(SkillDAO.salvaSkillDipendente(1, 0, 4));
     }
 
     @Test //not pass idDip < 1 && idSkill < 1
-    @Order(10)
+    @Order(7)
     public void saveSkillDipNullAndFail() throws SQLException {
         assertFalse(SkillDAO.salvaSkillDipendente(0, 0, 4));
     }
 
     @Test //pass
-    @Order(11)
+    @Order(8)
     public void saveSkillDipPass() throws SQLException {
         assertTrue(SkillDAO.salvaSkillDipendente(1, 100, 4));
     }
 
     @Test
-    @Order(12)
+    @Order(9)
     public void retrieveLastIdPass() throws SQLException {
         assertNotNull(SkillDAO.recuperaUltimaSkill());
     }
 
 
     @Test
-    @Order(13)//dip non ha skill
+    @Order(10)//dip non ha skill
     public void doRetrieveSkillByIdDipendenteFail() throws SQLException {
     assertNull(SkillDAO.recuperoSkillsByIdDipendente(101));
 
     }
 
     @Test // idDip<1
-    @Order(14)
+    @Order(11)
      public void doRetrieveSkillByIdDipendenteFail1() throws SQLException {
         assertNull(SkillDAO.recuperoSkillsByIdDipendente(0));
     }
 
     @Test
-    @Order(15)
+    @Order(12)
     public void doRetrieveSkillByIdDipendentePass() throws SQLException {
         assertNotNull(SkillDAO.recuperoSkillsByIdDipendente(2));
     }
-
-
-    @Test // Funziona con il db vuoto
-    @Order(16)
-    public void doRetrieveAllFail() throws SQLException {
-        String deleteSkill = "Delete from skill where IdSkill>=1";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteSkill);
-        preparedStatement.executeUpdate(deleteSkill);
-        assertNull(SkillDAO.recuperaSkills());
-        inserisciSkill();
-    }
-
-
-
-
-
 }

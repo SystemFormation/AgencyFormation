@@ -51,7 +51,7 @@ public class TeamManagerTest {
     }
 
     @Test
-    public void rimuoviDipendeteFail() throws SQLException {
+    public void rimuoviDipendenteFail() throws SQLException {
         int idDip = -1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.rimuoviDipendente(idDip)).thenReturn(false);
@@ -226,19 +226,19 @@ public class TeamManagerTest {
         String competence = "HTML";
         int idTeam = 2;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
-            mocked.when(() -> TeamDAO.modificaCompetenze(competence, idTeam)).thenReturn(true);
+            mocked.when(() -> TeamDAO.specificaCompetenze(competence, idTeam)).thenReturn(true);
         }
-        assertTrue(aut.modificaLeCompetenze(competence, idTeam));
+        assertTrue(aut.specificaLeCompetenze(competence, idTeam));
     }*/
 
     @Test
-    public void modificaLeCompetenzeFail() throws SQLException {
+    public void specificaLeCompetenzeFail() throws SQLException {
         String compentence = "HTML";
         int idTeam = -1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
-            mocked.when(() -> TeamDAO.modificaCompetenze(compentence, idTeam)).thenReturn(false);
+            mocked.when(() -> TeamDAO.specificaCompetenze(compentence, idTeam)).thenReturn(false);
         }
-        assertFalse(aut.modificaLeCompetenze(compentence, idTeam));
+        assertFalse(aut.specificaLeCompetenze(compentence, idTeam));
     }
 
 }

@@ -9,77 +9,127 @@ import java.util.ArrayList;
 
 public class TeamManagerImpl implements TeamManager {
 
+    /**
+     * Questo metodo permette di creare un team
+     * @param team, specifica il team da salvare
+     * @param idUtente, identifica il TM che crea il team
+     * @return boolean
+     * @throws SQLException
+     */
     @Override
     public boolean creaTeam(Team team, int idUtente) throws SQLException {
        return TeamDAO.salvaTeam(team, idUtente);
     }
 
-/*    @Override
-    public ArrayList<Dipendente> getDipendenti(StatiDipendenti state) throws SQLException {
-        return DipendenteDAO.recuperaByStato(state);
-    }*/
-
-  /*  @Override
-    public boolean addDipendente(int idTeam, Dipendente dip) throws SQLException {
-       return TeamDAO.aggiungiDipendente(idTeam, dip.getIdDipendente());
-    } Non viene utilizzato */
-
+    /**
+     * Questo metodo permette di rimuovere un dipendente da un team
+     * @param idDip, identifica il dipendente da rimuovere
+     * @return boolean
+     * @throws SQLException
+     */
     @Override
     public boolean rimuoviDipendente(int idDip) throws SQLException {
         return TeamDAO.rimuoviDipendente(idDip);
     }
 
+    /**
+     * Questo metodo permette di visualizzare tutti i team creati da uno specifico TM
+     * @param idUtente, identifica l'utente
+     * @return ArrayList<Team>
+     * @throws SQLException
+     */
     @Override
     public ArrayList<Team> visualizzaTeams(int idUtente) throws SQLException {
         return TeamDAO.recuperaTeamDiUnTM(idUtente);
     }
 
+    /**
+     * Questo metodo permette di visualizzare tutti i team
+     * @return ArrayList<Team>
+     * @throws SQLException
+     */
     @Override
     public ArrayList<Team> visualizzaTuttiTeams() throws SQLException {
         return TeamDAO.recuperaTuttiTeam();
     }
-/*
-    @Override
-    public boolean sciogliTeam(int idTeam) throws SQLException {
-        return TeamDAO.rimuoviTeam(idTeam);
-    }
-*/
+
+    /**
+     * Questo metodo permette di recuperare l'ultimo team creato
+     * @return int, l'id dell'utlimo team creato
+     * @throws SQLException
+     */
     @Override
     public int viewLastIdTeam() throws SQLException {
         return TeamDAO.recuperaIdUltimoTeamCreato();
     }
 
+    /**
+     * Questo metodo permette di recuperare tutti i dipendenti di uno specifico team
+     * @param idTeam, identifica il team
+     * @return ArrayList<Integer>
+     * @throws SQLException
+     */
     @Override
     public ArrayList<Integer> recuperaIdDipendentiDelTeam(int idTeam) throws SQLException {
         return TeamDAO.recuperaIdTeamMemberFromTeam(idTeam);
     }
 
+    /**
+     * Questo metodo permette di
+     * @param idDip, identifica il dipendente
+     * @return boolean
+     * @throws SQLException
+     */
     @Override
     public boolean updateDipsDisso(int idDip) throws SQLException {
        return TeamDAO.updateDipStateDissolution(idDip);
 
     }
 
+    /**
+     * Questo metodo permette di sciogliere il team
+     * @param idTeam, identifica il team da sciogliere
+     * @return boolean
+     * @throws SQLException
+     */
     @Override
     public boolean sciogliTeam(int idTeam) throws SQLException {
         return TeamDAO.rimuoviTeam(idTeam);
 
     }
 
+    /**
+     * Questo metodo permette di recuperare dipendenti di un team
+     * @return ArrayList<Dipendente>
+     * @throws SQLException
+     */
     @Override
     public ArrayList<Dipendente> recuperaDipendentiDelTeam() throws SQLException {
         return TeamDAO.recuperaDipendentiDelTeam();
 
     }
 
+    /**
+     * Questo metodo permette di ritornare un team attraverso il suo id
+     * @param idTeam, identifica il team
+     * @return Team,
+     * @throws SQLException
+     */
     @Override
     public Team getTeamById(int idTeam) throws SQLException {
         return TeamDAO.recuperaTeamById(idTeam);
     }
 
+    /**
+     * Questo metodo permette di modificare le competenze
+     * @param competence, sperifica con quale competenza dev'essere aggiornato
+     * @param idTeam, identifica il team
+     * @return boolean
+     * @throws SQLException
+     */
     @Override
-    public boolean modificaLeCompetenze(String competence, int idTeam) throws SQLException {
-        return TeamDAO.modificaCompetenze(competence, idTeam);
+    public boolean specificaLeCompetenze(String competence, int idTeam) throws SQLException {
+        return TeamDAO.specificaCompetenze(competence, idTeam);
     }
 
 }

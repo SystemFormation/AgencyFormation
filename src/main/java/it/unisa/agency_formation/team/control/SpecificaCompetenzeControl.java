@@ -47,6 +47,6 @@ public class SpecificaCompetenzeControl extends HttpServlet {
     }
     public static boolean inserimentoCompetenzeNelTeam(String competenze, int idTeam) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
-        return teamManager.modificaLeCompetenze(competenze, idTeam);
+        return teamManager.specificaLeCompetenze(competenze, idTeam);
     }
 }

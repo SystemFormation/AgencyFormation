@@ -1,6 +1,5 @@
 package agency_formation.team.DAO;
 
-import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.utils.Const;
@@ -221,7 +220,7 @@ public class TeamDAOTest {
         statement.executeUpdate(query_team_order);
         String competence = null;
         int idTeam = 0;
-        assertFalse(TeamDAO.modificaCompetenze(competence, idTeam));
+        assertFalse(TeamDAO.specificaCompetenze(competence, idTeam));
         String query_delete = "delete from team where idTeam = 5";
         PreparedStatement statement2 = connection.prepareStatement(query_delete);
         statement2.executeUpdate(query_delete);
@@ -232,7 +231,7 @@ public class TeamDAOTest {
     public void updateCompetenceFail2() throws SQLException {
         String competence = null;
         int idTeam = -1;
-        assertFalse(TeamDAO.modificaCompetenze(competence, idTeam));
+        assertFalse(TeamDAO.specificaCompetenze(competence, idTeam));
     }
 
     @Test
@@ -244,7 +243,7 @@ public class TeamDAOTest {
         statement.executeUpdate(query_team_order);
         String competence = "HTML";
         int idTeam = 5;
-        assertTrue(TeamDAO.modificaCompetenze(competence, idTeam));
+        assertTrue(TeamDAO.specificaCompetenze(competence, idTeam));
         String query_delete = "delete from team where idTeam = 5";
         PreparedStatement statement2 = connection.prepareStatement(query_delete);
         statement2.executeUpdate(query_delete);
@@ -252,42 +251,13 @@ public class TeamDAOTest {
 
     @Test
     @Order(20)
-    public void retrieveCompetenceFail() throws SQLException {
-        int idTeam = -1;
-        assertNull(TeamDAO.recuperaCompetenza(idTeam));
-    }
-
-    @Test
-    @Order(21)
-    public void retrieveCompetenceOk1() throws SQLException {
-        String query_team_order = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(5, 'RTresd',8,'PolloFlitto','Non siamo eroi','HTML',3)";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query_team_order);
-        statement.executeUpdate(query_team_order);
-        int idTeam = 5;
-        assertNotNull(TeamDAO.recuperaCompetenza(idTeam));
-        String query_delete = "delete from team where idTeam = 5";
-        PreparedStatement statement2 = connection.prepareStatement(query_delete);
-        statement2.executeUpdate(query_delete);
-    }
-
-    @Test
-    @Order(22)
-    public void retrieveCompetenceOk2() throws SQLException {
-        int idTeam = 2;
-        assertNull(TeamDAO.recuperaCompetenza(idTeam));
-
-    }
-
-    @Test
-    @Order(23)
     public void retrieveAllIdEmployeesfromTeamFail() throws SQLException {
         int idTeam = -1;
         assertNull(TeamDAO.recuperaIdTeamMemberFromTeam(idTeam));
     }
 
     @Test
-    @Order(24)
+    @Order(21)
     public void retrieveAllIdEmployeesfromTeamOK() throws SQLException {
         String query_team_order = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(5, 'RTresd',8,'PolloFlitto','Non siamo eroi','HTML',3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -310,7 +280,7 @@ public class TeamDAOTest {
     }
 
     @Test
-    @Order(25)
+    @Order(22)
     public void recoverEmployeesOK() throws SQLException {
         String deleteTeam = "delete from team where idTeam =1";
         String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'Fitdiary', '8', 'Bastoncini Fitnuss', 'Vendiamo bastoncini di pesce', 'HTML', 3)";
@@ -326,14 +296,14 @@ public class TeamDAOTest {
     }
 
     @Test
-    @Order(26)
+    @Order(23)
     public void updateEmployeesStateWhenTeamDissolutionFail() throws SQLException {
         int idDip = -1;
         assertFalse(TeamDAO.updateDipStateDissolution(idDip));
     }
 
     @Test
-    @Order(27)
+    @Order(24)
     public void updateEmployeesStateWhenTeamDissolutionOK() throws SQLException {
         String query_team_order = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(100, 'RTresd',8,'PolloFlitto','Non siamo eroi',null,3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -347,7 +317,7 @@ public class TeamDAOTest {
     }
 
     @Test
-    @Order(28)
+    @Order(25)
     public void recoverEmployeesState0() throws SQLException {
         String query = "update dipendenti set Stato = 0 where idDipendente = 2";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -357,7 +327,7 @@ public class TeamDAOTest {
     }
 
     @Test
-    @Order(29)
+    @Order(26)
     public void recoverEmployeesState1() throws SQLException {
         String query = "update dipendenti set Stato = 1 where idDipendente = 2";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -367,7 +337,7 @@ public class TeamDAOTest {
     }
 
     @Test
-    @Order(30)
+    @Order(27)
     public void recoverEmployeesFail() throws SQLException {
         String deleteDipendente = "delete from dipendenti where idDipendente >1";
         Connection connection = DatabaseManager.getInstance().getConnection();
