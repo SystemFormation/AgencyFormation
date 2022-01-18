@@ -2,19 +2,19 @@
 
 .body {
     margin: 0;
-    font-family: monospace;
+    font-family: -webkit-pictograph;
 }
 
-.content {
+.content-home {
     text-align: center;
 }
 
-.content h1 {
+.content-home h1 {
     font-size: 60px;
 }
 
 .text-block {
-    box-shadow: 15px 15px 30px rgb(71, 71, 71); /*Rich Black FOGRA 39*/
+    box-shadow: 25px 30px 110px rgb(200 200 200); /*Rich Black FOGRA 39*/
     padding: 10px 10px 15px 10px;
     background-color: #9CC9E8;
     border-radius: 2rem;
@@ -23,13 +23,15 @@
     width: 40%;
     margin: auto 2% auto 2%;
     font-size: 28px;
+    border-color: #59A5D8;
+    border-style: groove;
 }
 
 .text-block button {
     padding: 10px 10px 10px 10px;
     margin-top: 30px;
     border-radius: 1rem;
-    font-family: monospace;
+    font-family: -webkit-pictograph;
 }
 .text-block a {
     text-decoration: none;
@@ -42,7 +44,7 @@
 }
 
 .image {
-    box-shadow: 15px 15px 30px rgb(71, 71, 71); /*Rich Black FOGRA 39*/
+    box-shadow: 25px 30px 110px rgb(200 200 200); /*Rich Black FOGRA 39*/
     float: right;
     background: url(../img/AF_Home.png) center no-repeat;
     width: 1007px;
@@ -72,7 +74,7 @@
 }
 
 .login-block {
-    font-family: monospace;
+    font-family: -webkit-pictograph;
     text-align: center;
     width: 500px;
     height: 500px;
@@ -82,7 +84,7 @@
     transform: translate(-50%, -50%);
     background-color: rgba(126, 171, 202, 0.7); /*Air Superiority Blue*/
     border: 2px solid rgb(11, 11, 11);
-    box-shadow: 20px 20px 20px rgb(11, 11, 11); /*Rich Black FOGRA 39*/
+    box-shadow: 25px 30px 110px rgb(200 200 200); /*Rich Black FOGRA 39*/
     border-radius: 1rem;
 }
 
@@ -146,9 +148,10 @@ input:focus {
     width: 100px;
     height: 40px;
     font-size: 22px;
-    font-family: monospace;
-    color: #1E1E24; /*Raisin Black*/
-    background-color: rgba(0, 0, 0, .0);
+    font-family: -webkit-pictograph;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .content h2 {
@@ -171,7 +174,7 @@ input:focus {
 }
 
 .reg-block {
-    font-family: monospace;
+    font-family: -webkit-pictograph;
     width: 650px;
     height: 900px;
     background: url(../img/Cartella.png);
@@ -200,7 +203,7 @@ input:focus {
     margin: 25px 5% 25px 5%;
     text-align: center;
     font-size: 30px;
-    font-family: monospace;
+    font-family: -webkit-pictograph;
     height: 40px;
     color: #1E1E24; /*Raisin Black*/
     border: none;
@@ -223,10 +226,11 @@ input:focus {
     width: 190px;
     height: 45px;
     font-size: 28px;
-    font-family: monospace;
-    color: #1E1E24; /*Raisin Black*/
-    background-color: rgba(0, 0, 0, .0);
+    font-family: -webkit-pictograph;
+    color: black;
+    background-color: white;
     margin-top: 80px;
+    border-radius: 10px;
 }
 
 #logo {

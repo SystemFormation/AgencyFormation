@@ -21,26 +21,28 @@
 </jsp:include>
 
 <h1>Bentornato ${user.getName()}</h1>
-<div class="content">
+<div class="content-home">
     <div class="flex">
         <c:choose>
             <c:when test="${candidatura.getStato() != StatiCandidatura.Accettata && candidatura.getStato() != StatiCandidatura.Assunzione}">
                 <c:if test="${candidatura==null||candidatura.getDocumentiAggiuntivi()==null}">
-                    <div id="home"><a href="UploadCandidatureControl">
-                        <h2> Caricamento Documenti </h2></a>
-                        <p> Carica il tuo curriculum e in seguito anche i documenti, per proporre la tua candidatura </p>
+                    <div id="home">
+                        <h2> Caricamento Documenti </h2>
+                        <p> Carica il tuo curriculum e in seguito anche i documenti, per proporre la tua
+                            candidatura </p>
+                        <button><a href="UploadCandidatureControl">Accedi all'area</a></button>
                     </div>
                 </c:if>
             </c:when>
             <c:when test="${candidatura.getStato() == StatiCandidatura.Accettata}">
                 <div id="home">
-                    <h2> Data e ora colloquio:</h2></p>
+                    <h2> Data e ora colloquio:</h2>
                     <p> ${candidatura.getDataOraColloquio()} </p>
                 </div>
             </c:when>
         </c:choose>
         <c:if test="${candidatura!=null && candidatura.getCurriculum()!=null}">
-            <div id="stato"> <!-- NON HA CSS -->
+            <div id="stato">
                 <c:choose>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Accettata}">
                         <h2>Stato della tua candidatura:</h2>
@@ -49,14 +51,17 @@
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Rifiutata}">
                         <h2>Stato della tua candidatura:</h2>
                         <p>Rifiutata</p>
-                        <div id="home"><a href="RicandidaturaControl">
-                            <h2> Ricandidatura </h2></a>
+                        <div id="home">
+                            <h2> Ricandidatura </h2>
                             <p>Ricandidati caricando il tuo curriculum e in seguito anche i documenti</p>
+                            <button><a href="RicandidaturaControl">Accedi all'area</a></button>
                         </div>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">
-                        <h2>Stato della tua candidatura:</h2>
-                        <p>Non Revisionato</p>
+                        <div id="home">
+                            <h2>Stato della tua candidatura:</h2>
+                            <p>Non Revisionato</p>
+                        </div>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Assunzione}">
                         <h1>Compila questi campi per completare la tua assunzione</h1>

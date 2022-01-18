@@ -15,15 +15,20 @@
     <jsp:param value="false" name="sameLocation"/>
 </jsp:include>
 <h1>Bentornato ${user.getName()}</h1>
-<div class="content">
+<div class="content-home">
     <div class="flex">
-        <div id="home"><a href="ProfiloControl">
-            <h2> Profilo </h2></a>
+        <div id="home">
+            <h2> Profilo </h2>
             <p>Accedi al tuo profilo personale.</p>
+            <button><a href="ProfiloControl">Accedi all'area</a></button>
         </div>
         <div name="materialeDaNascondere" id="home">
-            <h2 id="materiale" onclick="view()" onmouseover="viewLink()" onmouseleave="deleteSpanMateriale()"> Materiale
-                di formazione </h2>
+            <h2> Materiale </h2>
+            <p>Visualizza il materiale di formazione caricato dall'HR, utile per svolgere il progetto.</p>
+            <button id="materiale" onclick="view()" onmouseover="viewLink()" onmouseleave="deleteSpanMateriale()">
+                Visualizza
+            </button>
+            <br>
             <div id="drop" class="dropdown-content" style="display:none">
                 <a href="DownloadMaterialeControl" id="hrefDocumenti">
                     <img src="img/Materiale.png">
