@@ -36,7 +36,7 @@ public class TeamDAOTest {
 
     @AfterAll
     public static void finish() throws SQLException {
-        String deleteUtente = "delete from Utenti where IdUtente=5";
+        String deleteUtente = "delete from Utenti where IdUtente=201";
         String deleteDocumento = "delete from documenti where IdDocumento>1";
         String deleteTeam = "delete from team where idTeam>=1";
         String deleteDipendente = "delete from dipendenti where idDipendente > 2";
@@ -53,6 +53,8 @@ public class TeamDAOTest {
         PreparedStatement statement5 = connection.prepareStatement(insertTeamDefault);
         PreparedStatement statement6 = connection.prepareStatement(insertDipendenteDefault);
         PreparedStatement statement7 = connection.prepareStatement(insertDocumentoDefault);
+        PreparedStatement statement8 = connection.prepareStatement(insertDipendenteDefault);
+        PreparedStatement statement9 = connection.prepareStatement(insertDocumentoDefault);
         statement1.executeUpdate(deleteDocumento);
         statement2.executeUpdate(deleteTeam);
         statement3.executeUpdate(deleteDipendente);
@@ -60,8 +62,8 @@ public class TeamDAOTest {
         statement5.executeUpdate(insertTeamDefault);
         statement6.executeUpdate(insertDipendenteDefault);
         statement7.executeUpdate(insertDocumentoDefault);
-        statement7.executeUpdate(insertSkills1);
-        statement7.executeUpdate(insertSkills2);
+        statement8.executeUpdate(insertSkills1);
+        statement9.executeUpdate(insertSkills2);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
@@ -152,7 +154,7 @@ public class TeamDAOTest {
         assertTrue(TeamDAO.rimuoviDipendente(idDipendente));
         String deleteDipendente2 = "delete from dipendenti where IdDipendente=2";
         PreparedStatement statement3 = connection.prepareStatement(deleteDipendente2);
-        statement3.executeUpdate(deleteDipendente);
+        statement3.executeUpdate(deleteDipendente2);
     }
 
     @Test
