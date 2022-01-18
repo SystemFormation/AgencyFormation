@@ -96,7 +96,7 @@ public class SkillDAOTest {
         PreparedStatement statement = connection.prepareStatement(insertSkill1);
         statement.executeUpdate(insertSkill1);
         statement.executeUpdate(insertSkillDip1);
-        assertTrue(SkillDAO.rimuoviSkill(3));
+        assertTrue(SkillDAO.rimuoviSkill(200));
     }
 
 
