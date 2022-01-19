@@ -44,6 +44,7 @@ public class RejectCandidatureControl extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
+            response.getWriter().write("3"); //rifiuto ok
             response.sendRedirect("./static/Login.html");
         }
 
