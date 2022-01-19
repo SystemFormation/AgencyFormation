@@ -47,9 +47,15 @@
                                 <br>
                             </c:if>
                         </div>
-                        <button name="drop-sciogli"><a
-                                href="ScioglimentoTeamControl?idTeam=${team.getIdTeam()}">Sciogli Team</a>
+                        <div>
+                        <button name="drop-sciogli" style="display: inline" onclick="scioglimentoTeam(${indexSkill})">
+                            Sciogli Team
                         </button>
+                        <div class="confermaScioglimento" name="conferma-scioglimento" style="display: none">
+                            <h3>Sicuro di voler sciogliere il team selezionato?</h3>
+                            <a href="ScioglimentoTeamControl?idTeam=${team.getIdTeam()}"><button>Conferma</button></a>
+                        </div>
+                        </div>
                     </div>
                 </div>
                 <div class="team-descr">

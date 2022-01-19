@@ -101,3 +101,13 @@ function viewSkill(i) {
     } else
         x.style.display = "none";
 }
+
+function scioglimentoTeam(i){
+    var index = i;
+    var x = document.getElementsByName("conferma-scioglimento")[index];
+    var setting = x.style.display;
+    if (setting == "none") {
+        x.style.display = "inline";
+    } else
+        x.style.display = "none";
+}
