@@ -45,12 +45,11 @@ public class ListaDipendentiControl extends HttpServlet {
                         }
                     }
                     //else messo io
-                req.setAttribute("dipendenti", dipendenti);
-                resp.getWriter().write("2");
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/VisualizzaDipendenti.jsp");
-                dispatcher.forward(req, resp);
-                }
-                else{
+                    req.setAttribute("dipendenti", dipendenti);
+                    resp.getWriter().write("2");
+                    dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/VisualizzaDipendenti.jsp");
+                    dispatcher.forward(req, resp);
+                } else {
                     resp.getWriter().write("1");
                     resp.sendRedirect("./static/Error.html");
                 }

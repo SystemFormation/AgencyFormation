@@ -30,7 +30,7 @@ public class UploadMaterialeControl extends HttpServlet {
             if (request.getParameter("idTeam") == null) {
                 response.getWriter().write("2"); //idTeam non passato
                 response.sendRedirect("./static/Error.html");
-            }else {
+            } else {
                 int idTeam = Integer.parseInt(request.getParameter("idTeam"));
                 File file = new File(pathAbsolute + "\\" + "IdTeam-" + idTeam);
                 Documento documento = new Documento();

@@ -138,7 +138,7 @@ public class UtenteDAO {
                 user.setRole(RuoliUtenti.CANDIDATO);
                 utenti.add(user);
             }
-            return utenti.size()>0 ? utenti : null;
+            return utenti.size() > 0 ? utenti : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -170,7 +170,7 @@ public class UtenteDAO {
                 user.setRole(RuoliUtenti.CANDIDATO);
                 utenti.add(user);
             }
-            return utenti.size()>0 ? utenti : null;
+            return utenti.size() > 0 ? utenti : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }

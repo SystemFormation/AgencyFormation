@@ -35,7 +35,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
                                 return;
                             }
                         }
-                    }else{
+                    } else {
                         resp.getWriter().write("4");
                         resp.sendRedirect("./static/Error.html");
                     }
@@ -43,7 +43,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
                         resp.getWriter().write("2");
                         resp.sendRedirect("./static/Error.html");
                         return;
-                    }else{
+                    } else {
                         resp.getWriter().write("3");
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);

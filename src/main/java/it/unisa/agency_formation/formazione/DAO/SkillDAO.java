@@ -148,7 +148,7 @@ public class SkillDAO {
                 skill.setDescrizioneSkill(result.getString("DescrizioneSkill"));
                 skills.add(skill);
             }
-            return skills.size()>0 ? skills : null;
+            return skills.size() > 0 ? skills : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }

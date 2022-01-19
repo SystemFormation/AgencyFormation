@@ -20,7 +20,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user == null || user.getRole() != RuoliUtenti.CANDIDATO) {
-            response.getWriter().write("1");// user null o ruolo non adatto
+            response.getWriter().write("1"); // user null o ruolo non adatto
             response.sendRedirect("./static/Login.html");
         } else {
             try {
@@ -40,7 +40,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
                         response.sendRedirect("/WEB-INF/jsp/HomeCandidato.jsp");
                     } else {
                         request.getSession().invalidate();
-                        response.getWriter().write("3");// assunzione
+                        response.getWriter().write("3"); // assunzione
                         response.sendRedirect("./static/Login.html");
                     }
             } catch (SQLException e) {

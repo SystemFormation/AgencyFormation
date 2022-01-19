@@ -153,7 +153,7 @@ public class CandidaturaDAO {
                 cand.setIdHR(result.getInt("IdHR"));
                 candidature.add(cand);
             }
-            return candidature.size()>0 ? candidature : null;
+            return candidature.size() > 0 ? candidature : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }

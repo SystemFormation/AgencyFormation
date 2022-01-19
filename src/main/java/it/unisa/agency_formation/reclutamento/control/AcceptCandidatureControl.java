@@ -23,7 +23,7 @@ import java.util.Date;
 public class AcceptCandidatureControl extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));

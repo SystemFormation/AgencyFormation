@@ -21,7 +21,7 @@ public class TeamDAO {
     /**
      * Questa funzionalità permette di salvare un team
      *
-     * @param team     , {@literal team != null} specifica il team da salvare
+     * @param team , {@literal team != null} specifica il team da salvare
      * @param idUtente , {@literal idUtente > 0} identifica l'utente
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      * true = la funzionalità va a buon fine)

@@ -20,8 +20,8 @@ public class DipendenteDAO {
      *
      * @param dipendente , {@literal dipendente != null} è il dipendente da registrare
      * @return boolean true se il dipendente èì stato salvato, false altrimenti
-     * @throws SQLException errore nella query
-     */
+     * @throws SQLException errore nella query*/
+
     public static boolean salvaDipendente(Dipendente dipendente) throws SQLException {
         if (dipendente == null) {
             return false;
@@ -37,7 +37,7 @@ public class DipendenteDAO {
             save.setString(3, dipendente.getTelefono());
             save.setBoolean(4, true);
             save.setInt(5, dipendente.getAnnoNascita());
-            return save.executeUpdate()!= 0;
+            return save.executeUpdate() != 0;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -154,7 +154,7 @@ public class DipendenteDAO {
                 dipUser.setRole(RuoliUtenti.DIPENDENTE);
                 dipendenti.add(dipUser);
             }
-            return dipendenti.size()>0 ? dipendenti : null;
+            return dipendenti.size() > 0 ? dipendenti : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
