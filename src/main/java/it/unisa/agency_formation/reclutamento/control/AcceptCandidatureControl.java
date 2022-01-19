@@ -23,7 +23,7 @@ import java.util.Date;
 public class AcceptCandidatureControl extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
@@ -36,13 +36,10 @@ public class AcceptCandidatureControl extends HttpServlet {
                 try {
                     Candidatura candidatura = getCandidaturaFromManager(idCandidato);
                     if (acceptCandidatureFromManager(candidatura.getIdCandidatura(), user.getId(), timestamp)) {
-                        if (getAllFromManager() == null) {
-                            response.getWriter().write("3");
-                        } else {
-                            response.getWriter().write("1"); //accettazione avvenuta
-                        }
+                        response.getWriter().write("1"); //accettazione avvenuta
                     } else {
                         response.getWriter().write("2"); //accettazione non avvenuta
+                        response.sendRedirect("./static/Error.html");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -51,6 +48,7 @@ public class AcceptCandidatureControl extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
+            response.getWriter().write("3"); // user null o ruolo non adeguato
             response.sendRedirect("./static/Login.html");
         }
     }
@@ -70,7 +68,7 @@ public class AcceptCandidatureControl extends HttpServlet {
         return reclutamentoManager.accettaCandidatura(idCandidatura, idHR, timestamp);
     }
 
-    public static ArrayList<Candidatura> getAllFromManager() throws SQLException {
+    public static ArrayList<Candidatura> getTutteCandidatureFromManager() throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getTutteCandidature();
     }

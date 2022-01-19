@@ -59,6 +59,7 @@ public class DownloadControl extends HttpServlet {
                     }
                     fileIn.close();
                     outStream.close();
+                    response.getWriter().write("3"); // curriculum download
                 } else if (whatDownload.equalsIgnoreCase("documenti")) {
                     String pathDocumenti = directory + candidatura.getDocumentiAggiuntivi();
                     File file = new File(pathDocumenti);
@@ -80,12 +81,14 @@ public class DownloadControl extends HttpServlet {
                     }
                     fileIn.close();
                     outStream.close();
+                    response.getWriter().write("4"); // materiale download
                 }
             } else {
                response.getWriter().write("1"); //file non esistente
                 response.sendRedirect("./static/Error.html");
             }
         } else {
+            response.getWriter().write("2"); //file non esistente
             response.sendRedirect("./static/Login.html");
         }
     }

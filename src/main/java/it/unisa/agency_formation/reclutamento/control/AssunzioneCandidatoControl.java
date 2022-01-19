@@ -20,19 +20,20 @@ import java.sql.SQLException;
 public class AssunzioneCandidatoControl extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user == null || user.getRole() != RuoliUtenti.HR) {
+            response.getWriter().write("4"); // user null oppure ruolo non adatto
             response.sendRedirect("./static/Login.html");
         } else {
             int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
             try {
-                Candidatura candidatura = getCandidatura(idCandidato);
+                Candidatura candidatura = getCandidaturaFromManager(idCandidato);
                 if (candidatura == null) {
                     response.getWriter().write("1"); //errore Candidatura
                     response.sendRedirect("./static/Login.html");
                 } else {
-                    boolean esito = setStato(candidatura.getIdCandidatura());
+                    boolean esito = setStatoFromManager(candidatura.getIdCandidatura());
                     if (esito) {
                         response.getWriter().write("2"); // assunzione
                     } else {
@@ -50,14 +51,14 @@ public class AssunzioneCandidatoControl extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-    public static Candidatura getCandidatura(int idCandidato) throws SQLException {
+    public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
-    public static boolean setStato(int idCandidatura) throws SQLException {
+    public static boolean setStatoFromManager(int idCandidatura) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
        return reclutamentoManager.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Assunzione);
     }
