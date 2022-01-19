@@ -58,7 +58,7 @@ public class SkillControl extends HttpServlet {
                             return;
                         }
                         response.getWriter().write("4"); // aggiunta avvenuta con successo.
-                        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeDipendente.jsp");
+                        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ProfiloControl");
                         dispatcher.forward(request, response);
                     } else {
                         response.getWriter().write("5"); // aggiunta fallita.

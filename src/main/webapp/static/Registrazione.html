@@ -9,9 +9,9 @@
     <title>Registrazione</title>
 </head>
 <body class="background-reg">
-<script>
-    document.write('<a href="' + document.referrer + '"><div class="back"><img src="../img/Back.png"> </div></a>');
-</script>
+<div class="logo">
+    <img src="../img/Logo Team 4-5.png">
+</div>
 <div class="reg-block">
     <h1>Registrazione</h1>
     <form action="../RegistrazioneControl" method="post" id="Registrazione">
@@ -31,8 +31,10 @@
         <div class="form-button">
             <input type="submit" value="Registrati" id="Registrati">
         </div>
+        <script>
+            document.write('<a href="' + document.referrer + '"><div class="back">Torna alla Home</div></a>');
+        </script>
     </form>
-    <img src="../img/Logo Team 4-5.png" id="logo">
 </div>
 </body>
 </html>
