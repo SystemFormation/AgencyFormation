@@ -38,7 +38,8 @@ public class RejectCandidatureControl extends HttpServlet {
                     response.getWriter().write("1"); //rifiuto ok
                 } else {
                     response.getWriter().write("2"); //rifiuto non avvenuto
-                    response.sendRedirect("./static/Error.jsp");
+                    String descrizione = "rifiuto non andato a buon fine";
+                    response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

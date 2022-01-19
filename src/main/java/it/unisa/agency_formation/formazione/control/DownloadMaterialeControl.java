@@ -23,10 +23,7 @@ import java.sql.SQLException;
 
 @WebServlet("/DownloadMaterialeControl")
 public class DownloadMaterialeControl extends HttpServlet {
-
     private static final String directory = System.getProperty("user.home");
-
-
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,6 +40,8 @@ public class DownloadMaterialeControl extends HttpServlet {
                     if (documento == null) {
                         response.getWriter().write("2"); //documento null
                         //si può rimandare all'homepage?
+                        String descrizione = "documento inesistente";
+                        response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     }
                 }
             } catch (SQLException e) {

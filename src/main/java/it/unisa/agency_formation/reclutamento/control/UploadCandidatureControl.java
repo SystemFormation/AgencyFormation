@@ -50,7 +50,8 @@ public class UploadCandidatureControl extends HttpServlet {
                 Part curriculum = request.getPart("curriculum");
                 if (curriculum.getSize() > MAXDIM) {
                     response.getWriter().write("1"); //file troppo grande
-                    response.sendRedirect("./static/Error.jsp");
+                    String descrizione = "dimensioni file elevate";
+                    response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     return;
                 } else {
                     Candidatura cand = new Candidatura();
@@ -75,7 +76,8 @@ public class UploadCandidatureControl extends HttpServlet {
                 Part documenti = request.getPart("documenti");
                 if (documenti.getSize() > MAXDIM) {
                     response.getWriter().write("2"); //file troppo grande
-                    response.sendRedirect("./static/Error.jsp");
+                    String descrizione = "dimensioni file elevate";
+                    response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     return;
                 } else {
                     Candidatura cand = new Candidatura();
@@ -88,7 +90,8 @@ public class UploadCandidatureControl extends HttpServlet {
                         if (uploadCandidatureFromManager(cand)) {
                             request.setAttribute("candidatura", cand);
                         } else {
-                            response.sendRedirect("./static/Error.jsp");
+                            String descrizione = "caricamento file non andato a buon fine";
+                            response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();

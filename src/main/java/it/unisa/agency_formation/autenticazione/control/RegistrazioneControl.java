@@ -29,6 +29,7 @@ public class RegistrazioneControl extends HttpServlet {
                 user.setPwd(request.getParameter("pwd"));
                 user.setRole(RuoliUtenti.CANDIDATO); //il ruolo = 1 perchè il candidato è l'unico che si registra
                 try {
+                    //TODO da controllare se la registrazione va a buon fine
                     registrazioneFromManager(user);
                     Utente result = loginFromManager(user.getEmail(), user.getPwd());
                     request.getSession().setAttribute("user", result);
@@ -50,6 +51,7 @@ public class RegistrazioneControl extends HttpServlet {
                 if (!Check.checkEmail(request.getParameter("email"))) {
                     response.getWriter().write("3"); //email non corretto
                 }
+                //TODO da eliminare?
                 /*if (!Check.checkPwd(request.getParameter("pwd"))) {
                     response.getWriter().write("4"); //password non corretto
                 }*/

@@ -30,7 +30,8 @@ public class UploadMaterialeControl extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             if (request.getParameter("idTeam") == null) {
                 response.getWriter().write("2"); //idTeam non passato
-                response.sendRedirect("./static/Error.jsp");
+                String errore1 = "id del Team errato";
+                response.sendRedirect("./static/Error.jsp?descrizione=" + errore1);
             } else {
                 int idTeam = Integer.parseInt(request.getParameter("idTeam"));
                 File file = new File(pathAbsolute + "\\" + "IdTeam-" + idTeam);
@@ -38,12 +39,15 @@ public class UploadMaterialeControl extends HttpServlet {
                 file.mkdirs();
                 if (request.getPart("materiale") == null) {
                     response.getWriter().write("3"); //materiale non passato
-                    response.sendRedirect("./static/Error.jsp");
+//TODO considerato il getPart, come descrizione di errore sembra plausibile; controllare
+                    String errore2 = "alcun materiale trovato";
+                    response.sendRedirect("./static/Error.jsp?descrizione=" + errore2);
                 } else {
                     Part part = request.getPart("materiale");
                     if (part.getSize() > MAXDIM) {
                         response.getWriter().write("4"); //file troppo grande
-                        response.sendRedirect("./static/Error.html");
+                        String errore3 = "dimensioni file eccessive";
+                        response.sendRedirect("./static/Error.html?descrizione=" + errore3);
                         return;
                     }
                     part.write(file.getAbsolutePath() + "\\" + part.getSubmittedFileName());

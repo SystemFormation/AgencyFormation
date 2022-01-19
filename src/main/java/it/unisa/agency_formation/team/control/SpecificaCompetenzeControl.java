@@ -25,7 +25,10 @@ public class SpecificaCompetenzeControl extends HttpServlet {
                 int idTeam = Integer.parseInt(req.getParameter("idTeam"));
                 String competence = req.getParameter("specCompetenze");
                 try {
-                    inserimentoCompetenzeNelTeam(competence, idTeam); //<---- fare il manager
+                    if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {
+                        String descrizione = "specifiche oltremisura";
+                        resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+                    }
                     resp.getWriter().write("1");
                     dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                     dispatcher.forward(req, resp);

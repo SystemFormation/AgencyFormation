@@ -27,7 +27,9 @@ public class ViewMaterialeControl extends HttpServlet {
                 Dipendente dipendente = getDipendenteFromManager(user.getId());
                 if (dipendente == null) {
                     response.getWriter().write("1"); //errore retrieve dipendente
-                    response.sendRedirect("./static/Error.jsp");
+                    //TODO da controllare la descrizione err1
+                    String err1 = "dipendente non abilitato";
+                    response.sendRedirect("./static/Error.jsp?descrizione=" + err1);
                 } else {
                     int idTeam = dipendente.getTeam().getIdTeam();
                     Documento documento = getDocumentoFromManager(idTeam);
@@ -35,6 +37,8 @@ public class ViewMaterialeControl extends HttpServlet {
                         response.getWriter().write("2"); //il documento esiste
                     } else {
                         response.getWriter().write("3"); //il documento non esiste
+                        String err2 = "documento inesistente";
+                        response.sendRedirect("./static/Error.jsp?descrizione=" + err2);
                     }
                 }
             } catch (SQLException e) {

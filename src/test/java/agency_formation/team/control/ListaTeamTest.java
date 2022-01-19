@@ -4,7 +4,6 @@ import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.team.control.AggiuntaDipendente;
 import it.unisa.agency_formation.team.control.ListaTeam;
 import it.unisa.agency_formation.team.domain.Team;
 import org.junit.jupiter.api.Test;
@@ -101,7 +100,7 @@ public class ListaTeamTest {
 
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         try (MockedStatic mockedStatic = mockStatic(ListaTeam.class)) {
-            mockedStatic.when(() -> ListaTeam.recuperoDipendetiDiUnTeamFromManager()).thenReturn(dipendenti);
+            mockedStatic.when(() -> ListaTeam.recuperoDipendentiDiUnTeamFromManager()).thenReturn(dipendenti);
             mockedStatic.when(() -> ListaTeam.visualizzaTeamOfTMFromManager(idUser)).thenReturn(teams);
 
             StringWriter stringWriter = new StringWriter();

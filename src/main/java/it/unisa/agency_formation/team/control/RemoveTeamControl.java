@@ -26,6 +26,12 @@ public class RemoveTeamControl extends HttpServlet {
             if (idDip != 0) {
                 try {
                     rimuoviDipendenteFromManager(idDip);
+                    if (!rimuoviDipendenteFromManager(idDip)) {
+                        resp.getWriter().write("4"); //dipendente non rimosso
+                        String descrizione = "rimozione dipendente non effettuata";
+                        resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+                        return;
+                    }
                     resp.getWriter().write("1");
                     dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                     dispatcher.forward(req, resp);

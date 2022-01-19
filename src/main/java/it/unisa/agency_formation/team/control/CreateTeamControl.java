@@ -17,7 +17,6 @@ import java.sql.SQLException;
 
 @WebServlet("/CreateTeamControl")
 public class CreateTeamControl extends HttpServlet {
-    //da raffinare
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.setProperty("file.encoding", "UTF-8");
@@ -43,7 +42,8 @@ public class CreateTeamControl extends HttpServlet {
                         team.setNumeroDipendenti(numeroDipendenti);
                         if (!creaTeamFromManager(team, idTM)) {
                             resp.getWriter().write("2"); //errore creazione team
-                            resp.sendRedirect("./static/Error.jsp");
+                            String errore = "creazione team non corretta";
+                            resp.sendRedirect("./static/Error.jsp?descrizione=" + errore);
                             return;
                         }
                         int idTeam = getIdUltimoTeamCreatoFromManager();
@@ -60,7 +60,7 @@ public class CreateTeamControl extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
-            resp.getWriter().write("5");
+            resp.getWriter().write("5"); //non sei TM
             resp.sendRedirect("./static/Login.html");
         }
     }

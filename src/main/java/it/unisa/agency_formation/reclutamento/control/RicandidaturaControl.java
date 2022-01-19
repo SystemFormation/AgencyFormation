@@ -25,7 +25,8 @@ public class RicandidaturaControl extends HttpServlet {
             try {
                 if (!eliminaCandidaturaFromManager(user.getId())) {
                     response.getWriter().write("2"); //eliminazione candidatura fallita
-                    response.sendRedirect("./static/Error.jsp");
+                    String descrizione = "eliminazione della candidatura non andata a buon fine";
+                    response.sendRedirect("./static/Error.jsp?=" + descrizione);
                 } else {
                     request.setAttribute("sceltaUpload", 3);
                     response.getWriter().write("3"); // avvenuta eliminazione candidatura

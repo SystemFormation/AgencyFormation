@@ -29,7 +29,8 @@ public class AddTeamControl extends HttpServlet {
                         int idTeam = Integer.parseInt(req.getParameter("idTeam")); //messo questo controllo
                         if (!setTeamDipendenteFromManager(idDip, idTeam)) {
                             resp.getWriter().write("1"); // errore setTeam
-                            resp.sendRedirect("./static/Error.jsp");
+                            String descrizione = "impossibile inserire il dipendente nel Team specificato";
+                            resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                             return;
                         }
                         resp.getWriter().write("2"); // set ok

@@ -44,14 +44,15 @@ public class ListaDipendentiControl extends HttpServlet {
                             dipendente.setSkills(skills);
                         }
                     }
-                    //else messo io
                     req.setAttribute("dipendenti", dipendenti);
                     resp.getWriter().write("2");
                     dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/VisualizzaDipendenti.jsp");
                     dispatcher.forward(req, resp);
                 } else {
                     resp.getWriter().write("1");
-                    resp.sendRedirect("./static/Error.jsp");
+                    String descrizione = "dipendenti inesistenti";
+                    resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+                    return;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

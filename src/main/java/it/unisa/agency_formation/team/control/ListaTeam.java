@@ -27,7 +27,7 @@ public class ListaTeam extends HttpServlet {
         Utente user = (Utente) req.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.TM) { //sei tm
             try {
-                ArrayList<Dipendente> listaDipsUsers = recuperoDipendetiDiUnTeamFromManager();
+                ArrayList<Dipendente> listaDipsUsers = recuperoDipendentiDiUnTeamFromManager();
                 ArrayList<Team> teams = visualizzaTeamOfTMFromManager(user.getId());
                 req.setAttribute("listDip", listaDipsUsers);
                 req.setAttribute("listTeam", teams);
@@ -60,10 +60,11 @@ public class ListaTeam extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static ArrayList<Dipendente> recuperoDipendetiDiUnTeamFromManager() throws SQLException {
+    public static ArrayList<Dipendente> recuperoDipendentiDiUnTeamFromManager() throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.recuperaDipendentiDelTeam();
     }
+
     public static ArrayList<Team> visualizzaTeamOfTMFromManager(int idTM) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.visualizzaTeams(idTM);

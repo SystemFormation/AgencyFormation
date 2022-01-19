@@ -30,8 +30,7 @@ public class ViewCandidaturaControl extends HttpServlet {
             candidatura = getCandidaturaByIdFromManager(idCandidato);
             if (candidatura == null) {
                 response.getWriter().write("1"); //candidatura null
-            }
-            if (candidatura != null) {
+            } else {
                 String cv = "curriculum.";
                 request.setAttribute("curriculum", cv);
                 response.getWriter().write(cv);

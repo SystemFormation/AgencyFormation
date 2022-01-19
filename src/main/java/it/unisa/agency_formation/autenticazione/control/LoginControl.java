@@ -33,6 +33,7 @@ public class LoginControl extends HttpServlet {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
+
                     if (candidatura != null) {
                         request.setAttribute("candidatura", candidatura);
                     }
@@ -102,7 +103,7 @@ public class LoginControl extends HttpServlet {
                     } else {
                         response.getWriter().write("4"); //utente non valido
                         String descrizione = "E-mail o password errati";
-                        response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                        response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     }
 
                 } catch (SQLException e) {

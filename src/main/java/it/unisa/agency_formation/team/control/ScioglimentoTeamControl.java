@@ -27,21 +27,24 @@ public class ScioglimentoTeamControl extends HttpServlet {
             if (idTeam > 0) {
                 try {
                     ArrayList<Integer> listaIdDip = recuperaIdDipendentiFromManager(idTeam);
-                    if (listaIdDip != null && listaIdDip.size() > 0) { // cambiato da 1 a 0
+                    if (listaIdDip != null && listaIdDip.size() > 0) {
                         for (int idDip : listaIdDip) {
                             if (!updateStatoDipendenteFromManager(idDip)) {
                                 resp.getWriter().write("1"); // errore aggiornamento stato dip
-                                resp.sendRedirect("./static/Error.jsp");
+                                String descrizione = "aggiornamento stato non andato a buon fine";
+                                resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                                 return;
                             }
                         }
                     } else {
+//TODO non so se sia errore: se non ci sono dipendenti il team e vuoto e posso scioglierlo comunque
                         resp.getWriter().write("4");
                         resp.sendRedirect("./static/Error.jsp");
                     }
                     if (!eliminaTeamFromManager(idTeam)) {
                         resp.getWriter().write("2");
-                        resp.sendRedirect("./static/Error.jsp");
+                        String descrizione = "team da sciogliere non rilevato";
+                        resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                         return;
                     } else {
                         resp.getWriter().write("3");

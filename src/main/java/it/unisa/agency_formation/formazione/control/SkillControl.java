@@ -25,7 +25,6 @@ public class SkillControl extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
-
         if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
             Skill skill = new Skill();
             String skillName = request.getParameter("skillName");
@@ -45,16 +44,17 @@ public class SkillControl extends HttpServlet {
                 try {
                     Dipendente dip = getDipendenteByIdFromManager(user.getId());
                     if (dip != null) {
-                        //TODO SI DEVE FARE UNA PAGINA DIVERSA PER GLI ERRORI
                         if (!addSkillFromManager(skill)) {
                             response.getWriter().write("2"); // aggiunta in skill non avvenuta con successo.
-                            response.sendRedirect("./static/Error.jsp");
+                            String descrizione = "nome skill o descrizione skill non valido";
+                            response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                             return;
                         }
                         int idSkill = getLastIdSkillCreatedFromManager();
                         if (!addSkillDipFromManager(idSkill, dip.getIdDipendente(), skillLivello)) {
                             response.getWriter().write("3"); // aggiunta in skillDip non avvenuta con successo.
-                            response.sendRedirect("./static/Error.jsp");
+                            String descrizione = "livello skill errato o collegamento non avvenuto";
+                            response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                             return;
                         }
                         response.getWriter().write("4"); // aggiunta avvenuta con successo.

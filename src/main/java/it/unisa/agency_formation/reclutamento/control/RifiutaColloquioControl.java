@@ -36,6 +36,8 @@ public class RifiutaColloquioControl extends HttpServlet {
                     response.getWriter().write("1"); // rifiuto avvenuto
                 } else {
                     response.getWriter().write("2"); //rifiuto non avvenuto
+                    String descrizione = "rifiuto del candidato non andato a buon fine";
+                    response.sendRedirect("./static/Error.jsp?=" + descrizione);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -43,7 +45,7 @@ public class RifiutaColloquioControl extends HttpServlet {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
             dispatcher.forward(request, response);
         } else {
-            response.getWriter().write("3"); //rifiuto non avvenuto
+            response.getWriter().write("3"); //utente null o non è un HR
             response.sendRedirect("./static/Login.html");
         }
     }
