@@ -51,7 +51,7 @@ public class ListaDipendentiControl extends HttpServlet {
                     dispatcher.forward(req, resp);
                 } else {
                     resp.getWriter().write("1");
-                    resp.sendRedirect("./static/Error.html");
+                    resp.sendRedirect("./static/Error.jsp");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

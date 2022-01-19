@@ -29,7 +29,7 @@ public class AddTeamControl extends HttpServlet {
                         int idTeam = Integer.parseInt(req.getParameter("idTeam")); //messo questo controllo
                         if (!setTeamDipendenteFromManager(idDip, idTeam)) {
                             resp.getWriter().write("1"); // errore setTeam
-                            resp.sendRedirect("./static/Error.html");
+                            resp.sendRedirect("./static/Error.jsp");
                             return;
                         }
                         resp.getWriter().write("2"); // set ok

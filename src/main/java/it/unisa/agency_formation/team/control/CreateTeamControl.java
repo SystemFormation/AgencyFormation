@@ -43,7 +43,7 @@ public class CreateTeamControl extends HttpServlet {
                         team.setNumeroDipendenti(numeroDipendenti);
                         if (!creaTeamFromManager(team, idTM)) {
                             resp.getWriter().write("2"); //errore creazione team
-                            resp.sendRedirect("./static/Error.html");
+                            resp.sendRedirect("./static/Error.jsp");
                             return;
                         }
                         int idTeam = getIdUltimoTeamCreatoFromManager();

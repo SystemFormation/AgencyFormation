@@ -48,13 +48,13 @@ public class SkillControl extends HttpServlet {
                         //TODO SI DEVE FARE UNA PAGINA DIVERSA PER GLI ERRORI
                         if (!addSkillFromManager(skill)) {
                             response.getWriter().write("2"); // aggiunta in skill non avvenuta con successo.
-                            response.sendRedirect("./static/Error.html");
+                            response.sendRedirect("./static/Error.jsp");
                             return;
                         }
                         int idSkill = getLastIdSkillCreatedFromManager();
                         if (!addSkillDipFromManager(idSkill, dip.getIdDipendente(), skillLivello)) {
                             response.getWriter().write("3"); // aggiunta in skillDip non avvenuta con successo.
-                            response.sendRedirect("./static/Error.html");
+                            response.sendRedirect("./static/Error.jsp");
                             return;
                         }
                         response.getWriter().write("4"); // aggiunta avvenuta con successo.

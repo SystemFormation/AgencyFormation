@@ -27,7 +27,7 @@ public class ViewMaterialeControl extends HttpServlet {
                 Dipendente dipendente = getDipendenteFromManager(user.getId());
                 if (dipendente == null) {
                     response.getWriter().write("1"); //errore retrieve dipendente
-                    response.sendRedirect("./static/Error.html");
+                    response.sendRedirect("./static/Error.jsp");
                 } else {
                     int idTeam = dipendente.getTeam().getIdTeam();
                     Documento documento = getDocumentoFromManager(idTeam);

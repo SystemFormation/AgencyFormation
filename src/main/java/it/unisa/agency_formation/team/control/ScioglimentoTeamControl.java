@@ -31,17 +31,17 @@ public class ScioglimentoTeamControl extends HttpServlet {
                         for (int idDip : listaIdDip) {
                             if (!updateStatoDipendenteFromManager(idDip)) {
                                 resp.getWriter().write("1"); // errore aggiornamento stato dip
-                                resp.sendRedirect("./static/Error.html");
+                                resp.sendRedirect("./static/Error.jsp");
                                 return;
                             }
                         }
                     } else {
                         resp.getWriter().write("4");
-                        resp.sendRedirect("./static/Error.html");
+                        resp.sendRedirect("./static/Error.jsp");
                     }
                     if (!eliminaTeamFromManager(idTeam)) {
                         resp.getWriter().write("2");
-                        resp.sendRedirect("./static/Error.html");
+                        resp.sendRedirect("./static/Error.jsp");
                         return;
                     } else {
                         resp.getWriter().write("3");

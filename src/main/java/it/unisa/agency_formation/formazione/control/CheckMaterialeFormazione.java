@@ -26,7 +26,7 @@ public class CheckMaterialeFormazione extends HttpServlet {
                 response.getWriter().write("2"); //il documento esiste
             } else {
                 response.getWriter().write("3"); //il documento non esiste
-                response.sendRedirect("./static/Error.html");
+                response.sendRedirect("./static/Error.jsp");
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -29,7 +29,7 @@ public class UploadMaterialeControl extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             if (request.getParameter("idTeam") == null) {
                 response.getWriter().write("2"); //idTeam non passato
-                response.sendRedirect("./static/Error.html");
+                response.sendRedirect("./static/Error.jsp");
             } else {
                 int idTeam = Integer.parseInt(request.getParameter("idTeam"));
                 File file = new File(pathAbsolute + "\\" + "IdTeam-" + idTeam);
@@ -37,7 +37,7 @@ public class UploadMaterialeControl extends HttpServlet {
                 file.mkdirs();
                 if (request.getPart("materiale") == null) {
                     response.getWriter().write("3"); //materiale non passato
-                    response.sendRedirect("./static/Error.html");
+                    response.sendRedirect("./static/Error.jsp");
                 } else {
                     Part part = request.getPart("materiale");
                     part.write(file.getAbsolutePath() + "\\" + part.getSubmittedFileName());

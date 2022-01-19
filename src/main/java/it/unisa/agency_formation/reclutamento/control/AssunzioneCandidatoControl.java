@@ -38,7 +38,7 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                         response.getWriter().write("2"); // assunzione
                     } else {
                         response.getWriter().write("3"); //errore assunzione
-                        response.sendRedirect("./static/Error.html");
+                        response.sendRedirect("./static/Error.jsp");
                         return;
                     }
                 }

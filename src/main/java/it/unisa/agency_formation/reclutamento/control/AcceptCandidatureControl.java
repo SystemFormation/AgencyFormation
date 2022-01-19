@@ -39,7 +39,7 @@ public class AcceptCandidatureControl extends HttpServlet {
                         response.getWriter().write("1"); //accettazione avvenuta
                     } else {
                         response.getWriter().write("2"); //accettazione non avvenuta
-                        response.sendRedirect("./static/Error.html");
+                        response.sendRedirect("./static/Error.jsp");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
