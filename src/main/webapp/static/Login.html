@@ -9,9 +9,9 @@
     <title>Login</title>
 </head>
 <body class="background-login">
-<script>
-    document.write('<a href="' + document.referrer + '"><div class="back"><img src="../img/Back.png"></div></a>');
-</script>
+<div class="logo">
+    <img src="../img/Logo Team 4-5.png">
+</div>
 <div class="login-block content">
     <h2>Login</h2>
     <form action="../LoginControl" method="post" id="formLogin">
@@ -27,7 +27,9 @@
     <div class="components">
         <a href="Error.html">Recupero Password</a>
     </div>
-    <img src="../img/Logo Team 4-5.png">
+    <script>
+        document.write('<a href="' + document.referrer + '"><div class="back">Torna alla Home</div></a>');
+    </script>
 </div>
 </body>
 </html>
