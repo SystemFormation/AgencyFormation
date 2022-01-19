@@ -61,6 +61,18 @@ input[type=file]::file-selector-button:hover {
 }
 
 /*TUTTI I CLASS*/
+
+.controlloCaricamento h3 {
+    font-weight: bold;
+    border-bottom: solid 2px;
+    margin-top: 40px;
+    font-size: 25px;
+}
+
+.controlloCaricamento p {
+    margin-top: 40px;
+}
+
 .content {
     box-shadow: 25px 30px 110px rgb(200 200 200);
     border-radius: 1rem;
@@ -141,6 +153,7 @@ input[type=file]::file-selector-button:hover {
     width: 70%;
     margin: auto 15%;
 }
+
 /*
 .content-competenze {
     width: 60%;
@@ -192,25 +205,15 @@ input[type=file]::file-selector-button:hover {
     text-align: center;
     padding: 30px 10px 10px 10px;
     display: flex;
-    align-items:flex-start;
+    align-items: flex-start;
     width: 90%;
     margin: 0px 5% 20px 5%;
     border-color: #9CC9E8;
 }
 
-.team-inf, .team-descr, .team-dip {
+.team-inf, .team-descr, .team-dip, .team-button{
     font-size: 23px;
     width: 25%;
-}
-
-.team-button {
-    width: 25%;
-    margin: auto;
-}
-
-.team-button p{
-    border-bottom: solid #101D42 2px;
-    margin: auto;
 }
 
 .skills {
@@ -218,6 +221,7 @@ input[type=file]::file-selector-button:hover {
     margin: auto;
     font-size: 20px;
 }
+
 .colloquio {
     display: none;
     position: relative;
@@ -253,7 +257,7 @@ input[type=file]::file-selector-button:hover {
     border: 2px solid #1E1E24;
     padding: .5em 1em;
     border-radius: 1rem;
-    background-color: #9CC9E8;
+    background-color: white;
     font-family: -webkit-pictograph;
     font-size: 15px;
 }
@@ -280,7 +284,7 @@ input[type=file]::file-selector-button:hover {
 }
 
 .occupato {
-    width: 23px;
+    width: 25px;
     display: inline-block;
     background-color: red;
     font-size: 20px;
@@ -290,12 +294,30 @@ input[type=file]::file-selector-button:hover {
 
 
 .disponibile {
-    width: 23px;
+    width: 25px;
     display: inline-block;
     background-color: green;
     font-size: 20px;
     border-radius: 5rem;
     color: green;
+}
+
+.revisione {
+    width: 25px;
+    display: inline-block;
+    background-color: #ffdf00;
+    font-size: 20px;
+    border-radius: 5rem;
+    color: #ffdf00;
+}
+
+#statoCandidatura {
+    display: inline-block;
+    font-size: 25px;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #1e1e24;
+    margin-right: 15px;
 }
 
 #stato-dipendente {
@@ -432,14 +454,15 @@ input[type=file]::file-selector-button:hover {
     font-weight: bold;
 }
 
+
 #flex-team-dip a, #flex-team-dip img {
-    width: 27px;
-    height: 27px;
+    width: 20px;
+    height: 20px;
     position: relative;
     top: 2px;
 }
 
-#flex-team-button button, input[type=submit] {
+#flex-team-button button, input[type=submit], #flex-team-competenze button {
     font-size: 18px;
     border-radius: 1rem;
     background-color: white;
@@ -448,7 +471,17 @@ input[type=file]::file-selector-button:hover {
     padding: 10px;
 }
 
-#teamDescr{
+#flex-team {
+    font-size: 20px;
+}
+
+#flex-team-button {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+#teamDescr {
     border: inset;
     background-color: white;
     border-radius: 1rem;
