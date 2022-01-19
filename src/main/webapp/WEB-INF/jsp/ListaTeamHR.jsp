@@ -22,56 +22,85 @@
 <body>
 <c:import url="/static/Header.jsp"/>
 <h1>Team</h1>
-<c:set var="index" value="0"/>
-<c:forEach var="team" items="${listTeam}">
-    <div class="team">
-        <div class="team-inf">
-            <div id="flex-team"><h2>${team.getNomeTeam()}</h2></div>
-            <div id="flex-team"><h3>${team.getNomeProgetto()}</h3></div>
-            <div id="flex-team">Numero massimo dipendenti: ${team.getNumeroDipendenti()}</div>
-        </div>
-        <div class="team-descr">
-            <h3>Descrizione</h3>
-            <div id="flex-team">${team.getDescrizione()}</div>
-        </div>
-        <div class="team-dip">
-            <h3>Dipendenti</h3>
-            <div id="flex-team-dip">
-                <c:forEach var="dip" items="${listDip}">
-                    <c:if test="${dip.getTeam().getIdTeam() == team.getIdTeam()}">
-                        <div>${dip.getName()} ${dip.getSurname()}</div>
-                    </c:if>
-                </c:forEach>
-            </div>
-        </div>
-        <div class="team-button">
-            <div id="flex-team-button">
-                <c:if test="${team.getCompetenza() != null}">
-                    <button name="drop-button" style="display: inline" onclick="viewCompetenze(${index})"
-                            class="dropdown">Visualizza Competenze
-                    </button>
-                    <div name="drop" class="skills" style=" display: none">
-                        <h3>Competenze</h3>
-                            ${team.getCompetenza()}
+<c:choose>
+    <c:when test="${listTeam!=null}">
+        <c:set var="index" value="0"/>
+        <c:forEach var="team" items="${listTeam}">
+            <div class="team">
+                <div class="team-inf">
+                    <div id="flex-team"><h2>Team: ${team.getNomeTeam()}</h2></div>
+                    <div id="flex-team"><h3>Progetto: ${team.getNomeProgetto()}</h3></div>
+                    <div id="flex-team">Numero massimo dipendenti: ${team.getNumeroDipendenti()}</div>
+                </div>
+                <div class="team-descr">
+                    <h3>Descrizione</h3>
+                    <div id="flex-team">${team.getDescrizione()}</div>
+                </div>
+                <div class="team-dip">
+                    <h3>Dipendenti</h3>
+                    <div id="flex-team-dip">
+                        <c:forEach var="dip" items="${listDip}">
+                            <c:if test="${dip.getTeam().getIdTeam() == team.getIdTeam()}">
+                                <div>${dip.getName()} ${dip.getSurname()}</div>
+                            </c:if>
+                        </c:forEach>
                     </div>
-                    <br><br><br>
-                    <form action="UploadMaterialeControl" id="materiale" method="post" name="formUpload"
-                          onmouseover="checkAlreadyUpload(${team.getIdTeam()},${index})"
-                          enctype="multipart/form-data">
-                        <p class="par">Materiale di Formazione</p><br>
-                        <input type="file" id="fileMateriale" name="materiale" size="50"><br>
-                        <input type="hidden" id="sceltaDocumenti" name="idTeam" value="${team.getIdTeam()}">
-                        <input type="button" value="Carica" name="uploadMateriale"
-                               onclick="checkFileMateriale(${index})">
-                        <span id="materialeNotUpload"></span>
-                    </form>
-                    <span name="noMateriale"></span>
-                </c:if>
+                </div>
+                <div class="team-button">
+                    <h3>Competenze</h3>
+                    <div id="flex-team-competenze">
+                        <c:if test="${team.getCompetenza() != null}">
+                            <button name="drop-button" style="display: inline" onclick="viewCompetenze(${index})"
+                                    class="dropdown">Visualizza Competenze
+                            </button>
+                            <div name="drop" class="skills" style=" display: none">
+                                    ${team.getCompetenza()}
+                                <br>
+                            </div>
+                            <br>
+                            <button name="dropButton" onclick="viewCaricamento(${index})">
+                                Carica Materiale
+                            </button>
+                            <c:choose>
+                                <c:when test="${team.getDocumento().getMaterialeDiFormazione() == null}">
+                                    <div name="drop-carica" style="display: none">
+                                        <form action="UploadMaterialeControl" id="materiale" method="post"
+                                              name="formUpload"
+                                              enctype="multipart/form-data">
+                                            <p class="par">Materiale di Formazione</p><br>
+                                            <input type="file" id="fileMateriale" name="materiale" size="50"><br>
+                                            <input type="hidden" id="sceltaDocumenti" name="idTeam"
+                                                   value="${team.getIdTeam()}">
+                                            <input type="button" value="Carica" name="uploadMateriale"
+                                                   onclick="checkFileMateriale(${index})">
+                                            <span id="materialeNotUpload"></span>
+                                        </form>
+                                        <span name="noMateriale"></span>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div name="drop-carica" style="display: none">
+                                        <div name="materiale">
+                                            <div name="uploadMateriale">
+                                                <p>Hai già caricato il materiale di formazione</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:if>
+                    </div>
+                </div>
             </div>
+            <c:set var="index" value="${index + 1}" scope="page"/>
+        </c:forEach>
+    </c:when>
+    <c:otherwise>
+        <div class="content">
+            <h1>Non ci sono Team</h1>
         </div>
-    </div>
-    <c:set var="index" value="${index + 1}" scope="page"/>
-</c:forEach>
+    </c:otherwise>
+</c:choose>
 </body>
 
 </html>

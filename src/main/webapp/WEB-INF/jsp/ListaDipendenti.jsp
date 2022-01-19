@@ -25,41 +25,58 @@
 
 <div class="content">
     <div class="lista">
-        <div id="flex-head">Dipendente</div>
-        <div id="flex-head">Skills</div>
-        <div id="flex-head">Azione</div>
-        <div id="flex-head">Stato</div>
         <c:set var="index" value="0"/>
+        <c:set var="indexDipendenti" value="0"/>
         <c:forEach var="dip" items="${dipendenti}">
             <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
-                <div id="flex">${dip.getName()} ${dip.getSurname()}</div>
-                <div id="flex">
-                    <c:choose>
-                        <c:when test="${dip.getSkills() != null}">
-                            <button onclick="viewSkill(${index})" class="dropdown">
-                                Mostra skill
-                            </button>
-                            <div name="drop" class="skills" style="display: none">
-                                <c:set var="indexSkill" value="0"/>
-                                <c:forEach var="skill" items="${dip.getSkills()}">
-                                    ${dip.getSkills().get(indexSkill).getNomeSkill()}
-                                    <c:set var="indexSkill" value="${indexSkill + 1}"/>
-                                </c:forEach>
-                            </div>
-                        </c:when>
-                        <c:otherwise> Non sono presenti Skills </c:otherwise>
-                    </c:choose>
-                </div>
-                <div id="flex">
-                    <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}&idTeam=${idTeam}">Aggiungi</a>
-                </div>
-                <div id="flex">
-                    <div id="stato-dipendente">Disponibile</div>
-                    <div class="disponibile">.</div>
-                </div>
+                <c:set var="indexDipendenti" value="${indexDipendenti + 1}"/>
             </c:if>
-            <c:set var="index" value="${index + 1}" scope="page"/>
         </c:forEach>
+        <c:choose>
+            <c:when test="${indexDipendenti>0}">
+                <div id="flex-head">Dipendente</div>
+                <div id="flex-head">Skills</div>
+                <div id="flex-head">Azione</div>
+                <div id="flex-head">Stato</div>
+                <c:forEach var="dip" items="${dipendenti}">
+                    <c:if test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
+                        <div id="flex">${dip.getName()} ${dip.getSurname()}</div>
+                        <div id="flex">
+                            <c:choose>
+                                <c:when test="${dip.getSkills() != null}">
+                                    <button onclick="viewSkill(${index})" class="dropdown">
+                                        Mostra skill
+                                    </button>
+                                    <div name="drop" class="skills" style="display: none">
+                                        <c:set var="indexSkill" value="0"/>
+                                        <c:forEach var="skill" items="${dip.getSkills()}">
+                                            ${dip.getSkills().get(indexSkill).getNomeSkill()}&nbsp
+                                            <c:set var="indexSkill" value="${indexSkill + 1}"/>
+                                        </c:forEach>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div name="drop">
+                                        Non sono presenti Skills
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div id="flex">
+                            <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}&idTeam=${idTeam}">Aggiungi</a>
+                        </div>
+                        <div id="flex">
+                            <div id="stato-dipendente">Disponibile</div>
+                            <div class="disponibile">.</div>
+                        </div>
+                        <c:set var="index" value="${index + 1}"/>
+                    </c:if>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <h1> Non ci sono dipendenti disponibili</h1>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 </body>
