@@ -29,39 +29,44 @@ public class UploadMaterialeControl extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             if (request.getParameter("idTeam") == null) {
                 response.getWriter().write("2"); //idTeam non passato
-            }
-            int idTeam = Integer.parseInt(request.getParameter("idTeam"));
-            File file = new File(pathAbsolute + "\\" + "IdTeam-" + idTeam);
-            Documento documento = new Documento();
-            file.mkdirs();
-            if (request.getPart("materiale") == null) {
-                response.getWriter().write("3"); //materiale non passato
-            }
-            Part part = request.getPart("materiale");
-            part.write(file.getAbsolutePath() + "\\" + part.getSubmittedFileName());
-            String pathMaterialeFormazione = pathRelative + "\\" + "IdTeam-" + idTeam + "\\" + part.getSubmittedFileName();
-            documento.setMaterialeDiFormazione(pathMaterialeFormazione);
-            documento.setIdTeam(idTeam);
-            documento.setIdHR(user.getId());
-            try {
-                boolean esito = saveDocumentFromManager(documento);
-                if (esito) {
-                    response.getWriter().write("4"); //documento salvato
-                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ListaTeam");
-                    dispatcher.forward(request, response);
+                response.sendRedirect("./static/Error.html");
+            }else {
+                int idTeam = Integer.parseInt(request.getParameter("idTeam"));
+                File file = new File(pathAbsolute + "\\" + "IdTeam-" + idTeam);
+                Documento documento = new Documento();
+                file.mkdirs();
+                if (request.getPart("materiale") == null) {
+                    response.getWriter().write("3"); //materiale non passato
+                    response.sendRedirect("./static/Error.html");
                 } else {
-                    response.getWriter().write("5"); //documento non salvato
+                    Part part = request.getPart("materiale");
+                    part.write(file.getAbsolutePath() + "\\" + part.getSubmittedFileName());
+                    String pathMaterialeFormazione = pathRelative + "\\" + "IdTeam-" + idTeam + "\\" + part.getSubmittedFileName();
+                    documento.setMaterialeDiFormazione(pathMaterialeFormazione);
+                    documento.setIdTeam(idTeam);
+                    documento.setIdHR(user.getId());
+                    try {
+                        boolean esito = saveDocumentFromManager(documento);
+                        if (esito) {
+                            response.getWriter().write("4"); //documento salvato
+                            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ListaTeam");
+                            dispatcher.forward(request, response);
+                        } else {
+                            response.getWriter().write("5"); //documento non salvato
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
             }
         } else {
+            response.getWriter().write("1"); //user null oppure non dipendente
             response.sendRedirect("./static/Login.html");
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
     public static boolean saveDocumentFromManager(Documento documento) throws SQLException {

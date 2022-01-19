@@ -50,7 +50,6 @@ public class DownloadMaterialeControlTest {
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
         DownloadMaterialeControl servlet = Mockito.spy(DownloadMaterialeControl.class);
-        Mockito.when(request.getServletContext().getRealPath(""));
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
