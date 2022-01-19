@@ -35,16 +35,19 @@ public class ScioglimentoTeamControl extends HttpServlet {
                                 return;
                             }
                         }
-                        //Mettere quello di sotto qui forse
+                    }else{
+                        resp.getWriter().write("4");
+                        resp.sendRedirect("./static/Error.html");
                     }
                     if (!eliminaTeamFromManager(idTeam)) {
                         resp.getWriter().write("2");
                         resp.sendRedirect("./static/Error.html");
                         return;
+                    }else{
+                        resp.getWriter().write("3");
+                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                        dispatcher.forward(req, resp);
                     }
-                    resp.getWriter().write("3");
-                    dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
-                    dispatcher.forward(req, resp);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

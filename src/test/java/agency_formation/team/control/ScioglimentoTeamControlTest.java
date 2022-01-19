@@ -3,8 +3,10 @@ package agency_formation.team.control;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.control.AddTeamControl;
+import it.unisa.agency_formation.team.control.AggiuntaDipendente;
 import it.unisa.agency_formation.team.control.CreateTeamControl;
 import it.unisa.agency_formation.team.control.ScioglimentoTeamControl;
+import it.unisa.agency_formation.team.domain.Team;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -97,16 +99,75 @@ public class ScioglimentoTeamControlTest {
         writer.flush();
         assertTrue(stringWriter.toString().contains("4"));
     }
-    @Test //TODO
-    public void scioglimentoTeamPass() throws IOException, ServletException {
+    //Da rivedere //TODO
+
+    @Test
+    public void scioglimentoTeamIdDipententiNull() throws IOException, ServletException {
         int idUser = 10;
+        ArrayList<Integer> listaIdDips = null;
         Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
         user.setId(idUser);
         int idTeam = 5;
+        config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        context = Mockito.mock(ServletContext.class);
+        ScioglimentoTeamControl servlet = Mockito.spy(ScioglimentoTeamControl.class);
+        Mockito.when(request.getSession()).thenReturn(session);
+        Mockito.when(session.getAttribute("user")).thenReturn(user);
+        Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
 
+        try (MockedStatic mockedStatic = mockStatic(ScioglimentoTeamControl.class)) {
+            mockedStatic.when(() -> ScioglimentoTeamControl.recuperaIdDipendentiFromManager(idTeam)).thenReturn(null);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            Mockito.when(response.getWriter()).thenReturn(writer);
+            servlet.init(config);
+            servlet.doGet(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("4"));
+        }
+    }
+    @Test
+    public void scioglimentoTeamIdDipendentiSize0() throws IOException, ServletException {
+        int idUser = 10;
+        ArrayList<Integer> listaIdDips = new ArrayList<>();
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
+        user.setId(idUser);
+        int idTeam = 5;
+        config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        context = Mockito.mock(ServletContext.class);
+        ScioglimentoTeamControl servlet = Mockito.spy(ScioglimentoTeamControl.class);
+        Mockito.when(request.getSession()).thenReturn(session);
+        Mockito.when(session.getAttribute("user")).thenReturn(user);
+        Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
+
+        try (MockedStatic mockedStatic = mockStatic(ScioglimentoTeamControl.class)) {
+            mockedStatic.when(() -> ScioglimentoTeamControl.recuperaIdDipendentiFromManager(idTeam)).thenReturn(listaIdDips);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            Mockito.when(response.getWriter()).thenReturn(writer);
+            servlet.init(config);
+            servlet.doGet(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("4"));
+        }
+    }
+    @Test
+    public void scioglimentoTeamFail1() throws IOException, ServletException {
+        int idUser = 10;
+        ArrayList<Integer> listaIdDips = new ArrayList<>();
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
+        user.setId(idUser);
+        int idTeam = 5;
         int IdDip1 = 1;
         int IdDip2 = 2;
-        ArrayList<Integer> listaIdDips = null;
         listaIdDips.add(IdDip1);
         listaIdDips.add(IdDip2);
         config = Mockito.mock(ServletConfig.class);
@@ -121,14 +182,80 @@ public class ScioglimentoTeamControlTest {
         Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
 
         try (MockedStatic mockedStatic = mockStatic(ScioglimentoTeamControl.class)) {
+            mockedStatic.when(() -> ScioglimentoTeamControl.recuperaIdDipendentiFromManager(idTeam)).thenReturn(listaIdDips);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            Mockito.when(response.getWriter()).thenReturn(writer);
+            servlet.init(config);
+            servlet.doGet(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("1"));
+        }
+    }
+    @Test
+    public void scioglimentoTeamFail2() throws IOException, ServletException {
+        int idUser = 10;
+        ArrayList<Integer> listaIdDips = new ArrayList<>();
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
+        user.setId(idUser);
+        int idTeam = 5;
+        int IdDip1 = 1;
+        int IdDip2 = 2;
+        listaIdDips.add(IdDip1);
+        listaIdDips.add(IdDip2);
+        config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        context = Mockito.mock(ServletContext.class);
+        ScioglimentoTeamControl servlet = Mockito.spy(ScioglimentoTeamControl.class);
+        Mockito.when(request.getSession()).thenReturn(session);
+        Mockito.when(session.getAttribute("user")).thenReturn(user);
+        Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
 
+        try (MockedStatic mockedStatic = mockStatic(ScioglimentoTeamControl.class)) {
+            mockedStatic.when(() -> ScioglimentoTeamControl.recuperaIdDipendentiFromManager(idTeam)).thenReturn(listaIdDips);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            Mockito.when(response.getWriter()).thenReturn(writer);
+            servlet.init(config);
+            servlet.doGet(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("2"));
+        }
+    }
+    @Test
+    public void scioglimentoTeamPass() throws IOException, ServletException {
+        int idUser = 10;
+        ArrayList<Integer> listaIdDips = new ArrayList<>();
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "123", RuoliUtenti.TM);
+        user.setId(idUser);
+        int idTeam = 5;
+        int IdDip1 = 1;
+        int IdDip2 = 2;
+        listaIdDips.add(IdDip1);
+        listaIdDips.add(IdDip2);
+        config = Mockito.mock(ServletConfig.class);
+        request = Mockito.mock(HttpServletRequest.class);
+        response = Mockito.mock(HttpServletResponse.class);
+        session = Mockito.mock(HttpSession.class);
+        dispatcher = Mockito.mock(RequestDispatcher.class);
+        context = Mockito.mock(ServletContext.class);
+        ScioglimentoTeamControl servlet = Mockito.spy(ScioglimentoTeamControl.class);
+        Mockito.when(request.getSession()).thenReturn(session);
+        Mockito.when(session.getAttribute("user")).thenReturn(user);
+        Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
+
+        try (MockedStatic mockedStatic = mockStatic(ScioglimentoTeamControl.class)) {
+            mockedStatic.when(() -> ScioglimentoTeamControl.recuperaIdDipendentiFromManager(idTeam)).thenReturn(listaIdDips);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);
         servlet.doGet(request, response);
         writer.flush();
-        assertTrue(stringWriter.toString().contains("1"));
+        assertTrue(stringWriter.toString().contains("3"));
         }
     }
 

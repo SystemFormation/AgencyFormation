@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class ListaDipendentiControl extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             RequestDispatcher dispatcher;
@@ -44,20 +44,27 @@ public class ListaDipendentiControl extends HttpServlet {
                             dipendente.setSkills(skills);
                         }
                     }
-                }
+                    //else messo io
                 req.setAttribute("dipendenti", dipendenti);
+                resp.getWriter().write("2");
                 dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/VisualizzaDipendenti.jsp");
                 dispatcher.forward(req, resp);
+                }
+                else{
+                    resp.getWriter().write("1");
+                    resp.sendRedirect("./static/Error.html");
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
+            resp.getWriter().write("3");
             resp.sendRedirect("./static/Login.html");
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
