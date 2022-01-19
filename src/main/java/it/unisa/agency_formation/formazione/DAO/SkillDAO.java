@@ -15,34 +15,36 @@ public class SkillDAO {
 
     /**
      * Questa funzionalità permette di salvare una nuova skill
-     * @param skill != null, rappresenta la skill da salvare
-     * @throws SQLException
+     *
+     * @param skill , {@literal skill != null} rappresenta la skill da salvare
      * @return boolean true se la skill è stata salvata, false altrimenti
+     * @throws SQLException errore nella query
      */
     public static boolean salvaSkill(Skill skill) throws SQLException {
         if (skill == null) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
-            PreparedStatement save = null;
-            String query = "insert into " + TABLE_SKILL + " (NomeSkill, DescrizioneSkill)"
-                    + " values(?,?)";
-            try {
-                save = connection.prepareStatement(query);
-                save.setString(1, skill.getNomeSkill());
-                save.setString(2, skill.getDescrizioneSkill());
-                return save.executeUpdate() != 0;
-            } finally {
-                DatabaseManager.closeConnessione(connection);
-            }
+        PreparedStatement save = null;
+        String query = "insert into " + TABLE_SKILL + " (NomeSkill, DescrizioneSkill)"
+                + " values(?,?)";
+        try {
+            save = connection.prepareStatement(query);
+            save.setString(1, skill.getNomeSkill());
+            save.setString(2, skill.getDescrizioneSkill());
+            return save.executeUpdate() != 0;
+        } finally {
+            DatabaseManager.closeConnessione(connection);
         }
+    }
 
 
     /**
      * Questa funzionalità permette di recuperare una skill tramite il nome
-     * @param nomeSkill != null, rappresenta il nome della skill da recuperare
+     *
+     * @param nomeSkill , {@literal nomeSkill != null}  rappresenta il nome della skill da recuperare
      * @return skill se la skill è presente, null altrimenti
-     * @throws SQLException
+     * @throws SQLException errore nella query
      */
     public static Skill recuperaSkillByNome(String nomeSkill) throws SQLException {
         if (nomeSkill == null) {
@@ -63,7 +65,7 @@ public class SkillDAO {
                 skill.setDescrizioneSkill(result.getString("DescrizioneSkill"));
                 skill.setIdSkill(result.getInt("IdSkill"));
             }
-                return skill;
+            return skill;
         } finally {
             DatabaseManager.closeConnessione(connection);
 
@@ -72,10 +74,11 @@ public class SkillDAO {
 
     /**
      * Questa funzionalità permette di salvare una skill ad un dipendente
-     * @param idSkill > 0 rappresenta l'id della skill da associare
-     * @param idDip > 0 rappresenta l'id del dipendente
-     * @param skillLivello > 0 && < 6 rappresenta il livello della skill
-     * @throws SQLException
+     *
+     *  @param idSkill , {@literal idSkill > 0 } rappresenta l'id della skill da associare
+     * @param idDip , {@literal idDip > 0 } rappresenta l'id del dipendente
+     * @param skillLivello , {@literal skillLivello > 0 @and skilLivello < 6} rappresenta il livello della skill
+     * @throws SQLException errore nella query
      * @return boolean true se il salvataggio va a buon fine, false altrimenti
      */
     public static boolean salvaSkillDipendente(int idSkill, int idDip, int skillLivello) throws SQLException {
@@ -100,8 +103,8 @@ public class SkillDAO {
 
     /**
      * Questa funzionalità permette di recuperare l'id dell'ultima skill aggiunta
-     * @return id ultima skill, altrimenti -1
-     * @throws SQLException
+     * @return id ultima skill , altrimenti -1
+     * @throws SQLException errore nella query
      */
     public static int recuperaUltimaSkill() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -115,7 +118,7 @@ public class SkillDAO {
             if (result.next()) {
                 n = result.getInt(1);
             }
-                return n;
+            return n;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -123,9 +126,10 @@ public class SkillDAO {
 
     /**
      * Questa funzionalità permette di recuperare tutte le skill di un dipendente
-     * @param idDip > 0 rappresenta l'id del dipendente
-     * @return ArrayList<Skill> se il dipendente ha delle skill, null altrimenti
-     * @throws SQLException
+     *
+     * @param idDip ,  {@literal idDip > 0 } rappresenta l'id del dipendente
+     * @return {@literal ArrayList<@link Skill>} se il dipendente ha delle skill, null altrimenti
+     * @throws SQLException errore nella query
      */
     public static ArrayList<Skill> recuperoSkillsByIdDipendente(int idDip) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
