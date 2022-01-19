@@ -17,9 +17,10 @@ import java.sql.SQLException;
 @WebServlet("/CandidatoAssuntoControl")
 public class CandidatoAssuntoControl extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user == null || user.getRole() != RuoliUtenti.CANDIDATO) {
+            response.getWriter().write("1");// user null o ruolo non adatto
             response.sendRedirect("./static/Login.html");
         } else {
             try {
@@ -33,12 +34,13 @@ public class CandidatoAssuntoControl extends HttpServlet {
                     dipendente.setResidenza(residenza);
                     dipendente.setTelefono(telefono);
                     dipendente.setStato(StatiDipendenti.DISPONIBILE);
-                    boolean esito = assumiCandidato(dipendente);
+                    boolean esito = assumiCandidatoFromManager(dipendente);
                     if (!esito) {
                         response.getWriter().write("2"); //errore assunzione
                         response.sendRedirect("/WEB-INF/jsp/HomeCandidato.jsp");
                     } else {
                         request.getSession().invalidate();
+                        response.getWriter().write("3");// assunzione
                         response.sendRedirect("./static/Login.html");
                     }
             } catch (SQLException e) {
@@ -48,12 +50,12 @@ public class CandidatoAssuntoControl extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
 
-    public static boolean assumiCandidato(Dipendente dipendente) throws SQLException {
+    public static boolean assumiCandidatoFromManager(Dipendente dipendente) throws SQLException {
       AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
       return autenticazioneManager.assumiCandidato(dipendente);
     }
