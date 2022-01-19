@@ -19,16 +19,16 @@ public class RicandidaturaControl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user == null || user.getRole() != RuoliUtenti.CANDIDATO) {
-            response.getWriter().write("3"); //utente nullo o ruolo diverso da Candidato
+            response.getWriter().write("1"); //utente nullo o ruolo diverso da Candidato
             response.sendRedirect("./static/Login.html");
         } else {
             try {
                 if (!eliminaCandidaturaFromManager(user.getId())) {
-                    response.getWriter().write("1"); //eliminazione candidatura fallita
+                    response.getWriter().write("2"); //eliminazione candidatura fallita
                     response.sendRedirect("./static/Error.html");
                 } else {
-                    response.getWriter().write("2"); // avvenuta eliminazione candidatura
                     request.setAttribute("sceltaUpload", 3);
+                    response.getWriter().write("3"); // avvenuta eliminazione candidatura
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/UploadCandidatureControl");
                     dispatcher.forward(request, response);
                 }

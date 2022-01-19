@@ -43,6 +43,7 @@ public class RifiutaColloquioControl extends HttpServlet {
             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeHR.jsp");
             dispatcher.forward(request, response);
         } else {
+            response.getWriter().write("3"); //rifiuto non avvenuto
             response.sendRedirect("./static/Login.html");
         }
     }
