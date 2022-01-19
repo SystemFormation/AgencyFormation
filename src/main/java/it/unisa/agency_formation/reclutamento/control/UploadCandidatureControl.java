@@ -28,7 +28,7 @@ public class UploadCandidatureControl extends HttpServlet {
     private static final String pathAbsolute = System.getProperty("user.home") + pathRelative;
     private static final int MAXDIM = 10485760; //10MB
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.CANDIDATO) {
             if (request.getParameter("sceltaUpload") == null) {
@@ -74,7 +74,7 @@ public class UploadCandidatureControl extends HttpServlet {
             } else if (scelta == 2) {
                 Part documenti = request.getPart("documenti");
                 if (documenti.getSize() > MAXDIM) {
-                    response.getWriter().write("1"); //file troppo grande
+                    response.getWriter().write("2"); //file troppo grande
                     response.sendRedirect("./static/Error.jsp");
                     return;
                 } else {
@@ -95,11 +95,12 @@ public class UploadCandidatureControl extends HttpServlet {
                     }
                 }
             } else if (scelta == 3) {
+                response.getWriter().write("3"); //ricandidatura
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Upload.jsp");
                 dispatcher.forward(request, response);
             }
             try {
-                Candidatura candidatura = getCandidaturafromManager(user.getId());
+                Candidatura candidatura = getCandidaturaFromManager(user.getId());
                 request.setAttribute("candidatura", candidatura);
                 RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");
                 dispatcher.forward(request, response);
@@ -113,11 +114,11 @@ public class UploadCandidatureControl extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
-    public static Candidatura getCandidaturafromManager(int idCandidato) throws SQLException {
+    public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }

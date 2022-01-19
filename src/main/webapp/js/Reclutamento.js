@@ -33,7 +33,6 @@ function checkFileCurriculum(){
          $('#curriculumNotUpload').css("color","red");
          $('#curriculumNotUpload').css("font-size","14px").html("<br>Formato non valido, seleziona un pdf");
      }else {
-
          if (fileUpload.files.item(0).size == 0) {
              $('#curriculumNotUpload').css("display", "inline");
              $('#curriculumNotUpload').css("color", "red");

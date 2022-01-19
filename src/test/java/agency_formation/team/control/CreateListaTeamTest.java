@@ -89,14 +89,11 @@ public class CreateListaTeamTest {
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
         String action = "bad action";
-
         CreateTeamControl servlet = Mockito.spy(CreateTeamControl.class);
-
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getParameter("action")).thenReturn(action);
         Mockito.when(request.getServletContext()).thenReturn(context);
-
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);

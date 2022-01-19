@@ -23,6 +23,7 @@ import java.sql.SQLException;
 public class UploadMaterialeControl extends HttpServlet {
     private static final String pathRelative = "\\AgencyFormationFile\\MaterialeFormazione\\";
     private static final String pathAbsolute = System.getProperty("user.home") + pathRelative;
+    private static final int MAXDIM = 10485760; //10MB
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
@@ -40,6 +41,11 @@ public class UploadMaterialeControl extends HttpServlet {
                     response.sendRedirect("./static/Error.jsp");
                 } else {
                     Part part = request.getPart("materiale");
+                    if (part.getSize() > MAXDIM) {
+                        response.getWriter().write("4"); //file troppo grande
+                        response.sendRedirect("./static/Error.html");
+                        return;
+                    }
                     part.write(file.getAbsolutePath() + "\\" + part.getSubmittedFileName());
                     String pathMaterialeFormazione = pathRelative + "\\" + "IdTeam-" + idTeam + "\\" + part.getSubmittedFileName();
                     documento.setMaterialeDiFormazione(pathMaterialeFormazione);
@@ -48,11 +54,11 @@ public class UploadMaterialeControl extends HttpServlet {
                     try {
                         boolean esito = saveDocumentFromManager(documento);
                         if (esito) {
-                            response.getWriter().write("4"); //documento salvato
+                            response.getWriter().write("5"); //documento salvato
                             RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ListaTeam");
                             dispatcher.forward(request, response);
                         } else {
-                            response.getWriter().write("5"); //documento non salvato
+                            response.getWriter().write("6"); //documento non salvato
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();

@@ -101,9 +101,8 @@ public class LoginControl extends HttpServlet {
                         }
                     } else {
                         response.getWriter().write("4"); //utente non valido
-                        String descr = "E-mail o password errati";
-                        request.setAttribute("descrizione", descr);
-                        response.sendRedirect("./static/Error.jsp");
+                        String descrizione = "E-mail o password errati";
+                        response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
                     }
 
                 } catch (SQLException e) {

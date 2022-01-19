@@ -247,8 +247,9 @@ public class ScioglimentoTeamControlTest {
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
 
-        try (MockedStatic mockedStatic = mockStatic(ScioglimentoTeamControl.class)) {
+        try (MockedStatic<ScioglimentoTeamControl> mockedStatic = mockStatic(ScioglimentoTeamControl.class)) {
             mockedStatic.when(() -> ScioglimentoTeamControl.recuperaIdDipendentiFromManager(idTeam)).thenReturn(listaIdDips);
+            mockedStatic.when(() -> ScioglimentoTeamControl.eliminaTeamFromManager(idTeam)).thenReturn(true);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);

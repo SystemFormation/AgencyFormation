@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    String descrizione = (String) request.getAttribute("descrizione");
+    String descrizione = request.getParameter("descrizione");
+    System.out.println(descrizione);
 %>
 <html>
 <head>
@@ -11,11 +12,11 @@
 <body>
 <div class="error">
     <c:choose>
-        <c:when test="${descrizione==null}">
+        <c:when test="${descrizione.length()==0}">
             Funzionalità in sviluppo
         </c:when>
         <c:otherwise>
-            ${descrizione}
+            <%=descrizione%>
         </c:otherwise>
     </c:choose>
 </div>
