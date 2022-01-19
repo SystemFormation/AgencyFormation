@@ -29,15 +29,15 @@ public class ScioglimentoTeamControl extends HttpServlet {
                     ArrayList<Integer> listaIdDip = recuperaIdDipendentiFromManager(idTeam);
                     if (listaIdDip != null && listaIdDip.size() > 0) { // cambiato da 1 a 0
                         for (int idDip : listaIdDip) {
-                            if(!updateStatoDipendenteFromManager(idDip)){
-                                resp.getWriter().write("1");// errore aggiornamento stato dip
+                            if (!updateStatoDipendenteFromManager(idDip)) {
+                                resp.getWriter().write("1"); // errore aggiornamento stato dip
                                 resp.sendRedirect("./static/Error.html");
                                 return;
                             }
                         }
                         //Mettere quello di sotto qui forse
                     }
-                    if(!eliminaTeamFromManager(idTeam)){
+                    if (!eliminaTeamFromManager(idTeam)) {
                         resp.getWriter().write("2");
                         resp.sendRedirect("./static/Error.html");
                         return;

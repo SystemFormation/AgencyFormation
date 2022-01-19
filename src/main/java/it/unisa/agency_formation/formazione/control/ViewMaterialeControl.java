@@ -24,12 +24,12 @@ public class ViewMaterialeControl extends HttpServlet {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
             try {
-                Dipendente dipendente = getDipendentefromManager(user.getId());
+                Dipendente dipendente = getDipendenteFromManager(user.getId());
                 if (dipendente == null) {
                     response.getWriter().write("1"); //errore retrieve dipendente
                 } else {
                     int idTeam = dipendente.getTeam().getIdTeam();
-                    Documento documento = getDocumentofromManager(idTeam);
+                    Documento documento = getDocumentoFromManager(idTeam);
                     if (documento != null) {
                         response.getWriter().write("2"); //il documento esiste
                     } else {
@@ -49,12 +49,12 @@ public class ViewMaterialeControl extends HttpServlet {
         doGet(req, resp);
     }
 
-    public static Dipendente getDipendentefromManager(int idUtente) throws SQLException {
+    public static Dipendente getDipendenteFromManager(int idUtente) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getDipendente(idUtente);
     }
 
-    public static Documento getDocumentofromManager(int idTeam) throws SQLException {
+    public static Documento getDocumentoFromManager(int idTeam) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.getMaterialeByIdTeam(idTeam);
     }

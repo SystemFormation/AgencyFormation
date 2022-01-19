@@ -1,6 +1,5 @@
 package agency_formation.team.DAO;
 
-import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.utils.Const;
@@ -36,13 +35,12 @@ public class TeamDAOTest {
 
     @AfterAll
     public static void finish() throws SQLException {
-        String deleteUtente = "delete from Utenti where IdUtente=5";
-        String deleteDocumento = "delete from documenti where IdDocumento>1";
+        String deleteUtente = "delete from Utenti where IdUtente=201";
+        String deleteDocumento = "delete from documenti where IdDocumento>=1";
         String deleteTeam = "delete from team where idTeam>=1";
         String deleteDipendente = "delete from dipendenti where idDipendente > 2";
         String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'Fitdiary', '8', 'Bastoncini Fitnuss', 'Vendiamo bastoncini di pesce', 'HTML', 3)";
         String insertDipendenteDefault = "insert into dipendenti (IdDipendente,Residenza, Telefono, Stato, AnnoDiNascita, IdTeam) values(2,'Fisciano', 118, 0, 2000, 1)";
-        String insertDocumentoDefault = "insert into documenti (IdDocumento,MaterialeDiFormazione,IdHR,IdTeam) values (1,'\\\\', 4, 1)";
         String insertSkills1 = "insert into skillsdipendenti(IdDipendente,IdSkill,Livello) values(2,1,5)";
         String insertSkills2 = "insert into skillsdipendenti(IdDipendente,IdSkill,Livello) values(2,2,3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -52,16 +50,15 @@ public class TeamDAOTest {
         PreparedStatement statement4 = connection.prepareStatement(deleteUtente);
         PreparedStatement statement5 = connection.prepareStatement(insertTeamDefault);
         PreparedStatement statement6 = connection.prepareStatement(insertDipendenteDefault);
-        PreparedStatement statement7 = connection.prepareStatement(insertDocumentoDefault);
+        PreparedStatement statement8 = connection.prepareStatement(insertDipendenteDefault);
         statement1.executeUpdate(deleteDocumento);
         statement2.executeUpdate(deleteTeam);
         statement3.executeUpdate(deleteDipendente);
         statement4.executeUpdate(deleteUtente);
         statement5.executeUpdate(insertTeamDefault);
         statement6.executeUpdate(insertDipendenteDefault);
-        statement7.executeUpdate(insertDocumentoDefault);
-        statement7.executeUpdate(insertSkills1);
-        statement7.executeUpdate(insertSkills2);
+        statement8.executeUpdate(insertSkills1);
+        statement8.executeUpdate(insertSkills2);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
@@ -152,7 +149,7 @@ public class TeamDAOTest {
         assertTrue(TeamDAO.rimuoviDipendente(idDipendente));
         String deleteDipendente2 = "delete from dipendenti where IdDipendente=2";
         PreparedStatement statement3 = connection.prepareStatement(deleteDipendente2);
-        statement3.executeUpdate(deleteDipendente);
+        statement3.executeUpdate(deleteDipendente2);
     }
 
     @Test
@@ -219,7 +216,7 @@ public class TeamDAOTest {
         statement.executeUpdate(query_team_order);
         String competence = null;
         int idTeam = 0;
-        assertFalse(TeamDAO.modificaCompetenze(competence, idTeam));
+        assertFalse(TeamDAO.specificaCompetenze(competence, idTeam));
         String query_delete = "delete from team where idTeam = 5";
         PreparedStatement statement2 = connection.prepareStatement(query_delete);
         statement2.executeUpdate(query_delete);
@@ -230,7 +227,7 @@ public class TeamDAOTest {
     public void updateCompetenceFail2() throws SQLException {
         String competence = null;
         int idTeam = -1;
-        assertFalse(TeamDAO.modificaCompetenze(competence, idTeam));
+        assertFalse(TeamDAO.specificaCompetenze(competence, idTeam));
     }
 
     @Test
@@ -242,7 +239,7 @@ public class TeamDAOTest {
         statement.executeUpdate(query_team_order);
         String competence = "HTML";
         int idTeam = 5;
-        assertTrue(TeamDAO.modificaCompetenze(competence, idTeam));
+        assertTrue(TeamDAO.specificaCompetenze(competence, idTeam));
         String query_delete = "delete from team where idTeam = 5";
         PreparedStatement statement2 = connection.prepareStatement(query_delete);
         statement2.executeUpdate(query_delete);
@@ -250,42 +247,13 @@ public class TeamDAOTest {
 
     @Test
     @Order(20)
-    public void retrieveCompetenceFail() throws SQLException {
-        int idTeam = -1;
-        assertNull(TeamDAO.recuperaCompetenza(idTeam));
-    }
-
-    @Test
-    @Order(21)
-    public void retrieveCompetenceOk1() throws SQLException {
-        String query_team_order = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(5, 'RTresd',8,'PolloFlitto','Non siamo eroi','HTML',3)";
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement statement = connection.prepareStatement(query_team_order);
-        statement.executeUpdate(query_team_order);
-        int idTeam = 5;
-        assertNotNull(TeamDAO.recuperaCompetenza(idTeam));
-        String query_delete = "delete from team where idTeam = 5";
-        PreparedStatement statement2 = connection.prepareStatement(query_delete);
-        statement2.executeUpdate(query_delete);
-    }
-
-    @Test
-    @Order(22)
-    public void retrieveCompetenceOk2() throws SQLException {
-        int idTeam = 2;
-        assertNull(TeamDAO.recuperaCompetenza(idTeam));
-
-    }
-
-    @Test
-    @Order(23)
     public void retrieveAllIdEmployeesfromTeamFail() throws SQLException {
         int idTeam = -1;
         assertNull(TeamDAO.recuperaIdTeamMemberFromTeam(idTeam));
     }
 
     @Test
-    @Order(24)
+    @Order(21)
     public void retrieveAllIdEmployeesfromTeamOK() throws SQLException {
         String query_team_order = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(5, 'RTresd',8,'PolloFlitto','Non siamo eroi','HTML',3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -308,7 +276,7 @@ public class TeamDAOTest {
     }
 
     @Test
-    @Order(25)
+    @Order(22)
     public void recoverEmployeesOK() throws SQLException {
         String deleteTeam = "delete from team where idTeam =1";
         String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'Fitdiary', '8', 'Bastoncini Fitnuss', 'Vendiamo bastoncini di pesce', 'HTML', 3)";
@@ -324,14 +292,14 @@ public class TeamDAOTest {
     }
 
     @Test
-    @Order(26)
+    @Order(23)
     public void updateEmployeesStateWhenTeamDissolutionFail() throws SQLException {
         int idDip = -1;
         assertFalse(TeamDAO.updateDipStateDissolution(idDip));
     }
 
     @Test
-    @Order(27)
+    @Order(24)
     public void updateEmployeesStateWhenTeamDissolutionOK() throws SQLException {
         String query_team_order = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(100, 'RTresd',8,'PolloFlitto','Non siamo eroi',null,3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -345,7 +313,7 @@ public class TeamDAOTest {
     }
 
     @Test
-    @Order(28)
+    @Order(25)
     public void recoverEmployeesState0() throws SQLException {
         String query = "update dipendenti set Stato = 0 where idDipendente = 2";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -355,7 +323,7 @@ public class TeamDAOTest {
     }
 
     @Test
-    @Order(29)
+    @Order(26)
     public void recoverEmployeesState1() throws SQLException {
         String query = "update dipendenti set Stato = 1 where idDipendente = 2";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -365,7 +333,7 @@ public class TeamDAOTest {
     }
 
     @Test
-    @Order(30)
+    @Order(27)
     public void recoverEmployeesFail() throws SQLException {
         String deleteDipendente = "delete from dipendenti where idDipendente >1";
         Connection connection = DatabaseManager.getInstance().getConnection();

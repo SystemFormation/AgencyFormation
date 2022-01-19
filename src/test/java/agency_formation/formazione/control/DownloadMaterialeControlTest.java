@@ -33,7 +33,7 @@ public class DownloadMaterialeControlTest {
     private static RequestDispatcher dispatcher;
     private static ServletContext context;
     private static ServletConfig config;
-
+//
     @Test //mi aspetto 1
     public void userNotDipendente() throws IOException, ServletException {
         Utente user = new Utente();
@@ -50,6 +50,7 @@ public class DownloadMaterialeControlTest {
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
         DownloadMaterialeControl servlet = Mockito.spy(DownloadMaterialeControl.class);
+        Mockito.when(request.getServletContext().getRealPath(""));
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);

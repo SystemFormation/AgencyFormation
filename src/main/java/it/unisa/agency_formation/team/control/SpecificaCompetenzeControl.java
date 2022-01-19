@@ -2,7 +2,6 @@ package it.unisa.agency_formation.team.control;
 
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.manager.TeamManager;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 
@@ -48,6 +47,6 @@ public class SpecificaCompetenzeControl extends HttpServlet {
     }
     public static boolean inserimentoCompetenzeNelTeam(String competenze, int idTeam) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
-        return teamManager.modificaLeCompetenze(competenze, idTeam);
+        return teamManager.specificaLeCompetenze(competenze, idTeam);
     }
 }

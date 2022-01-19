@@ -24,7 +24,7 @@
         </div>
         <div class="form-button">
             <div class="dropdown">
-                <button id="gestioneSkill" onclick="viewAddSkill()">Aggiungi Skill</button>
+                <a href="#formLogin"><button id="gestioneSkill" onclick="viewAddSkill()" >Aggiungi Skill</button></a>
             </div>
             <br>
             <a href="/AgencyFormation/static/Error.html">

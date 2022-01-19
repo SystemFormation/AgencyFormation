@@ -33,7 +33,7 @@ public class ListaDipendentiControl extends HttpServlet {
             /*visualizzo tutti i dipendenti*/
             try {
                 ArrayList<Dipendente> dipendenti = getTuttiDipendentiFromManager();
-                if(dipendenti!=null && dipendenti.size()>0) {
+                if (dipendenti != null && dipendenti.size() > 0) {
                     for (Dipendente dipendente : dipendenti) {
                         ArrayList<Skill> skills;
                         if (dipendente.getTeam() != null && dipendente.getTeam().getIdTeam() > 0) {

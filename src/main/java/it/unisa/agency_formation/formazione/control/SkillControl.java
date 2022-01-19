@@ -1,7 +1,6 @@
 package it.unisa.agency_formation.formazione.control;
 
 
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
@@ -33,27 +32,27 @@ public class SkillControl extends HttpServlet {
             String skillDescr = request.getParameter("skillDescr");
             int skillLivello = Integer.parseInt(request.getParameter("quantity"));
             if (skillName != null && skillDescr != null) {
-                if (skillName.trim().length()==0) {
+                if (skillName.trim().length() == 0) {
                     response.getWriter().write("1"); // Skillnome vuoto
-                }else{
+                } else {
                     skill.setNomeSkill(skillName);
                 }
-                if (skillDescr.trim().length()==0) {
+                if (skillDescr.trim().length() == 0) {
                     response.getWriter().write("2"); //Skilldesc vuoto
-                }else{
+                } else {
                     skill.setDescrizioneSkill(skillDescr);
                 }
                 try {
                     Dipendente dip = getDipendenteByIdFromManager(user.getId());
                     if (dip != null) {
                         //TODO SI DEVE FARE UNA PAGINA DIVERSA PER GLI ERRORI
-                        if(!addSkillFromManager(skill)){
+                        if (!addSkillFromManager(skill)) {
                             response.getWriter().write("2"); // aggiunta in skill non avvenuta con successo.
                             response.sendRedirect("./static/Error.html");
                             return;
                         }
                         int idSkill = getLastIdSkillCreatedFromManager();
-                        if(!addSkillDipFromManager(idSkill, dip.getIdDipendente(), skillLivello)){
+                        if (!addSkillDipFromManager(idSkill, dip.getIdDipendente(), skillLivello)) {
                             response.getWriter().write("3"); // aggiunta in skillDip non avvenuta con successo.
                             response.sendRedirect("./static/Error.html");
                             return;

@@ -31,7 +31,7 @@ public class ProfiloControl extends HttpServlet {
                 Dipendente dip = getAllDataDipFromManager(user.getId());
                 ArrayList<Skill> skills = new ArrayList<>();
                 skills = getSkillDipendenteFromManager(dip.getIdDipendente());
-                if (skills!= null && skills.size()>=1) {
+                if (skills != null && skills.size() >= 1) {
                     dip.setSkills(skills);
                 }
                 response.getWriter().write("1"); // retrieve data ok

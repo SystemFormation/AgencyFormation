@@ -13,7 +13,9 @@ import it.unisa.agency_formation.team.domain.Team;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 
+import java.sql.Array;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
@@ -25,77 +27,107 @@ public class FormazioneManagerTest {
     @Test
     public void addSkillFail()throws SQLException {
         Skill skill = null;
-        try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
+        try (MockedStatic<SkillDAO> mocked = mockStatic(SkillDAO.class)) {
             mocked.when(() -> SkillDAO.salvaSkill(skill)).thenReturn(false);
+            assertFalse(aut.aggiungiSkill(skill));
+
         }
-        assertFalse(aut.aggiungiSkill(skill));
     }
     @Test
     public void addSkillPass()throws SQLException {
         Skill skill = new Skill("CSS","Competenza Basilare");
-        try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
+        try (MockedStatic<SkillDAO> mocked = mockStatic(SkillDAO.class)) {
             mocked.when(() -> SkillDAO.salvaSkill(skill)).thenReturn(true);
+            assertTrue(aut.aggiungiSkill(skill));
+
         }
-        assertTrue(aut.aggiungiSkill(skill));
     }
-    // Da rivedere
     @Test
-    public void getLastCreatedIdPass() throws SQLException{
-        try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
+    public void getUltimaSkillPass() throws SQLException{
+        try (MockedStatic<SkillDAO> mocked = mockStatic(SkillDAO.class)) {
+            mocked.when(() -> SkillDAO.recuperaUltimaSkill()).thenReturn(1);
+            assertTrue(aut.getUltimaSkill()>0);
+
+        }
+    }
+    @Test
+    public void getUltimaSkillFail() throws SQLException{
+        try (MockedStatic<SkillDAO> mocked = mockStatic(SkillDAO.class)) {
             mocked.when(() -> SkillDAO.recuperaUltimaSkill()).thenReturn(0);
+            assertFalse(aut.getUltimaSkill()>0);
+
         }
-        assertNotNull(aut.getUltimaSkill());
     }
     @Test
-    public void addSkillDipFailId() throws  SQLException {
+    public void addSkillDipendenteFail() throws  SQLException {
         Skill skill = new Skill("PHP", "lunguage PHP");
-        Dipendente dip = new Dipendente("Andrea", "Capone", "adrea@gmail.com", "lol", RuoliUtenti.DIPENDENTE, 5, 2000, "Roma", "3423983792", StatiDipendenti.DISPONIBILE);
-        try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
+        skill.setIdSkill(1);
+        Dipendente dip = new Dipendente();
+        dip.setIdDipendente(1);
+        dip.setAnnoNascita(2000);
+        dip.setTelefono("1236987569");
+        dip.setResidenza("Londra");
+        dip.setStato(StatiDipendenti.DISPONIBILE);
+        try (MockedStatic<SkillDAO> mocked = mockStatic(SkillDAO.class)) {
             mocked.when(() -> SkillDAO.salvaSkillDipendente(skill.getIdSkill(), dip.getIdDipendente(), 3)).thenReturn(false);
+            assertFalse(aut.addSkillDipendente(skill.getIdSkill(), dip.getIdDipendente(), 3));
         }
-        assertFalse(aut.addSkillDipendente(skill.getIdSkill(), dip.getIdDipendente(), 3));
     }
     @Test
-    public void addSkillDipFailDip() throws  SQLException{
+    public void addSkillDipendentePass() throws  SQLException{
         Skill skill = new Skill("PHP", "lunguage PHP");
-        Dipendente dip = null;
-        try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.salvaSkillDipendente(skill.getIdSkill(),dip.getIdDipendente() ,3)).thenReturn(false);
+        skill.setIdSkill(1);
+        Dipendente dip = new Dipendente();
+        dip.setIdDipendente(1);
+        dip.setAnnoNascita(2000);
+        dip.setTelefono("1236987569");
+        dip.setResidenza("Londra");
+        dip.setStato(StatiDipendenti.DISPONIBILE);
+        try (MockedStatic<SkillDAO> mocked = mockStatic(SkillDAO.class)) {
+            mocked.when(() -> SkillDAO.salvaSkillDipendente(skill.getIdSkill(),dip.getIdDipendente() ,3)).thenReturn(true);
+            assertTrue(aut.addSkillDipendente(skill.getIdSkill(), dip.getIdDipendente() ,3));
+
         }
-        assertFalse(aut.addSkillDipendente(skill.getIdSkill(), dip.getIdDipendente() ,3));
     }
-    //errore ritorno
-    @Test
-    public void addSkillDipPass() throws SQLException {
-        Skill skill = new Skill();
-        Utente user=new Utente("Angelo","Perna","aperna@live.it","lol",RuoliUtenti.DIPENDENTE);
-        Dipendente dipendente;
-        dipendente= new Dipendente(user.getName(), user.getSurname(),user.getEmail(),user.getPwd(),user.getRole(), user.getId(), 1999,"Roma","3345678678",StatiDipendenti.DISPONIBILE);
-        int level=3;
-        try (MockedStatic mocked = mockStatic(SkillDAO.class)) {
-            mocked.when(() -> SkillDAO.salvaSkillDipendente(skill.getIdSkill(), dipendente.getIdDipendente(), level)).thenReturn(true);
-        }
-        assertTrue(aut.addSkillDipendente(skill.getIdSkill(), dipendente.getIdDipendente(), level));
-    }
+
 
     @Test //documento==null
     public void getMaterialeByIdTeamFail() throws SQLException {
         Team team = new Team("Progetto", 3, "Team", "testing", "html", 3);
-        try (MockedStatic mocked = mockStatic(DocumentoDAO.class)) {
+        team.setIdTeam(3);
+        try (MockedStatic<DocumentoDAO> mocked = mockStatic(DocumentoDAO.class)) {
             mocked.when(() -> DocumentoDAO.recuperaDocumentoByTeam(team.getIdTeam())).thenReturn(null);
+            assertNull(aut.getMaterialeByIdTeam(team.getIdTeam()));
+
         }
-        assertNull(aut.getMaterialeByIdTeam(team.getIdTeam()));
     }
 
     @Test //pass
     public void getMaterialeByIdTeamPass() throws SQLException {
         Team team = new Team("Progetto1", 3, "Team1", "testing", "html", 3);
+        team.setIdTeam(3);
         Documento document = new Documento();
-        team.setDocumento(document);
-        try (MockedStatic mocked = mockStatic(DocumentoDAO.class)) {
-            mocked.when(() -> DocumentoDAO.recuperaDocumentoByTeam(team.getIdTeam())).thenReturn(team.getDocumento());
+        try (MockedStatic<DocumentoDAO> mocked = mockStatic(DocumentoDAO.class)) {
+            mocked.when(() -> DocumentoDAO.recuperaDocumentoByTeam(team.getIdTeam())).thenReturn(document);
+            assertNotNull(aut.getMaterialeByIdTeam(team.getIdTeam()));
+
         }
-        assertNotNull(aut.getMaterialeByIdTeam(team.getIdTeam()));
     }
 
+    @Test
+    public void recuperaSkillConIdDipFail() throws SQLException {
+        ArrayList<Skill> skills = null;
+        try (MockedStatic<SkillDAO> mocked = mockStatic(SkillDAO.class)) {
+            mocked.when(() -> SkillDAO.recuperoSkillsByIdDipendente(5)).thenReturn(skills);
+            assertNull(SkillDAO.recuperoSkillsByIdDipendente(5));
+        }
+    }
+    @Test
+    public void recuperaSkillConIdDipPass() throws SQLException {
+        ArrayList<Skill> skills = new ArrayList<>();
+        try (MockedStatic<SkillDAO> mocked = mockStatic(SkillDAO.class)) {
+            mocked.when(() -> SkillDAO.recuperoSkillsByIdDipendente(5)).thenReturn(skills);
+            assertNotNull(SkillDAO.recuperoSkillsByIdDipendente(5));
+        }
+    }
 }

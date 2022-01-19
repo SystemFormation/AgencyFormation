@@ -16,11 +16,9 @@ public class UtenteDAO {
 
     /**
      * Questo metodo permette di salvare un utente
-     *
-     * @param user è l'utente da registrare
-     * @return boolean
-     * @throws SQLException eccezione
-     * @pre user!=null
+     * @param user != null, user è l'utente da registrare
+     * @return boolean true se l'utente è stato salvato con successo, false altrimenti
+     * @throws SQLException
      */
     public static boolean salvaUtente(Utente user) throws SQLException {
         if (user == null) {
@@ -50,7 +48,7 @@ public class UtenteDAO {
                     save.setInt(5, 4);
                     break;
             }
-            return save.executeUpdate()!=0;
+            return save.executeUpdate() != 0;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -58,13 +56,10 @@ public class UtenteDAO {
 
     /**
      * Questo metodo permette di recuperare un utente
-     *
-     * @param email è l'email dell'utente
-     * @param pwd   è la password dell'utente
-     * @return Utente l'utente loggato
+     * @param email!=null è l'email dell'utente
+     * @param pwd!=null   è la password dell'utente
+     * @return Utente che si è registrato in precedenza, null se non è presente nel db
      * @throws SQLException
-     * @pre email!=null
-     * @pre pwd!=null
      */
     public static Utente login(String email, String pwd) throws SQLException {
         if (email == null || pwd == null) {
@@ -74,19 +69,19 @@ public class UtenteDAO {
         ResultSet result;
         PreparedStatement retrieve = null;
         String query = "Select * from " + TABLE_UTENTE + " where Mail=? and Pwd=?";
-        Utente user = new Utente();
+        Utente user = null;
         try {
             retrieve = connection.prepareStatement(query);
             retrieve.setString(1, email);
             retrieve.setString(2, pwd);
             result = retrieve.executeQuery();
             if (result.next()) {
+                user = new Utente();
                 user.setId(result.getInt("IdUtente"));
                 user.setName(result.getString("Nome"));
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-
                 switch (result.getInt("Ruolo")) {
                     case 1:
                         user.setRole(RuoliUtenti.CANDIDATO);
@@ -103,146 +98,18 @@ public class UtenteDAO {
                     default:
                         break;
                 }
-                return user;
             }
         } finally {
            DatabaseManager.closeConnessione(connection);
         }
-        return null;
+        return user;
     }
-
     /**
-     * Questo medoto ritorna l'utente con l'id indicato
-     *
-     * @param id
-     * @return Utente
+     * Questa funzionalità permette di recuperare i candidati che hanno presentato la propria candidatura
      * @throws SQLException
-     * @pre id>0
-     */
-    public static Utente doRetrieveUtenteByID(int id) throws SQLException {
-        if (id <= 0) {
-            return null;
-        }
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        ResultSet result;
-        PreparedStatement retrieve = null;
-        String query = "SELECT * FROM " + TABLE_UTENTE + " WHERE IdUtente=?";
-        Utente user = new Utente();
-        try {
-            retrieve = connection.prepareStatement(query);
-            retrieve.setInt(1, id);
-            result = retrieve.executeQuery();
-            if (result.next()) {
-                user.setId(result.getInt("IdUtente"));
-                user.setName(result.getString("Nome"));
-                user.setSurname(result.getString("Cognome"));
-                user.setPwd(result.getString("Pwd"));
-                user.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")) {
-                    case 1:
-                        user.setRole(RuoliUtenti.CANDIDATO);
-                        break;
-                    case 2:
-                        user.setRole(RuoliUtenti.DIPENDENTE);
-                        break;
-                    case 3:
-                        user.setRole(RuoliUtenti.TM);
-                        break;
-                    case 4:
-                        user.setRole(RuoliUtenti.HR);
-                        break;
-                    default:
-                        break;
-                }
-                return user;
-            }
-        } finally {
-            DatabaseManager.closeConnessione(connection);
-        }
-        return null;
-    }
+     * @return ArrayList<Utente> se ci sono candidati altrimenti null
+     * */
 
-
-    /**
-     * Questo metodo permette di recuperare degli utenti attraverso il ruolo
-     *
-     * @param
-     * @return arraylist di utenti
-     * @throws SQLException
-     * @pre ruolo>0 and ruolo<=4
-     * @post utenti.size()>0
-     */
-
-/*
-    public static ArrayList<Utente> doRetrieveUtenteByRuolo(RuoliUtenti ruolo) throws SQLException {
-        if (ruolo == null) {
-            return null;
-        }
-        int role = 0;
-        switch (ruolo) {
-            case CANDIDATO:
-                role = 1;
-                break;
-            case DIPENDENTE:
-                role = 2;
-                break;
-            case TM:
-                role = 3;
-                break;
-            case HR:
-                role = 4;
-                break;
-            default:
-                break;
-        }
-        if (role == 0) {
-            return null;
-        }
-        Connection connection = DatabaseManager.getInstance().getConnection();
-        ResultSet result;
-        PreparedStatement retrieve = null;
-        String query = "Select * from " + TABLE_UTENTE + " Where Ruolo=?";
-
-        ArrayList<Utente> utenti = new ArrayList<>();
-        try {
-            retrieve = connection.prepareStatement(query);
-            retrieve.setInt(1, role);
-            result = retrieve.executeQuery();
-            while (result.next()) {
-                Utente user = new Utente();
-                user.setId(result.getInt("IdUtente"));
-                user.setName(result.getString("Nome"));
-                user.setSurname(result.getString("Cognome"));
-                user.setPwd(result.getString("Pwd"));
-                user.setEmail(result.getString("Mail"));
-                switch (result.getInt("Ruolo")) {
-                    case 1:
-                        user.setRole(RuoliUtenti.CANDIDATO);
-                        break;
-                    case 2:
-                        user.setRole(RuoliUtenti.DIPENDENTE);
-                        break;
-                    case 3:
-                        user.setRole(RuoliUtenti.TM);
-                        break;
-                    case 4:
-                        user.setRole(RuoliUtenti.HR);
-                        break;
-                    default:
-                        break;
-                }
-                utenti.add(user);
-            }
-            if (utenti.size() > 0) {
-                return utenti;
-            } else {
-                utenti = null;
-                return utenti;
-            }
-        } finally {
-            DatabaseManager.closeConnessione(connection);
-        }
-    }*/
 
     public static ArrayList<Utente> doRetrieveCandidatoConCandidatura() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -265,52 +132,43 @@ public class UtenteDAO {
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                if(result.getInt("Ruolo")==1){
-                    user.setRole(RuoliUtenti.CANDIDATO);
-                }
+                user.setRole(RuoliUtenti.CANDIDATO);
                 utenti.add(user);
             }
-            if (utenti.size() > 0) {
-                return utenti;
-            } else {
-                utenti = null;
-                return utenti;
-            }
+            return utenti.size()>0 ? utenti : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
     }
+    /**
+     * Questa funzionalità permette di recuperare i candidati che svolgeranno il colloquio
+     * @return ArrayList<Utente> ritorna un array se ci sono candidati per il colloquio, altrimenti null
+     * @throws SQLException
+     * */
 
     public static ArrayList<Utente> recuperoCandidatiColloquio() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
         PreparedStatement retrieve = null;
-        String query = "select * from utenti inner join candidature on " +
-                "IdUtente=IdCandidato and candidature.Stato='Accettata'";
+        String query = "select * from utenti inner join candidature on "
+                + "IdUtente=IdCandidato and candidature.Stato='Accettata'";
         ArrayList<Utente> utenti = new ArrayList<>();
         try {
             retrieve = connection.prepareStatement(query);
             result = retrieve.executeQuery();
-            while(result.next()){
+            while (result.next()) {
                 Utente user = new Utente();
                 user.setId(result.getInt("IdUtente"));
                 user.setName(result.getString("Nome"));
                 user.setSurname(result.getString("Cognome"));
                 user.setPwd(result.getString("Pwd"));
                 user.setEmail(result.getString("Mail"));
-                if(result.getInt("Ruolo")==1){
-                    user.setRole(RuoliUtenti.CANDIDATO);
-                }
+                user.setRole(RuoliUtenti.CANDIDATO);
                 utenti.add(user);
             }
-            if (utenti.size() < 1){
-                return utenti = null;
-            }
-            return utenti;
+           return utenti.size()>0 ? utenti : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
-
-
     }
 }

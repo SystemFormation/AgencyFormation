@@ -25,8 +25,9 @@ public class TeamManagerTest {
         Team team = new Team("Agency Formation", 4, "The system errors", "i membri sono dei geni", null, 3);
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.salvaTeam(team, id)).thenReturn(true);
+            assertTrue(aut.creaTeam(team, id));
+
         }
-        assertTrue(aut.creaTeam(team, id));
     }
 
     @Test
@@ -35,8 +36,9 @@ public class TeamManagerTest {
         Team team = null;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.salvaTeam(team, id)).thenReturn(false);
+            assertFalse(aut.creaTeam(team, id));
+
         }
-        assertFalse(aut.creaTeam(team, id));
 
     }
 
@@ -45,18 +47,20 @@ public class TeamManagerTest {
         int idDip = 1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.rimuoviDipendente(idDip)).thenReturn(true);
+            assertTrue(aut.rimuoviDipendente(idDip));
+
         }
-        assertTrue(aut.rimuoviDipendente(idDip));
 
     }
 
     @Test
-    public void rimuoviDipendeteFail() throws SQLException {
+    public void rimuoviDipendenteFail() throws SQLException {
         int idDip = -1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.rimuoviDipendente(idDip)).thenReturn(false);
+            assertFalse(aut.rimuoviDipendente(idDip));
+
         }
-        assertFalse(aut.rimuoviDipendente(idDip));
     }
 
     @Test
@@ -69,8 +73,9 @@ public class TeamManagerTest {
         int idUtente = 1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaTeamDiUnTM(idUtente)).thenReturn(teams);
+            assertNotNull(aut.visualizzaTeams(idUtente));
+
         }
-        assertNotNull(aut.visualizzaTeams(idUtente));
     }
 
 
@@ -80,8 +85,9 @@ public class TeamManagerTest {
         int idUtente = -1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaTeamDiUnTM(idUtente)).thenReturn(teams);
+            assertNull(aut.visualizzaTeams(idUtente));
+
         }
-        assertNull(aut.visualizzaTeams(idUtente));
     }
 
     @Test
@@ -93,45 +99,50 @@ public class TeamManagerTest {
         teams.add(team2);
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaTuttiTeam()).thenReturn(teams);
+            assertNotNull(aut.visualizzaTuttiTeams());
+
         }
-        assertNotNull(aut.visualizzaTuttiTeams());
     }
 
-    /*@Test
+    @Test
     public void visualizzaTuttiTeamsFail() throws SQLException {
-        ArrayList<Team> teams = new ArrayList<Team>();
+        ArrayList<Team> teams = null;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaTuttiTeam()).thenReturn(teams);
+            assertNull(aut.visualizzaTuttiTeams());
+
         }
-        assertNull(aut.visualizzaTuttiTeams());
-    } */
+    }
 
     @Test
     public void viewLastIdTeamPass() throws SQLException {
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaIdUltimoTeamCreato()).thenReturn(1);
+            assertTrue(aut.viewLastIdTeam() > 0);
+
         }
-        assertTrue(aut.viewLastIdTeam() > 0);
     }
 
     @Test
     public void viewLastIdTeamPassFail() throws SQLException {
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaIdUltimoTeamCreato()).thenReturn(-1);
+            assertTrue(aut.viewLastIdTeam() < 0);
+
         }
-        assertFalse(aut.viewLastIdTeam() < 0);
     }
-/*
+
     @Test
     public void recuperaIdDipendenteDelTeamPass() throws SQLException {
         ArrayList<Integer> dipendente = null;
         int idTeam = 1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaIdTeamMemberFromTeam(idTeam)).thenReturn(dipendente);
-        }
-        assertNotNull(aut.recuperaIdDipendentiDelTeam(idTeam));
+                    assertNull(aut.recuperaIdDipendentiDelTeam(idTeam));
 
-    }*/
+        }
+
+    }
 
     @Test
     public void recuperaIdDipendenteDelTeamFail() throws SQLException {
@@ -139,8 +150,9 @@ public class TeamManagerTest {
         int idTeam = -1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaIdTeamMemberFromTeam(idTeam)).thenReturn(dipendente);
+            assertNull(aut.recuperaIdDipendentiDelTeam(idTeam));
+
         }
-        assertNull(aut.recuperaIdDipendentiDelTeam(idTeam));
     }
 
     @Test
@@ -148,8 +160,9 @@ public class TeamManagerTest {
         int idDip = 2;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.updateDipStateDissolution(idDip)).thenReturn(true);
+            assertTrue(aut.updateDipsDisso(idDip));
         }
-        assertTrue(aut.updateDipsDisso(idDip));
+
 
     }
 
@@ -158,8 +171,9 @@ public class TeamManagerTest {
         int idDip = 1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.updateDipStateDissolution(idDip)).thenReturn(false);
+            assertFalse(aut.updateDipsDisso(idDip));
+
         }
-        assertFalse(aut.updateDipsDisso(idDip));
 
     }
 
@@ -168,8 +182,9 @@ public class TeamManagerTest {
         int idTeam = 1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.rimuoviTeam(idTeam)).thenReturn(true);
+            assertTrue(aut.sciogliTeam(idTeam));
+
         }
-        assertTrue(aut.sciogliTeam(idTeam));
     }
 
     @Test
@@ -177,68 +192,84 @@ public class TeamManagerTest {
         int idTeam = -1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.rimuoviTeam(idTeam)).thenReturn(false);
+            assertFalse(aut.sciogliTeam(idTeam));
+
         }
-        assertFalse(aut.sciogliTeam(idTeam));
     }
 
     @Test
     public void recuperaDipendentiDelTeamPass() throws SQLException {
-        ArrayList<Dipendente> dipendenti = null;
+        ArrayList<Dipendente> dipendenti = new ArrayList<>();
 
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaDipendentiDelTeam()).thenReturn(dipendenti);
+            assertNotNull(aut.recuperaDipendentiDelTeam());
+
         }
-        assertNotNull(aut.recuperaDipendentiDelTeam());
 
     }
-/*
+
     @Test
      public void recuperaDipendentiDelTeamFail() throws SQLException{
          ArrayList<Dipendente> dipendenti = null;
          try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
              mocked.when(() -> TeamDAO.recuperaDipendentiDelTeam()).thenReturn(dipendenti);
-         }
-         assertNull(aut.recuperaDipendentiDelTeam());
+                      assertNull(aut.recuperaDipendentiDelTeam());
 
-     }*/
+         }
+
+     }
     @Test
-    public void getTeamByIdPass() throws SQLException {
+    public void getTeamByIdFail1() throws SQLException {
         Team team = null;
         int idTeam = 1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaTeamById(idTeam)).thenReturn(team);
+            assertNull(aut.getTeamById(idTeam));
+
         }
-        assertNotNull(aut.getTeamById(idTeam));
     }
 
     @Test
-    public void getTeamByIdFail() throws SQLException {
+    public void getTeamByIdFail2() throws SQLException {
         Team team = null;
         int idTeam = -1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
             mocked.when(() -> TeamDAO.recuperaTeamById(idTeam)).thenReturn(team);
+            assertNull(aut.getTeamById(idTeam));
+
         }
-        assertNull(aut.getTeamById(idTeam));
     }
-/*
+    @Test
+    public void getTeamByIdPass() throws SQLException {
+        Team team = new Team();
+        int idTeam = 1;
+        try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
+            mocked.when(() -> TeamDAO.recuperaTeamById(idTeam)).thenReturn(team);
+            assertNotNull(aut.getTeamById(idTeam));
+
+        }
+    }
+
     @Test // dovrebbe tornare true ma ritorna false, se ritorna false funziona!
     public void modificaLeCompetenzePass() throws SQLException {
         String competence = "HTML";
         int idTeam = 2;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
-            mocked.when(() -> TeamDAO.modificaCompetenze(competence, idTeam)).thenReturn(true);
+            mocked.when(() -> TeamDAO.specificaCompetenze(competence, idTeam)).thenReturn(true);
+                    assertTrue(aut.specificaLeCompetenze(competence, idTeam));
+
         }
-        assertTrue(aut.modificaLeCompetenze(competence, idTeam));
-    }*/
+    }
 
     @Test
-    public void modificaLeCompetenzeFail() throws SQLException {
+    public void specificaLeCompetenzeFail() throws SQLException {
         String compentence = "HTML";
         int idTeam = -1;
         try (MockedStatic mocked = mockStatic(TeamDAO.class)) {
-            mocked.when(() -> TeamDAO.modificaCompetenze(compentence, idTeam)).thenReturn(false);
+            mocked.when(() -> TeamDAO.specificaCompetenze(compentence, idTeam)).thenReturn(false);
+            assertFalse(aut.specificaLeCompetenze(compentence, idTeam));
         }
-        assertFalse(aut.modificaLeCompetenze(compentence, idTeam));
     }
 
 }

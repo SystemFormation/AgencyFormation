@@ -31,7 +31,7 @@ public class AggiuntaDipendente extends HttpServlet {
            int idTeam = Integer.parseInt(req.getParameter("idTeam"));
            try {
                ArrayList<Dipendente> dipendenti = getTuttiDipendentiFromManager();
-               if(dipendenti != null && dipendenti.size() > 0) {
+               if (dipendenti != null && dipendenti.size() > 0) {
                    for (Dipendente dipendente : dipendenti) {
                        ArrayList<Skill> skills;
                        if (getSkillDipendenteFromManager(dipendente.getIdDipendente()) != null && getSkillDipendenteFromManager(dipendente.getIdDipendente()).size() > 0) {
