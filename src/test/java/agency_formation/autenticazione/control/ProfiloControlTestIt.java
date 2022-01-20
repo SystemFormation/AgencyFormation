@@ -1,18 +1,14 @@
 package agency_formation.autenticazione.control;
 
 import it.unisa.agency_formation.autenticazione.control.ProfiloControl;
-import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
-import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.formazione.domain.Skill;
-import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.utils.Const;
 import it.unisa.agency_formation.utils.DatabaseManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import javax.servlet.RequestDispatcher;
@@ -32,7 +28,6 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mockStatic;
 
 public class ProfiloControlTestIt {
     private static HttpServletRequest request;
@@ -136,7 +131,7 @@ public class ProfiloControlTestIt {
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);
-        servlet.doPost(request, response);
+        servlet.doGet(request, response);
         assertTrue(stringWriter.toString().contains("1"));
     }
 }

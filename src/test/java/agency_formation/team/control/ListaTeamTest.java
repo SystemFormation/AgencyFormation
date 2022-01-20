@@ -89,10 +89,7 @@ public class ListaTeamTest {
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
-
         ListaTeam servlet = Mockito.spy(ListaTeam.class);
-
-
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getSession(true)).thenReturn(session);
@@ -129,20 +126,15 @@ public class ListaTeamTest {
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
-
         ListaTeam servlet = Mockito.spy(ListaTeam.class);
-
-
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getSession(true)).thenReturn(session);
         Mockito.when(request.getServletContext()).thenReturn(context);
-
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         try (MockedStatic mockedStatic = mockStatic(ListaTeam.class)) {
             mockedStatic.when(() -> ListaTeam.getAllDipendentiFromManager()).thenReturn(dipendenti);
             mockedStatic.when(() -> ListaTeam.visuallizzaTeamsForHRFromManager()).thenReturn(teams);
-
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);

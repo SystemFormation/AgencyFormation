@@ -35,7 +35,7 @@ public class TeamDAOTest {
 
     @AfterAll
     public static void finish() throws SQLException {
-        String deleteUtente = "delete from Utenti where IdUtente=201";
+        String deleteUtente = "delete from Utenti where IdUtente>4";
         String deleteDocumento = "delete from documenti where IdDocumento>=1";
         String deleteTeam = "delete from team where idTeam>=1";
         String deleteDipendente = "delete from dipendenti where idDipendente > 2";

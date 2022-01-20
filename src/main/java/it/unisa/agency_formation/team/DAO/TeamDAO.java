@@ -244,7 +244,7 @@ public class TeamDAO {
     /**
      * Questa funzionalità permette di modificare le competenze di un team
      *
-     *  @param competence , {@literal competence != null }  specifica la competenza con il quale aggiornare
+     * @param competence , {@literal competence != null }  specifica la competenza con il quale aggiornare
      * @param idTeam , {@literal idTeam > 0}  identifica il team
      * @throws SQLException errore nella query errore nella query
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,

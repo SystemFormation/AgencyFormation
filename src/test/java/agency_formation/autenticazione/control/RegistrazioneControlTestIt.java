@@ -8,7 +8,6 @@ import it.unisa.agency_formation.utils.DatabaseManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import javax.servlet.RequestDispatcher;
@@ -25,7 +24,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 
@@ -41,6 +39,7 @@ public class RegistrazioneControlTestIt {
     public static void init(){
         Const.nomeDB = Const.NOME_DB_TEST;
     }
+
     @AfterAll
     public static void finish() throws SQLException {
         String query = "Delete from af_db_test.utenti where IdUtente > 4";
