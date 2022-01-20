@@ -1,6 +1,5 @@
 package it.unisa.agency_formation.reclutamento.control;
 
-import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
@@ -22,7 +21,7 @@ public class ViewCandidaturaControl extends HttpServlet {
         if (request.getParameter("idCandidato") == null) {
             response.getWriter().write("4"); // idCandidato null
             String descrizione = "Si è verficato un problema con IdCandidato";
-            response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+            response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
         } else {
             idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
         }
@@ -32,7 +31,7 @@ public class ViewCandidaturaControl extends HttpServlet {
             if (candidatura == null) {
                 response.getWriter().write("1"); //candidatura null
                 String descrizione = "Si è verficato un problema con il recupero della candidatura";
-                response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
             } else {
                 String cv = "curriculum.";
                 request.setAttribute("curriculum", cv);
@@ -46,7 +45,7 @@ public class ViewCandidaturaControl extends HttpServlet {
                 } else {
                     response.getWriter().write("3"); //documenti null
                     String descrizione = "Si è verficato un problema con il recupero dei documenti";
-                    response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                    response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                 }
             }
         } catch (SQLException e) {

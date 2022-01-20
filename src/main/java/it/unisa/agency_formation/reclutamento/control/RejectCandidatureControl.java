@@ -71,8 +71,9 @@ public class RejectCandidatureControl extends HttpServlet {
 
     /**
      * Questo metodo permette di rifiutare una candidatura utilizzando il manager
+     *
      * @param idCandidatura id della candidatura
-     * @param idHR che rifiuta la candidatura
+     * @param idHR          che rifiuta la candidatura
      * @return boolean (true = la candidatura viene rifiutata correttamente, false = altrimenti)
      * @throws SQLException errore nella query
      */

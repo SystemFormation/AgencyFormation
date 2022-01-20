@@ -33,7 +33,7 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                 if (candidatura == null) {
                     response.getWriter().write("1"); //errore Candidatura
                     String descrizione = "Errore nel recuperare la candidatura";
-                    response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                    response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                 } else {
                     boolean esito = setStatoFromManager(candidatura.getIdCandidatura());
                     if (esito) {

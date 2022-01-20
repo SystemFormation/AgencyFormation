@@ -16,7 +16,7 @@ public class Team {
      * Questo metodo permette di creare un team inserendo tutti i dati necessari
      *
      * @param nomeProgetto     , nome del progetto
-     * @param numeroDipendenti ,  numero dei dipendenti
+     * @param numeroDipendenti , numero dei dipendenti
      * @param nomeTeam         , nome del team
      * @param descrizione      , descrizione del team
      * @param competenza       , competenze necessarie

@@ -23,13 +23,13 @@ public class ListaCandidati extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             try {
                 ArrayList<Utente> candidati = getCandidatesFromManager();
-                if(candidati!=null) {
+                if (candidati != null) {
                     request.setAttribute("candidati", candidati);
                     response.getWriter().write("1"); //ci sono i candidati
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
                     dispatcher.forward(request, response);
-                }else{
-                    response.getWriter().write("3");// non ci sono candidati
+                } else {
+                    response.getWriter().write("3"); // non ci sono candidati
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
                     dispatcher.forward(request, response);
                 }

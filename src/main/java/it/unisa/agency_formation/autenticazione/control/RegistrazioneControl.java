@@ -36,10 +36,10 @@ public class RegistrazioneControl extends HttpServlet {
                         RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");
                         dispatcher.forward(request, response);
                         return;
-                    } else{
+                    } else {
                         response.getWriter().write("4"); // errore nella registrazione
                         String descrizione = "Siamo spiacenti si è verificato un errore con la registrazione.Riprova";
-                        response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                        response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -56,7 +56,7 @@ public class RegistrazioneControl extends HttpServlet {
                 }
 
                 String descrizione = "Siamo spiacenti si è verificato un errore con la registrazione.Riprova";
-                response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
             }
     }
 
