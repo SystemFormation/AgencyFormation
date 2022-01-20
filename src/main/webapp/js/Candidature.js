@@ -1,7 +1,6 @@
 function viewFile(id,i){
     var id = id;
     var index = i;
-
     $.ajax({
         type: 'GET',
         data:{"idCandidato":id},
@@ -9,6 +8,7 @@ function viewFile(id,i){
         success: function (data1){
             var cv =data1.substr(0,data1.indexOf('.'));
             var doc = data1.substr(data1.indexOf('.')+1,data1.length);
+            console.log(doc.length);
             if(doc.length>2){
                 var x = document.getElementsByName("hrefDocumenti")[index];
                 x.style.display = "block";
@@ -45,6 +45,7 @@ function acceptCandidature(id,index){
     var index = index;
     var date = document.getElementsByName("data1")[index];
     var time = document.getElementsByName("time")[index];
+    var error = document.getElementsByName("errore")[index];
     $.ajax({
         type: 'GET',
         data:{"idCandidato":id,"data1":date.value,"time":time.value},
@@ -54,9 +55,9 @@ function acceptCandidature(id,index){
                 window.location.reload();
             }else{
                 //window.location.reload();
-                $("span").eq(index).css("display","inline");
-                $("span").eq(index).css("color","red");
-                $("span").eq(index).css("font-size","14px").html("Errore. Controlla la data");
+                $(error).css("display","inline");
+                $(error).css("color","red");
+                $(error).css("font-size","14px").html("Errore. Controlla la data");
             }
         }
     })
