@@ -210,7 +210,7 @@ public class TeamDAO {
         ArrayList<Team> teams = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet result;
-        String query = "SELECT * FROM " + TABLE_TEAM + " left join documenti on team.IdTeam=documenti.IdTeam and IdTM=?";
+        String query = "SELECT * FROM " + TABLE_TEAM + " left join documenti on team.IdTeam=documenti.IdTeam where IdTM=?";
         try {
             stmt = connection.prepareStatement(query);
             stmt.setInt(1, idUtente);
