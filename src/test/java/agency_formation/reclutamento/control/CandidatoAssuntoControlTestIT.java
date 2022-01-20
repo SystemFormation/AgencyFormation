@@ -86,6 +86,6 @@ public class CandidatoAssuntoControlTestIT {
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);
         servlet.doPost(request, response);
-        assertTrue(stringWriter.toString().contains("2"));
+        assertTrue(stringWriter.toString().contains("4"));
     }
 }

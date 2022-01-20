@@ -69,7 +69,7 @@ public class SkillControlIT {
         context = Mockito.mock(ServletContext.class);
         SkillControl servlet = Mockito.spy(SkillControl.class);
         Mockito.when(request.getParameter("skillName")).thenReturn(skillName);
-        Mockito.when(request.getParameter("skillDescr")).thenReturn(skillDescr);
+        Mockito.when(request.getParameter("skillDescription")).thenReturn(skillDescr);
         Mockito.when(request.getParameter("quantity")).thenReturn(livelloSkill);
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
@@ -102,7 +102,7 @@ public class SkillControlIT {
         context = Mockito.mock(ServletContext.class);
         SkillControl servlet = Mockito.spy(SkillControl.class);
         Mockito.when(request.getParameter("skillName")).thenReturn(skillName);
-        Mockito.when(request.getParameter("skillDescr")).thenReturn(skillDescr);
+        Mockito.when(request.getParameter("skillDescription")).thenReturn(skillDescr);
         Mockito.when(request.getParameter("quantity")).thenReturn(livelloSkill);
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);

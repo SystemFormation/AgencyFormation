@@ -106,7 +106,10 @@ public class RejectCandidatureControl extends HttpServlet {
      * @param file file da eliminare
      */
 
-    public static void delete(File file) {
+    private void delete(File file) {
+        if(file == null){
+            return;
+        }
         for (File subFile : requireNonNull(file.listFiles())) {
             if (subFile.isDirectory()) {
                 delete(subFile);

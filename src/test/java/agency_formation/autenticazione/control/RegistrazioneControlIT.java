@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 
-public class RegistrazioneControlTestIt {
+public class RegistrazioneControlIT {
     private static HttpServletRequest request;
     private static HttpServletResponse response;
     private static HttpSession session;

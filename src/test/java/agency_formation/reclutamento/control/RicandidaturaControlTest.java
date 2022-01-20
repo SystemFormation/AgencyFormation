@@ -110,7 +110,7 @@ public class RicandidaturaControlTest {
         }
     }
 
-    @Test //mi aspetto 1
+    @Test //mi aspetto 2
     public void eliminazioneCandidaturaFail() throws IOException, ServletException {
         Utente user = new Utente();
         user.setId(1);

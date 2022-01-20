@@ -9,7 +9,6 @@ import it.unisa.agency_formation.utils.Const;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import javax.servlet.RequestDispatcher;
@@ -24,16 +23,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Date;
-import java.sql.SQLException;
-import java.util.function.BooleanSupplier;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mockStatic;
 
 
-public class LoginControlTestIt {
+public class LoginControlIT {
     private static HttpServletRequest request;
     private static HttpServletResponse response;
     private static HttpSession session;
