@@ -50,9 +50,6 @@ public class ListaDipendentiControl extends HttpServlet {
                     dispatcher.forward(req, resp);
                 } else {
                     resp.getWriter().write("1");
-                    String descrizione = "dipendenti inesistenti";
-                    resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
-                    return;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

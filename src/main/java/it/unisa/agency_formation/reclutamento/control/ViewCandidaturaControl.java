@@ -44,8 +44,6 @@ public class ViewCandidaturaControl extends HttpServlet {
                     response.getWriter().close();
                 } else {
                     response.getWriter().write("3"); //documenti null
-                    String descrizione = "Si è verficato un problema con il recupero dei documenti";
-                    response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                 }
             }
         } catch (SQLException e) {
