@@ -1,9 +1,8 @@
-package agency_formation.formazione.control;
+package agency_formation.reclutamento.control;
 
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
-import it.unisa.agency_formation.formazione.control.SkillControl;
+import it.unisa.agency_formation.reclutamento.control.AssunzioneCandidatoControl;
 import it.unisa.agency_formation.utils.Const;
 import it.unisa.agency_formation.utils.DatabaseManager;
 import org.junit.jupiter.api.AfterAll;
@@ -28,92 +27,94 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 
-public class SkillControlTestIT {
+public class AssunzioneCandidatoControlIT {
     private static HttpServletRequest request;
     private static HttpServletResponse response;
     private static HttpSession session;
     private static RequestDispatcher dispatcher;
     private static ServletContext context;
     private static ServletConfig config;
-
-
     @BeforeAll
-    public static void init(){
+    public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;
+        String query1 = "Insert into Utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(150,'TestNome','TestCognome','lol','test1@gmail.com', 1)";
+        String query2 = "Insert into candidature (IdCandidatura,Curriculum,DocumentiAggiuntivi,Stato,DataCandidatura,IdCandidato) values(200,'test','test','NonRevisionato','2022-01-10', 150);";
+        String query3 = "Insert into Utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(151,'TestNome','TestCognome','lol','test2@gmail.com', 1)";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query1);
+        preparedStatement.executeUpdate(query1);
+        preparedStatement.executeUpdate(query2);
+        preparedStatement.executeUpdate(query3);
+
     }
 
     @AfterAll
     public static void finish() throws SQLException {
-        String deleteSkill = "Delete from skill where IdSkill>2";
+        String delete1 = "Delete from candidature where IdCandidatura>=1";
+        String delete2 = "Delete from utenti where IdUtente>4";
         Connection connection = DatabaseManager.getInstance().getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(deleteSkill);
-        preparedStatement.executeUpdate();
+        PreparedStatement statement = connection.prepareStatement(delete1);
+        statement.executeUpdate(delete1);
+        statement.executeUpdate(delete2);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
+
+
     @Test
-    public void addSkillOK() throws IOException, ServletException {
-        Utente user = new Utente();
-        user.setSurname("Severino");
-        user.setName("Pasquale");
-        user.setPwd("lol");
-        user.setEmail("p.severino@studenti.unisa.it");
-        user.setRole(RuoliUtenti.DIPENDENTE);
-        user.setId(2);
-        String skillName = "TestNomeSkill";
-        String skillDescr = "TestDescrizioneSkill";
-        String livelloSkill = "2";
+    public void assunzionePass() throws IOException, ServletException {
         config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
-        SkillControl servlet = Mockito.spy(SkillControl.class);
-        Mockito.when(request.getParameter("skillName")).thenReturn(skillName);
-        Mockito.when(request.getParameter("skillDescr")).thenReturn(skillDescr);
-        Mockito.when(request.getParameter("quantity")).thenReturn(livelloSkill);
+        Utente user = new Utente();
+        user.setId(4);
+        user.setPwd("lol");
+        user.setRole(RuoliUtenti.HR);
+        user.setSurname("Domenico");
+        user.setName("Pagliuca");
+        user.setEmail("d.pagliuca@studenti.unisa.it");
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        Mockito.when(request.getParameter("idCandidato")).thenReturn("150");
+        AssunzioneCandidatoControl servlet = Mockito.spy(AssunzioneCandidatoControl.class);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);
         servlet.doPost(request, response);
-        assertTrue(stringWriter.toString().equals("4"));
+        assertTrue(stringWriter.toString().contains("2"));
     }
-    @Test // livello più alto di 5
-    public void addSkillLivelloAlto() throws IOException, ServletException {
-        Utente user = new Utente();
-        user.setSurname("Severino");
-        user.setName("Pasquale");
-        user.setPwd("lol");
-        user.setEmail("p.severino@studenti.unisa.it");
-        user.setRole(RuoliUtenti.DIPENDENTE);
-        user.setId(2);
-        String skillName = "TestNomeSkill";
-        String skillDescr = "TestDescrizioneSkill";
-        String livelloSkill = "6";
+    @Test
+    public void assunzioneFail() throws IOException, ServletException {
         config = Mockito.mock(ServletConfig.class);
         request = Mockito.mock(HttpServletRequest.class);
         response = Mockito.mock(HttpServletResponse.class);
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
-        SkillControl servlet = Mockito.spy(SkillControl.class);
-        Mockito.when(request.getParameter("skillName")).thenReturn(skillName);
-        Mockito.when(request.getParameter("skillDescr")).thenReturn(skillDescr);
-        Mockito.when(request.getParameter("quantity")).thenReturn(livelloSkill);
+        Utente user = new Utente();
+        user.setId(4);
+        user.setPwd("lol");
+        user.setRole(RuoliUtenti.HR);
+        user.setSurname("Domenico");
+        user.setName("Pagliuca");
+        user.setEmail("d.pagliuca@studenti.unisa.it");
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        Mockito.when(request.getParameter("idCandidato")).thenReturn("151");
+        AssunzioneCandidatoControl servlet = Mockito.spy(AssunzioneCandidatoControl.class);
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);
         servlet.doPost(request, response);
-        assertTrue(stringWriter.toString().equals("3"));
+        assertTrue(stringWriter.toString().contains("1"));
     }
+
 }

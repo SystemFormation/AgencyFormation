@@ -95,7 +95,6 @@ public class AssunzioneCandidatoControlTest {
         user.setSurname("TestCognome");
         user.setName("TestNome");
         user.setEmail("test@gmail.com");
-        user.setName("TestName");
         Candidatura candidatura = new Candidatura();
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);

@@ -39,7 +39,7 @@ public class TeamDAOTest {
         String deleteDocumento = "delete from documenti where IdDocumento>=1";
         String deleteTeam = "delete from team where idTeam>=1";
         String deleteDipendente = "delete from dipendenti where idDipendente > 2";
-        String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'Fitdiary', '8', 'Bastoncini Fitnuss', 'Vendiamo bastoncini di pesce', 'HTML', 3)";
+        String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'TechAll', '8', 'NuoveTecnologie', 'Ricerchiamo nuove tecnologie', 'Basi di Ingegneria Meccanica', 3)";
         String insertDipendenteDefault = "insert into dipendenti (IdDipendente,Residenza, Telefono, Stato, AnnoDiNascita, IdTeam) values(2,'Fisciano', 118, 0, 2000, 1)";
         String insertSkills1 = "insert into skillsdipendenti(IdDipendente,IdSkill,Livello) values(2,1,5)";
         String insertSkills2 = "insert into skillsdipendenti(IdDipendente,IdSkill,Livello) values(2,2,3)";
