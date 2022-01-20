@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String descrizione = request.getParameter("descrizione");
-    System.out.println(descrizione);
 %>
 <html>
 <head>

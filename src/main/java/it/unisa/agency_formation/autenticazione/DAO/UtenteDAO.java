@@ -98,8 +98,6 @@ public class UtenteDAO {
                     case 4:
                         user.setRole(RuoliUtenti.HR);
                         break;
-                    default:
-                        break;
                 }
             }
         } finally {

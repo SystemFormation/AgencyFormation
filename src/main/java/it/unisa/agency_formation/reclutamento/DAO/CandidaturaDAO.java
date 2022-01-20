@@ -107,8 +107,6 @@ public class CandidaturaDAO {
                     case "Assunzione":
                         cand.setStato(StatiCandidatura.Assunzione);
                         break;
-                    default:
-                        break;
                 }
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
@@ -189,8 +187,6 @@ public class CandidaturaDAO {
                     break;
                 case Assunzione:
                     retrieve.setString(1, "Assunzione");
-                    break;
-                default:
                     break;
             }
             retrieve.setInt(2, idCandidatura);
