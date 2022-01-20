@@ -33,7 +33,6 @@ public class LoginControl extends HttpServlet {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-
                     if (candidatura != null) {
                         request.setAttribute("candidatura", candidatura);
                     }
