@@ -31,13 +31,14 @@ public class FormazioneManagerTest {
     }
 
     @Test
-    public void salvaDocumentoPass()throws SQLException {
-        Documento doc= new Documento();
-        try(MockedStatic<DocumentoDAO> mocked= mockStatic(DocumentoDAO.class)){
+    public void salvaDocumentoPass() throws SQLException {
+        Documento doc = new Documento();
+        try (MockedStatic<DocumentoDAO> mocked = mockStatic(DocumentoDAO.class)) {
             mocked.when(() -> DocumentoDAO.salvaDocumento(doc)).thenReturn(true);
             assertTrue(aut.salvaDocumento(doc));
         }
     }
+
     @Test
     public void addSkillFail() throws SQLException {
         Skill skill = null;

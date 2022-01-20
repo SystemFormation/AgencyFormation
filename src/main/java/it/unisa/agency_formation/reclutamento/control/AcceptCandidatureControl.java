@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 @WebServlet("/AcceptCandidatureControl")
@@ -60,18 +59,32 @@ public class AcceptCandidatureControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere una candidatura attraverso l'id del candidato utilizzando il manager
+     *
+     * @param idCandidato interessato
+     * @return la candidatura interessata
+     * @throws SQLException errore nella query
+     */
+
     public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
+
+    /**
+     * Questo metodo permette di accettare la candidatura di un candidato utilizzando il manager
+     *
+     * @param idCandidatura id della candiatura da accettare
+     * @param idHR          id dell'HR che accetta la candidatura
+     * @param timestamp     data del colloquio
+     * @return boolean (true = accettazione effettuata correttamente, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
 
     public static boolean acceptCandidatureFromManager(int idCandidatura, int idHR, Timestamp timestamp) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.accettaCandidatura(idCandidatura, idHR, timestamp);
     }
 
-    public static ArrayList<Candidatura> getTutteCandidatureFromManager() throws SQLException {
-        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
-        return reclutamentoManager.getTutteCandidature();
-    }
 }

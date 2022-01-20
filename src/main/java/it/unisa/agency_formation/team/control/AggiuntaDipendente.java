@@ -60,10 +60,25 @@ public class AggiuntaDipendente extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere le skill possedute da un dipendente utilizzando il manager
+     *
+     * @param idDip id del dipendnete interessato
+     * @return {@literal ArrayList<@link Skill>} lista delle skill
+     * @throws SQLException errore nella query
+     */
+
     public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.recuperoSkillConIdDipendente(idDip);
     }
+
+    /**
+     * Questo metodo permette di ottenere tutti i dipendenti utilizzando il manager
+     *
+     * @return {@literal ArrayList<@link Dipendente>} lista di tutti i dipendenti
+     * @throws SQLException errore nella query
+     */
 
     public static ArrayList<Dipendente> getTuttiDipendentiFromManager() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();

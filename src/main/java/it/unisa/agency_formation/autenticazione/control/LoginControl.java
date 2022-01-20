@@ -120,11 +120,26 @@ public class LoginControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di tornare la candidatura di uno specifico candidato utilizzando il manager
+     *
+     * @param idCandidato , id del candidato
+     * @return {@link Candidatura} la candidatura interessata
+     * @throws SQLException errore nella query
+     */
     public static Candidatura getCandidaturafromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
 
+    /**
+     * Questo metodo permette di effettuare il login di un utente utilizzando il manager
+     *
+     * @param email , email dell'utente
+     * @param pwd   , password dell'utente
+     * @return utente loggato
+     * @throws SQLException errore nella query
+     */
     public static Utente loginFromManager(String email, String pwd) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.login(email, pwd);

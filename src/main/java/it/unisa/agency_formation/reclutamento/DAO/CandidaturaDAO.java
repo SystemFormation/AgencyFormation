@@ -16,7 +16,7 @@ public class CandidaturaDAO {
      * @param candidatura , {@literal candidatura != null}  indica la candidatura che vogliamo salvare
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      * true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query  errore nella query
+     * @throws SQLException errore nella query errore nella query  errore nella query
      */
     public static boolean salvaCandidaturaSenzaDocumenti(Candidatura candidatura) throws SQLException {
         if (candidatura == null) {
@@ -48,7 +48,7 @@ public class CandidaturaDAO {
      * @param idUtente , {@literal idUtente > 0} , identifica l'utente
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      * true = la funzionalitò va a buon fine)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
 
     public static boolean aggiungiDocumentiAggiuntivi(String document, int idUtente) throws SQLException {
@@ -74,7 +74,7 @@ public class CandidaturaDAO {
      *
      * @param idCandidato ,  {@literal idCandidato > 0} identifica il candidato
      * @return Candidatura interessata
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static Candidatura doRetrieveCandidaturaById(int idCandidato) throws SQLException {
         if (idCandidato < 1) {
@@ -129,7 +129,7 @@ public class CandidaturaDAO {
     /**
      * Questa funzionalità permette di recuperare tutte le candidature
      * @return  {@literal ArrayList<@link Candidatura>} , una lista di candidature
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static ArrayList<Candidatura> recuperaCandidature() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -166,7 +166,7 @@ public class CandidaturaDAO {
      * @param idCandidatura , {@literal idCandidatura > 0} identifica la candidatura
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalitò va a buon fine)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean modificaStatoCandidatura(int idCandidatura, StatiCandidatura stato) throws SQLException {
         if (idCandidatura < 1 || stato == null) {
@@ -209,7 +209,7 @@ public class CandidaturaDAO {
      * @param idCandidato , {@literal idCandidato > 0} identifica il candidato
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalitò va a buon fine)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean rimuoviCandidatura(int idCandidato) throws SQLException {
         if (idCandidato < 1) {
@@ -236,7 +236,7 @@ public class CandidaturaDAO {
      * @param idHR , {@literal idHR > 0} identifica l'HR
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
         if (idCandidatura < 1 || idHR < 1) {
@@ -269,7 +269,7 @@ public class CandidaturaDAO {
      * @param data , {@literal data >= actual date}  specifica la data del colloquio
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
         if (idCandidatura < 1 || idHR < 1 || data.before(new java.util.Date())) {

@@ -100,6 +100,14 @@ public class DownloadControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere la candidatura attraverso l'id del candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato
+     * @return candidatura interessata
+     * @throws SQLException errore nella query
+     */
+
     public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();
         return reclutamento.getCandidaturaById(idCandidato);

@@ -61,20 +61,49 @@ public class ListaTeam extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere i dipendenti membri di un team utilizzando il manager
+     *
+     * @return {@literal ArrayList<@link Dipendente>} lista di dipendenti di un team
+     * @throws SQLException errore nella query
+     */
+
     public static ArrayList<Dipendente> recuperoDipendentiDiUnTeamFromManager() throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.recuperaDipendentiDelTeam();
     }
+
+    /**
+     * Questo metodo permette di visualizzare i team creati da un TM utilizzando il manager
+     *
+     * @param idTM id del TM
+     * @return {@literal ArrayList<@link Team>} lista dei team creati da un TM
+     * @throws SQLException errore nella query
+     */
 
     public static ArrayList<Team> visualizzaTeamOfTMFromManager(int idTM) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.visualizzaTeams(idTM);
     }
 
+    /**
+     * Questo metodo permette di ottenere tutti i dipendenti utilizzando il manager
+     *
+     * @return {@literal ArrayList<@link Dipendente>} lista di tutti i dipendenti
+     * @throws SQLException errore nella query
+     */
+
     public static ArrayList<Dipendente> getAllDipendentiFromManager() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getTuttiDipendenti();
     }
+
+    /**
+     * Questo metodo permette di visualizzare tutti i team utilizzando il manager
+     *
+     * @return {@literal ArrayList<@link Team>} lista di tutti i team
+     * @throws SQLException errore nella query
+     */
 
     public static ArrayList<Team> visuallizzaTeamsForHRFromManager() throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();

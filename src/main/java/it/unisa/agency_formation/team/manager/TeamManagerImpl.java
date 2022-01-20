@@ -16,7 +16,7 @@ public class TeamManagerImpl implements TeamManager {
      * @param idUtente , identifica il TM che crea il team
      * @return boolean (false = la funzionalità non va a buon fine,
      * true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean creaTeam(Team team, int idUtente) throws SQLException {
@@ -29,7 +29,7 @@ public class TeamManagerImpl implements TeamManager {
      * @param idDip , identifica il dipendente da rimuovere
      * @return boolean (false = la funzionalità non va a buon fine,
      * true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean rimuoviDipendente(int idDip) throws SQLException {
@@ -41,7 +41,7 @@ public class TeamManagerImpl implements TeamManager {
      *
      * @param idUtente , identifica l'utente
      * @return {@literal ArrayList<@link Team>} se i team esistono , null altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public ArrayList<Team> visualizzaTeams(int idUtente) throws SQLException {
@@ -52,7 +52,7 @@ public class TeamManagerImpl implements TeamManager {
      * Questo metodo permette di visualizzare tutti i team
      *
      * @return {@literal ArrayList<@link Team>} se ci sono team , null altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public ArrayList<Team> visualizzaTuttiTeams() throws SQLException {
@@ -63,7 +63,7 @@ public class TeamManagerImpl implements TeamManager {
      * Questo metodo permette di recuperare l'ultimo team creato
      *
      * @return l'id dell'ultimo team creato, 0 altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public int viewLastIdTeam() throws SQLException {
@@ -75,7 +75,7 @@ public class TeamManagerImpl implements TeamManager {
      *
      * @param idTeam , identifica il team
      * @return {@literal ArrayList<@link Integer>} se ci sono dipendenti nel team , null altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public ArrayList<Integer> recuperaIdDipendentiDelTeam(int idTeam) throws SQLException {
@@ -88,7 +88,7 @@ public class TeamManagerImpl implements TeamManager {
      * @param idDip , identifica il dipendente
      * @return boolean (false = la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean updateDipsDisso(int idDip) throws SQLException {
@@ -102,7 +102,7 @@ public class TeamManagerImpl implements TeamManager {
      * @param idTeam , identifica il team da sciogliere
      * @return boolean (false = la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean sciogliTeam(int idTeam) throws SQLException {
@@ -114,7 +114,7 @@ public class TeamManagerImpl implements TeamManager {
      * Questo metodo permette di recuperare dipendenti di un team
      *
      * @return {@literal ArrayList<@link Dipendente>} se ci sono dipendenti nel team , null altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public ArrayList<Dipendente> recuperaDipendentiDelTeam() throws SQLException {
@@ -127,7 +127,7 @@ public class TeamManagerImpl implements TeamManager {
      *
      * @param idTeam , identifica il team
      * @return Team se il team esiste , null altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public Team getTeamById(int idTeam) throws SQLException {
@@ -141,7 +141,7 @@ public class TeamManagerImpl implements TeamManager {
      * @param idTeam , identifica il team
      * @return boolean (false = la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean specificaLeCompetenze(String competence, int idTeam) throws SQLException {

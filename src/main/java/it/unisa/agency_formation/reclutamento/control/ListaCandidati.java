@@ -42,10 +42,19 @@ public class ListaCandidati extends HttpServlet {
             response.sendRedirect("./static/Login.html");
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di ottenere i candidati che hanno eseguito la candidatura utilizzando il manager
+     *
+     * @return {@literal ArrayList<@link Utente>} lista di candidati
+     * @throws SQLException errore nella query
+     */
+
     public static ArrayList<Utente> getCandidatesFromManager() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getCandidatiConCandidatura();

@@ -15,7 +15,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
      *
      * @param documento, rappresenta il documento da salvare
      * @return boolean (true = il documento è stato salvato, false = altrimenti)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     @Override
     public boolean salvaDocumento(Documento documento) throws SQLException {
@@ -27,7 +27,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
      *
      * @param skill rappresenta la skill da salvare
      * @return boolean (true = la skill è stata salvata, false = altrimenti)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     @Override
     public boolean aggiungiSkill(Skill skill) throws SQLException {
@@ -37,7 +37,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
     /**
      * Questa funzionalità permette di recuperare l'id dell'ultima skill inserita
      * @return l'id della skill, altrimenti -1
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public int getUltimaSkill() throws SQLException {
@@ -51,7 +51,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
      * @param idDip , rappresenta l'id del dipendente
      * @param skillLivello , rappresenta il livello della skill
      * @return boolean (true = l'inserimento è andato a buon fine, false = altrimenti)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean addSkillDipendente(int idSkill, int idDip, int skillLivello) throws SQLException {
@@ -63,7 +63,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
      *
      * @param idTeam , rappresenta l'id del team
      * @return Documento se esiste, null altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public Documento getMaterialeByIdTeam(int idTeam) throws SQLException {
@@ -75,7 +75,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
      *
      * @param idDipendente , rappresenta l'id del dipendente
      * @return {@literal ArrayList<@link Skill>} se esistono skill, null altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public ArrayList<Skill> recuperoSkillConIdDipendente(int idDipendente) throws SQLException {

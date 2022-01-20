@@ -86,20 +86,55 @@ public class SkillControl extends HttpServlet {
         doGet(request, response);
     }
 
+    /**
+     * Questo metodo permette di aggiungere una nuova skill utilizzando il manager
+     *
+     * @param skill skill interessata
+     * @return boolean (true = la skill è stata aggiunta correttamente , false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean addSkillFromManager(Skill skill) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.aggiungiSkill(skill);
     }
+
+    /**
+     * Questo metodo permette di ottenere l'ultima skill creata utilizzando il manager
+     *
+     * @return l'id dell'ultima skill creata
+     * @throws SQLException errore nella query
+     */
+
     public static int getLastIdSkillCreatedFromManager() throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.getUltimaSkill();
     }
-    public static boolean addSkillDipFromManager(int idSkill, int idDipendente, int skillLivello)throws SQLException {
+
+    /**
+     * Questo metodo permette di aggiungere una skill posseduta dal dipendente utilizzando il manager
+     *
+     * @param idSkill      id della skill
+     * @param idDipendente id del dipendente
+     * @param skillLivello livello di competenza e ocnoscenza della skill
+     * @return boolean (true = operazione andata a buon fine, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean addSkillDipFromManager(int idSkill, int idDipendente, int skillLivello) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.addSkillDipendente(idSkill, idDipendente, skillLivello);
     }
 
-    public static Dipendente getDipendenteByIdFromManager(int idDip)throws SQLException {
+    /**
+     * Questo metodo permette di ottenere il dipendente attraverso il suo id utilizzando il manager
+     *
+     * @param idDip id del dipendente
+     * @return il dipendente interessato
+     * @throws SQLException errore nella query
+     */
+
+    public static Dipendente getDipendenteByIdFromManager(int idDip) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getDipendente(idDip);
     }

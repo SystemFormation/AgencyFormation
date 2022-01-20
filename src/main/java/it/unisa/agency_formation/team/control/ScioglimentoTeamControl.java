@@ -71,15 +71,39 @@ public class ScioglimentoTeamControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere tutti gli id dei dipendenti membri di un team utilizzando il manager
+     *
+     * @param idTeam id del team
+     * @return {@literal ArrayList<@link Integer>} lista degli id del dipendente
+     * @throws SQLException errore nella query
+     */
+
     public static ArrayList<Integer> recuperaIdDipendentiFromManager(int idTeam) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.recuperaIdDipendentiDelTeam(idTeam);
     }
 
+    /**
+     * Questo metodo permette di modificare lo stato del dipendente membro di un team utilizzando il manager
+     *
+     * @param idDipendente id del dipendente a cui settare lo stato
+     * @return boolean (true = modifica effettuata con successo , false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean updateStatoDipendenteFromManager(int idDipendente) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.updateDipsDisso(idDipendente);
     }
+
+    /**
+     * Questo metodo permette di eliminare un team utilizzando il manager
+     *
+     * @param idTeam id del team da eliminare
+     * @return boolean (true = eliminazione andata a buon fine, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
 
     public static boolean eliminaTeamFromManager(int idTeam) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();

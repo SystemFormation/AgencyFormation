@@ -53,10 +53,26 @@ public class ProfiloControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere tutti i dati del dipendente utilizzando il manager
+     *
+     * @param id del dipendente
+     * @return il dipendente interessato
+     * @throws SQLException errore nella query
+     */
+
     public static Dipendente getAllDataDipFromManager(int id) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getDipendente(id);
     }
+
+    /**
+     * Questo metodo permette di ottenere tutte le skill di un dipendente utilizzando il manager
+     *
+     * @param idDip id del dipendente
+     * @return {@literal ArrayList<@link Skill>} le skills del dipendente
+     * @throws SQLException errore nella query
+     */
 
     public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();

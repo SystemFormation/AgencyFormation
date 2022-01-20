@@ -19,7 +19,7 @@ public class UtenteDAO {
      *
      * @param user , {@literal user != null} user è l'utente da registrare
      * @return boolean true se l'utente è stato salvato con successo, false altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean salvaUtente(Utente user) throws SQLException {
         if (user == null) {
@@ -61,7 +61,7 @@ public class UtenteDAO {
      * @param email , {@literal email != null } è l'email dell'utente
      * @param pwd , {@literal pwd != null} è la password dell'utente
      * @return Utente che si è registrato in precedenza, null se non è presente nel db
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static Utente login(String email, String pwd) throws SQLException {
         if (email == null || pwd == null) {
@@ -109,7 +109,7 @@ public class UtenteDAO {
 
     /**
      * Questa funzionalità permette di recuperare i candidati che hanno presentato la propria candidatura
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      * @return {@literal ArrayList<@link Utente>} se ci sono candidati altrimenti null
      */
 
@@ -147,7 +147,7 @@ public class UtenteDAO {
     /**
      * Questa funzionalità permette di recuperare i candidati che svolgeranno il colloquio
      * @return {@literal ArrayList<@link Utente>} ritorna un array se ci sono candidati per il colloquio, altrimenti null
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
 
     public static ArrayList<Utente> recuperoCandidatiColloquio() throws SQLException {

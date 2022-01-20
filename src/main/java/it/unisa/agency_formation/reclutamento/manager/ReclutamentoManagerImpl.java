@@ -16,7 +16,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
      * @param candidatura, specifica la candidaatura da creare
      * @return boolean (false = i parametri non vengono rispettati o la candidaturà è gia esistente,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
     @Override
     public boolean caricaCandidatura(Candidatura candidatura) throws SQLException {
         if (candidatura == null) {
@@ -37,7 +37,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
     /**
      * Questo metodo permette di restituire tutte le candidature caricate
      * @return {@literal ArrayList<@link Candidatura>} , una lista con tutte le candidature
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public ArrayList<Candidatura> getTutteCandidature() throws SQLException {
@@ -50,7 +50,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
      * @param idCandidato , identifica il candidato
      * @return boolean (false = la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean ricandidatura(int idCandidato) throws SQLException {
@@ -64,7 +64,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
      * @param stato , specifica con quale stato dev'essere modificata la candidatura
      * @return boolean (false = la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean modificaStatoCandidatura(int idCandidatura, StatiCandidatura stato) throws SQLException {
@@ -75,7 +75,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
      * Questo metodo permette di ritornare la candidatura in base all'id del candidato
      * @param idCandidato , identifica il candidato
      * @return Candidatura , la candidatura interessata
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public Candidatura getCandidaturaById(int idCandidato) throws SQLException {
@@ -89,7 +89,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
      * @param data ,specifica la data del colloquio
      * @return boolean (false = la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
@@ -102,7 +102,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
      * @param idHR , identifica l' HR
      * @return boolean (false = la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
@@ -114,7 +114,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
      * @param idUtente, identifica il candidato
      * @return boolean (false = la candidatura non esiste,
      *                  true = la candidatura esiste)
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     private boolean alreadyLoaded(int idUtente) throws SQLException {
         if (CandidaturaDAO.doRetrieveCandidaturaById(idUtente) == null) {

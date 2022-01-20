@@ -48,9 +48,20 @@ public class SpecificaCompetenzeControl extends HttpServlet {
             resp.sendRedirect("./static/Login.html");
         }
     }
+
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di specificare le competenze ad un team utilizzando il manager
+     *
+     * @param competenze da specificare
+     * @param idTeam     id del team
+     * @return boolean (true= specifica andata a buon fine, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean inserimentoCompetenzeNelTeam(String competenze, int idTeam) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.specificaLeCompetenze(competenze, idTeam);

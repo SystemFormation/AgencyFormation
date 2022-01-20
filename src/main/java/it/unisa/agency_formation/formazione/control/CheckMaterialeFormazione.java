@@ -33,10 +33,20 @@ public class CheckMaterialeFormazione extends HttpServlet {
             e.printStackTrace();
         }
     }
+
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di ottenere il materiale di formazione di un team utilizzando il manager
+     *
+     * @param idTeam identificatore del team
+     * @return il documento interessato
+     * @throws SQLException errore nella query
+     */
+
     public static Documento getDocumentofromManager(int idTeam) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.getMaterialeByIdTeam(idTeam);

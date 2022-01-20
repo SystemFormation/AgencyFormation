@@ -129,10 +129,26 @@ public class UploadCandidatureControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere la candidatura di un candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato
+     * @return la candidatura interessata
+     * @throws SQLException errore nella query
+     */
+
     public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
+
+    /**
+     * Questo metodo permette di caricare la candidatura utilizzando il manager
+     *
+     * @param candidatura la candidatura interessata
+     * @return boolean (true = caricamento effettuato con successo, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
 
     public static boolean uploadCandidatureFromManager(Candidatura candidatura) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();

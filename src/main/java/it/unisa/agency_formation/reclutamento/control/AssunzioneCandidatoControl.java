@@ -57,12 +57,30 @@ public class AssunzioneCandidatoControl extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di ottenere la candidatura attraverso l'id del candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato
+     * @return la candidatura interessata
+     * @throws SQLException errore nella query
+     */
+
     public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
+
+    /**
+     * Questo metodo permette di settare lo stato della candidatura utilizzando il manager
+     *
+     * @param idCandidatura id della candidatura interessata
+     * @return boolean (true = modifica eseguita con successo ,false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean setStatoFromManager(int idCandidatura) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
-       return reclutamentoManager.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Assunzione);
+        return reclutamentoManager.modificaStatoCandidatura(idCandidatura, StatiCandidatura.Assunzione);
     }
 }

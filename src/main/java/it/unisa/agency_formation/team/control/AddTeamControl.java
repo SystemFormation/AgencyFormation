@@ -60,6 +60,15 @@ public class AddTeamControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di aggiungere un dipendente in un team utilizzando il manager
+     *
+     * @param idDip  id del dipendente
+     * @param idTeam id del team
+     * @return boolean (true = la modifica viene effettuata correttamente, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean setTeamDipendenteFromManager(int idDip, int idTeam) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.setTeamDipendente(idDip, idTeam);

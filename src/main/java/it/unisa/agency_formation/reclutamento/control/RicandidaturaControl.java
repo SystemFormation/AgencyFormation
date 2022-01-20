@@ -45,6 +45,14 @@ public class RicandidaturaControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di far eliminare la candidatura di un candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato interessato
+     * @return boolean (true = l'eliminazione effetturata correttamente , false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean eliminaCandidaturaFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.ricandidatura(idCandidato);

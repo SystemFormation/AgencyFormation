@@ -56,15 +56,38 @@ public class RifiutaColloquioControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere la candidatura di un candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato
+     * @return la candidatura interessata
+     * @throws SQLException errore nella query
+     */
+
     public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
 
+    /**
+     * Questo metodo permette di rifiutare una candidatura utilizzando il manager
+     *
+     * @param idCandidatura id della candidatura
+     * @param idHR          che rifiuta la candidatura
+     * @return boolean (true= la candidatura viene rifiutata correttamente, false=altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean rejectCandidaturaFromManager(int idCandidatura, int idHR) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.rifiutaCandidatura(idCandidatura, idHR);
     }
+
+    /**
+     * Questo metodo permette di eliminare un file utilizzando il manager
+     *
+     * @param file file da eliminare
+     */
 
     public static void delete(File file) {
         for (File subFile : requireNonNull(file.listFiles())) {

@@ -83,10 +83,28 @@ public class DownloadMaterialeControl extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
+
+    /**
+     * Questo metodo permette di ottenere un dipendente utilizzando il manager
+     *
+     * @param idUtente id del dipendente
+     * @return il dipendente interessato
+     * @throws SQLException errore nella query
+     */
+
     public static Dipendente getDipendentefromManager(int idUtente) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getDipendente(idUtente);
     }
+
+    /**
+     * Questo metodo permette di ottenere i documenti interessati utilizzando il manager
+     *
+     * @param idTeam id del team
+     * @return il documento interessato
+     * @throws SQLException errore nella query
+     */
+
     public static Documento getDocumentofromManager(int idTeam) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.getMaterialeByIdTeam(idTeam);

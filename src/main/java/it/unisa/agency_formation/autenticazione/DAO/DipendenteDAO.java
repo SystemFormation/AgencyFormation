@@ -20,7 +20,7 @@ public class DipendenteDAO {
      *
      * @param dipendente , {@literal dipendente != null} è il dipendente da registrare
      * @return boolean true se il dipendente èì stato salvato, false altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     public static boolean salvaDipendente(Dipendente dipendente) throws SQLException {
         if (dipendente == null) {
@@ -48,7 +48,7 @@ public class DipendenteDAO {
      *
      * @param id , {@literal id > 0} è l'id dell'utente candidato che diventerà dipendente
      * @return boolean true se il ruolo è stato modificato, false altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean modificaRuoloUtente(int id) throws SQLException {
         if (id <= 0) {
@@ -71,7 +71,7 @@ public class DipendenteDAO {
      *
      * @param id , {@literal id > 0} l'Id del dipendente che vogliamo recuperare
      * @return Dipendente se è presente, null altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static Dipendente recuperoDipendenteById(int id) throws SQLException {
         if (id <= 0) {
@@ -118,7 +118,7 @@ public class DipendenteDAO {
      * Questa funzionalità permette di recuperare tutti i dipendenti
      *
      * @return {@literal ArrayList<@link Dipendente>} lista di dipendenti se sono presenti, null altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static ArrayList<Dipendente> recuperaDipendenti() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -166,7 +166,7 @@ public class DipendenteDAO {
      * @param idDip , {@literal idDip > 0} rappresenta l'id del dipendente
      * @param idTeam , {@literal idTeam > 0} rappresenta l'id del team
      * @return boolean true se il set è andato a buon fine, false altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean setIdTeamDipendente(int idDip, int idTeam) throws SQLException {
         if (idDip <= 0 || idTeam <= 0) {

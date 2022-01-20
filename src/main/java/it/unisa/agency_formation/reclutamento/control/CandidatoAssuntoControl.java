@@ -56,9 +56,16 @@ public class CandidatoAssuntoControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di assumere un candidato rendendolo dipendente utilizzando il manager
+     *
+     * @param dipendente nuovo dipendente
+     * @return boolean (true = dipendente creato correttamente, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
 
     public static boolean assumiCandidatoFromManager(Dipendente dipendente) throws SQLException {
-      AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-      return autenticazioneManager.assumiCandidato(dipendente);
+        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
+        return autenticazioneManager.assumiCandidato(dipendente);
     }
 }

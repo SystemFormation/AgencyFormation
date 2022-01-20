@@ -25,8 +25,9 @@ public class TeamDAO {
      * @param idUtente , {@literal idUtente > 0} identifica l'utente
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      * true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
+    
     public static boolean salvaTeam(Team team, int idUtente) throws SQLException {
         if (team == null || idUtente < 1) {
             return false;
@@ -54,7 +55,7 @@ public class TeamDAO {
      * Questa funzionalità permette di eliminare un dipendente
      *
      * @param idTeam , {@literal idTeam > 0} identifica il team
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                 true = la funzionalità va a buon fine)
      */
@@ -86,7 +87,7 @@ public class TeamDAO {
      *
      * @param idTeam , {@literal idTeam > 0} identifica il team
      * @return Team , il team interessato
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static Team recuperaTeamById(int idTeam) throws SQLException {
         if (idTeam < 1) {
@@ -128,7 +129,7 @@ public class TeamDAO {
      * @param idDipendente , {@literal idDipendente > 0}  identifica il dipendente da rimuovere
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean rimuoviDipendente(int idDipendente) throws SQLException {
         if (idDipendente < 1) {
@@ -151,7 +152,7 @@ public class TeamDAO {
     /**
      * Questa funzionalità permette di recuperare tutti i team presenti nella piattaforma
      * @return  {@literal ArrayList<@link Team>} , una lista di team
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      * nella post-condizione l'arraylist di team non dev'essere vuota
      */
     public static ArrayList<Team> recuperaTuttiTeam() throws SQLException {
@@ -195,7 +196,7 @@ public class TeamDAO {
      *
      *  @param idUtente , {@literal idUtente > 0}  identifica l'utente
      * @return  {@literal ArrayList<@link Team>} una lista di team
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      * nella post-condizione l'arraylist dei team non dev'essere vuoto
      */
     public static ArrayList<Team> recuperaTeamDiUnTM(int idUtente) throws SQLException {
@@ -242,7 +243,7 @@ public class TeamDAO {
      *
      *  @param competence , {@literal competence != null }  specifica la competenza con il quale aggiornare
      * @param idTeam , {@literal idTeam > 0}  identifica il team
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
      */
@@ -266,7 +267,7 @@ public class TeamDAO {
     /**
      * Questa funzionalità permette di recuperare l'id dell'ultimo team creato
      * @return int , l'id dell'ultimo team creato
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static int recuperaIdUltimoTeamCreato() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -291,7 +292,7 @@ public class TeamDAO {
      *
      * @param idTeam, {@literal idTeam > 0}  identifica il team
      * @return {@literal ArrayList<@link Integer>} una lista di idDipendenti membri di un team
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static ArrayList<Integer> recuperaIdTeamMemberFromTeam(int idTeam) throws SQLException {
         if (idTeam < 1) {
@@ -327,7 +328,7 @@ public class TeamDAO {
      * @param idDip , {@literal idDip > 0}  identifica il dipendente
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean updateDipStateDissolution(int idDip) throws SQLException {
         if (idDip < 0) {
@@ -349,7 +350,7 @@ public class TeamDAO {
     /**
      * Questa funzionalità permette di recuperare tutti i dipendenti
      * @return {@literal ArrayList<@link Dipendente>} , una lista di dipendenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static ArrayList<Dipendente> recuperaDipendentiDelTeam() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();

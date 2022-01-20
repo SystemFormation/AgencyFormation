@@ -71,11 +71,28 @@ public class CreateTeamControl extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di creare un team utilizzando il manager
+     *
+     * @param team il team da creare
+     * @param idTM id del TM che crea il team
+     * @return boolean (true = creazione andata a buon fine, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean creaTeamFromManager(Team team, int idTM) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.creaTeam(team, idTM);
 
     }
+
+    /**
+     * Questo metodo permette di ottenere l'ultimo team creato utilizzando il manager
+     *
+     * @return l'id dell'ultimo team creato
+     * @throws SQLException errore nella query
+     */
 
     public static int getIdUltimoTeamCreatoFromManager() throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();

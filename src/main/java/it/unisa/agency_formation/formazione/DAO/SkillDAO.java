@@ -18,7 +18,7 @@ public class SkillDAO {
      *
      * @param skill , {@literal skill != null} rappresenta la skill da salvare
      * @return boolean true se la skill è stata salvata, false altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean salvaSkill(Skill skill) throws SQLException {
         if (skill == null) {
@@ -44,7 +44,7 @@ public class SkillDAO {
      *
      * @param nomeSkill , {@literal nomeSkill != null}  rappresenta il nome della skill da recuperare
      * @return skill se la skill è presente, null altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static Skill recuperaSkillByNome(String nomeSkill) throws SQLException {
         if (nomeSkill == null) {
@@ -78,7 +78,7 @@ public class SkillDAO {
      *  @param idSkill , {@literal idSkill > 0 } rappresenta l'id della skill da associare
      * @param idDip , {@literal idDip > 0 } rappresenta l'id del dipendente
      * @param skillLivello , {@literal skillLivello > 0 @and skilLivello < 6} rappresenta il livello della skill
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      * @return boolean true se il salvataggio va a buon fine, false altrimenti
      */
     public static boolean salvaSkillDipendente(int idSkill, int idDip, int skillLivello) throws SQLException {
@@ -104,7 +104,7 @@ public class SkillDAO {
     /**
      * Questa funzionalità permette di recuperare l'id dell'ultima skill aggiunta
      * @return id ultima skill , altrimenti -1
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static int recuperaUltimaSkill() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -129,7 +129,7 @@ public class SkillDAO {
      *
      * @param idDip ,  {@literal idDip > 0 } rappresenta l'id del dipendente
      * @return {@literal ArrayList<@link Skill>} se il dipendente ha delle skill, null altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     public static ArrayList<Skill> recuperoSkillsByIdDipendente(int idDip) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();

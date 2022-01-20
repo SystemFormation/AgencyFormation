@@ -15,7 +15,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      *
      * @param user l'utente che verrà registrato
      * @return boolean true se l'utente viene registrato, false altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     @Override
     public boolean registrazione(Utente user) throws SQLException {
@@ -32,7 +32,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      * @param email    dell'utente
      * @param password dell'utente
      * @return utente se il login va a buon fine, null altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     @Override
     public Utente login(String email, String password) throws SQLException {
@@ -44,7 +44,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      *
      * @param idDip , rappresenta l'id del dipendente
      * @return Dipendente se il dipendente esiste, null altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     @Override
     public Dipendente getDipendente(int idDip) throws SQLException {
@@ -54,7 +54,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     /**
      * Questa funzionalità permette di recuperare i candidati con la candidatura
      * @return {@literal ArrayList<@link Utente>} se ci sono candidati con la candidatura, null altrimenti
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     @Override
     public ArrayList<Utente> getCandidatiConCandidatura() throws SQLException {
@@ -64,7 +64,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     /**
      * Questa funzionalità permette di recuperare i dipendenti
      * @return {@literal ArrayList<@link Dipendente>} se ci sono dipendenti, null altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public ArrayList<Dipendente> getTuttiDipendenti() throws SQLException {
@@ -75,7 +75,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      * Questa funzionalità permette di assumere un candidato
      * @return boolean (true = l'assunzione va a buon fine, false = altrimenti
      *
-     *  @throws SQLException errore nella query*/
+     *  @throws SQLException errore nella query errore nella query*/
 
     @Override
     public boolean assumiCandidato(Dipendente dipendente) throws SQLException {
@@ -86,7 +86,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     /**
      * Questa funzionalità permette di recuperare i candidati che dovranno svolgere il colloquio
      * @return {@literal ArrayList<@link Utente>} se ci sono candidati per il colloquio, null altrimenti
-     * @throws SQLException errore nella query*/
+     * @throws SQLException errore nella query errore nella query*/
 
     @Override
     public ArrayList<Utente> getCandidatiColloquio() throws SQLException {
@@ -99,7 +99,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      * @param idDip  rappresenta l'id del dipendente
      * @param idTeam rappresenta l'id del team
      * @return boolean (true = il set è andato a buon fine, false = altrimenti)
-     * @throws SQLException errore nella query
+     * @throws SQLException errore nella query errore nella query
      */
     @Override
     public boolean setTeamDipendente(int idDip, int idTeam) throws SQLException {
@@ -112,7 +112,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      * @param user , utente interessato
      * @return boolean (false = l'utente non è registrato,
      *                  true = l'utente è registrato)
-     * @throws SQLException*/
+     * @throws SQLException errore nella query*/
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {
         if (UtenteDAO.login(user.getEmail(), user.getPwd()) == null) {
             return false;

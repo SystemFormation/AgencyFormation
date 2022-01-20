@@ -65,10 +65,27 @@ public class RegistrazioneControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di registrare un utente utilizzando il manager
+     *
+     * @param user utente da registrare
+     * @return boolean (true = utente registrato correttamente , false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean registrazioneFromManager(Utente user) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.registrazione(user);
     }
+
+    /**
+     * Questo metodo permette di effettuare il login di un utente utilizzando il manager
+     *
+     * @param email , email dell'utente
+     * @param pwd   , password dell'utente
+     * @return utente loggato
+     * @throws SQLException errore nella query
+     */
 
     public static Utente loginFromManager(String email, String pwd) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();

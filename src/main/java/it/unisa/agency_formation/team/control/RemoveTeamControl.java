@@ -54,6 +54,14 @@ public class RemoveTeamControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di rimuovere un dipendente utilizzando il manager
+     *
+     * @param idDip id del dipendente da rimuovere
+     * @return boolean (true  =il dipendente è stato rimosso con successo, false altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean rimuoviDipendenteFromManager(int idDip) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.rimuoviDipendente(idDip);

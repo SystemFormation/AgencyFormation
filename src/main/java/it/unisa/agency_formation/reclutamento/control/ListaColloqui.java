@@ -36,10 +36,18 @@ public class ListaColloqui  extends HttpServlet {
             response.sendRedirect("./static/Login.html");
         }
     }
+
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di ottenere la lista di candidati che devono svolgere il colloquio utilizzando il manager
+     *
+     * @return {@literal ArrayList<@link Utente>} lista di candidati che devono svolgere il colloquio
+     * @throws SQLException errore nella query
+     */
 
     public static ArrayList<Utente> getCandidatiForColloquioFromManager() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
