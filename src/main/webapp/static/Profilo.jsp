@@ -62,12 +62,14 @@
     <br> <br>
     <h2> Aggiungi Skill </h2>
     <form action="SkillControl" method="post" id="formLogin">
-        <input type="text" id="skillName" name="skillName" placeholder="Inserisci nome skill" required><br>
-        <textarea id="skillDescr" name="skillDescr" rows="15" cols="40"
-                  placeholder="Inserisci la descrizione della skill"
-                  required></textarea><br>
-        <input type="number" id="quantity" name="quantity" placeholder="Livello da 1 a 5" min="1" max="5" required><br>
-        <input type="submit" value="Aggiungi" id="Aggiungi">
+        <input type="text" id="skillName" name="skillName" placeholder="Inserisci nome skill">
+        <br><span id="nameSkill"></span><br><br>
+        <textarea id="skillDescription" name="skillDescription" rows="15" cols="40"
+                  placeholder="Inserisci la descrizione della skill"></textarea>
+        <br><span id="descriptionSkill"></span><br><br>
+        <input type="number" id="quantity" name="quantity" placeholder="Livello da 1 a 5">
+        <br><span id="levelSkill"></span><br><br>
+        <input type="button" value="Aggiungi" id="Aggiungi" onclick="checkAggiungiSkill()">
     </form>
 </div>
 </body>

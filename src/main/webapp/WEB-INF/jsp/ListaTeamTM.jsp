@@ -48,13 +48,16 @@
                             </c:if>
                         </div>
                         <div>
-                        <button name="drop-sciogli" style="display: inline" onclick="scioglimentoTeam(${indexSkill})">
-                            Sciogli Team
-                        </button>
-                        <div class="confermaScioglimento" name="conferma-scioglimento" style="display: none">
-                            <h3>Sicuro di voler sciogliere il team selezionato?</h3>
-                            <a href="ScioglimentoTeamControl?idTeam=${team.getIdTeam()}"><button>Conferma</button></a>
-                        </div>
+                            <button name="drop-sciogli" style="display: inline"
+                                    onclick="scioglimentoTeam(${indexSkill})">
+                                Sciogli Team
+                            </button>
+                            <div class="confermaScioglimento" name="conferma-scioglimento" style="display: none">
+                                <h3>Sicuro di voler sciogliere il team selezionato?</h3>
+                                <a href="ScioglimentoTeamControl?idTeam=${team.getIdTeam()}">
+                                    <button>Conferma</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -89,7 +92,9 @@
                                 <textarea id="specCompetenze" name="specCompetenze"
                                           placeholder="Specifica le competenze"></textarea><br>
                                 <input type="hidden" name="idTeam" value="${team.getIdTeam()}">
-                                <input type="submit" name="specifica" value="Salva" id="specifica"><br>
+                                <input type="button" name="specifica" value="Salva" id="specifica"
+                                       onclick="checkSpecify(${indexSkill})"><br>
+                                <span id="specifyCompetence"></span>
                             </form>
                         </div>
                         <c:choose>

@@ -73,9 +73,8 @@
                                                    value="${team.getIdTeam()}">
                                             <input type="button" value="Carica" name="uploadMateriale"
                                                    onclick="checkFileMateriale(${index})">
-                                            <span id="materialeNotUpload"></span>
+                                            <span name="materialeNotUpload"></span>
                                         </form>
-                                        <span name="noMateriale"></span>
                                     </div>
                                 </c:when>
                                 <c:otherwise>

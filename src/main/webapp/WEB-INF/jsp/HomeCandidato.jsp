@@ -83,7 +83,7 @@
                             <form method="post" id="formDipendente" action="CandidatoAssuntoControl">
                                 <input type="hidden" name="action" value="crea">
                                 <label for="formDipendente">Anno di nascita:</label><br>
-                                <input type="number" min="1940" max="2004" id="annoDipendente" name="annoDipendente"
+                                <input type="number" min="1950" max="2004" id="annoDipendente" name="annoDipendente"
                                        placeholder="Anno" required><br>
                                 <label for="formDipendente">Residenza:</label><br>
                                 <input type="text" id="residenzaDipendente" name="residenzaDipendente"

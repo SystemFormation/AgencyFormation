@@ -37,7 +37,7 @@ public class SkillControl extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
             Skill skill = new Skill();
             String skillName = request.getParameter("skillName");
-            String skillDescr = request.getParameter("skillDescr");
+            String skillDescr = request.getParameter("skillDescription");
             int skillLivello = Integer.parseInt(request.getParameter("quantity"));
             if (skillName != null && skillDescr != null) {
                 if (skillName.trim().length() == 0) {
@@ -55,14 +55,14 @@ public class SkillControl extends HttpServlet {
                     if (dip != null) {
                         if (!addSkillFromManager(skill)) {
                             response.getWriter().write("2"); // aggiunta in skill non avvenuta con successo.
-                            String descrizione = "Si è verifato un problma con l'aggiunta della skill.Riprova";
+                            String descrizione = "Si è verificato un problema con l'aggiunta della skill. Riprova";
                             response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                             return;
                         }
                         int idSkill = getLastIdSkillCreatedFromManager();
                         if (!addSkillDipFromManager(idSkill, dip.getIdDipendente(), skillLivello)) {
                             response.getWriter().write("3"); // aggiunta in skillDip non avvenuta con successo.
-                            String descrizione = "Si è verifato un problma con l'aggiunta della skill.Riprova";
+                            String descrizione = "Si è verificato un problema con l'aggiunta della skill. Riprova";
                             response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                             return;
                         }

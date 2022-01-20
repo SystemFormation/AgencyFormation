@@ -27,7 +27,7 @@ body {
     line-height: 90px;
     margin-top: 0;
     margin-bottom: 0;
-    margin-right: 65px;
+    margin-right: 4px;
     box-sizing: border-box;
     color: #FBFFF1; /*Ivory*/
 }
@@ -56,6 +56,6 @@ body {
 }
 
 .header-right li{
-    margin: 0px 30px;
+    margin: 0px 20px;
     text-align: right;
 }
