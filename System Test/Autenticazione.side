@@ -1,0 +1,1361 @@
+{
+  "id": "fee3acef-7b5b-4857-aeaa-f89e340f2a6c",
+  "version": "2.0",
+  "name": "Autenticazione",
+  "url": "http://localhost:8080/AgencyFormation/",
+  "tests": [{
+    "id": "37c99c36-5c55-442d-a083-79be950cdc00",
+    "name": "TC_4.1_1",
+    "commands": [{
+      "id": "7ff23e9b-f4d9-47b6-9c5c-01e43fffdea5",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c4434e36-f62d-412d-a10f-031b2a009706",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x1005",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "abab22ae-262b-4d07-b523-39f1df72a68f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrati",
+      "targets": [
+        ["linkText=Registrati", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrati')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Registrazione.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrati')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0fbb58a7-b384-49ac-be17-1670db041d83",
+      "comment": "",
+      "command": "click",
+      "target": "id=name",
+      "targets": [
+        ["id=name", "id"],
+        ["name=nome", "name"],
+        ["css=#name", "css:finder"],
+        ["xpath=//input[@id='name']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "eaecca20-446f-4ccf-a93c-88f60a149817",
+      "comment": "",
+      "command": "type",
+      "target": "id=surname",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Rossi"
+    }, {
+      "id": "66c4af62-29e2-4664-85d6-872d6b84068c",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "MarioRossi@libero.it"
+    }, {
+      "id": "53ffe089-9144-47bd-b981-367bb3305a97",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=pwd", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "ec8331e0-5a90-4751-a119-7413b983db36",
+      "comment": "",
+      "command": "click",
+      "target": "id=Registrati",
+      "targets": [
+        ["id=Registrati", "id"],
+        ["css=#Registrati", "css:finder"],
+        ["xpath=//input[@id='Registrati']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "18a404cf-ad1f-434d-a603-109a96e89996",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.error",
+      "targets": [],
+      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+    }]
+  }, {
+    "id": "c4e4c303-3335-4096-877f-f180c142239f",
+    "name": "TC_4.1_2",
+    "commands": [{
+      "id": "74932a5b-3a98-4bb5-80db-4b90fa2605a2",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f7e33293-eec9-4f3d-8498-1f5ffc7ec5ae",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x1005",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "57fe8c8e-b27a-4295-8c61-d7549703af74",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrati",
+      "targets": [
+        ["linkText=Registrati", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrati')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Registrazione.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrati')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "da487d59-d1ba-4488-977a-f3c3c82e85ac",
+      "comment": "",
+      "command": "type",
+      "target": "id=name",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "M@r10"
+    }, {
+      "id": "a86a1672-57e8-4241-8111-6baa0b23de45",
+      "comment": "",
+      "command": "type",
+      "target": "id=surname",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Rossi"
+    }, {
+      "id": "53f480da-e38c-4ebc-a9c7-e8dcd25f2795",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "MarioRossi@libero.it"
+    }, {
+      "id": "9c92bf00-11fe-47b1-8c96-e373d33e3e2a",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=pwd", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "0e57e7ea-8a74-46da-a43e-5a3c7e3487f5",
+      "comment": "",
+      "command": "click",
+      "target": "id=Registrati",
+      "targets": [
+        ["id=Registrati", "id"],
+        ["css=#Registrati", "css:finder"],
+        ["xpath=//input[@id='Registrati']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1455bcea-2b15-4166-ab1d-7a9bd54cc84a",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.error",
+      "targets": [],
+      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+    }]
+  }, {
+    "id": "b9f9fa15-d393-406a-9a08-7874505485ab",
+    "name": "TC_4.1_3",
+    "commands": [{
+      "id": "498f7b95-6deb-429d-b8d3-55669dbaa644",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "25e06097-7c5f-4988-855a-dcdbc3b13fa2",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x1005",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1c7d83e4-2b4f-4a3a-94b1-bcaa26ebf4bc",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrati",
+      "targets": [
+        ["linkText=Registrati", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrati')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Registrazione.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrati')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b711592c-08e9-4b59-b31a-74d61ca8a15d",
+      "comment": "",
+      "command": "type",
+      "target": "id=name",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Mario"
+    }, {
+      "id": "25b9dc69-af8d-4315-891c-20a6ff468828",
+      "comment": "",
+      "command": "type",
+      "target": "id=surname",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "84392405-218a-4144-9ea3-7e841cbc49cc",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "MarioRossi@libero.it"
+    }, {
+      "id": "7a648f9c-5946-4130-8a4d-d20ab411fbd8",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=pwd", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "cba433b0-3c44-4200-9dce-fbab03b8118b",
+      "comment": "",
+      "command": "click",
+      "target": "id=Registrati",
+      "targets": [
+        ["id=Registrati", "id"],
+        ["css=#Registrati", "css:finder"],
+        ["xpath=//input[@id='Registrati']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "496d019c-c62f-4132-8e4e-aaea0d34e861",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.error",
+      "targets": [],
+      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+    }]
+  }, {
+    "id": "8b7401ad-091c-4a86-b0bb-f72a4d621d23",
+    "name": "TC_4.1_4",
+    "commands": [{
+      "id": "ac9f053c-26eb-4f9c-9573-be36e73d9ead",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "12527200-305f-4cdb-b636-f1cb6fd33ae6",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x1005",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "11043e7d-06a5-419f-a12e-0632aa17e5ac",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrati",
+      "targets": [
+        ["linkText=Registrati", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrati')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Registrazione.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrati')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b4fd1180-112f-4d87-8c08-9e9e5a7d15f9",
+      "comment": "",
+      "command": "type",
+      "target": "id=name",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Mario"
+    }, {
+      "id": "233e8254-ef28-4acc-a668-c881bd67e138",
+      "comment": "",
+      "command": "type",
+      "target": "id=surname",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "R0551"
+    }, {
+      "id": "334fe126-c7a3-4d24-b633-cd3b075e5b6f",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "MarioRossi@libero.it"
+    }, {
+      "id": "66e6952b-2214-4a40-9a0a-de02876d7980",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=pwd", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "3101473c-3e9f-4e08-a86b-a9bf67068921",
+      "comment": "",
+      "command": "click",
+      "target": "id=Registrati",
+      "targets": [
+        ["id=Registrati", "id"],
+        ["css=#Registrati", "css:finder"],
+        ["xpath=//input[@id='Registrati']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "613eda98-842f-4529-91c6-49dac33b585c",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.error",
+      "targets": [],
+      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+    }]
+  }, {
+    "id": "5b4d5b2f-7e05-4a1c-9236-526d68442a97",
+    "name": "TC_4.1_5",
+    "commands": [{
+      "id": "cdf9d134-cdcc-466d-815c-46a1e08d62cf",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cb5b7188-68af-4adc-bcea-6467377d4f01",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x1005",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fcce73c1-bd1c-47c1-9bcd-cd196f6ca0e5",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrati",
+      "targets": [
+        ["linkText=Registrati", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrati')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Registrazione.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrati')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "444cb564-b7a1-4e77-8d3a-c95364e3c8dd",
+      "comment": "",
+      "command": "type",
+      "target": "id=name",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Mario"
+    }, {
+      "id": "dee1eb0a-d86c-422a-a943-0915ca995dd5",
+      "comment": "",
+      "command": "type",
+      "target": "id=surname",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Rossi"
+    }, {
+      "id": "fdc8cb0d-c710-4eba-9bd9-da690c17754b",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "880db676-4fe0-46ad-abe9-e416702a6b3d",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=pwd", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "c54c99ad-3fa4-41c7-a77f-48fa1ceb58dc",
+      "comment": "",
+      "command": "click",
+      "target": "id=Registrati",
+      "targets": [
+        ["id=Registrati", "id"],
+        ["css=#Registrati", "css:finder"],
+        ["xpath=//input[@id='Registrati']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ee35378b-1ccd-4ce0-aaad-afeb51f31678",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.error",
+      "targets": [],
+      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+    }]
+  }, {
+    "id": "387f8f0c-712e-4e75-acfb-1197aa6b6e5d",
+    "name": "TC_4.1_6",
+    "commands": [{
+      "id": "d911b0ad-9769-49b7-9c42-52f70e55d3f3",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "81e6ca1f-96d8-4952-a8f2-69f25005a942",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x1005",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "41688545-6d41-472b-8976-405c7a49bfdf",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrati",
+      "targets": [
+        ["linkText=Registrati", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrati')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Registrazione.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrati')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a1cdd71-ece2-4863-a24f-0f54dc125e1e",
+      "comment": "",
+      "command": "type",
+      "target": "id=name",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Mario"
+    }, {
+      "id": "2a4c38e7-cfae-4365-b385-1498525476fc",
+      "comment": "",
+      "command": "type",
+      "target": "id=surname",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Rossi"
+    }, {
+      "id": "ffe9f700-bc4a-4829-9021-5b29355ecec0",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "MarioRossi#libero!it "
+    }, {
+      "id": "9966acaa-fd13-4269-98bd-48d0caa3eafa",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=pwd", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "323ee2ff-6a49-413a-817c-8aad38926787",
+      "comment": "",
+      "command": "click",
+      "target": "id=Registrati",
+      "targets": [
+        ["id=Registrati", "id"],
+        ["css=#Registrati", "css:finder"],
+        ["xpath=//input[@id='Registrati']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "054de094-a0da-4014-bf6d-c0cc383a968c",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.error",
+      "targets": [],
+      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+    }]
+  }, {
+    "id": "109d3424-0fbd-4856-9c2c-b9629c2367c7",
+    "name": "TC_4.1_7",
+    "commands": [{
+      "id": "4227e358-8137-4137-aa1e-d1489d9ab5e2",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a7b0dcd6-f0b6-42b7-87f6-2c9d2260eb20",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x1005",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e2847966-5d99-4b63-ba08-6612e715e466",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrati",
+      "targets": [
+        ["linkText=Registrati", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrati')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Registrazione.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrati')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "447f111d-6419-4580-9e6d-e57596367069",
+      "comment": "",
+      "command": "type",
+      "target": "id=name",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Mario"
+    }, {
+      "id": "c91fa84e-80a3-4107-b065-06ae368e65e1",
+      "comment": "",
+      "command": "type",
+      "target": "id=surname",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Rossi"
+    }, {
+      "id": "9a944119-ddcb-4f8d-a3de-97110e890dd4",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "MarioRossi@libero.it "
+    }, {
+      "id": "696962d7-9959-40a7-8d88-53f725645a94",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=pwd", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossiSessanta9 "
+    }, {
+      "id": "527e1325-50f4-4b7b-8704-8de0132e98b4",
+      "comment": "",
+      "command": "click",
+      "target": "id=Registrati",
+      "targets": [
+        ["id=Registrati", "id"],
+        ["css=#Registrati", "css:finder"],
+        ["xpath=//input[@id='Registrati']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f573a12f-fdf6-45e7-a6d9-c9e1a83c209d",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.error",
+      "targets": [],
+      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+    }]
+  }, {
+    "id": "a54cb78d-8d1c-4a3c-9fb5-6e6b66e066b6",
+    "name": "TC_4.1_8",
+    "commands": [{
+      "id": "170b96b1-5f95-4de7-90ad-8eea3375e3ca",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "40effec3-3714-4462-9b43-f0fc554b2aec",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x1005",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "804db6f8-6568-4107-8215-d933f80609dd",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrati",
+      "targets": [
+        ["linkText=Registrati", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrati')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Registrazione.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrati')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4273f4a8-96e4-496b-a386-c2a192840e82",
+      "comment": "",
+      "command": "type",
+      "target": "id=name",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "M"
+    }, {
+      "id": "7b7ad837-2a8a-49a1-8750-7e41ebaf47ce",
+      "comment": "",
+      "command": "type",
+      "target": "id=surname",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Rossi"
+    }, {
+      "id": "68545614-54ed-433a-aa55-09b4bc6238a1",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "MarioRossi@libero.it "
+    }, {
+      "id": "24127e4e-6047-4c26-be4c-521e02ecc0fd",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=pwd", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioR[]ssiç°£& "
+    }, {
+      "id": "d51b4169-bc7a-4d71-967f-8bd86538c3b3",
+      "comment": "",
+      "command": "click",
+      "target": "id=Registrati",
+      "targets": [
+        ["id=Registrati", "id"],
+        ["css=#Registrati", "css:finder"],
+        ["xpath=//input[@id='Registrati']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "97f8195e-d007-46ef-9007-1d1a7e619441",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=.error",
+      "targets": [],
+      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+    }]
+  }, {
+    "id": "ba79ace1-da98-4b24-b24c-3e3128d8b649",
+    "name": "TC_4.1_9",
+    "commands": [{
+      "id": "2d9ff7ec-d32a-4152-a514-d9f183554293",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d90b9ef0-0b3e-468c-9e2f-28db1e6f6e92",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x1005",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ccfbd624-2ccf-4faf-a73d-573c2f0cb27c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrati",
+      "targets": [
+        ["linkText=Registrati", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrati')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Registrazione.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrati')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e5d7dda6-3305-4f31-b597-faa65dc522f5",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "MarioRossi@libero.it "
+    }, {
+      "id": "0438b9ec-d8fb-4904-bef4-6f0c8b36163b",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=pwd", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "c3633d08-9227-4673-8b63-686fe64a1200",
+      "comment": "",
+      "command": "type",
+      "target": "id=name",
+      "targets": [],
+      "value": "Mario"
+    }, {
+      "id": "9e0cc26c-162b-4e06-bbe0-afe8252520c8",
+      "comment": "",
+      "command": "type",
+      "target": "id=surname",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Rossi"
+    }, {
+      "id": "fad87adc-576a-4290-82d9-5a8887856580",
+      "comment": "",
+      "command": "click",
+      "target": "id=Registrati",
+      "targets": [
+        ["id=Registrati", "id"],
+        ["css=#Registrati", "css:finder"],
+        ["xpath=//input[@id='Registrati']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f211172e-167b-4e72-95d2-c0cada1cebcb",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=h1",
+      "targets": [],
+      "value": "Bentornato Mario"
+    }, {
+      "id": "020a6f65-8995-42b8-b121-13480706b57c",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Logout",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "ed2e9a6c-e54b-4b24-82ca-2d285c7804ff",
+    "name": "TC_4.2_1",
+    "commands": [{
+      "id": "fb03918e-9d05-4311-98d4-b4c3174507f1",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f523d672-a728-47a9-baa9-291bb5f4268e",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x951",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d6461c58-b19f-4ac7-b7b4-540d9cb09b35",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=ul:nth-child(1) > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Login.html')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "22c4de68-1eac-4301-9a91-0a55a9f42e4a",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6f017e81-3e62-48e9-974f-3f50fa5a2618",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "f6049122-6e15-4487-9d42-53cf05a74e91",
+      "comment": "",
+      "command": "click",
+      "target": "id=Accedi",
+      "targets": [
+        ["id=Accedi", "id"],
+        ["css=#Accedi", "css:finder"],
+        ["xpath=//input[@id='Accedi']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "92d84f98-d0a1-4aca-9be6-f13a9cf85cd0",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=rsEmail",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "3c54cfd8-b3e2-4df9-a8d6-52eef52712ae",
+    "name": "TC_4.2_2",
+    "commands": [{
+      "id": "591ff4ea-0c04-4be9-9fe4-726a482bccbf",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "725f19c5-e476-4157-ab9c-4b1cd87f1202",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x951",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "eac891f9-028f-4ca1-8d9d-b87ceefeddc3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=ul:nth-child(1) > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Login.html')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "39133fca-4402-4ffd-ab52-87d6bad8ea69",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [],
+      "value": "Mario@.com"
+    }, {
+      "id": "50daf8cf-6ce8-4281-b9f4-9df35607b3db",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "aa399bf5-ba18-48ea-a96f-979bdc9c0522",
+      "comment": "",
+      "command": "click",
+      "target": "id=Accedi",
+      "targets": [
+        ["id=Accedi", "id"],
+        ["css=#Accedi", "css:finder"],
+        ["xpath=//input[@id='Accedi']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "78bb8318-2dfa-4ae3-abce-4283a775e0e9",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=rsEmail",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "2910d3ee-afb2-4a86-89fb-7bed9d811f8d",
+    "name": "TC_4.2_3",
+    "commands": [{
+      "id": "7368176f-b36c-4bae-a6bf-642d21bfbb03",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b15bf2a3-d7e3-4a9f-85bb-8c837cf1244a",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x951",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e8a866c1-221e-4cf1-af98-5aa0d04d2755",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=ul:nth-child(1) > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Login.html')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ca1a499a-c8d8-4102-be14-00227be80a73",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [],
+      "value": "MarioRossi@libero.it "
+    }, {
+      "id": "becbdeac-eea9-4899-aea5-e29c18bace78",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6d216ff3-42c5-4abd-afa8-ef5d6bc95c94",
+      "comment": "",
+      "command": "click",
+      "target": "id=Accedi",
+      "targets": [
+        ["id=Accedi", "id"],
+        ["css=#Accedi", "css:finder"],
+        ["xpath=//input[@id='Accedi']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "53a8b191-c9ec-42d1-9d85-07f4d08d06bb",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=rsPassword",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "29b28afd-6876-4ea8-8de3-0b902de17e4a",
+    "name": "TC_4.2_4",
+    "commands": [{
+      "id": "f94c364b-9ef4-4f23-a29f-6936a7206717",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b8cc29f0-f313-4587-8420-3d9f56b6186c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x951",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4e52d57a-8758-4744-9745-1dbd664a67cd",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=ul:nth-child(1) > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Login.html')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ec138a40-453d-4438-9c84-151eea4683a6",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [],
+      "value": "MarioRossi@libero.it "
+    }, {
+      "id": "df7d60d6-882d-4fc4-9f6e-8e2fd0602c69",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ".#?/*M "
+    }, {
+      "id": "cb44971f-ad53-446b-aad4-2e03780ce4aa",
+      "comment": "",
+      "command": "click",
+      "target": "id=Accedi",
+      "targets": [
+        ["id=Accedi", "id"],
+        ["css=#Accedi", "css:finder"],
+        ["xpath=//input[@id='Accedi']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0513ac53-6e99-4318-8228-0f496746e22f",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "id=rsPassword",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "97587b59-5f00-4479-bbfd-c928db33c606",
+    "name": "TC_4.2_5",
+    "commands": [{
+      "id": "32b4187f-fbb9-4371-8c5e-7e5a78c3aad6",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "312b625e-99ef-4815-b3cf-f34d6f62630d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x951",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4019a177-3cad-42cd-8f74-d4c953344979",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=ul:nth-child(1) > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Login.html')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "154691ac-e35b-49cf-9094-ff4c332e3643",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [],
+      "value": "MarioRossi@libero.it "
+    }, {
+      "id": "099e9282-6272-4914-95c3-4ba4a3b4a025",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "07af9655-dfec-4ed1-b586-c0f956a7743a",
+      "comment": "",
+      "command": "click",
+      "target": "id=Accedi",
+      "targets": [
+        ["id=Accedi", "id"],
+        ["css=#Accedi", "css:finder"],
+        ["xpath=//input[@id='Accedi']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "08a4917c-f327-4b5c-a859-ed2d61efd809",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=h1",
+      "targets": [],
+      "value": "Bentornato Mario"
+    }, {
+      "id": "17a4b2ec-2eb2-4388-a12d-8329c1cebdc5",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Logout",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "7a5f68d5-4681-410c-afa6-e30f58a9dca2",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["37c99c36-5c55-442d-a083-79be950cdc00"]
+  }],
+  "urls": ["http://localhost:8080/AgencyFormation/"],
+  "plugins": []
+}
