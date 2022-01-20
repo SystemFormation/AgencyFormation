@@ -30,8 +30,8 @@ public class ListaCandidati extends HttpServlet {
                     dispatcher.forward(request, response);
                 }else{
                     response.getWriter().write("3");// non ci sono candidati
-                    String descrizione = "Non ci sono candidati";
-                    response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
+                    dispatcher.forward(request, response);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

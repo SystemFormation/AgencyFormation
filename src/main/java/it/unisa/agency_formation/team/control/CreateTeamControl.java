@@ -58,7 +58,8 @@ public class CreateTeamControl extends HttpServlet {
                     resp.sendRedirect("/static/CreaTeam.jsp");
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                String errore = "creazione team non avvenuta";
+                resp.sendRedirect("./static/Error.jsp?descrizione=" + errore);
             }
         } else {
             resp.getWriter().write("5"); //non sei TM

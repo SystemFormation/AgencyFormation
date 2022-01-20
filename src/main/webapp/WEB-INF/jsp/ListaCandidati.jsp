@@ -46,7 +46,8 @@
                             <button onclick="acceptCandidature(${cand.getId()},${index})">Accetta</button>
                         </div>
                         <button onclick="rejectCandidature(${cand.getId()})">Rifiuta</button>
-                    </div>
+                    </div><br>
+                    <span name="errore"></span>
                     <div name="drop" class="dropdown-content" style="display:none">
                         <a href="DownloadControl?toDownload=curriculum&idCandidato=${cand.getId()}"
                            name="hrefCurriculum">

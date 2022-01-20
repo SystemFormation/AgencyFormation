@@ -38,13 +38,16 @@ public class TeamDAO {
                     + " values(?,?,?,?,?,?)";
             try {
                 save = connection.prepareStatement(query);
+
                 save.setString(1, team.getNomeProgetto());
                 save.setInt(2, team.getNumeroDipendenti());
                 save.setString(3, team.getNomeTeam());
                 save.setString(4, team.getDescrizione());
                 save.setString(5, null);
                 save.setInt(6, idUtente);
-                return save.executeUpdate() != 0;
+                int result = save.executeUpdate();
+                System.out.println(result);
+                return result != 0;
             } finally {
                 DatabaseManager.closeConnessione(connection);
             }

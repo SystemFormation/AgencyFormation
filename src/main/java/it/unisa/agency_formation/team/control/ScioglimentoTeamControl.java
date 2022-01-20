@@ -38,8 +38,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
                         }
                     } else {
                         resp.getWriter().write("4");
-                        resp.sendRedirect("./static/Error.jsp");
-                    }
+                        }
                     if (!eliminaTeamFromManager(idTeam)) {
                         resp.getWriter().write("2");
                         String descrizione = "Errore nello sciogliemnto del team";
@@ -49,7 +48,9 @@ public class ScioglimentoTeamControl extends HttpServlet {
                         resp.getWriter().write("3");
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);
+                        return;
                     }
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -57,6 +58,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
                 resp.getWriter().write("4");
                 String descrizione="Errore. IdTeam Non Valido";
                 resp.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                return;
             }
         } else {
             resp.getWriter().write("5");
