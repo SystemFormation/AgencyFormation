@@ -28,8 +28,7 @@ public class SpecificaCompetenzeControl extends HttpServlet {
                     if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {
                         String descrizione = "Errore nella specifica delle competenze";
                         resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
-                    }
-                    else {
+                    } else {
                         resp.getWriter().write("1");
                         dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                         dispatcher.forward(req, resp);

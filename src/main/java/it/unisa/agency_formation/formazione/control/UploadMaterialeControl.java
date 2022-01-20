@@ -79,6 +79,15 @@ public class UploadMaterialeControl extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di salvare un documento utilizzando il manager
+     *
+     * @param documento da salvare
+     * @return boolean ( true = il documento viene salvato correttamente, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean saveDocumentFromManager(Documento documento) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.salvaDocumento(documento);

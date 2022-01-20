@@ -39,7 +39,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
                     if (!esito) {
                         response.getWriter().write("2"); //errore assunzione
                         String descrizione = "Si è verificato un errore nell'assunzione";
-                        response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                        response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     } else {
                         request.getSession().invalidate();
                         response.getWriter().write("3"); // assunzione

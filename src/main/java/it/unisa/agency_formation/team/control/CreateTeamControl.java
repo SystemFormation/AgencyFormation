@@ -32,7 +32,7 @@ public class CreateTeamControl extends HttpServlet {
                     if (numeroDipendenti > 8) {
                         resp.getWriter().write("1");
                         String descrizione = "Si è verificato un errore. Numero dei dipendenti maggiore di 8";
-                        resp.sendRedirect("/static/Error.jsp?descrizione="+descrizione);
+                        resp.sendRedirect("/static/Error.jsp?descrizione=" + descrizione);
                     } else {
                         String nomeTeam = req.getParameter("fname");
                         String descrizione = req.getParameter("teamDescr");

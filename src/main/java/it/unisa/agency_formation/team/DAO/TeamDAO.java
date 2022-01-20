@@ -27,7 +27,6 @@ public class TeamDAO {
      * true = la funzionalità va a buon fine)
      * @throws SQLException errore nella query errore nella query
      */
-    
     public static boolean salvaTeam(Team team, int idUtente) throws SQLException {
         if (team == null || idUtente < 1) {
             return false;
