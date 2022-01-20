@@ -19,7 +19,7 @@ public class CandidaturaDAO {
      * @throws SQLException errore nella query errore nella query  errore nella query
      */
     public static boolean salvaCandidaturaSenzaDocumenti(Candidatura candidatura) throws SQLException {
-        if (candidatura == null) {
+        if (candidatura == null || candidatura.getCurriculum().length()>512){
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -52,7 +52,7 @@ public class CandidaturaDAO {
      */
 
     public static boolean aggiungiDocumentiAggiuntivi(String document, int idUtente) throws SQLException {
-        if (document == null || idUtente < 1) {
+        if (document == null || idUtente < 1 || document.length()>512) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();

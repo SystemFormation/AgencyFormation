@@ -19,7 +19,7 @@ public class DocumentoDAO {
      * @throws SQLException errore nella query errore nella query  doc!=null*/
 
     public static boolean salvaDocumento(Documento doc) throws SQLException {
-        if (doc == null) {
+        if (doc == null || doc.getMaterialeDiFormazione().length()>512) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();

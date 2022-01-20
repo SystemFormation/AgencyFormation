@@ -28,7 +28,8 @@ public class TeamDAO {
      * @throws SQLException errore nella query errore nella query
      */
     public static boolean salvaTeam(Team team, int idUtente) throws SQLException {
-        if (team == null || idUtente < 1) {
+        if (team == null || idUtente < 1 || team.getNomeTeam().length()>32
+                || team.getDescrizione().length()>512 || team.getNomeProgetto().length()>32) {
             return false;
         } else {
             Connection connection = DatabaseManager.getInstance().getConnection();
@@ -250,7 +251,7 @@ public class TeamDAO {
      *                  true = la funzionalità va a buon fine)
      */
     public static boolean specificaCompetenze(String competence, int idTeam) throws SQLException {
-        if (competence == null || idTeam < 1) {
+        if (competence == null || idTeam < 1 || competence.length()>512) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
