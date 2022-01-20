@@ -43,7 +43,7 @@ public class RegistrazioneControlTestIt {
     }
     @AfterAll
     public static void finish() throws SQLException {
-        String query = "Delete * from af_db_test.utenti where IdUtente > 4";
+        String query = "Delete from af_db_test.utenti where IdUtente > 4";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate();
@@ -215,14 +215,10 @@ public class RegistrazioneControlTestIt {
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
-        //boolean esito = RegistrazioneControl.registrazioneFromManager(user);
-        //Utente user2 = RegistrazioneControl.loginFromManager(user.getEmail(),user.getPwd());
         StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);
-        //assertTrue(esito);
-        //assertNotNull(user2);
         servlet.doPost(request, response);
         assertTrue(stringWriter.toString().equals("5"));
         }
