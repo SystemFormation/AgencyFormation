@@ -16,6 +16,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 @WebServlet("/CandidatoAssuntoControl")
 public class CandidatoAssuntoControl extends HttpServlet {
+
+    /**
+     * Questo metodo controlla le operazioni per completare l'assunzione del candidato rendendolo dipendente
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
@@ -50,6 +60,15 @@ public class CandidatoAssuntoControl extends HttpServlet {
             }
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

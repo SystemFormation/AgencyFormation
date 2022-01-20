@@ -21,7 +21,7 @@ public class SkillDAO {
      * @throws SQLException errore nella query errore nella query
      */
     public static boolean salvaSkill(Skill skill) throws SQLException {
-        if (skill == null || skill.getNomeSkill().length()>64 || skill.getDescrizioneSkill().length()>512) {
+        if (skill == null || skill.getNomeSkill().length() > 64 || skill.getDescrizioneSkill().length() > 512) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -47,7 +47,7 @@ public class SkillDAO {
      * @throws SQLException errore nella query errore nella query
      */
     public static Skill recuperaSkillByNome(String nomeSkill) throws SQLException {
-        if (nomeSkill == null || nomeSkill.length()>64) {
+        if (nomeSkill == null || nomeSkill.length() > 64) {
             return null;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -132,7 +132,7 @@ public class SkillDAO {
      * @throws SQLException errore nella query errore nella query
      */
     public static ArrayList<Skill> recuperoSkillsByIdDipendente(int idDip) throws SQLException {
-        if(idDip<1){
+        if (idDip < 1) {
             return null;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();

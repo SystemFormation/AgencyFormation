@@ -27,6 +27,16 @@ public class UploadCandidatureControl extends HttpServlet {
     private static final String pathRelative = "\\AgencyFormationFile\\Candidature\\";
     private static final String pathAbsolute = System.getProperty("user.home") + pathRelative;
     private static final int MAXDIM = 10485760; //10MB
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare l'upload del curriculum e possibili documenti aggiuntivi
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
@@ -123,6 +133,15 @@ public class UploadCandidatureControl extends HttpServlet {
         }
 
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

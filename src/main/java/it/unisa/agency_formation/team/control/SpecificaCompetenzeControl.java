@@ -16,6 +16,16 @@ import java.sql.SQLException;
 
 @WebServlet("/SpecificaCompetenzeControl")
 public class SpecificaCompetenzeControl extends HttpServlet {
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare la specifica delle competenze
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         Utente user = (Utente) req.getSession().getAttribute("user");
@@ -47,6 +57,15 @@ public class SpecificaCompetenzeControl extends HttpServlet {
             resp.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);

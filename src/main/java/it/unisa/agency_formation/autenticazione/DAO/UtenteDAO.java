@@ -22,8 +22,8 @@ public class UtenteDAO {
      * @throws SQLException errore nella query errore nella query
      */
     public static boolean salvaUtente(Utente user) throws SQLException {
-        if (user == null || user.getName().length()>32 || user.getSurname().length()>32
-                || user.getPwd().length()>16 || user.getEmail().length()>32 || user.getPwd().length()<3) {
+        if (user == null || user.getName().length() > 32 || user.getSurname().length() > 32
+                || user.getPwd().length() > 16 || user.getEmail().length() > 32 || user.getPwd().length() < 3) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -65,7 +65,7 @@ public class UtenteDAO {
      * @throws SQLException errore nella query errore nella query
      */
     public static Utente login(String email, String pwd) throws SQLException {
-        if (email == null || pwd == null || email.length()>32 || pwd.length()>16 || pwd.length()<3) {
+        if (email == null || pwd == null || email.length() > 32 || pwd.length() > 16 || pwd.length() < 3) {
             return null;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();

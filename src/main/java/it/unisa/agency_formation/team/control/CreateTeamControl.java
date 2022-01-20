@@ -17,6 +17,16 @@ import java.sql.SQLException;
 
 @WebServlet("/CreateTeamControl")
 public class CreateTeamControl extends HttpServlet {
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare la creazione del team
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
@@ -67,6 +77,15 @@ public class CreateTeamControl extends HttpServlet {
             resp.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

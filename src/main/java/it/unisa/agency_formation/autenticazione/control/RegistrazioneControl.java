@@ -17,6 +17,15 @@ import java.sql.SQLException;
 @WebServlet("/RegistrazioneControl")
 public class RegistrazioneControl extends HttpServlet {
 
+    /**
+     * Questo metodo controlla le operazioni per effettuare una registrazione
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = new Utente();
@@ -59,6 +68,15 @@ public class RegistrazioneControl extends HttpServlet {
                 response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
             }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

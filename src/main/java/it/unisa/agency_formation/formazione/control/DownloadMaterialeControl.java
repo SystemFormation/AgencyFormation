@@ -25,6 +25,15 @@ import java.sql.SQLException;
 public class DownloadMaterialeControl extends HttpServlet {
     private static final String directory = System.getProperty("user.home");
 
+    /**
+     * Questo metodo controlla le operazioni per effettuare il download del materiale di formazione
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
@@ -78,6 +87,15 @@ public class DownloadMaterialeControl extends HttpServlet {
             response.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

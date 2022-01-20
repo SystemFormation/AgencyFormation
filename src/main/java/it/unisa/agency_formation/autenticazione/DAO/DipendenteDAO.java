@@ -23,8 +23,8 @@ public class DipendenteDAO {
      * @throws SQLException errore nella query errore nella query*/
 
     public static boolean salvaDipendente(Dipendente dipendente) throws SQLException {
-        if (dipendente == null || dipendente.getResidenza().length()>128
-                || dipendente.getTelefono().length()>20) {
+        if (dipendente == null || dipendente.getResidenza().length() > 128
+                || dipendente.getTelefono().length() > 20) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();

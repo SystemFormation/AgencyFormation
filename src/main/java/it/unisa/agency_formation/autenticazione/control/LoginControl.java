@@ -19,6 +19,16 @@ import java.sql.SQLException;
 
 @WebServlet("/LoginControl")
 public class LoginControl extends HttpServlet {
+
+    /**
+     * Questo metodo controlla i valori presi dalle view per effettuare il login
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher;
@@ -113,6 +123,15 @@ public class LoginControl extends HttpServlet {
             }
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

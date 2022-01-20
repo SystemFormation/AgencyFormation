@@ -25,6 +25,15 @@ import java.util.ArrayList;
 @WebServlet("/ListaDipendentiControl")
 public class ListaDipendentiControl extends HttpServlet {
 
+    /**
+     * Questo metodo controlla le operazioni per effettuare la visualizzazione di tutti i dipendenti
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
@@ -60,6 +69,16 @@ public class ListaDipendentiControl extends HttpServlet {
             resp.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

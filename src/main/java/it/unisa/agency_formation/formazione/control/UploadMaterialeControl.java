@@ -24,6 +24,16 @@ public class UploadMaterialeControl extends HttpServlet {
     private static final String pathRelative = "\\AgencyFormationFile\\MaterialeFormazione\\";
     private static final String pathAbsolute = System.getProperty("user.home") + pathRelative;
     private static final int MAXDIM = 10485760; //10MB
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare l'upload del materiale di formazione
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
@@ -74,6 +84,15 @@ public class UploadMaterialeControl extends HttpServlet {
             response.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

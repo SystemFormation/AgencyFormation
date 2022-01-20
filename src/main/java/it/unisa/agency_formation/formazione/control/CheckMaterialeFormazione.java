@@ -14,6 +14,16 @@ import java.sql.SQLException;
 
 @WebServlet("/CheckMaterialeFormazione")
 public class CheckMaterialeFormazione extends HttpServlet {
+
+    /**
+     * Questo metodo controlla che i documenti soddisfa i requisiti
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -33,6 +43,15 @@ public class CheckMaterialeFormazione extends HttpServlet {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

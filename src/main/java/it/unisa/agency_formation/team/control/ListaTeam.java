@@ -21,6 +21,16 @@ import java.util.ArrayList;
 
 @WebServlet("/ListaTeam")
 public class ListaTeam extends HttpServlet {
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare la visualizzazione dei team
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
@@ -55,6 +65,15 @@ public class ListaTeam extends HttpServlet {
             resp.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
