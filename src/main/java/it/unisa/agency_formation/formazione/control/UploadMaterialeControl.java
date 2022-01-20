@@ -30,7 +30,7 @@ public class UploadMaterialeControl extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             if (request.getParameter("idTeam") == null) {
                 response.getWriter().write("2"); //idTeam non passato
-                String errore1 = "id del Team errato";
+                String errore1 = "Id del Team non passato";
                 response.sendRedirect("./static/Error.jsp?descrizione=" + errore1);
             } else {
                 int idTeam = Integer.parseInt(request.getParameter("idTeam"));
@@ -39,14 +39,13 @@ public class UploadMaterialeControl extends HttpServlet {
                 file.mkdirs();
                 if (request.getPart("materiale") == null) {
                     response.getWriter().write("3"); //materiale non passato
-//TODO considerato il getPart, come descrizione di errore sembra plausibile; controllare
-                    String errore2 = "alcun materiale trovato";
+                    String errore2 = "Errore. File non selezionato.Riprova";
                     response.sendRedirect("./static/Error.jsp?descrizione=" + errore2);
                 } else {
                     Part part = request.getPart("materiale");
                     if (part.getSize() > MAXDIM) {
                         response.getWriter().write("4"); //file troppo grande
-                        String errore3 = "dimensioni file eccessive";
+                        String errore3 = "Dimensioni file eccessive";
                         response.sendRedirect("./static/Error.html?descrizione=" + errore3);
                         return;
                     }
@@ -71,6 +70,7 @@ public class UploadMaterialeControl extends HttpServlet {
             }
         } else {
             response.getWriter().write("1"); //user null oppure non dipendente
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         }
     }

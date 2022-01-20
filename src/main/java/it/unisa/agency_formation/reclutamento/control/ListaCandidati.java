@@ -23,15 +23,22 @@ public class ListaCandidati extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             try {
                 ArrayList<Utente> candidati = getCandidatesFromManager();
-                request.setAttribute("candidati", candidati);
-                response.getWriter().write("1"); //ci sono i candidati
-                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
-                dispatcher.forward(request, response);
+                if(candidati!=null) {
+                    request.setAttribute("candidati", candidati);
+                    response.getWriter().write("1"); //ci sono i candidati
+                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaCandidati.jsp");
+                    dispatcher.forward(request, response);
+                }else{
+                    response.getWriter().write("3");// non ci sono candidati
+                    String descrizione = "Non ci sono candidati";
+                    response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
             response.getWriter().write("2"); //non è un HR
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         }
     }

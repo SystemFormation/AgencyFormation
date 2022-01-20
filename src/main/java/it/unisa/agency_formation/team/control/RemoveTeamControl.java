@@ -25,7 +25,6 @@ public class RemoveTeamControl extends HttpServlet {
             int idDip = Integer.parseInt(req.getParameter("idDip"));
             if (idDip != 0) {
                 try {
-                    rimuoviDipendenteFromManager(idDip);
                     if (!rimuoviDipendenteFromManager(idDip)) {
                         resp.getWriter().write("4"); //dipendente non rimosso
                         String descrizione = "rimozione dipendente non effettuata";
@@ -45,6 +44,7 @@ public class RemoveTeamControl extends HttpServlet {
             }
         } else {
             resp.getWriter().write("3");
+            req.getSession().invalidate();
             resp.sendRedirect("./static/Login.html");
         }
     }

@@ -19,7 +19,8 @@ public class RicandidaturaControl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user == null || user.getRole() != RuoliUtenti.CANDIDATO) {
-            response.getWriter().write("1"); //utente nullo o ruolo diverso da Candidato
+            response.getWriter().write("1"); //utente null o ruolo diverso da Candidato
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         } else {
             try {

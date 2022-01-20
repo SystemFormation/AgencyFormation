@@ -21,6 +21,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user == null || user.getRole() != RuoliUtenti.CANDIDATO) {
             response.getWriter().write("1"); // user null o ruolo non adatto
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         } else {
             try {
@@ -37,7 +38,8 @@ public class CandidatoAssuntoControl extends HttpServlet {
                     boolean esito = assumiCandidatoFromManager(dipendente);
                     if (!esito) {
                         response.getWriter().write("2"); //errore assunzione
-                        response.sendRedirect("/WEB-INF/jsp/HomeCandidato.jsp");
+                        String descrizione = "Si è verificato un errore nell'assunzione";
+                        response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
                     } else {
                         request.getSession().invalidate();
                         response.getWriter().write("3"); // assunzione

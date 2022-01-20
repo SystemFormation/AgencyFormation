@@ -39,8 +39,7 @@ public class DownloadMaterialeControl extends HttpServlet {
                     documento = getDocumentofromManager(dipendente.getTeam().getIdTeam());
                     if (documento == null) {
                         response.getWriter().write("2"); //documento null
-                        //si può rimandare all'homepage?
-                        String descrizione = "documento inesistente";
+                        String descrizione = "Documento inesistente";
                         response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     }
                 }
@@ -75,6 +74,7 @@ public class DownloadMaterialeControl extends HttpServlet {
             }
         } else {
             response.getWriter().write("5");
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         }
     }

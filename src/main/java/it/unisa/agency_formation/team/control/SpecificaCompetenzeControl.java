@@ -26,12 +26,14 @@ public class SpecificaCompetenzeControl extends HttpServlet {
                 String competence = req.getParameter("specCompetenze");
                 try {
                     if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {
-                        String descrizione = "specifiche oltremisura";
+                        String descrizione = "Errore nella specifica delle competenze";
                         resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     }
-                    resp.getWriter().write("1");
-                    dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
-                    dispatcher.forward(req, resp);
+                    else {
+                        resp.getWriter().write("1");
+                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                        dispatcher.forward(req, resp);
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -42,6 +44,7 @@ public class SpecificaCompetenzeControl extends HttpServlet {
             }
         } else {
             resp.getWriter().write("3");
+            req.getSession().invalidate();
             resp.sendRedirect("./static/Login.html");
         }
     }

@@ -20,8 +20,9 @@ public class ViewCandidaturaControl extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idCandidato = 0;
         if (request.getParameter("idCandidato") == null) {
-            Utente user = (Utente) request.getSession().getAttribute("user");
-            idCandidato = user.getId();
+            response.getWriter().write("4"); // idCandidato null
+            String descrizione = "Si è verficato un problema con IdCandidato";
+            response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
         } else {
             idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
         }
@@ -30,6 +31,8 @@ public class ViewCandidaturaControl extends HttpServlet {
             candidatura = getCandidaturaByIdFromManager(idCandidato);
             if (candidatura == null) {
                 response.getWriter().write("1"); //candidatura null
+                String descrizione = "Si è verficato un problema con il recupero della candidatura";
+                response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
             } else {
                 String cv = "curriculum.";
                 request.setAttribute("curriculum", cv);
@@ -42,6 +45,8 @@ public class ViewCandidaturaControl extends HttpServlet {
                     response.getWriter().close();
                 } else {
                     response.getWriter().write("3"); //documenti null
+                    String descrizione = "Si è verficato un problema con il recupero dei documenti";
+                    response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
                 }
             }
         } catch (SQLException e) {

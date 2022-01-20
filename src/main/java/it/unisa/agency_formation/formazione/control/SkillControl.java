@@ -46,14 +46,14 @@ public class SkillControl extends HttpServlet {
                     if (dip != null) {
                         if (!addSkillFromManager(skill)) {
                             response.getWriter().write("2"); // aggiunta in skill non avvenuta con successo.
-                            String descrizione = "nome skill o descrizione skill non valido";
+                            String descrizione = "Si è verifato un problma con l'aggiunta della skill.Riprova";
                             response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                             return;
                         }
                         int idSkill = getLastIdSkillCreatedFromManager();
                         if (!addSkillDipFromManager(idSkill, dip.getIdDipendente(), skillLivello)) {
                             response.getWriter().write("3"); // aggiunta in skillDip non avvenuta con successo.
-                            String descrizione = "livello skill errato o collegamento non avvenuto";
+                            String descrizione = "Si è verifato un problma con l'aggiunta della skill.Riprova";
                             response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                             return;
                         }
@@ -75,6 +75,7 @@ public class SkillControl extends HttpServlet {
             }
         } else {
             response.getWriter().write("7"); //user null oppure non dipendente
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         }
 

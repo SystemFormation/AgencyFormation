@@ -24,6 +24,7 @@ public class AssunzioneCandidatoControl extends HttpServlet {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user == null || user.getRole() != RuoliUtenti.HR) {
             response.getWriter().write("4"); // user null oppure ruolo non adatto
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         } else {
             int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
@@ -31,7 +32,8 @@ public class AssunzioneCandidatoControl extends HttpServlet {
                 Candidatura candidatura = getCandidaturaFromManager(idCandidato);
                 if (candidatura == null) {
                     response.getWriter().write("1"); //errore Candidatura
-                    response.sendRedirect("./static/Login.html");
+                    String descrizione = "Errore nel recuperare la candidatura";
+                    response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
                 } else {
                     boolean esito = setStatoFromManager(candidatura.getIdCandidatura());
                     if (esito) {

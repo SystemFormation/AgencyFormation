@@ -37,13 +37,12 @@ public class ScioglimentoTeamControl extends HttpServlet {
                             }
                         }
                     } else {
-//TODO non so se sia errore: se non ci sono dipendenti il team e vuoto e posso scioglierlo comunque
                         resp.getWriter().write("4");
                         resp.sendRedirect("./static/Error.jsp");
                     }
                     if (!eliminaTeamFromManager(idTeam)) {
                         resp.getWriter().write("2");
-                        String descrizione = "team da sciogliere non rilevato";
+                        String descrizione = "Errore nello sciogliemnto del team";
                         resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                         return;
                     } else {
@@ -56,11 +55,12 @@ public class ScioglimentoTeamControl extends HttpServlet {
                 }
             } else {
                 resp.getWriter().write("4");
-                dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ListaTeamTM.jsp");
-                dispatcher.forward(req, resp);
+                String descrizione="Errore. IdTeam Non Valido";
+                resp.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
             }
         } else {
             resp.getWriter().write("5");
+            req.getSession().invalidate();
             resp.sendRedirect("./static/Login.html");
         }
 

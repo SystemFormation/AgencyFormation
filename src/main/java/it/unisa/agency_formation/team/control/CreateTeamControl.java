@@ -19,7 +19,6 @@ import java.sql.SQLException;
 public class CreateTeamControl extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.setProperty("file.encoding", "UTF-8");
         Utente user = (Utente) req.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             Team team = new Team();
@@ -32,7 +31,8 @@ public class CreateTeamControl extends HttpServlet {
                     int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
                     if (numeroDipendenti > 8) {
                         resp.getWriter().write("1");
-                        resp.sendRedirect("/static/CreaTeam.jsp");
+                        String descrizione = "Si è verificato un errore. Numero dei dipendenti maggiore di 8";
+                        resp.sendRedirect("/static/Error.jsp?descrizione="+descrizione);
                     } else {
                         String nomeTeam = req.getParameter("fname");
                         String descrizione = req.getParameter("teamDescr");
@@ -42,15 +42,16 @@ public class CreateTeamControl extends HttpServlet {
                         team.setNumeroDipendenti(numeroDipendenti);
                         if (!creaTeamFromManager(team, idTM)) {
                             resp.getWriter().write("2"); //errore creazione team
-                            String errore = "creazione team non corretta";
+                            String errore = "creazione team non avvenuta";
                             resp.sendRedirect("./static/Error.jsp?descrizione=" + errore);
                             return;
+                        } else {
+                            int idTeam = getIdUltimoTeamCreatoFromManager();
+                            req.setAttribute("idTeam", idTeam);
+                            resp.getWriter().write("3");
+                            dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                            dispatcher.forward(req, resp);
                         }
-                        int idTeam = getIdUltimoTeamCreatoFromManager();
-                        req.setAttribute("idTeam", idTeam);
-                        resp.getWriter().write("3");
-                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
-                        dispatcher.forward(req, resp);
                     }
                 } else {
                     resp.getWriter().write("4");
@@ -61,6 +62,7 @@ public class CreateTeamControl extends HttpServlet {
             }
         } else {
             resp.getWriter().write("5"); //non sei TM
+            req.getSession().invalidate();
             resp.sendRedirect("./static/Login.html");
         }
     }

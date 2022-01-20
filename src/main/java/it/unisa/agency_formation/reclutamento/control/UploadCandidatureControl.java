@@ -65,9 +65,14 @@ public class UploadCandidatureControl extends HttpServlet {
                     cand.setDataCandidatura(data);
                     cand.setIdCandidato(user.getId());
                     try {
-                        uploadCandidatureFromManager(cand);
-                        request.setAttribute("candidatura", cand);
-
+                        if(uploadCandidatureFromManager(cand)) {
+                            response.getWriter().write("4"); // curriculum caricato
+                            request.setAttribute("candidatura", cand);
+                        }else{
+                            response.getWriter().write("5"); // curriculum non caricato
+                            String descrizione = "caricamento file non andato a buon fine";
+                            response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+                        }
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -86,10 +91,11 @@ public class UploadCandidatureControl extends HttpServlet {
                     cand.setIdCandidato(user.getId());
                     cand.setDocumentiAggiuntivi(documentiAggiuntivi);
                     try {
-                        uploadCandidatureFromManager(cand);
                         if (uploadCandidatureFromManager(cand)) {
+                            response.getWriter().write("6");//documenti aggiuntivi caricati
                             request.setAttribute("candidatura", cand);
                         } else {
+                            response.getWriter().write("7");//documenti aggiuntivi non caricati
                             String descrizione = "caricamento file non andato a buon fine";
                             response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                         }
@@ -111,6 +117,8 @@ public class UploadCandidatureControl extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
+            response.getWriter().write("3");
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         }
 

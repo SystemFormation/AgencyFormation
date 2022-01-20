@@ -39,7 +39,7 @@ public class AcceptCandidatureControl extends HttpServlet {
                         response.getWriter().write("1"); //accettazione avvenuta
                     } else {
                         response.getWriter().write("2"); //accettazione non avvenuta
-                        String descrizione = "data colloquio errata";
+                        String descrizione = "Errore nell'accettazione della candidatura.";
                         response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     }
                 } catch (SQLException e) {
@@ -50,6 +50,7 @@ public class AcceptCandidatureControl extends HttpServlet {
             }
         } else {
             response.getWriter().write("3"); // user null o ruolo non adeguato
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         }
     }
