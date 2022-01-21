@@ -8,7 +8,6 @@ function viewFile(id,i){
         success: function (data1){
             var cv =data1.substr(0,data1.indexOf('.'));
             var doc = data1.substr(data1.indexOf('.')+1,data1.length);
-            console.log(doc.length);
             if(doc.length>2){
                 var x = document.getElementsByName("hrefDocumenti")[index];
                 x.style.display = "block";

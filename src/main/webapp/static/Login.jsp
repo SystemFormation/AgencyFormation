@@ -1,8 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String error = request.getParameter("error");
+    String error =  request.getParameter("error");
 %>
+<c:set var="error" value="<%=error%>"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,25 +23,21 @@
     <form action="../LoginControl" method="post" id="formLogin">
         <div class="components">
             <input type="text" id="email" name="email" placeholder="Email" onkeyup="checkEmail()"><br>
-            <span id="rsEmail"></span>
-            <input type="password" id="password" name="password" placeholder="Password" onkeyup="checkPassword()">
+            <span id="rsEmail"></span><br>
+            <input type="password" id="password" name="password" placeholder="Password" onkeyup="checkPassword()"><br>
             <span id="rsPassword"></span>
-        </div>
-        <div class="components-button">
+        </div><br>
+        <c:if test="${error != null}">
+            <span style="color: red">${error}</span>
+        </c:if>
+        <br><div class="components-button">
             <input type="submit" value="Accedi" id="Accedi" onclick="checkEmail();checkPassword()">
         </div>
     </form>
     <div class="components">
         <a href="Error.jsp">Recupero Password</a>
     </div>
-   <%
-        if(error!=null){
-   %>
-    <p style="color: red">Email o password errati</p>
-    <%}%>
-    <script>
-        document.write('<a href="' + document.referrer + '"><div class="back">Torna alla Home</div></a>');
-    </script>
+    <div class="back"><a href="http://localhost:8080/AgencyFormation/">Torna alla Home</a></div>
 </div>
 </body>
 </html>

@@ -47,8 +47,8 @@ public class RegistrazioneControl extends HttpServlet {
                         return;
                     } else {
                         response.getWriter().write("4"); // errore nella registrazione
-                        String descrizione = "Sei già registrato. Esegui il Login";
-                        response.sendRedirect("./static/Registrazione.jsp?error=" + descrizione);
+                        String error = "Esiste già un utente con questa e-mail";
+                        response.sendRedirect("./static/Registrazione.jsp?error=" + error);
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();

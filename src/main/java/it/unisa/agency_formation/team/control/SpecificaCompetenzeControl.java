@@ -29,7 +29,6 @@ public class SpecificaCompetenzeControl extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
-        System.out.println("ciao ci sono");
         Utente user = (Utente) req.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             String action = req.getParameter("action");
