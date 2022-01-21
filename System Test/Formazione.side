@@ -472,7 +472,7 @@
         ["xpath=//form[@id='materiale']/input", "xpath:idRelative"],
         ["xpath=//input", "xpath:position"]
       ],
-      "value": "C:\\fakepath\\Java.pdf"
+      "value": "C:\\Users\\Luigi\\AgencyFormationFile\\Java\\Java.pdf"
     }, {
       "id": "b2c220a4-f83c-466c-9f19-948eef44ffd3",
       "comment": "",
@@ -490,14 +490,14 @@
       "id": "4370cc56-cdaf-4722-b3ed-47a258e1343d",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=.team:nth-child(7) span",
+      "target": "xpath=//span[@name='materialeNotUpload']",
       "targets": [
         ["css=.team:nth-child(7) span", "css:finder"],
         ["xpath=//span[@name='materialeNotUpload']", "xpath:attributes"],
         ["xpath=//form[@id='materiale']/span", "xpath:idRelative"],
         ["xpath=//form/span", "xpath:position"]
       ],
-      "value": "File troppo grande"
+      "value": "File troppo grande\\n"
     }, {
       "id": "fc5d4c5b-d7a1-4ff1-b644-3f812334341d",
       "comment": "",
@@ -2509,7 +2509,7 @@
         ["xpath=//form[@id='materiale']/input", "xpath:idRelative"],
         ["xpath=//input", "xpath:position"]
       ],
-      "value": "C:\\fakepath\\Java.exe"
+      "value": "C:\\Users\\Luigi\\AgencyFormationFile\\Java.exe"
     }, {
       "id": "a3277358-8be4-46b3-85ea-8c4ff6d555fe",
       "comment": "",
@@ -2527,14 +2527,14 @@
       "id": "217b7736-9f7d-4368-be04-1f57336f4653",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=.team:nth-child(7) span",
+      "target": "xpath=//span[@name='materialeNotUpload']",
       "targets": [
         ["css=.team:nth-child(7) span", "css:finder"],
         ["xpath=//span[@name='materialeNotUpload']", "xpath:attributes"],
         ["xpath=//form[@id='materiale']/span", "xpath:idRelative"],
         ["xpath=//form/span", "xpath:position"]
       ],
-      "value": "Formato non valido, seleziona un pdf"
+      "value": "Formato non valido, seleziona un pdf\\n"
     }, {
       "id": "a7e9c49e-268c-4c06-b636-884116735658",
       "comment": "",
@@ -2688,7 +2688,7 @@
         ["xpath=//form[@id='materiale']/input", "xpath:idRelative"],
         ["xpath=//input", "xpath:position"]
       ],
-      "value": "C:\\fakepath\\Java.pdf"
+      "value": "C:\\Users\\Luigi\\AgencyFormationFile\\Java.pdf"
     }, {
       "id": "170f86e0-9e04-491d-a771-fdc187935723",
       "comment": "",
@@ -2700,20 +2700,6 @@
         ["xpath=//input[@name='uploadMateriale']", "xpath:attributes"],
         ["xpath=//form[@id='materiale']/input[3]", "xpath:idRelative"],
         ["xpath=//input[3]", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "df7dab67-d2b4-4c47-a368-d8f7c960094b",
-      "comment": "",
-      "command": "click",
-      "target": "name=dropButton",
-      "targets": [
-        ["name=dropButton", "name"],
-        ["css=.team:nth-child(5) button:nth-child(4)", "css:finder"],
-        ["xpath=//button[@name='dropButton']", "xpath:attributes"],
-        ["xpath=//div[@id='flex-team-competenze']/button[2]", "xpath:idRelative"],
-        ["xpath=//button[2]", "xpath:position"],
-        ["xpath=//button[contains(.,'Carica Materiale')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
