@@ -4,6 +4,7 @@ import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.manager.TeamManager;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
+import it.unisa.agency_formation.utils.Check;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,23 +29,30 @@ public class SpecificaCompetenzeControl extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
+        System.out.println("ciao ci sono");
         Utente user = (Utente) req.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             String action = req.getParameter("action");
             if (action.equalsIgnoreCase("competenze")) { //update competenze
                 int idTeam = Integer.parseInt(req.getParameter("idTeam"));
                 String competence = req.getParameter("specCompetenze");
-                try {
-                    if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {
-                        String descrizione = "Errore nella specifica delle competenze";
-                        resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
-                    } else {
-                        resp.getWriter().write("1");
-                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
-                        dispatcher.forward(req, resp);
+                if(Check.checkCompetence(competence)) {
+                    try {
+                        if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {
+                            String descrizione = "Errore nella specifica delle competenze";
+                            resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+                        } else {
+                            resp.getWriter().write("1");
+                            dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                            dispatcher.forward(req, resp);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                }
+                else{
+                    resp.getWriter().write("4");//errore competenza
+                    resp.sendRedirect("./static/Error.jsp?descrizione=Competenze invalide");
                 }
             } else {
                 resp.getWriter().write("2");

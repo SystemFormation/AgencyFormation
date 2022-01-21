@@ -150,8 +150,8 @@ public class CreateListaTeamTest {
         user.setId(idUser);
         int idTM = user.getId();
         int numeroDipendenti = 7;
-        String nomeProgetto = "Agency Formation";
-        Team team = new Team(nomeProgetto,numeroDipendenti,"System Errors","Ragazzi molto bravi",null,idTM);
+        String nomeProgetto = "AgencyFormation";
+        Team team = new Team(nomeProgetto,numeroDipendenti,"SystemErrors","Ragazzi molto bravi",null,idTM);
 
         team.setIdTeam(3);
         config = Mockito.mock(ServletConfig.class);
@@ -160,14 +160,12 @@ public class CreateListaTeamTest {
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
-        String action = "crea";
 
         CreateTeamControl servlet = Mockito.spy(CreateTeamControl.class);
 
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
 
-        Mockito.when(request.getParameter("action")).thenReturn(action);
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(request.getParameter("idTM")).thenReturn(String.valueOf(idTM));
         Mockito.when(request.getParameter("lname")).thenReturn(nomeProgetto);
@@ -195,8 +193,8 @@ public class CreateListaTeamTest {
         user.setId(idUser);
         int idTM = user.getId();
         int numeroDipendenti = 7;
-        String nomeProgetto = "Agency Formation";
-        Team team = new Team(nomeProgetto,numeroDipendenti,"System Errors","Ragazzi molto bravi",null,idTM);
+        String nomeProgetto = "AgencyFormation";
+        Team team = new Team(nomeProgetto,numeroDipendenti,"SystemErrors","Ragazzi molto bravi",null,idTM);
 
         team.setIdTeam(3);
         config = Mockito.mock(ServletConfig.class);

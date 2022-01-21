@@ -111,7 +111,7 @@ public class LoginControl extends HttpServlet {
                         }
                     } else {
                         response.getWriter().write("4"); //utente non valido
-                        response.sendRedirect("./static/Login.jsp");
+                        response.sendRedirect("./static/Login.jsp?error=Email o Password errati");
                     }
 
                 } catch (SQLException e) {

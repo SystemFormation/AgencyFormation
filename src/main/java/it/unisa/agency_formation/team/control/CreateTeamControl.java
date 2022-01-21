@@ -5,6 +5,7 @@ import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManager;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
+import it.unisa.agency_formation.utils.Check;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,28 +45,32 @@ public class CreateTeamControl extends HttpServlet {
                 } else {
                     String nomeTeam = req.getParameter("fname");
                     String descrizione = req.getParameter("teamDescr");
-                    team.setNomeProgetto(nomeProgetto);
-                    team.setDescrizione(descrizione);
-                    team.setNomeTeam(nomeTeam);
-                    team.setNumeroDipendenti(numeroDipendenti);
-                    if (!creaTeamFromManager(team, idTM)) {
-                        resp.getWriter().write("2"); //errore creazione team
-                        String errore = "creazione team non avvenuta";
-                        resp.sendRedirect("./static/Error.jsp?descrizione=" + errore);
-                        return;
+                    if (Check.checkProjectName(nomeProgetto) && Check.checkTeamName(nomeTeam) && Check.checkDescription(descrizione)) {
+                        team.setNomeProgetto(nomeProgetto);
+                        team.setDescrizione(descrizione);
+                        team.setNomeTeam(nomeTeam);
+                        team.setNumeroDipendenti(numeroDipendenti);
+                        if (!creaTeamFromManager(team, idTM)) {
+                            resp.getWriter().write("2"); //errore creazione team
+                            String errore = "creazione team non avvenuta";
+                            resp.sendRedirect("./static/Error.jsp?descrizione=" + errore);
+                            return;
+                        } else {
+                            int idTeam = getIdUltimoTeamCreatoFromManager();
+                            req.setAttribute("idTeam", idTeam);
+                            resp.getWriter().write("3");
+                            dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                            dispatcher.forward(req, resp);
+                        }
                     } else {
-                        int idTeam = getIdUltimoTeamCreatoFromManager();
-                        req.setAttribute("idTeam", idTeam);
-                        resp.getWriter().write("3");
-                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
-                        dispatcher.forward(req, resp);
+                        resp.getWriter().write("4");//errori nella compilazione dei campi
+                        resp.sendRedirect("./static/Error.jsp?descrizione=Errore nella compilazione dei campi");
                     }
                 }
 
 
             } catch (SQLException e) {
-                String errore = "creazione team non avvenuta";
-                resp.sendRedirect("./static/Error.jsp?descrizione=" + errore);
+                e.printStackTrace();
             }
         } else {
             resp.getWriter().write("5"); //non sei TM

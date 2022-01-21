@@ -1,6 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String error = (String) request.getAttribute("error");
+    String error = request.getParameter("error");
 %>
 <!DOCTYPE html>
 <html>
@@ -32,6 +33,11 @@
     <div class="components">
         <a href="Error.jsp">Recupero Password</a>
     </div>
+   <%
+        if(error!=null){
+   %>
+    <p style="color: red">Email o password errati</p>
+    <%}%>
     <script>
         document.write('<a href="' + document.referrer + '"><div class="back">Torna alla Home</div></a>');
     </script>

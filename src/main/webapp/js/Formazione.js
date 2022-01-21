@@ -164,8 +164,9 @@ function checkAggiungiSkill(){
 
 function checkSpecify(i) {
     var index = i;
+    console.log(index);
     var specify = document.getElementsByName("specCompetenze")[index];
-    var button = document.getElementById("specifica");
+    var button = document.getElementsByName("specifica")[index];
     var check =  /^[\w\s,.;:+#/-]{1,512}$/;
     if (!specify.value.match(check)) {
         $('#specifyCompetence').css("display", "inline");
@@ -173,5 +174,6 @@ function checkSpecify(i) {
         $('#specifyCompetence').css("font-size", "14px").html("Formato non valido o lunghezza errata");
     }else {
         button.setAttribute('type', "submit");
+        console.log("ciao");
     }
 }
