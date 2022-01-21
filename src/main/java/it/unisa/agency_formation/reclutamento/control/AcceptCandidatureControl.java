@@ -59,7 +59,7 @@ public class AcceptCandidatureControl extends HttpServlet {
         } else {
             response.getWriter().write("3"); // user null o ruolo non adeguato
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
     }
 

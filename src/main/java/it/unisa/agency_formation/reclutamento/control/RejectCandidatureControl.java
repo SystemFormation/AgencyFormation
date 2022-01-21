@@ -56,7 +56,7 @@ public class RejectCandidatureControl extends HttpServlet {
         } else {
             response.getWriter().write("3"); //rifiuto ok
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
 
     }

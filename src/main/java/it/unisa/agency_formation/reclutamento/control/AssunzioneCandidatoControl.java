@@ -34,7 +34,7 @@ public class AssunzioneCandidatoControl extends HttpServlet {
         if (user == null || user.getRole() != RuoliUtenti.HR) {
             response.getWriter().write("4"); // user null oppure ruolo non adatto
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         } else {
             int idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
             try {

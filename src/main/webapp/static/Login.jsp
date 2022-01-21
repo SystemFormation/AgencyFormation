@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String error = (String) request.getAttribute("error");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +14,7 @@
 </head>
 <body class="background-login">
 <div class="logo">
-<img src="../img/Logo Team 4-5.png">
+    <img src="../img/Logo Team 4-5.png">
 </div>
 <div class="login-block content">
     <h2>Login</h2>

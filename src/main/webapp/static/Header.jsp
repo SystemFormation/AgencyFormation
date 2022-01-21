@@ -48,7 +48,7 @@
     <div class="header-right">
         <ul>
             <c:if test="${user == null}">
-                <li><a href="./static/Login.html">Accedi</a></li>
+                <li><a href="./static/Login.jsp">Accedi</a></li>
                 <li><a href="./static/Registrazione.html">Registrati</a></li>
             </c:if>
             <c:choose>

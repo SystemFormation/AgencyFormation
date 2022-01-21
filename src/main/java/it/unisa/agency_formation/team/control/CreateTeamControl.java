@@ -70,7 +70,7 @@ public class CreateTeamControl extends HttpServlet {
         } else {
             resp.getWriter().write("5"); //non sei TM
             req.getSession().invalidate();
-            resp.sendRedirect("./static/Login.html");
+            resp.sendRedirect("./static/Login.jsp");
         }
     }
 

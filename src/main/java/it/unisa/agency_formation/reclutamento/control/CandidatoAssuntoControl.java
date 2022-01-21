@@ -32,7 +32,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
         if (user == null || user.getRole() != RuoliUtenti.CANDIDATO) {
             response.getWriter().write("1"); // user null o ruolo non adatto
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         } else {
             try {
                 int idDipendente = user.getId();
@@ -54,7 +54,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
                         } else {
                             request.getSession().invalidate();
                             response.getWriter().write("3"); // assunzione
-                            response.sendRedirect("./static/Login.html");
+                            response.sendRedirect("./static/Login.jsp");
                         }
                     }else{
                         response.getWriter().write("4"); // residenza o telefono o null

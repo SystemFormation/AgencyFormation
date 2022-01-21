@@ -54,7 +54,7 @@ public class SpecificaCompetenzeControl extends HttpServlet {
         } else {
             resp.getWriter().write("3");
             req.getSession().invalidate();
-            resp.sendRedirect("./static/Login.html");
+            resp.sendRedirect("./static/Login.jsp");
         }
     }
 

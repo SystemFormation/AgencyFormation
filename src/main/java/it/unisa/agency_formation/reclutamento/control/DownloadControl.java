@@ -100,7 +100,7 @@ public class DownloadControl extends HttpServlet {
         } else {
             response.getWriter().write("2"); // utente null o ruolo non adatto
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
     }
 

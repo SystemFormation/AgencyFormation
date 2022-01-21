@@ -81,7 +81,7 @@ public class UploadMaterialeControl extends HttpServlet {
         } else {
             response.getWriter().write("1"); //user null oppure non dipendente
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
     }
 
