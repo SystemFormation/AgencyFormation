@@ -108,6 +108,7 @@ public class UtenteDAO {
 
     /**
      * Questa funzionalità permette di recuperare i candidati che hanno presentato la propria candidatura
+     *
      * @throws SQLException errore nella query errore nella query
      * @return {@literal ArrayList<@link Utente>} se ci sono candidati altrimenti null
      */
@@ -145,6 +146,7 @@ public class UtenteDAO {
 
     /**
      * Questa funzionalità permette di recuperare i candidati che svolgeranno il colloquio
+     *
      * @return {@literal ArrayList<@link Utente>} ritorna un array se ci sono candidati per il colloquio, altrimenti null
      * @throws SQLException errore nella query errore nella query
      */

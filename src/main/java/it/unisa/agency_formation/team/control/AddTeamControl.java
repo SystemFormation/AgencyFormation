@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class AddTeamControl extends HttpServlet {
 
     /**
-     * Questo metodo controlla le operazioni per effettuare l'aggiunta di un team
+     * Questo metodo controlla le operazioni per effettuare l'aggiunta del dipendente nel team
      *
      * @param req  , request
      * @param resp , response
