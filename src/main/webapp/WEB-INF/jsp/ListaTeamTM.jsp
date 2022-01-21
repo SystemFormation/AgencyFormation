@@ -30,8 +30,7 @@
                     <div id="flex-team"><h2>Team: ${team.getNomeTeam()}</h2></div>
                     <div id="flex-team"><h3>Progetto: ${team.getNomeProgetto()}</h3></div>
                     <div id="flex-team">Numero massimo dipendenti: ${team.getNumeroDipendenti()}</div>
-                    <br>
-                    <div id="flex-team-button">
+                    <div id="flex-team-button" name="flexButton" style="display: inline-flex">
                         <c:set var="index" value="0" scope="page"/>
                         <c:forEach var="dip" items="${listDip}">
                             <c:if test="${dip.getTeam().getIdTeam() == team.getIdTeam()}">
@@ -48,17 +47,18 @@
                             </c:if>
                         </div>
                         <div>
-                            <button name="drop-sciogli" style="display: inline"
+                            <button name="drop-sciogli"
                                     onclick="scioglimentoTeam(${indexSkill})">
                                 Sciogli Team
                             </button>
-                            <div class="confermaScioglimento" name="conferma-scioglimento" style="display: none">
-                                <h3>Sicuro di voler sciogliere il team selezionato?</h3>
-                                <a href="ScioglimentoTeamControl?idTeam=${team.getIdTeam()}">
-                                    <button>Conferma</button>
-                                </a>
-                            </div>
                         </div>
+                    </div>
+                    <div class="confermaScioglimento" name="conferma-scioglimento" style="display: none">
+                        <h3>Sicuro di voler sciogliere il team selezionato?</h3>
+                        <button class="nega" onclick="scioglimentoTeam(${indexSkill})">No</button>
+                        <a href="ScioglimentoTeamControl?idTeam=${team.getIdTeam()}">
+                            <button>Si</button>
+                        </a>
                     </div>
                 </div>
                 <div class="team-descr">
