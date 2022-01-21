@@ -18,16 +18,18 @@
         <div class="form">
             <input type="text" id="email" name="email" placeholder="Email" autocomplete="off"
                    onkeyup="checkEmail()"><br>
+            <span id="rsEmail"></span><br>
             <input type="password" id="pwd" name="pwd" placeholder="Password"  onkeyup="checkPassword()"><br>
+            <span id="rsPassword"></span><br>
             <input type="text" id="name" name="nome" placeholder="Nome" autocomplete="off"
                    onkeyup="checkNome()"><br>
-            <span id="rsNome"></span>
+            <span id="rsNome"></span><br>
             <input type="text" id="surname" name="cognome" placeholder="Cognome" autocomplete="off"
                    onkeyup="checkCognome()"><br>
-            <span id="rsCognome"></span>
+            <span id="rsCognome"></span><br>
         </div>
         <div class="form-button">
-            <input type="submit" value="Registrati" id="Registrati" onclick="checkNome()">
+            <input type="button" value="Registrati" id="Registrati" onclick="checkRegistrationSubmit()">
         </div>
         <script>
             document.write('<a href="' + document.referrer + '"><div class="back">Torna alla Home</div></a>');

@@ -56,7 +56,7 @@ public class RifiutaColloquioControl extends HttpServlet {
         } else {
             response.getWriter().write("3"); //utente null o non è un HR
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
     }
 

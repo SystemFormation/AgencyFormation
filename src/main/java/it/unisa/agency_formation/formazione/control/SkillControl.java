@@ -85,7 +85,7 @@ public class SkillControl extends HttpServlet {
         } else {
             response.getWriter().write("7"); //user null oppure non dipendente
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
 
     }

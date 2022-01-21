@@ -61,7 +61,7 @@ public class AggiuntaDipendente extends HttpServlet {
        } else {
            resp.getWriter().write("2");
            req.getSession().invalidate();
-           resp.sendRedirect("./static/Login.html");
+           resp.sendRedirect("./static/Login.jsp");
        }
     }
 

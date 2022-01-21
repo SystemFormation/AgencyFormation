@@ -111,7 +111,7 @@ public class LoginControl extends HttpServlet {
                         }
                     } else {
                         response.getWriter().write("4"); //utente non valido
-                        response.sendRedirect("./static/Login.html");
+                        response.sendRedirect("./static/Login.jsp");
                     }
 
                 } catch (SQLException e) {
@@ -119,7 +119,7 @@ public class LoginControl extends HttpServlet {
                 }
             } else {
                 response.getWriter().write("5"); //email e password null
-                response.sendRedirect("./static/Login.html");
+                response.sendRedirect("./static/Login.jsp");
             }
         }
     }

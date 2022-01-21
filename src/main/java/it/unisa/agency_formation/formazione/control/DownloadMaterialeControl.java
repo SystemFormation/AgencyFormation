@@ -84,7 +84,7 @@ public class DownloadMaterialeControl extends HttpServlet {
         } else {
             response.getWriter().write("5");
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
     }
 

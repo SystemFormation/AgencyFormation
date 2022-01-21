@@ -72,7 +72,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
         } else {
             resp.getWriter().write("5");
             req.getSession().invalidate();
-            resp.sendRedirect("./static/Login.html");
+            resp.sendRedirect("./static/Login.jsp");
         }
 
     }

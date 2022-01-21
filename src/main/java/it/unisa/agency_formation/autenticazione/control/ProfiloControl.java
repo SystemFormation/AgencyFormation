@@ -50,7 +50,7 @@ public class ProfiloControl extends HttpServlet {
             } else {
                 response.getWriter().write("2"); //errore
                 request.getSession().invalidate();
-                response.sendRedirect("./static/Login.html");
+                response.sendRedirect("./static/Login.jsp");
             }
         } catch (SQLException e) {
             e.printStackTrace();

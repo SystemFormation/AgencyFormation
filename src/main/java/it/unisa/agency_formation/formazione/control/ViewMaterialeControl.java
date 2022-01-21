@@ -54,7 +54,7 @@ public class ViewMaterialeControl extends HttpServlet {
         } else {
             response.getWriter().write("4"); // user null o ruolo non corretto
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
     }
 

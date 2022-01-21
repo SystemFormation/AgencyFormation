@@ -1,5 +1,6 @@
 function checkEmail() {
     var input = document.getElementsByName("email")[0];
+    var button = document.getElementById("Registrati");
     var check = /^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     var esito;
     if (!input.value.match(check)) {
@@ -7,6 +8,7 @@ function checkEmail() {
         $('#rsEmail').css("display", "inline");
         $('#rsEmail').css("color", "#BB0000").html('Email non valida');
         $('#email').css("color", "#BB0000");
+        button.setAttribute("type", "button");
         esito = false;
     } else if (input.value.match(check)) {
         $('#email').css("border-bottom", "2px solid green");
@@ -18,7 +20,8 @@ function checkEmail() {
 }
 
 function checkPassword() {
-    var input = document.getElementsByName("password")[0];
+    var input = document.getElementsByName("pwd")[0];
+    var button = document.getElementById("Registrati");
     var check = /^[A-Za-z0-9]{3,16}$/;
     var esito;
     if (!input.value.match(check)) {
@@ -26,6 +29,7 @@ function checkPassword() {
         $('#rsPassword').css("display", "inline");
         $('#rsPassword').css("color", "#BB0000").html('Password non valida');
         $('#pwd').css("color", "#BB0000");
+        button.setAttribute("type", "button");
         esito = false;
     } else if (input.value.match(check)) {
         $('#pwd').css("border-bottom", "2px solid green");
@@ -38,13 +42,15 @@ function checkPassword() {
 
 function checkNome() {
     var input = document.getElementsByName("nome")[0];
+    var button = document.getElementById("Registrati");
     var check = /^[A-Za-z]{2,32}$/;
     var esito;
     if (!input.value.match(check)) {
         $('#name').css("border-bottom", "2px solid #BB0000");
         $('#rsNome').css("display", "inline");
-        $('#rsNome').css("color", "#BB0000");
+        $('#rsNome').css("color", "#BB0000").html('Nome non valido');
         $('#name').css("color", "#BB0000");
+        button.setAttribute("type", "button");
         esito = false;
     } else if (input.value.match(check)) {
         $('#name').css("border-bottom", "2px solid green");
@@ -57,13 +63,15 @@ function checkNome() {
 
 function checkCognome() {
     var input = document.getElementsByName("cognome")[0];
+    var button = document.getElementById("Registrati");
     var check = /^[A-Za-z]{2,32}$/;
     var esito;
     if (!input.value.match(check)) {
         $('#surname').css("border-bottom", "2px solid #BB0000");
         $('#rsCognome').css("display", "inline");
-        $('#rsCognome').css("color", "#BB0000");
+        $('#rsCognome').css("color", "#BB0000").html('Cognome non valido');
         $('#surname').css("color", "#BB0000");
+        button.setAttribute("type", "button");
         esito = false;
     } else if (input.value.match(check)) {
         $('#surname').css("border-bottom", "2px solid green");
@@ -74,10 +82,17 @@ function checkCognome() {
     return esito;
 }
 
+function checkRegistrationSubmit() {
+    var button = document.getElementById("Registrati");
+    if (checkEmail() && checkPassword() && checkNome() && checkCognome()) {
+        button.setAttribute("type", "submit");
+    }
+}
+
 function checkTeam() {
     var input = document.getElementsByName("fname")[0];
     var button = document.getElementsByName("crea")[0];
-    var check = /^[A-Za-z]{1,32}$/;
+    var check = /^[\w\sA-Za-z]{1,32}$/;
     var esito;
     if (!input.value.match(check)) {
         $('#fname').css("border-bottom", "2px solid #BB0000");
@@ -98,7 +113,7 @@ function checkTeam() {
 function checkProject() {
     var input = document.getElementsByName("lname")[0];
     var button = document.getElementsByName("crea")[0];
-    var check = /^[A-Za-z]{1,32}$/;
+    var check = /^[\w\sA-Za-z]{1,32}$/;
     var esito;
     if (!input.value.match(check)) {
         $('#lname').css("border-bottom", "2px solid #BB0000");
