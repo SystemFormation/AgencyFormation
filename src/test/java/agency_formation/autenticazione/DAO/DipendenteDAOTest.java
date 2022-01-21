@@ -3,7 +3,6 @@ package agency_formation.autenticazione.DAO;
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.utils.Const;
@@ -42,11 +41,11 @@ public class DipendenteDAOTest {
     }
     @AfterAll
     public static void finish() throws SQLException {
-       String delete0 = "Delete from utenti where IdUtente>4";
+        String delete0 = "Delete from utenti where IdUtente>4";
         String delete2 = "Delete from team where IdTeam>1";
-       String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
-                    "values (2,'Fisciano','118',false,2000,1)";
-       String insertSkills = "insert into skillsdipendenti (IdDipendente, IdSkill,Livello) values(2,1,5)";
+        String insert = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
+                "values (2,'Fisciano','118',false,2000,1)";
+        String insertSkills = "insert into skillsdipendenti (IdDipendente, IdSkill,Livello) values(2,1,5)";
         String insertSkills1 = "insert into skillsdipendenti (IdDipendente, IdSkill,Livello) values(2,2,3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(delete0);

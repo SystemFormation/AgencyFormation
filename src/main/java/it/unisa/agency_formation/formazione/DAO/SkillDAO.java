@@ -83,7 +83,7 @@ public class SkillDAO {
      */
     public static boolean salvaSkillDipendente(int idSkill, int idDip, int skillLivello) throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
-        if (idSkill < 1 || idDip < 1 || skillLivello>5) {
+        if (idSkill < 1 || idDip < 1 || skillLivello > 5) {
             return false;
         }
         PreparedStatement save = null;

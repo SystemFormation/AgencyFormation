@@ -27,7 +27,7 @@ public class RegistrazioneControl extends HttpServlet {
      */
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = new Utente();
             if (Check.checkName(request.getParameter("nome"))
                     && Check.checkSurname(request.getParameter("cognome"))
@@ -47,7 +47,7 @@ public class RegistrazioneControl extends HttpServlet {
                         return;
                     } else {
                         response.getWriter().write("4"); // errore nella registrazione
-                        String descrizione = "Siamo spiacenti si è verificato un errore con la registrazione.Riprova";
+                        String descrizione = "Siamo spiacenti si è verificato un errore con la registrazione. Riprova!";
                         response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     }
                 } catch (SQLException e) {

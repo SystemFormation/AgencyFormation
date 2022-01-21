@@ -77,7 +77,7 @@ public class ViewMaterialeControl extends HttpServlet {
      *
      * @param idUtente id del dipendente
      * @return il dipendente interessato
-     * @throws SQLException
+     * @throws SQLException errore nella query
      */
     public static Dipendente getDipendenteFromManager(int idUtente) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
@@ -89,7 +89,7 @@ public class ViewMaterialeControl extends HttpServlet {
      *
      * @param idTeam , id del team
      * @return documento interessato
-     * @throws SQLException
+     * @throws SQLException errore nella query
      */
     public static Documento getDocumentoFromManager(int idTeam) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();

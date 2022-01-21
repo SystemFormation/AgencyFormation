@@ -43,7 +43,7 @@ public class AcceptCandidatureControl extends HttpServlet {
                 Timestamp timestamp = new Timestamp(data1.getTime());
                 try {
                     Candidatura candidatura = getCandidaturaFromManager(idCandidato);
-                    if (candidatura!=null && acceptCandidatureFromManager(candidatura.getIdCandidatura(), user.getId(), timestamp)) {
+                    if (candidatura != null && acceptCandidatureFromManager(candidatura.getIdCandidatura(), user.getId(), timestamp)) {
                         response.getWriter().write("1"); //accettazione avvenuta
                     } else {
                         response.getWriter().write("2"); //accettazione non avvenuta

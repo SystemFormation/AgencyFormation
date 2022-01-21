@@ -39,6 +39,7 @@ public class SkillControlIT {
     @BeforeAll
     public static void init(){
         Const.nomeDB = Const.NOME_DB_TEST;
+
     }
 
     @AfterAll
@@ -79,7 +80,7 @@ public class SkillControlIT {
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);
-        servlet.doPost(request, response);
+        servlet.doGet(request, response);
         assertTrue(stringWriter.toString().equals("4"));
     }
     @Test // livello più alto di 5
@@ -112,7 +113,7 @@ public class SkillControlIT {
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);
-        servlet.doPost(request, response);
+        servlet.doGet(request, response);
         assertTrue(stringWriter.toString().equals("3"));
     }
 }

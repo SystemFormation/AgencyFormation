@@ -10,11 +10,12 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FormazioneManagerIT {
 
@@ -89,10 +90,7 @@ public class FormazioneManagerIT {
     @Test
     @Order(5)
     public void addSkillDipendente1() throws SQLException {
-       int idSkill = -1;
-       int idDip = 2;
-       int skillLivello = 4;
-        assertFalse(formazioneManager.addSkillDipendente(idSkill,idDip,skillLivello));
+        assertFalse(formazioneManager.addSkillDipendente(-1,2,4));
     }
 
     @Test
@@ -101,7 +99,7 @@ public class FormazioneManagerIT {
         int idSkill = 100;
         int idDip = -2;
         int skillLivello = 4;
-        assertFalse(formazioneManager.addSkillDipendente(idSkill,idDip,skillLivello));
+        assertFalse(formazioneManager.addSkillDipendente(100,-2,4));
     }
 
     @Test
@@ -155,7 +153,5 @@ public class FormazioneManagerIT {
         int idDip = 600;
         assertNull(formazioneManager.recuperoSkillConIdDipendente(idDip));
     }
-
-
 
 }

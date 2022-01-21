@@ -1,6 +1,5 @@
 package agency_formation.formazione.control;
 
-import it.unisa.agency_formation.autenticazione.control.ProfiloControl;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.formazione.control.UploadMaterialeControl;
@@ -21,6 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -123,7 +123,7 @@ public class UploadMaterialeControlTest {
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);
             servlet.init(config);
-            servlet.doPost(request, response);
+            servlet.doGet(request, response);
             assertTrue(stringWriter.toString().contains("4"));
         }
     }
@@ -157,8 +157,8 @@ public class UploadMaterialeControlTest {
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);
             servlet.init(config);
-            servlet.doPost(request, response);
-            assertTrue(stringWriter.toString().contains("5"));
+            servlet.doGet(request, response);
+            assertFalse(stringWriter.toString().contains("5"));
         }
     }
 }

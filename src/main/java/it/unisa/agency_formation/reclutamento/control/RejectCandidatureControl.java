@@ -107,7 +107,7 @@ public class RejectCandidatureControl extends HttpServlet {
      */
 
     private void delete(File file) {
-        if(file == null){
+        if (file == null) {
             return;
         }
         for (File subFile : requireNonNull(file.listFiles())) {
