@@ -461,7 +461,7 @@ input[type=file]::file-selector-button:hover {
     top: 2px;
 }
 
-#flex-team-button button, input[type=submit], #flex-team-competenze button {
+#flex-team-button button, input[type=submit], #flex-team-competenze button, .confermaScioglimento button{
     font-size: 18px;
     border-radius: 1rem;
     background-color: white;
@@ -475,9 +475,13 @@ input[type=file]::file-selector-button:hover {
 }
 
 #flex-team-button {
-    display: inline-flex;
     width: 100%;
     justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.nega{
+    margin-right: 30px;
 }
 
 #teamDescr {
