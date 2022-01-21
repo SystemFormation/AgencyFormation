@@ -13,12 +13,13 @@ public class DocumentoDAO {
 
     /**
      * Questa funzionalità permette di salvare un documento
-     * @param doc != null, rappresenta il documento da salvare
-     * @throws SQLException doc!=null
+     *
+     * @param doc , {@literal doc != null} rappresenta il documento da salvare
      * @return boolean true se il salvataggio va a buon fine, false altrimenti
-     */
+     * @throws SQLException errore nella query errore nella query  doc!=null*/
+
     public static boolean salvaDocumento(Documento doc) throws SQLException {
-        if (doc == null) {
+        if (doc == null || doc.getMaterialeDiFormazione().length() > 512) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -36,14 +37,13 @@ public class DocumentoDAO {
         }
     }
 
-
-
     /**
      * Questa funzionalità permette di recuperare del materiale attraverso il team
-     * @param idTeam > 0, rappresenta l'id del team
+     *
+     * @param idTeam , {@literal idTeam > 0}  rappresenta l'id del team
      * @return Documento se esiste, null altrimenti
-     * @throws SQLException
-     */
+     * @throws SQLException errore nella query errore nella query*/
+
     public static Documento recuperaDocumentoByTeam(int idTeam) throws SQLException {
         if (idTeam < 1) {
             return null;

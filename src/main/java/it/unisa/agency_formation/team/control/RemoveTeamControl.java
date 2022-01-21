@@ -17,6 +17,15 @@ import java.sql.SQLException;
 @WebServlet("/RemoveTeamControl")
 public class RemoveTeamControl extends HttpServlet {
 
+    /**
+     * Questo metodo controlla le operazioni per effettuare la rimozione di un dipendente dal team
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
@@ -25,7 +34,12 @@ public class RemoveTeamControl extends HttpServlet {
             int idDip = Integer.parseInt(req.getParameter("idDip"));
             if (idDip != 0) {
                 try {
-                    rimuoviDipendenteFromManager(idDip);
+                    if (!rimuoviDipendenteFromManager(idDip)) {
+                        resp.getWriter().write("4"); //dipendente non rimosso
+                        String descrizione = "rimozione dipendente non effettuata";
+                        resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+                        return;
+                    }
                     resp.getWriter().write("1");
                     dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                     dispatcher.forward(req, resp);
@@ -39,14 +53,32 @@ public class RemoveTeamControl extends HttpServlet {
             }
         } else {
             resp.getWriter().write("3");
+            req.getSession().invalidate();
             resp.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di rimuovere un dipendente utilizzando il manager
+     *
+     * @param idDip id del dipendente da rimuovere
+     * @return boolean (true  =il dipendente è stato rimosso con successo, false altrimenti)
+     * @throws SQLException errore nella query
+     */
 
     public static boolean rimuoviDipendenteFromManager(int idDip) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();

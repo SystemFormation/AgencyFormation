@@ -16,12 +16,14 @@ public class UtenteDAO {
 
     /**
      * Questo metodo permette di salvare un utente
-     * @param user != null, user è l'utente da registrare
+     *
+     * @param user , {@literal user != null} user è l'utente da registrare
      * @return boolean true se l'utente è stato salvato con successo, false altrimenti
-     * @throws SQLException
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean salvaUtente(Utente user) throws SQLException {
-        if (user == null) {
+        if (user == null || user.getName().length() > 32 || user.getSurname().length() > 32
+                || user.getPwd().length() > 16 || user.getEmail().length() > 32 || user.getPwd().length() < 3) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -56,13 +58,14 @@ public class UtenteDAO {
 
     /**
      * Questo metodo permette di recuperare un utente
-     * @param email!=null è l'email dell'utente
-     * @param pwd!=null   è la password dell'utente
+     *
+     * @param email , {@literal email != null } è l'email dell'utente
+     * @param pwd , {@literal pwd != null} è la password dell'utente
      * @return Utente che si è registrato in precedenza, null se non è presente nel db
-     * @throws SQLException
+     * @throws SQLException errore nella query errore nella query
      */
     public static Utente login(String email, String pwd) throws SQLException {
-        if (email == null || pwd == null) {
+        if (email == null || pwd == null || email.length() > 32 || pwd.length() > 16 || pwd.length() < 3) {
             return null;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -95,20 +98,19 @@ public class UtenteDAO {
                     case 4:
                         user.setRole(RuoliUtenti.HR);
                         break;
-                    default:
-                        break;
                 }
             }
         } finally {
-           DatabaseManager.closeConnessione(connection);
+            DatabaseManager.closeConnessione(connection);
         }
         return user;
     }
+
     /**
      * Questa funzionalità permette di recuperare i candidati che hanno presentato la propria candidatura
-     * @throws SQLException
-     * @return ArrayList<Utente> se ci sono candidati altrimenti null
-     * */
+     * @throws SQLException errore nella query errore nella query
+     * @return {@literal ArrayList<@link Utente>} se ci sono candidati altrimenti null
+     */
 
 
     public static ArrayList<Utente> doRetrieveCandidatoConCandidatura() throws SQLException {
@@ -135,16 +137,17 @@ public class UtenteDAO {
                 user.setRole(RuoliUtenti.CANDIDATO);
                 utenti.add(user);
             }
-            return utenti.size()>0 ? utenti : null;
+            return utenti.size() > 0 ? utenti : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
     }
+
     /**
      * Questa funzionalità permette di recuperare i candidati che svolgeranno il colloquio
-     * @return ArrayList<Utente> ritorna un array se ci sono candidati per il colloquio, altrimenti null
-     * @throws SQLException
-     * */
+     * @return {@literal ArrayList<@link Utente>} ritorna un array se ci sono candidati per il colloquio, altrimenti null
+     * @throws SQLException errore nella query errore nella query
+     */
 
     public static ArrayList<Utente> recuperoCandidatiColloquio() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -166,7 +169,7 @@ public class UtenteDAO {
                 user.setRole(RuoliUtenti.CANDIDATO);
                 utenti.add(user);
             }
-           return utenti.size()>0 ? utenti : null;
+            return utenti.size() > 0 ? utenti : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }

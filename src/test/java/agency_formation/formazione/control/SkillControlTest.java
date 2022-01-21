@@ -77,7 +77,7 @@ public class SkillControlTest {
         user.setId(1);
         SkillControl servlet = Mockito.spy(SkillControl.class);
         Mockito.when(request.getParameter("skillName")).thenReturn(null);
-        Mockito.when(request.getParameter("skillDescr")).thenReturn("Test");
+        Mockito.when(request.getParameter("skillDescription")).thenReturn("Test");
         Mockito.when(request.getParameter("quantity")).thenReturn("1");
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
@@ -108,7 +108,7 @@ public class SkillControlTest {
         user.setId(1);
         SkillControl servlet = Mockito.spy(SkillControl.class);
         Mockito.when(request.getParameter("skillName")).thenReturn("");
-        Mockito.when(request.getParameter("skillDescr")).thenReturn("Test");
+        Mockito.when(request.getParameter("skillDescription")).thenReturn("Test");
         Mockito.when(request.getParameter("quantity")).thenReturn("1");
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
@@ -138,7 +138,7 @@ public class SkillControlTest {
         user.setId(1);
         SkillControl servlet = Mockito.spy(SkillControl.class);
         Mockito.when(request.getParameter("skillName")).thenReturn("Test");
-        Mockito.when(request.getParameter("skillDescr")).thenReturn("");
+        Mockito.when(request.getParameter("skillDescription")).thenReturn("");
         Mockito.when(request.getParameter("quantity")).thenReturn("1");
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
@@ -170,7 +170,7 @@ public class SkillControlTest {
 
         SkillControl servlet = Mockito.spy(SkillControl.class);
         Mockito.when(request.getParameter("skillName")).thenReturn("Test");
-        Mockito.when(request.getParameter("skillDescr")).thenReturn("Test");
+        Mockito.when(request.getParameter("skillDescription")).thenReturn("Test");
         Mockito.when(request.getParameter("quantity")).thenReturn("1");
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
@@ -210,7 +210,7 @@ public class SkillControlTest {
         dipendente.setIdDipendente(1);
         SkillControl servlet = Mockito.spy(SkillControl.class);
         Mockito.when(request.getParameter("skillName")).thenReturn("Test");
-        Mockito.when(request.getParameter("skillDescr")).thenReturn("Test");
+        Mockito.when(request.getParameter("skillDescription")).thenReturn("Test");
         Mockito.when(request.getParameter("quantity")).thenReturn("1");
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
@@ -251,7 +251,7 @@ public class SkillControlTest {
         dipendente.setIdDipendente(1);
         SkillControl servlet = Mockito.spy(SkillControl.class);
         Mockito.when(request.getParameter("skillName")).thenReturn("Test");
-        Mockito.when(request.getParameter("skillDescr")).thenReturn("Test");
+        Mockito.when(request.getParameter("skillDescription")).thenReturn("Test");
         Mockito.when(request.getParameter("quantity")).thenReturn("1");
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
@@ -293,7 +293,7 @@ public class SkillControlTest {
         dipendente.setIdDipendente(1);
         SkillControl servlet = Mockito.spy(SkillControl.class);
         Mockito.when(request.getParameter("skillName")).thenReturn("Test");
-        Mockito.when(request.getParameter("skillDescr")).thenReturn("Test");
+        Mockito.when(request.getParameter("skillDescription")).thenReturn("Test");
         Mockito.when(request.getParameter("quantity")).thenReturn("1");
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);

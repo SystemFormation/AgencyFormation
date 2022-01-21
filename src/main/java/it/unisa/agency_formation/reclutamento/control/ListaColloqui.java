@@ -17,6 +17,16 @@ import java.util.ArrayList;
 
 @WebServlet("/ListaColloqui")
 public class ListaColloqui  extends HttpServlet {
+
+    /**
+     * Questo metodo controlla le operazioni per visualizzare la lista di tutti i candidati che ottengono un colloquio
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
@@ -32,13 +42,31 @@ public class ListaColloqui  extends HttpServlet {
             }
         } else {
             response.getWriter().write("2"); //non è un HR
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di ottenere la lista di candidati che devono svolgere il colloquio utilizzando il manager
+     *
+     * @return {@literal ArrayList<@link Utente>} lista di candidati che devono svolgere il colloquio
+     * @throws SQLException errore nella query
+     */
 
     public static ArrayList<Utente> getCandidatiForColloquioFromManager() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();

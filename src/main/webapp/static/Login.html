@@ -9,25 +9,28 @@
     <title>Login</title>
 </head>
 <body class="background-login">
-<script>
-    document.write('<a href="' + document.referrer + '"><div class="back"><img src="../img/Back.png"></div></a>');
-</script>
+<div class="logo">
+<img src="../img/Logo Team 4-5.png">
+</div>
 <div class="login-block content">
     <h2>Login</h2>
     <form action="../LoginControl" method="post" id="formLogin">
         <div class="components">
-            <input type="email" id="email" name="email" placeholder="Email" required onkeyup="checkEmail()"><br>
+            <input type="text" id="email" name="email" placeholder="Email" onkeyup="checkEmail()"><br>
             <span id="rsEmail"></span>
-            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="password" name="password" placeholder="Password" onkeyup="checkPassword()">
+            <span id="rsPassword"></span>
         </div>
         <div class="components-button">
-            <input type="submit" value="Accedi" id="Accedi">
+            <input type="submit" value="Accedi" id="Accedi" onclick="checkEmail();checkPassword()">
         </div>
     </form>
     <div class="components">
-        <a href="Error.html">Recupero Password</a>
+        <a href="Error.jsp">Recupero Password</a>
     </div>
-    <img src="../img/Logo Team 4-5.png">
+    <script>
+        document.write('<a href="' + document.referrer + '"><div class="back">Torna alla Home</div></a>');
+    </script>
 </div>
 </body>
 </html>

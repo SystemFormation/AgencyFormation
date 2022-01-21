@@ -17,6 +17,15 @@ import java.sql.SQLException;
 @WebServlet("/RegistrazioneControl")
 public class RegistrazioneControl extends HttpServlet {
 
+    /**
+     * Questo metodo controlla le operazioni per effettuare una registrazione
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = new Utente();
@@ -29,14 +38,18 @@ public class RegistrazioneControl extends HttpServlet {
                 user.setPwd(request.getParameter("pwd"));
                 user.setRole(RuoliUtenti.CANDIDATO); //il ruolo = 1 perchè il candidato è l'unico che si registra
                 try {
-                    registrazioneFromManager(user);
-                    Utente result = loginFromManager(user.getEmail(), user.getPwd());
-                    request.getSession().setAttribute("user", result);
-                    response.getWriter().write("5"); //registrazione avvenuta con successo
-                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");
-                    dispatcher.forward(request, response);
-
-                    return;
+                    if (registrazioneFromManager(user)) {
+                        Utente result = loginFromManager(user.getEmail(), user.getPwd());
+                        request.getSession().setAttribute("user", result);
+                        response.getWriter().write("5"); //registrazione avvenuta con successo
+                        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCandidato.jsp");
+                        dispatcher.forward(request, response);
+                        return;
+                    } else {
+                        response.getWriter().write("4"); // errore nella registrazione
+                        String descrizione = "Siamo spiacenti si è verificato un errore con la registrazione.Riprova";
+                        response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -50,22 +63,47 @@ public class RegistrazioneControl extends HttpServlet {
                 if (!Check.checkEmail(request.getParameter("email"))) {
                     response.getWriter().write("3"); //email non corretto
                 }
-                /*if (!Check.checkPwd(request.getParameter("pwd"))) {
-                    response.getWriter().write("4"); //password non corretto
-                }*/
-                response.sendRedirect("./static/Registrazione.html");
+
+                String descrizione = "Siamo spiacenti si è verificato un errore con la registrazione.Riprova";
+                response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
             }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di registrare un utente utilizzando il manager
+     *
+     * @param user utente da registrare
+     * @return boolean (true = utente registrato correttamente , false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean registrazioneFromManager(Utente user) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.registrazione(user);
     }
+
+    /**
+     * Questo metodo permette di effettuare il login di un utente utilizzando il manager
+     *
+     * @param email , email dell'utente
+     * @param pwd   , password dell'utente
+     * @return utente loggato
+     * @throws SQLException errore nella query
+     */
 
     public static Utente loginFromManager(String email, String pwd) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();

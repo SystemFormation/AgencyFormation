@@ -16,12 +16,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.Date;
-import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -109,7 +107,7 @@ public class ViewCandidatureControlTest {
         Utente user = new Utente();
         user.setId(1);
         user.setRole(RuoliUtenti.CANDIDATO);
-        user.setPwd("lol1");
+        user.setPwd("lol");
         user.setEmail("l.giacchetti@studenti.unisa.it");
         user.setName("Luigi");
         user.setSurname("Giacchetti");

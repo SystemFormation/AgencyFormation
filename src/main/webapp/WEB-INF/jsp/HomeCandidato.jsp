@@ -46,11 +46,13 @@
                 <c:choose>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Accettata}">
                         <h2>Stato della tua candidatura:</h2>
-                        <p>Accettata</p>
+                        <p id="statoCandidatura">Accettata</p>
+                        <div class="disponibile">.</div>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Rifiutata}">
                         <h2>Stato della tua candidatura:</h2>
-                        <p>Rifiutata</p>
+                        <p id="statoCandidatura">Rifiutata</p>
+                        <div class="occupato">.</div>
                         <div id="home">
                             <h2> Ricandidatura </h2>
                             <p>Ricandidati caricando il tuo curriculum e in seguito anche i documenti</p>
@@ -60,7 +62,19 @@
                     <c:when test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">
                         <div id="home">
                             <h2>Stato della tua candidatura:</h2>
-                            <p>Non Revisionato</p>
+                            <p id="statoCandidatura">Non Revisionato</p>
+                            <div class="revisione">.</div>
+                            <div class="controlloCaricamento">
+                                <h3>Curriculum caricato</h3>
+                                <c:choose>
+                                    <c:when test="${candidatura.getDocumentiAggiuntivi()!=null}">
+                                        <h3>Documenti e Certificazioni caricati</h3>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>Ora hai la possibilità di caricare Documenti aggiuntivi</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.Assunzione}">
@@ -69,7 +83,7 @@
                             <form method="post" id="formDipendente" action="CandidatoAssuntoControl">
                                 <input type="hidden" name="action" value="crea">
                                 <label for="formDipendente">Anno di nascita:</label><br>
-                                <input type="number" min="1940" max="2004" id="annoDipendente" name="annoDipendente"
+                                <input type="number" min="1950" max="2004" id="annoDipendente" name="annoDipendente"
                                        placeholder="Anno" required><br>
                                 <label for="formDipendente">Residenza:</label><br>
                                 <input type="text" id="residenzaDipendente" name="residenzaDipendente"

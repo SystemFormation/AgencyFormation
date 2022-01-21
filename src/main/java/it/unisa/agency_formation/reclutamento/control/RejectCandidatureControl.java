@@ -24,6 +24,15 @@ public class RejectCandidatureControl extends HttpServlet {
     private static final String path = "\\AgencyFormationFile\\Candidature\\";
     private static final String pathAbsolute = System.getProperty("user.home") + path;
 
+    /**
+     * Questo metodo controlla le operazioni per effettuare il rifiuto della candidatura
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
@@ -33,39 +42,74 @@ public class RejectCandidatureControl extends HttpServlet {
                 Candidatura candidatura = getCandidatura(idCandidato);
                 File toDelete = new File(pathAbsolute + "IdUtente-" + candidatura.getIdCandidato());
                 delete(toDelete);
-
                 if (rejectCandidatura(candidatura.getIdCandidatura(), user.getId())) {
                     response.getWriter().write("1"); //rifiuto ok
                 } else {
                     response.getWriter().write("2"); //rifiuto non avvenuto
-                    response.sendRedirect("./static/Error.html");
+                    String descrizione = "rifiuto non andato a buon fine";
+                    response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
+            response.getWriter().write("3"); //rifiuto ok
+            request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         }
 
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere la candidatura di un candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato
+     * @return la candidatura interessata
+     * @throws SQLException errore nella query
+     */
 
     public static Candidatura getCandidatura(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
 
+    /**
+     * Questo metodo permette di rifiutare una candidatura utilizzando il manager
+     *
+     * @param idCandidatura id della candidatura
+     * @param idHR          che rifiuta la candidatura
+     * @return boolean (true = la candidatura viene rifiutata correttamente, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean rejectCandidatura(int idCandidatura, int idHR) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.rifiutaCandidatura(idCandidatura, idHR);
     }
 
-    public static void delete(File file) {
+    /**
+     * Questo metodo permette di eliminare un file utilizzando il manager
+     * @param file file da eliminare
+     */
+
+    private void delete(File file) {
+        if(file == null){
+            return;
+        }
         for (File subFile : requireNonNull(file.listFiles())) {
             if (subFile.isDirectory()) {
                 delete(subFile);

@@ -23,13 +23,22 @@ import java.util.ArrayList;
 @WebServlet("/ProfiloControl")
 public class ProfiloControl extends HttpServlet {
 
+    /**
+     * Questo metodo controlla le operazioni per visualizzare e modificare il profilo
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         try {
             if (user != null && user.getRole() == RuoliUtenti.DIPENDENTE) {
                 Dipendente dip = getAllDataDipFromManager(user.getId());
-                ArrayList<Skill> skills = new ArrayList<>();
+                ArrayList<Skill> skills;
                 skills = getSkillDipendenteFromManager(dip.getIdDipendente());
                 if (skills != null && skills.size() >= 1) {
                     dip.setSkills(skills);
@@ -40,23 +49,48 @@ public class ProfiloControl extends HttpServlet {
                 dispatcher.forward(request, response);
             } else {
                 response.getWriter().write("2"); //errore
+                request.getSession().invalidate();
                 response.sendRedirect("./static/Login.html");
             }
         } catch (SQLException e) {
-            response.getWriter().write("3");
             e.printStackTrace();
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere tutti i dati del dipendente utilizzando il manager
+     *
+     * @param id del dipendente
+     * @return il dipendente interessato
+     * @throws SQLException errore nella query
+     */
+
     public static Dipendente getAllDataDipFromManager(int id) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getDipendente(id);
     }
+
+    /**
+     * Questo metodo permette di ottenere tutte le skill di un dipendente utilizzando il manager
+     *
+     * @param idDip id del dipendente
+     * @return {@literal ArrayList<@link Skill>} le skills del dipendente
+     * @throws SQLException errore nella query
+     */
 
     public static ArrayList<Skill> getSkillDipendenteFromManager(int idDip) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();

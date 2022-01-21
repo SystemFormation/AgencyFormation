@@ -16,6 +16,16 @@ import java.sql.SQLException;
 
 @WebServlet("/SpecificaCompetenzeControl")
 public class SpecificaCompetenzeControl extends HttpServlet {
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare la specifica delle competenze
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         Utente user = (Utente) req.getSession().getAttribute("user");
@@ -25,10 +35,14 @@ public class SpecificaCompetenzeControl extends HttpServlet {
                 int idTeam = Integer.parseInt(req.getParameter("idTeam"));
                 String competence = req.getParameter("specCompetenze");
                 try {
-                    inserimentoCompetenzeNelTeam(competence, idTeam); //<---- fare il manager
-                    resp.getWriter().write("1");
-                    dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
-                    dispatcher.forward(req, resp);
+                    if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {
+                        String descrizione = "Errore nella specifica delle competenze";
+                        resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+                    } else {
+                        resp.getWriter().write("1");
+                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                        dispatcher.forward(req, resp);
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -39,12 +53,33 @@ public class SpecificaCompetenzeControl extends HttpServlet {
             }
         } else {
             resp.getWriter().write("3");
+            req.getSession().invalidate();
             resp.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di specificare le competenze ad un team utilizzando il manager
+     *
+     * @param competenze da specificare
+     * @param idTeam     id del team
+     * @return boolean (true= specifica andata a buon fine, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
     public static boolean inserimentoCompetenzeNelTeam(String competenze, int idTeam) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.specificaLeCompetenze(competenze, idTeam);

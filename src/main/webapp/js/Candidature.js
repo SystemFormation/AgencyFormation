@@ -45,6 +45,7 @@ function acceptCandidature(id,index){
     var index = index;
     var date = document.getElementsByName("data1")[index];
     var time = document.getElementsByName("time")[index];
+    var error = document.getElementsByName("errore")[index];
     $.ajax({
         type: 'GET',
         data:{"idCandidato":id,"data1":date.value,"time":time.value},
@@ -53,7 +54,10 @@ function acceptCandidature(id,index){
             if(data== "1"){
                 window.location.reload();
             }else{
-                window.location.reload();
+                //window.location.reload();
+                $(error).css("display","inline");
+                $(error).css("color","red");
+                $(error).css("font-size","14px").html("Errore. Controlla la data");
             }
         }
     })

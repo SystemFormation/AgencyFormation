@@ -21,13 +21,23 @@ import java.util.ArrayList;
 
 @WebServlet("/ListaTeam")
 public class ListaTeam extends HttpServlet {
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare la visualizzazione dei team
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher;
         Utente user = (Utente) req.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.TM) { //sei tm
             try {
-                ArrayList<Dipendente> listaDipsUsers = recuperoDipendetiDiUnTeamFromManager();
+                ArrayList<Dipendente> listaDipsUsers = recuperoDipendentiDiUnTeamFromManager();
                 ArrayList<Team> teams = visualizzaTeamOfTMFromManager(user.getId());
                 req.setAttribute("listDip", listaDipsUsers);
                 req.setAttribute("listTeam", teams);
@@ -51,28 +61,68 @@ public class ListaTeam extends HttpServlet {
             }
         } else {
             resp.getWriter().write("3");
+            req.getSession().invalidate();
             resp.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
-    public static ArrayList<Dipendente> recuperoDipendetiDiUnTeamFromManager() throws SQLException {
+    /**
+     * Questo metodo permette di ottenere i dipendenti membri di un team utilizzando il manager
+     *
+     * @return {@literal ArrayList<@link Dipendente>} lista di dipendenti di un team
+     * @throws SQLException errore nella query
+     */
+
+    public static ArrayList<Dipendente> recuperoDipendentiDiUnTeamFromManager() throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.recuperaDipendentiDelTeam();
     }
+
+    /**
+     * Questo metodo permette di visualizzare i team creati da un TM utilizzando il manager
+     *
+     * @param idTM id del TM
+     * @return {@literal ArrayList<@link Team>} lista dei team creati da un TM
+     * @throws SQLException errore nella query
+     */
+
     public static ArrayList<Team> visualizzaTeamOfTMFromManager(int idTM) throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();
         return teamManager.visualizzaTeams(idTM);
     }
 
+    /**
+     * Questo metodo permette di ottenere tutti i dipendenti utilizzando il manager
+     *
+     * @return {@literal ArrayList<@link Dipendente>} lista di tutti i dipendenti
+     * @throws SQLException errore nella query
+     */
+
     public static ArrayList<Dipendente> getAllDipendentiFromManager() throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getTuttiDipendenti();
     }
+
+    /**
+     * Questo metodo permette di visualizzare tutti i team utilizzando il manager
+     *
+     * @return {@literal ArrayList<@link Team>} lista di tutti i team
+     * @throws SQLException errore nella query
+     */
 
     public static ArrayList<Team> visuallizzaTeamsForHRFromManager() throws SQLException {
         TeamManager teamManager = new TeamManagerImpl();

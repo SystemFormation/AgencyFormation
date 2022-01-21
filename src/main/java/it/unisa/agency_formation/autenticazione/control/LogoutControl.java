@@ -10,6 +10,16 @@ import java.io.IOException;
 
 @WebServlet("/LogoutControl")
 public class LogoutControl extends HttpServlet {
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare il logout
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
@@ -18,8 +28,15 @@ public class LogoutControl extends HttpServlet {
     }
 
     /**
+     * Questo metodo richiama il doGet
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         doGet(request, response);

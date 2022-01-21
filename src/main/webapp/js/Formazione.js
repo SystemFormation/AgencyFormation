@@ -31,17 +31,24 @@ function deleteSpanMateriale() {
 }
 
 function checkFileMateriale(index) {
-    var index = index;
     var fileUpload = document.getElementsByName("materiale")[index];
+    var index = index;
+    var filePath = fileUpload.value;
+    var estensione = /(.pdf)$/i;
     var button = document.getElementsByName("uploadMateriale")[index];
-    if (fileUpload.files.item(0).size == 0) {
-        $('#curriculumNotUpload').css("display", "inline");
-        $('#curriculumNotUpload').css("color", "red");
-        $('#curriculumNotUpload').css("font-size", "14px").html("<br>Seleziona un file");
+    var buttonName = document.getElementsByName("materialeNotUpload")[index];
+    if (!estensione.exec(filePath)) {
+        $(buttonName).css("display", "inline");
+        $(buttonName).css("color", "red");
+        $(buttonName).css("font-size", "14px").html("<br>Formato non valido, seleziona un pdf");
+    } else if (fileUpload.files.item(0).size == 0) {
+        $(buttonName).css("display", "inline");
+        $(buttonName).css("color", "red");
+        $(buttonName).css("font-size", "14px").html("<br>Seleziona un file");
     } else if (fileUpload.files.item(0).size > 10485760) {
-        $('#curriculumNotUpload').css("display", "inline");
-        $('#curriculumNotUpload').css("color", "red");
-        $('#curriculumNotUpload').css("font-size", "14px").html("<br>File troppo grande");
+        $(buttonName).css("display", "inline");
+        $(buttonName).css("color", "red");
+        $(buttonName).css("font-size", "14px").html("<br>File troppo grande");
     } else {
         button.setAttribute('type', "submit")
     }
@@ -57,45 +64,18 @@ function viewAddSkill() {
     }
 }
 
-function checkAlreadyUpload(idTeam, index) {
-    var idTeam = idTeam;
-    var index = index;
-    $.ajax({
-        type: 'GET',
-        data: {"idTeam": idTeam},
-        url: 'CheckMaterialeFormazione',
-        success: function (data) {
-            if (data == "2") {
-                var x = document.getElementsByName("formUpload")[index];
-                x.style.display = "none";
-                var y = document.getElementsByName("noMateriale")[index];
-                y.style.display = "block";
-                y.css("font-size","20px").html("Il materiale è già stato caricato");
-            }
-        }
-    })
-}
-
 function viewSpecifySkills(i) {
     var indexSkill = i;
-    var z = document.getElementsByName("drop-sciogli")[indexSkill];
-    var y = document.getElementsByName("drop-aggiungi")[indexSkill];
     var x = document.getElementsByName("drop")[indexSkill];
-    var setAdd = y.style.display;
     var setting = x.style.display;
-    var setDisp = z.style.display;
-    if (setting == "none" && setAdd == "inline" && setDisp == "inline") {
+    if (setting == "none") {
         x.style.display = "block";
-        y.style.display = "none";
-        z.style.display = "none";
     } else {
         x.style.display = "none";
-        y.style.display = "inline";
-        z.style.display = "inline";
     }
 }
 
-function viewCompetenze(i){
+function viewCompetenze(i) {
     var index = i;
     var x = document.getElementsByName("drop")[index];
     var y = document.getElementsByName("drop-button")[index];
@@ -107,13 +87,85 @@ function viewCompetenze(i){
     }
 }
 
-function viewSkill(i){
+function viewCaricamento(i) {
+    var index = i;
+    var x = document.getElementsByName("drop-carica")[index];
+    var y = document.getElementsByName("dropButton")[index];
+    var setting = x.style.display;
+    var setButton = y.style.display;
+    if (setting == "none" && setButton != "none") {
+        x.style.display = "inline";
+        y.style.display = "none";
+    }
+}
+
+function viewSkill(i) {
     var index = i;
     var x = document.getElementsByName("drop")[index];
-    console.log(index);
     var setting = x.style.display;
     if (setting == "none") {
         x.style.display = "inline";
     } else
         x.style.display = "none";
+}
+
+function scioglimentoTeam(i) {
+    var index = i;
+    var x = document.getElementsByName("conferma-scioglimento")[index];
+    var setting = x.style.display;
+    if (setting == "none") {
+        x.style.display = "inline";
+    } else
+        x.style.display = "none";
+}
+
+function checkAggiungiSkill(){
+    var name = document.getElementsByName("skillName")[0];
+    var description = document.getElementsByName("skillDescription")[0];
+    var level = document.getElementsByName("quantity")[0];
+    var button = document.getElementById("Aggiungi");
+    var checkName = /^[\w\s+#/-]{1,64}$/;
+    var checkDescription =  /^[\w\s,.;:+#/-]{1,512}$/;
+    var checkLevel = /^[1-5]$/;
+    if (!name.value.match(checkName)) {
+        $('#nameSkill').css("display", "inline");
+        $('#nameSkill').css("color", "red");
+        $('#nameSkill').css("font-size", "14px").html("Formato non valido o lunghezza errata");
+    }else {
+        $('#nameSkill').css("display", "none");
+    }
+    if (!description.value.match(checkDescription)) {
+        $('#descriptionSkill').css("display", "inline");
+        $('#descriptionSkill').css("color", "red");
+        $('#descriptionSkill').css("font-size", "14px").html("Formato non valido o lunghezza errata");
+    }else {
+        $('#descriptionSkill').css("display", "none");
+    }
+    if (!level.value.match(checkLevel)) {
+        $('#levelSkill').css("display", "inline");
+        $('#levelSkill').css("color", "red");
+        $('#levelSkill').css("font-size", "14px").html("Livello non valido");
+    }else {
+        $('#levelSkill').css("display", "none");
+    }
+    if (name.value.match(checkName) && description.value.match(checkDescription) && level.value.match(checkLevel)){
+        $('#nameSkill').css("display", "none");
+        $('#descriptionSkill').css("display", "none");
+        $('#levelSkill').css("display", "none");
+        button.setAttribute('type', "submit");
+    }
+}
+
+function checkSpecify(i) {
+    var index = i;
+    var specify = document.getElementsByName("specCompetenze")[index];
+    var button = document.getElementById("specifica");
+    var check =  /^[\w\s,.;:+#/-]{1,512}$/;
+    if (!specify.value.match(check)) {
+        $('#specifyCompetence').css("display", "inline");
+        $('#specifyCompetence').css("color", "red");
+        $('#specifyCompetence').css("font-size", "14px").html("Formato non valido o lunghezza errata");
+    }else {
+        button.setAttribute('type', "submit");
+    }
 }

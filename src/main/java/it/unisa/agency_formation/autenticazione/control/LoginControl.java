@@ -19,6 +19,16 @@ import java.sql.SQLException;
 
 @WebServlet("/LoginControl")
 public class LoginControl extends HttpServlet {
+
+    /**
+     * Questo metodo controlla i valori presi dalle view per effettuare il login
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher;
@@ -109,21 +119,45 @@ public class LoginControl extends HttpServlet {
                 }
             } else {
                 response.getWriter().write("5"); //email e password null
-                response.sendRedirect("/static/Login.html");
+                response.sendRedirect("./static/Login.html");
             }
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di tornare la candidatura di uno specifico candidato utilizzando il manager
+     *
+     * @param idCandidato , id del candidato
+     * @return {@link Candidatura} la candidatura interessata
+     * @throws SQLException errore nella query
+     */
     public static Candidatura getCandidaturafromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();
         return reclutamentoManager.getCandidaturaById(idCandidato);
     }
 
+    /**
+     * Questo metodo permette di effettuare il login di un utente utilizzando il manager
+     *
+     * @param email , email dell'utente
+     * @param pwd   , password dell'utente
+     * @return utente loggato
+     * @throws SQLException errore nella query
+     */
     public static Utente loginFromManager(String email, String pwd) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.login(email, pwd);

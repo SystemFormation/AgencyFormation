@@ -14,6 +14,16 @@ import java.sql.SQLException;
 
 @WebServlet("/CheckMaterialeFormazione")
 public class CheckMaterialeFormazione extends HttpServlet {
+
+    /**
+     * Questo metodo controlla che i documenti soddisfa i requisiti
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -26,16 +36,36 @@ public class CheckMaterialeFormazione extends HttpServlet {
                 response.getWriter().write("2"); //il documento esiste
             } else {
                 response.getWriter().write("3"); //il documento non esiste
-                response.sendRedirect("./static/Error.html");
+                String descrizione = "Documento inesistente";
+                response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di ottenere il materiale di formazione di un team utilizzando il manager
+     *
+     * @param idTeam identificatore del team
+     * @return il documento interessato
+     * @throws SQLException errore nella query
+     */
+
     public static Documento getDocumentofromManager(int idTeam) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.getMaterialeByIdTeam(idTeam);

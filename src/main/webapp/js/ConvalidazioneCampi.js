@@ -5,7 +5,7 @@ function checkEmail() {
     if (!input.value.match(check)) {
         $('#email').css("border-bottom", "1px solid #BB0000");
         $('#rsEmail').css("display", "inline");
-        $('#rsEmail').css("color", "#BB0000");
+        $('#rsEmail').css("color", "#BB0000").html('Email non valida');
         $('#email').css("color", "#BB0000");
         esito = false;
     } else if (input.value.match(check)) {
@@ -24,7 +24,7 @@ function checkPassword() {
     if (!input.value.match(check)) {
         $('#pwd').css("border-bottom", "2px solid #BB0000");
         $('#rsPassword').css("display", "inline");
-        $('#rsPassword').css("color", "#BB0000");
+        $('#rsPassword').css("color", "#BB0000").html('Password non valida');
         $('#pwd').css("color", "#BB0000");
         esito = false;
     } else if (input.value.match(check)) {
@@ -72,4 +72,94 @@ function checkCognome() {
         esito = true;
     }
     return esito;
+}
+
+function checkTeam() {
+    var input = document.getElementsByName("fname")[0];
+    var button = document.getElementsByName("crea")[0];
+    var check = /^[A-Za-z]{1,32}$/;
+    var esito;
+    if (!input.value.match(check)) {
+        $('#fname').css("border-bottom", "2px solid #BB0000");
+        $('#rsTeam').css("display", "inline");
+        $('#rsTeam').css("color", "#BB0000").html('Nome team non valido');
+        $('#fname').css("color", "#BB0000");
+        button.setAttribute("type", "button");
+        esito = false;
+    } else if (input.value.match(check)) {
+        $('#fname').css("border-bottom", "2px solid green");
+        $('#rsTeam').css("display", "none");
+        $('#fname').css("color", "#1E1E24");
+        esito = true;
+    }
+    return esito;
+}
+
+function checkProject() {
+    var input = document.getElementsByName("lname")[0];
+    var button = document.getElementsByName("crea")[0];
+    var check = /^[A-Za-z]{1,32}$/;
+    var esito;
+    if (!input.value.match(check)) {
+        $('#lname').css("border-bottom", "2px solid #BB0000");
+        $('#rsProject').css("display", "inline");
+        $('#rsProject').css("color", "#BB0000").html('Nome progetto non valido');
+        $('#lname').css("color", "#BB0000");
+        button.setAttribute("type", "button");
+        esito = false;
+    } else if (input.value.match(check)) {
+        $('#lname').css("border-bottom", "2px solid green");
+        $('#rsProject').css("display", "none");
+        $('#lname').css("color", "#1E1E24");
+        esito = true;
+    }
+    return esito;
+}
+
+function checkMaxDip() {
+    var input = document.getElementsByName("quantity")[0];
+    var button = document.getElementsByName("crea")[0];
+    var check = /^([1-9]|[1][0-9]|[2][0])$/;
+    var esito;
+    if (!input.value.match(check)) {
+        $('#quantity').css("border-bottom", "2px solid #BB0000");
+        $('#rsMaxDip').css("display", "inline");
+        $('#rsMaxDip').css("color", "#BB0000").html('Numero dipendenti massimo non valido');
+        $('#quantity').css("color", "#BB0000");
+        button.setAttribute("type", "button");
+        esito = false;
+    } else if (input.value.match(check)) {
+        $('#quantity').css("border-bottom", "2px solid green");
+        $('#rsMaxDip').css("display", "none");
+        $('#quantity').css("color", "#1E1E24");
+        esito = true;
+    }
+    return esito;
+}
+
+function checkTeamDescr() {
+    var input = document.getElementsByName("teamDescr")[0];
+    var button = document.getElementsByName("crea")[0];
+    var check = /^[A-Za-z]{1,32}$/;
+    var esito;
+    if (!input.value.match(check)) {
+        $('#teamDescr').css("border", "2px solid #BB0000");
+        $('#rsDescr').css("display", "inline");
+        $('#rsDescr').css("color", "#BB0000").html('Descrizione team non valida');
+        $('#teamDescr').css("color", "#BB0000");
+        button.setAttribute("type", "button");
+        esito = false;
+    } else if (input.value.match(check)) {
+        $('#teamDescr').css("border", "2px solid green");
+        $('#rsDescr').css("display", "none");
+        $('#teamDescr').css("color", "#1E1E24");
+        esito = true;
+    }
+    return esito;
+}
+
+function checkTeamSubmit() {
+    if (checkTeam() && checkProject() && checkTeamDescr() && checkMaxDip()) {
+        button.setAttribute("type", "submit");
+    }
 }

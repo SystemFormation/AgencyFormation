@@ -16,6 +16,16 @@ import java.sql.SQLException;
 
 @WebServlet("/AddTeamControl")
 public class AddTeamControl extends HttpServlet {
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare l'aggiunta di un team
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
@@ -29,7 +39,8 @@ public class AddTeamControl extends HttpServlet {
                         int idTeam = Integer.parseInt(req.getParameter("idTeam")); //messo questo controllo
                         if (!setTeamDipendenteFromManager(idDip, idTeam)) {
                             resp.getWriter().write("1"); // errore setTeam
-                            resp.sendRedirect("./static/Error.html");
+                            String descrizione = "impossibile inserire il dipendente nel Team specificato";
+                            resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                             return;
                         }
                         resp.getWriter().write("2"); // set ok
@@ -49,14 +60,33 @@ public class AddTeamControl extends HttpServlet {
             }
         } else {
             resp.getWriter().write("5");
+            req.getSession().invalidate();
             resp.sendRedirect("./static/Login.html");
         }
     }
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di aggiungere un dipendente in un team utilizzando il manager
+     *
+     * @param idDip  id del dipendente
+     * @param idTeam id del team
+     * @return boolean (true = la modifica viene effettuata correttamente, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
 
     public static boolean setTeamDipendenteFromManager(int idDip, int idTeam) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();

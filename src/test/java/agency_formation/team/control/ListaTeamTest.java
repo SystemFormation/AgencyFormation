@@ -4,7 +4,6 @@ import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
-import it.unisa.agency_formation.team.control.AggiuntaDipendente;
 import it.unisa.agency_formation.team.control.ListaTeam;
 import it.unisa.agency_formation.team.domain.Team;
 import org.junit.jupiter.api.Test;
@@ -90,10 +89,7 @@ public class ListaTeamTest {
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
-
         ListaTeam servlet = Mockito.spy(ListaTeam.class);
-
-
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getSession(true)).thenReturn(session);
@@ -101,7 +97,7 @@ public class ListaTeamTest {
 
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         try (MockedStatic mockedStatic = mockStatic(ListaTeam.class)) {
-            mockedStatic.when(() -> ListaTeam.recuperoDipendetiDiUnTeamFromManager()).thenReturn(dipendenti);
+            mockedStatic.when(() -> ListaTeam.recuperoDipendentiDiUnTeamFromManager()).thenReturn(dipendenti);
             mockedStatic.when(() -> ListaTeam.visualizzaTeamOfTMFromManager(idUser)).thenReturn(teams);
 
             StringWriter stringWriter = new StringWriter();
@@ -130,20 +126,15 @@ public class ListaTeamTest {
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
-
         ListaTeam servlet = Mockito.spy(ListaTeam.class);
-
-
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getSession(true)).thenReturn(session);
         Mockito.when(request.getServletContext()).thenReturn(context);
-
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         try (MockedStatic mockedStatic = mockStatic(ListaTeam.class)) {
             mockedStatic.when(() -> ListaTeam.getAllDipendentiFromManager()).thenReturn(dipendenti);
             mockedStatic.when(() -> ListaTeam.visuallizzaTeamsForHRFromManager()).thenReturn(teams);
-
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);

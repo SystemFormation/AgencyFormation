@@ -1,6 +1,5 @@
 package it.unisa.agency_formation.reclutamento.control;
 
-import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
 import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
@@ -16,12 +15,22 @@ import java.sql.SQLException;
 @WebServlet("/ViewCandidaturaControl")
 public class ViewCandidaturaControl extends HttpServlet {
 
+    /**
+     * Questo metodo controlla le operazioni per effettuare la visualizzazione dei dettagli di una candidatura
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idCandidato = 0;
         if (request.getParameter("idCandidato") == null) {
-            Utente user = (Utente) request.getSession().getAttribute("user");
-            idCandidato = user.getId();
+            response.getWriter().write("4"); // idCandidato null
+            String descrizione = "Si è verficato un problema con IdCandidato";
+            response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
         } else {
             idCandidato = Integer.parseInt(request.getParameter("idCandidato"));
         }
@@ -30,8 +39,9 @@ public class ViewCandidaturaControl extends HttpServlet {
             candidatura = getCandidaturaByIdFromManager(idCandidato);
             if (candidatura == null) {
                 response.getWriter().write("1"); //candidatura null
-            }
-            if (candidatura != null) {
+                String descrizione = "Si è verficato un problema con il recupero della candidatura";
+                response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+            } else {
                 String cv = "curriculum.";
                 request.setAttribute("curriculum", cv);
                 response.getWriter().write(cv);
@@ -50,10 +60,27 @@ public class ViewCandidaturaControl extends HttpServlet {
         }
     }
 
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
+
+    /**
+     * Questo metodo permette di ottenere la candidatura di un candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato
+     * @return la candidatura interessata
+     * @throws SQLException errore nella query
+     */
 
     public static Candidatura getCandidaturaByIdFromManager(int idCandidato) throws SQLException {
         ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();

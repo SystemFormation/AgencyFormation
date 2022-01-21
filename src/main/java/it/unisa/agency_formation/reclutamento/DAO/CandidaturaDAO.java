@@ -12,13 +12,14 @@ public class CandidaturaDAO {
 
     /**
      * Questa funzionalità permette di salvare una candidatura senza gli attestati e le certificazioni
-     * @param candidatura != null, indica la candidatura che vogliamo salvare
+     *
+     * @param candidatura , {@literal candidatura != null}  indica la candidatura che vogliamo salvare
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
-     *                          true = la funzionalità va a buon fine)
-     * @throws SQLException
+     * true = la funzionalità va a buon fine)
+     * @throws SQLException errore nella query errore nella query  errore nella query
      */
     public static boolean salvaCandidaturaSenzaDocumenti(Candidatura candidatura) throws SQLException {
-        if (candidatura == null) {
+        if (candidatura == null || candidatura.getCurriculum().length() > 512) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -42,14 +43,16 @@ public class CandidaturaDAO {
 
     /**
      * Questa funzionalità permette di aggiungere attestati e certificazioni
-     * @param document dev'essere != null, indica la directory contentente i documenti dell'utente interessato
-     * @param idUtente dev'essere > 0, identifica l'utente
-     * @return un booleano
-     * @throws SQLException
+     *
+     * @param document , {@literal document != null} indica la directory contentente i documenti dell'utente interessato
+     * @param idUtente , {@literal idUtente > 0} , identifica l'utente
+     * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
+     * true = la funzionalitò va a buon fine)
+     * @throws SQLException errore nella query errore nella query
      */
 
     public static boolean aggiungiDocumentiAggiuntivi(String document, int idUtente) throws SQLException {
-        if (document == null || idUtente < 1) {
+        if (document == null || idUtente < 1 || document.length() > 512) {
             return false;
         }
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -68,9 +71,10 @@ public class CandidaturaDAO {
 
     /**
      * Questa funzionalità permette di recuperare una candidatura attraverso l’id del candidato
-     * @param idCandidato > 0, identifica il candidato
-     * @return Candidatura
-     * @throws SQLException
+     *
+     * @param idCandidato ,  {@literal idCandidato > 0} identifica il candidato
+     * @return Candidatura interessata
+     * @throws SQLException errore nella query errore nella query
      */
     public static Candidatura doRetrieveCandidaturaById(int idCandidato) throws SQLException {
         if (idCandidato < 1) {
@@ -103,8 +107,6 @@ public class CandidaturaDAO {
                     case "Assunzione":
                         cand.setStato(StatiCandidatura.Assunzione);
                         break;
-                    default:
-                        break;
                 }
                 cand.setDataCandidatura(result.getDate("DataCandidatura"));
                 cand.setDataOraColloquio(result.getTimestamp("DataOraColloquio"));
@@ -124,9 +126,8 @@ public class CandidaturaDAO {
 
     /**
      * Questa funzionalità permette di recuperare tutte le candidature
-     * @return ArrayList<Candidatura>
-     * @throws SQLException
-     * nella post-condizione la lista contentente le candidature non dev'essere vuota
+     * @return  {@literal ArrayList<@link Candidatura>} , una lista di candidature
+     * @throws SQLException errore nella query errore nella query
      */
     public static ArrayList<Candidatura> recuperaCandidature() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -150,7 +151,7 @@ public class CandidaturaDAO {
                 cand.setIdHR(result.getInt("IdHR"));
                 candidature.add(cand);
             }
-          return candidature.size()>0 ? candidature : null;
+            return candidature.size() > 0 ? candidature : null;
         } finally {
             DatabaseManager.closeConnessione(connection);
         }
@@ -158,11 +159,12 @@ public class CandidaturaDAO {
 
     /**
      * Questa funzionalità permette di modificare lo stato della candidatura
-     * @param stato != null, indica in quale stato la candidatura dev'essere settata
-     * @param idCandidatura > 0, identifica la candidatura
+     *
+     * @param stato , {@literal stato != null} indica in quale stato la candidatura dev'essere settata
+     * @param idCandidatura , {@literal idCandidatura > 0} identifica la candidatura
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalitò va a buon fine)
-     * @throws SQLException
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean modificaStatoCandidatura(int idCandidatura, StatiCandidatura stato) throws SQLException {
         if (idCandidatura < 1 || stato == null) {
@@ -186,8 +188,6 @@ public class CandidaturaDAO {
                 case Assunzione:
                     retrieve.setString(1, "Assunzione");
                     break;
-                default:
-                    break;
             }
             retrieve.setInt(2, idCandidatura);
             int result = retrieve.executeUpdate();
@@ -201,10 +201,11 @@ public class CandidaturaDAO {
 
     /**
      * Questa funzionalità permette di rimuovere una candidatura
-     * @param idCandidato > 0, identifica il candidato
+     *
+     * @param idCandidato , {@literal idCandidato > 0} identifica il candidato
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalitò va a buon fine)
-     * @throws SQLException
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean rimuoviCandidatura(int idCandidato) throws SQLException {
         if (idCandidato < 1) {
@@ -226,19 +227,20 @@ public class CandidaturaDAO {
 
     /**
      * Questa funzionalità permette di rifiutare una candidatura
-     * @param idCandidatura > 0, identifica la candidatura
-     * @param idHR > 0, identifica l'HR
+     *
+     * @param idCandidatura , {@literal idCandidatura > 0} identifica la candidatura
+     * @param idHR , {@literal idHR > 0} identifica l'HR
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException
+     * @throws SQLException errore nella query errore nella query
      */
-        public static boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
-            if (idCandidatura < 1 || idHR < 1) {
-                return false;
-            }
-           Connection connection = DatabaseManager.getInstance().getConnection();
-            String delete = "deleted";
-            modificaStatoCandidatura(idCandidatura, StatiCandidatura.Rifiutata);
+    public static boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
+        if (idCandidatura < 1 || idHR < 1) {
+            return false;
+        }
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        String delete = "deleted";
+        modificaStatoCandidatura(idCandidatura, StatiCandidatura.Rifiutata);
 
         String query = "update " + TABLE_CANDIDATURA + " set Curriculum=?, DocumentiAggiuntivi=?, IdHR=? where IdCandidatura=?";
         PreparedStatement stmt = null;
@@ -257,15 +259,16 @@ public class CandidaturaDAO {
 
     /**
      * questa funzionalità permette all'HR di accettare una candidatura
-     * @param idCandidatura > 0, identifica la candidatura
-     * @param idHR > 0, identifica l' HR
-     * @param data >= Date().getTime(), specifica la data del colloquio
+     *
+     *  @param idCandidatura , {@literal idCandidatura > 0}  identifica la candidatura
+     * @param idHR , {@literal idHR > 0 }  identifica l' HR
+     * @param data , {@literal data >= actual date}  specifica la data del colloquio
      * @return boolean (false = i parametri non vengono rispettati o la funzionalità non va a buon fine,
      *                  true = la funzionalità va a buon fine)
-     * @throws SQLException
+     * @throws SQLException errore nella query errore nella query
      */
     public static boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
-        if (idCandidatura < 1 || idHR < 1) {
+        if (idCandidatura < 1 || idHR < 1 || data.before(new java.util.Date())) {
             return false;
         }
         modificaStatoCandidatura(idCandidatura, StatiCandidatura.Accettata);
