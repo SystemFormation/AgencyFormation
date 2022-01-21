@@ -114,9 +114,6 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      *                  true = l'utente è registrato)
      * @throws SQLException errore nella query*/
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {
-        if (UtenteDAO.login(user.getEmail(), user.getPwd()) == null) {
-            return false;
-        }
-        return true;
+      return UtenteDAO.checkEmail(user.getEmail());
     }
 }

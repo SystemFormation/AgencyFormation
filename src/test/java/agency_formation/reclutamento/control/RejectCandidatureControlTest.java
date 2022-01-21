@@ -148,7 +148,6 @@ public class RejectCandidatureControlTest {
 
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
-        Mockito.when(request.getSession(true)).thenReturn(session);
         Mockito.when(request.getParameter("idCandidato")).thenReturn(String.valueOf(idCandidato));
         Mockito.when(request.getServletContext()).thenReturn(context);
 

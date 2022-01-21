@@ -37,7 +37,8 @@ public class TeamManagerIT {
         String deleteDipendente = "delete from dipendenti where idDipendente > 2";
         String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'TechAll', '8', 'NuoveTecnologie', 'Ricerchiamo nuove tecnologie', 'Basi di Ingegneria Meccanica', 3)";
         String insertDipendenteDefault = "insert into dipendenti (IdDipendente,Residenza, Telefono, Stato, AnnoDiNascita, IdTeam) values(2,'Fisciano', 118, 0, 2000, 1)";
-
+        String insertSkills = "insert into skillsdipendenti (IdDipendente, IdSkill,Livello) values(2,1,5)";
+        String insertSkills1 = "insert into skillsdipendenti (IdDipendente, IdSkill,Livello) values(2,2,3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement1 = connection.prepareStatement(deleteTeam);
         PreparedStatement statement2 = connection.prepareStatement(deleteUtente);
@@ -49,6 +50,8 @@ public class TeamManagerIT {
         statement3.executeUpdate();
         statement4.executeUpdate();
         statement5.executeUpdate();
+        statement5.executeUpdate(insertSkills);
+        statement5.executeUpdate(insertSkills1);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
@@ -129,16 +132,18 @@ public class TeamManagerIT {
         assertNull(aut.recuperaIdDipendentiDelTeam(idTeam));
 
     }
-    /*@Test
+    @Test
     @Order(12)
     public void recuperaIdDipendenteDelTeamPass() throws SQLException{
         String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'TechAll', '8', 'NuoveTecnologie', 'Ricerchiamo nuove tecnologie', 'Basi di Ingegneria Meccanica', 3)";
+        String insertDipendenteDefault = "insert into dipendenti (IdDipendente,Residenza, Telefono, Stato, AnnoDiNascita, IdTeam) values(2,'Fisciano', 118, 0, 2000, 1)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement1 = connection.prepareStatement(insertTeamDefault);
-        statement1.executeUpdate();
+        statement1.executeUpdate(insertTeamDefault);
+        statement1.executeUpdate(insertDipendenteDefault);
         int idTeam = 1;
         assertNotNull(aut.recuperaIdDipendentiDelTeam(idTeam));
-    }*/
+    }
     @Test
     @Order(13)
     public void updateDipsDissoFail() throws SQLException {
@@ -146,12 +151,16 @@ public class TeamManagerIT {
         assertFalse(aut.updateDipsDisso(idDip));
 
     }
-    /*@Test
+    @Test
     @Order(14)
     public void updateDipsDissoPass() throws SQLException {
         int idDip = 2;
+        String query = "update dipendenti set IdTeam=null where IdDipendente=2";
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.executeUpdate(query);
         assertTrue(aut.updateDipsDisso(idDip));
-    }*/
+    }
 
     @Test
     @Order(15)
@@ -165,7 +174,7 @@ public class TeamManagerIT {
         int idTeam = -1;
         assertFalse(aut.sciogliTeam(idTeam));
     }
-    /* Questo funziona
+
     @Test
     @Order(17)
     public void recuperaDipendentiDelTeamFail() throws SQLException{
@@ -176,11 +185,11 @@ public class TeamManagerIT {
         PreparedStatement statement2 = connection.prepareStatement(deleteDipendente);
         statement1.executeUpdate();
         statement2.executeUpdate();
-    }*/
-    /*@Test Constraint fails
+    }
+    @Test
     @Order(18)
     public void recuperaDipendentiDelTeamPass() throws SQLException {
-       /String insertUtente = "Insert into Utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(2,'Pasquale', 'Severino', 'lol', 'p.severino@studenti.unisa.it', 2)";
+        String insertUtente = "Insert into Utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(2,'Pasquale', 'Severino', 'lol', 'p.severino@studenti.unisa.it', 2)";
         String insertDipendente = "insert into dipendenti (IdDipendente,Residenza, Telefono, Stato, AnnoDiNascita, IdTeam) values(2,'Fisciano', 118, 0, 2000, 1)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement1 = connection.prepareStatement(insertUtente);
@@ -188,7 +197,7 @@ public class TeamManagerIT {
         statement1.executeUpdate();
         statement2.executeUpdate();
         assertNotNull(aut.recuperaDipendentiDelTeam());
-    }*/
+    }
 
     @Test
     @Order(19)

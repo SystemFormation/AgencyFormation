@@ -167,7 +167,7 @@ public class TeamDAOTest {
         PreparedStatement statement1 = connection.prepareStatement(query);
         statement1.executeUpdate(query);
         assertNull(TeamDAO.recuperaTuttiTeam());
-        String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'Fitdiary', '8', 'Bastoncini Fitnuss', 'Vendiamo bastoncini di pesce', 'HTML', 3)";
+        String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'TechAll', '8', 'Ricerchiamo nuove tecnologie', 'Basi di Ingegneria Meccanica', 'HTML', 3)";
         PreparedStatement statement2 = connection.prepareStatement(insertTeamDefault);
         statement2.executeUpdate(insertTeamDefault);
     }

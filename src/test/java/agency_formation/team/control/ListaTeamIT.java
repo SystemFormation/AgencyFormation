@@ -57,6 +57,10 @@ public class ListaTeamIT {
         String deleteTeam = "delete from team where idTeam>=1";
         String deleteDipendente = "delete from dipendenti where idDipendente > 2";
         String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'TechAll', '8', 'NuoveTecnologie', 'Ricerchiamo nuove tecnologie', 'Basi di Ingegneria Meccanica', 3)";
+        String insert1 = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
+                "values (2,'Fisciano','118',false,2000,1)";
+        String insertSkills = "insert into skillsdipendenti (IdDipendente, IdSkill,Livello) values(2,1,5)";
+        String insertSkills1 = "insert into skillsdipendenti (IdDipendente, IdSkill,Livello) values(2,2,3)";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(deleteDocumento);
         statement.executeUpdate(deleteDocumento);
@@ -64,6 +68,9 @@ public class ListaTeamIT {
         statement.executeUpdate(deleteDipendente);
         statement.executeUpdate(deleteUtente);
         statement.executeUpdate(insertTeamDefault);
+        statement.executeUpdate(insert1);
+        statement.executeUpdate(insertSkills);
+        statement.executeUpdate(insertSkills1);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 

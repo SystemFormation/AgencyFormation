@@ -40,11 +40,14 @@ public class UploadCandidatureControl extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
+
         if (user != null && user.getRole() == RuoliUtenti.CANDIDATO) {
+
             if (request.getParameter("sceltaUpload") == null) {
                 try {
                     Candidatura cand = getCandidaturaByIdFromManager(user.getId());
                     request.setAttribute("candidatura", cand);
+                    response.getWriter().write("9");
                     RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/static/Upload.jsp");
                     dispatcher.forward(request, response);
                     return;
@@ -127,7 +130,7 @@ public class UploadCandidatureControl extends HttpServlet {
                 e.printStackTrace();
             }
         } else {
-            response.getWriter().write("3");
+            response.getWriter().write("8");
             request.getSession().invalidate();
             response.sendRedirect("./static/Login.html");
         }
