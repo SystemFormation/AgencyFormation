@@ -18,7 +18,7 @@ public class DocumentoDAOTest {
     public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;
         String query1 = "INSERT INTO utenti (IdUtente,Nome, Cognome, Pwd, Mail, Ruolo) VALUES (6,'Manuel', 'Noce', 'lol', 'm.noce@live.it', '3')";
-        String query2 = "INSERT INTO team (IdTeam,NomeProgetto, NumeroDipendenti, NomeTeam, Descrizione, Competenza, IdTM) VALUES (4,'Fitdiary', '8', 'Bastoncini Fitnuss', 'Vendiamo bastoncini di pesce', 'HTML', 6)";
+        String query2 = "INSERT INTO team (IdTeam,NomeProgetto, NumeroDipendenti, NomeTeam, Descrizione, Competenza, IdTM) VALUES (4,'Alo', '8', 'GameProject', 'Game', 'unity', 6)";
         String query3 = "INSERT INTO documenti (IdDocumento, MaterialeDiFormazione, IdHR, IdTeam) values (3, '//', 4, 4)";
         String query4 = "INSERT INTO team (IdTeam,NomeProgetto, NumeroDipendenti, NomeTeam, Descrizione, Competenza, IdTM) VALUES (5,'TestTeam', '8', 'TestNome', 'TestDescr', 'HTML', 6)";
 
