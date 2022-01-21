@@ -19,7 +19,6 @@
     <div class="content">
         <div class="form">
             <form action="../CreateTeamControl" method="post" id="formTeam">
-                <input type="hidden" name="action" value="crea">
                 <label for="formTeam">Nome del Team</label><br>
                 <input type="text" id="fname" name="fname" placeholder="Team" onblur="checkTeam()" onkeyup="checkTeam()"><br>
                 <span id="rsTeam"></span><br>
