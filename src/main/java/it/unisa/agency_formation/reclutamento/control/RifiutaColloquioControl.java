@@ -102,7 +102,7 @@ public class RifiutaColloquioControl extends HttpServlet {
     }
 
     /**
-     * Questo metodo permette di eliminare un file utilizzando il manager
+     * Questo metodo permette di eliminare un file
      *
      * @param file file da eliminare
      */

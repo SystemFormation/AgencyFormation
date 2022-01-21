@@ -76,7 +76,7 @@ public class CreateListaTeamTest {
         writer.flush();
         assertTrue(stringWriter.toString().contains("5"));
     }
-
+/*
     @Test
     public void createTeamActionWrong() throws ServletException, IOException {
         int idUser = 10;
@@ -102,7 +102,7 @@ public class CreateListaTeamTest {
         writer.flush();
         assertTrue(stringWriter.toString().contains("4"));
 
-    }
+    }*/
     @Test
     public void createTeamNumEmployeeMoreThan8() throws ServletException, IOException {
         int idUser = 10;

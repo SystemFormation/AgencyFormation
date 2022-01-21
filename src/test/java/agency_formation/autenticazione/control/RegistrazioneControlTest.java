@@ -242,7 +242,7 @@ public class RegistrazioneControlTest extends Mockito {
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         try (MockedStatic mockedStatic = mockStatic(RegistrazioneControl.class)) {
-            mockedStatic.when(() -> RegistrazioneControl.registrazioneFromManager(user)).thenReturn(true);
+            mockedStatic.when(() -> RegistrazioneControl.registrazioneFromManager(any(Utente.class))).thenReturn(true);
             mockedStatic.when(() -> RegistrazioneControl.loginFromManager(user.getEmail(),user.getPwd())).thenReturn(user);
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);

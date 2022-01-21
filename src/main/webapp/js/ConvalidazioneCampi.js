@@ -140,7 +140,7 @@ function checkMaxDip() {
 function checkTeamDescr() {
     var input = document.getElementsByName("teamDescr")[0];
     var button = document.getElementsByName("crea")[0];
-    var check = /^[A-Za-z]{1,32}$/;
+    var check = /^[\w\s,.;:+#/-]{1,128}$/;;
     var esito;
     if (!input.value.match(check)) {
         $('#teamDescr').css("border", "2px solid #BB0000");
@@ -159,6 +159,7 @@ function checkTeamDescr() {
 }
 
 function checkTeamSubmit() {
+    var button = document.getElementsByName("crea")[0];
     if (checkTeam() && checkProject() && checkTeamDescr() && checkMaxDip()) {
         button.setAttribute("type", "submit");
     }

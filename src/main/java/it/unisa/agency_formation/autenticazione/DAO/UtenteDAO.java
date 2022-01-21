@@ -60,7 +60,7 @@ public class UtenteDAO {
      * Questo metodo permette di recuperare un utente
      *
      * @param email , {@literal email != null } è l'email dell'utente
-     * @param pwd , {@literal pwd != null} è la password dell'utente
+     * @param pwd   , {@literal pwd != null} è la password dell'utente
      * @return Utente che si è registrato in precedenza, null se non è presente nel db
      * @throws SQLException errore nella query errore nella query
      */
@@ -109,8 +109,8 @@ public class UtenteDAO {
     /**
      * Questa funzionalità permette di recuperare i candidati che hanno presentato la propria candidatura
      *
-     * @throws SQLException errore nella query errore nella query
      * @return {@literal ArrayList<@link Utente>} se ci sono candidati altrimenti null
+     * @throws SQLException errore nella query errore nella query
      */
 
 
@@ -176,4 +176,35 @@ public class UtenteDAO {
             DatabaseManager.closeConnessione(connection);
         }
     }
+
+    /**
+     *
+     * @param email
+     * @return
+     * @throws SQLException
+     */
+
+    public static boolean checkEmail(String email) throws SQLException {
+        if (email.length() > 32) {
+            return false;
+        }
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        PreparedStatement retrieve = null;
+        String query = "select count(IdUtente) as num from utenti where Mail=?";
+        ResultSet resultSet = null;
+        int n = -1;
+        try {
+            retrieve = connection.prepareStatement(query);
+            retrieve.setString(1,email);
+            resultSet = retrieve.executeQuery();
+            if (resultSet.next()) {
+                n = resultSet.getInt("num");
+            }
+            return n == 1;
+        } finally {
+            DatabaseManager.closeConnessione(connection);
+        }
+    }
+
+
 }

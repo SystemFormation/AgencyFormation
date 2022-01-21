@@ -33,40 +33,36 @@ public class CreateTeamControl extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             Team team = new Team();
             RequestDispatcher dispatcher;
-            String action = req.getParameter("action");
             int idTM = user.getId();
             try {
-                if (action.equalsIgnoreCase("crea")) {
-                    String nomeProgetto = req.getParameter("lname");
-                    int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
-                    if (numeroDipendenti > 8) {
-                        resp.getWriter().write("1");
-                        String descrizione = "Si è verificato un errore. Numero dei dipendenti maggiore di 8";
-                        resp.sendRedirect("/static/Error.jsp?descrizione=" + descrizione);
-                    } else {
-                        String nomeTeam = req.getParameter("fname");
-                        String descrizione = req.getParameter("teamDescr");
-                        team.setNomeProgetto(nomeProgetto);
-                        team.setDescrizione(descrizione);
-                        team.setNomeTeam(nomeTeam);
-                        team.setNumeroDipendenti(numeroDipendenti);
-                        if (!creaTeamFromManager(team, idTM)) {
-                            resp.getWriter().write("2"); //errore creazione team
-                            String errore = "creazione team non avvenuta";
-                            resp.sendRedirect("./static/Error.jsp?descrizione=" + errore);
-                            return;
-                        } else {
-                            int idTeam = getIdUltimoTeamCreatoFromManager();
-                            req.setAttribute("idTeam", idTeam);
-                            resp.getWriter().write("3");
-                            dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
-                            dispatcher.forward(req, resp);
-                        }
-                    }
+                String nomeProgetto = req.getParameter("lname");
+                int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
+                if (numeroDipendenti > 8) {
+                    resp.getWriter().write("1");
+                    String descrizione = "Si è verificato un errore. Numero dei dipendenti maggiore di 8";
+                    resp.sendRedirect("/static/Error.jsp?descrizione=" + descrizione);
                 } else {
-                    resp.getWriter().write("4");
-                    resp.sendRedirect("/static/CreaTeam.jsp");
+                    String nomeTeam = req.getParameter("fname");
+                    String descrizione = req.getParameter("teamDescr");
+                    team.setNomeProgetto(nomeProgetto);
+                    team.setDescrizione(descrizione);
+                    team.setNomeTeam(nomeTeam);
+                    team.setNumeroDipendenti(numeroDipendenti);
+                    if (!creaTeamFromManager(team, idTM)) {
+                        resp.getWriter().write("2"); //errore creazione team
+                        String errore = "creazione team non avvenuta";
+                        resp.sendRedirect("./static/Error.jsp?descrizione=" + errore);
+                        return;
+                    } else {
+                        int idTeam = getIdUltimoTeamCreatoFromManager();
+                        req.setAttribute("idTeam", idTeam);
+                        resp.getWriter().write("3");
+                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                        dispatcher.forward(req, resp);
+                    }
                 }
+
+
             } catch (SQLException e) {
                 String errore = "creazione team non avvenuta";
                 resp.sendRedirect("./static/Error.jsp?descrizione=" + errore);
