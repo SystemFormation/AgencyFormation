@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DocumentoDAOTest {
+
     @BeforeAll
     public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;
@@ -75,6 +76,7 @@ public class DocumentoDAOTest {
     public void recuperaDocumentoByTeamOk() throws SQLException {
         assertNotNull(DocumentoDAO.recuperaDocumentoByTeam(4));
     }
+
     @Test//Documento non esiste
     @Order(5)
     public void recuperaDocumentoByTeamFail() throws SQLException {

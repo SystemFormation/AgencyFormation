@@ -72,11 +72,25 @@ public class ViewMaterialeControl extends HttpServlet {
         doGet(req, resp);
     }
 
+    /**
+     * Questo metodo permette di ottenere un dipendente attraverso il suo id utilizzando il manager
+     *
+     * @param idUtente id del dipendente
+     * @return il dipendente interessato
+     * @throws SQLException
+     */
     public static Dipendente getDipendenteFromManager(int idUtente) throws SQLException {
         AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
         return autenticazioneManager.getDipendente(idUtente);
     }
 
+    /**
+     * Questo metodo permette di ottenere un documento appartenente ad un team utilizzando il manager
+     *
+     * @param idTeam , id del team
+     * @return documento interessato
+     * @throws SQLException
+     */
     public static Documento getDocumentoFromManager(int idTeam) throws SQLException {
         FormazioneManager formazioneManager = new FormazioneManagerImpl();
         return formazioneManager.getMaterialeByIdTeam(idTeam);
