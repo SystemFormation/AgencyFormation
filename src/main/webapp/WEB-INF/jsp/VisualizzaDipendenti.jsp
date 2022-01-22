@@ -21,72 +21,75 @@
 </head>
 <body>
 <c:import url="/static/Header.jsp"/>
-<h1>Lista Dipendenti</h1>
+<div class="footer-wrap">
+    <h1>Lista Dipendenti</h1>
 
-<div class="content">
-    <div class="lista">
-        <c:choose>
-            <c:when test="${dipendenti!=null}">
-                <div id="flex-head">Dipendente</div>
-                <div id="flex-head">Team</div>
-                <div id="flex-head">Competenze</div>
-                <div id="flex-head">Stato</div>
-                <c:set var="index" value="0"/>
-                <c:forEach var="dip" items="${dipendenti}">
-                    <div id="flex">${dip.getName()} ${dip.getSurname()}</div>
-                    <div id="flex">
+    <div class="content">
+        <div class="lista">
+            <c:choose>
+                <c:when test="${dipendenti!=null}">
+                    <div id="flex-head">Dipendente</div>
+                    <div id="flex-head">Team</div>
+                    <div id="flex-head">Competenze</div>
+                    <div id="flex-head">Stato</div>
+                    <c:set var="index" value="0"/>
+                    <c:forEach var="dip" items="${dipendenti}">
+                        <div id="flex">${dip.getName()} ${dip.getSurname()}</div>
+                        <div id="flex">
+                            <c:choose>
+                                <c:when test="${dip.getTeam().getNomeTeam() != null}">
+                                    ${dip.getTeam().getNomeTeam()}
+                                </c:when>
+                                <c:otherwise>
+                                    Nessuno
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div id="flex">
+                            <c:choose>
+                                <c:when test="${dip.getSkills() != null}">
+                                    <button onclick="viewSkill(${index})" class="dropdown">
+                                        Mostra skill
+                                    </button>
+                                    <div name="drop" class="skills" style="display: none">
+                                        <c:set var="indexSkill" value="0"/>
+                                        <c:forEach var="skill" items="${dip.getSkills()}">
+                                            ${dip.getSkills().get(indexSkill).getNomeSkill()}
+                                            <c:set var="indexSkill" value="${indexSkill + 1}"/>
+                                        </c:forEach>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div name="drop">
+                                        Non sono presenti Skills
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                         <c:choose>
-                            <c:when test="${dip.getTeam().getNomeTeam() != null}">
-                                ${dip.getTeam().getNomeTeam()}
-                            </c:when>
-                            <c:otherwise>
-                                Nessuno
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                    <div id="flex">
-                        <c:choose>
-                            <c:when test="${dip.getSkills() != null}">
-                                <button onclick="viewSkill(${index})" class="dropdown">
-                                    Mostra skill
-                                </button>
-                                <div name="drop" class="skills" style="display: none">
-                                    <c:set var="indexSkill" value="0"/>
-                                    <c:forEach var="skill" items="${dip.getSkills()}">
-                                        ${dip.getSkills().get(indexSkill).getNomeSkill()}
-                                        <c:set var="indexSkill" value="${indexSkill + 1}"/>
-                                    </c:forEach>
+                            <c:when test="${dip.getStato() == StatiDipendenti.OCCUPATO}">
+                                <div id="flex">
+                                    <div id="stato-dipendente">Occupato</div>
+                                    <div class="occupato">.</div>
                                 </div>
                             </c:when>
-                            <c:otherwise>
-                                <div name="drop">
-                                    Non sono presenti Skills
+                            <c:when test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
+                                <div id="flex">
+                                    <div id="stato-dipendente">Disponibile</div>
+                                    <div class="disponibile">.</div>
                                 </div>
-                            </c:otherwise>
+                            </c:when>
                         </c:choose>
-                    </div>
-                    <c:choose>
-                        <c:when test="${dip.getStato() == StatiDipendenti.OCCUPATO}">
-                            <div id="flex">
-                                <div id="stato-dipendente">Occupato</div>
-                                <div class="occupato">.</div>
-                            </div>
-                        </c:when>
-                        <c:when test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
-                            <div id="flex">
-                                <div id="stato-dipendente">Disponibile</div>
-                                <div class="disponibile">.</div>
-                            </div>
-                        </c:when>
-                    </c:choose>
-                    <c:set var="index" value="${index + 1}" scope="page"/>
-                </c:forEach>
-            </c:when>
-            <c:otherwise>
-                <h1> Non ci sono dipendenti</h1>
-            </c:otherwise>
-        </c:choose>
+                        <c:set var="index" value="${index + 1}" scope="page"/>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <h1> Non ci sono dipendenti</h1>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </div>
 </div>
+<c:import url="/static/Footer.jsp"/>
 </body>
 </html>

@@ -1,6 +1,8 @@
 /*OVUNQUE*/
 body {
     margin: 0;
+    position: relative;
+    min-height: 100vh;
     font-family: -webkit-pictograph;
 }
 
@@ -71,6 +73,10 @@ input[type=file]::file-selector-button:hover {
 
 .controlloCaricamento p {
     margin-top: 40px;
+}
+
+.footer-wrap {
+    padding-bottom: 205px;
 }
 
 .content {
