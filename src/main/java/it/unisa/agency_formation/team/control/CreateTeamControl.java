@@ -38,10 +38,10 @@ public class CreateTeamControl extends HttpServlet {
             try {
                 String nomeProgetto = req.getParameter("lname");
                 int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
-                if (numeroDipendenti > 8) {
+                if (numeroDipendenti > 20) {
                     resp.getWriter().write("1");
-                    String descrizione = "Si è verificato un errore. Numero dei dipendenti maggiore di 8";
-                    resp.sendRedirect("/static/Error.jsp?descrizione=" + descrizione);
+                    String descrizione = "Si è verificato un errore. Numero dei dipendenti maggiore di 20";
+                    resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                 } else {
                     String nomeTeam = req.getParameter("fname");
                     String descrizione = req.getParameter("teamDescr");
