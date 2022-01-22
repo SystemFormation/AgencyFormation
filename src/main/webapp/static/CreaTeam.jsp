@@ -20,13 +20,16 @@
         <div class="form">
             <form action="../CreateTeamControl" method="post" id="formTeam">
                 <label for="formTeam">Nome del Team</label><br>
-                <input type="text" id="fname" name="fname" placeholder="Team" onblur="checkTeam()" onkeyup="checkTeam()"><br>
+                <input type="text" id="fname" name="fname" placeholder="Team" onblur="checkTeam()"
+                       onkeyup="checkTeam()"><br>
                 <span id="rsTeam"></span><br>
                 <label for="formTeam">Nome del Progetto</label><br>
-                <input type="text" id="lname" name="lname" placeholder="Progetto" onblur="checkProject()" onkeyup="checkProject()"><br>
+                <input type="text" id="lname" name="lname" placeholder="Progetto" onblur="checkProject()"
+                       onkeyup="checkProject()"><br>
                 <span id="rsProject"></span><br>
                 <label for="quantity">Numero Dipendenti</label><br>
-                <input type="number" id="quantity" name="quantity" min="1" max="20" onblur="checkMaxDip()" onkeyup="checkMaxDip()"><br>
+                <input type="number" id="quantity" name="quantity" min="1" max="20" onblur="checkMaxDip()"
+                       onkeyup="checkMaxDip()"><br>
                 <span id="rsMaxDip"></span><br>
                 <label for="teamDescr">Descrizione</label><br>
                 <textarea id="teamDescr" name="teamDescr" placeholder="Descrizione del Team"

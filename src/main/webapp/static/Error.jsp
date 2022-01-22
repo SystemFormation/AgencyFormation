@@ -3,6 +3,8 @@
 <%
     String descrizione = request.getParameter("descrizione");
 %>
+
+<c:set var="error" value="<%=descrizione%>"/>
 <html>
 <head>
     <link rel="stylesheet" href="../css/Common.css">
@@ -15,7 +17,7 @@
             Funzionalità in sviluppo
         </c:when>
         <c:otherwise>
-            <%=descrizione%>
+            ${descrizione}
         </c:otherwise>
     </c:choose>
     <div class="back"><a href="../LoginControl">Torna alla Home</a></div>

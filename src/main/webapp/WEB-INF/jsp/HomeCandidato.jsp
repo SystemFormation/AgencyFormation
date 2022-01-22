@@ -61,7 +61,7 @@
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">
                         <div id="home">
-                            <h2>Stato della tua candidatura:</h2>
+                            <h2>I tuoi documenti saranno revisionati a breve, controlla qui lo stato della tua candiadtura:</h2>
                             <p id="statoCandidatura">Non Revisionato</p>
                             <div class="revisione">.</div>
                             <div class="controlloCaricamento">

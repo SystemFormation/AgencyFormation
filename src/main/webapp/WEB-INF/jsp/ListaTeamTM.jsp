@@ -101,6 +101,8 @@
                             <c:when test="${team.getCompetenza() != null && team.getDocumento().getMaterialeDiFormazione() == null}">
                                 <div class="stato">
                                     <p>Hai specificato le competenze necessarie</p>
+                                    <br>
+                                        <b>${team.getCompetenza()}<b>
                                 </div>
                             </c:when>
                             <c:when test="${team.getCompetenza() != null && team.getDocumento().getMaterialeDiFormazione() != null}">
