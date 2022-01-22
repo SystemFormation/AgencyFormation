@@ -35,7 +35,7 @@ public class SpecificaCompetenzeControl extends HttpServlet {
             if (action.equalsIgnoreCase("competenze")) { //update competenze
                 int idTeam = Integer.parseInt(req.getParameter("idTeam"));
                 String competence = req.getParameter("specCompetenze");
-                if(Check.checkCompetence(competence)) {
+                if (Check.checkCompetence(competence)) {
                     try {
                         if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {
                             String descrizione = "Errore nella specifica delle competenze";
@@ -48,9 +48,8 @@ public class SpecificaCompetenzeControl extends HttpServlet {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
-                    resp.getWriter().write("4");//errore competenza
+                } else {
+                    resp.getWriter().write("4"); //errore competenza
                     resp.sendRedirect("./static/Error.jsp?descrizione=Competenze invalide");
                 }
             } else {

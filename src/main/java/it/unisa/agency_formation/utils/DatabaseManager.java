@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.TimeZone;
 
-public class DatabaseManager {
+public final class DatabaseManager {
     private String name = Const.name;
     private String pwd = Const.pwd;
     private String url;

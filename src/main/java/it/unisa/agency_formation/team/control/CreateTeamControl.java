@@ -63,7 +63,7 @@ public class CreateTeamControl extends HttpServlet {
                             dispatcher.forward(req, resp);
                         }
                     } else {
-                        resp.getWriter().write("4");//errori nella compilazione dei campi
+                        resp.getWriter().write("4"); //errori nella compilazione dei campi
                         resp.sendRedirect("./static/Error.jsp?descrizione=Errore nella compilazione dei campi");
                     }
                 }
