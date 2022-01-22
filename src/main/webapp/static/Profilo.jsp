@@ -27,7 +27,7 @@
                 <a href="#formLogin"><button id="gestioneSkill" onclick="viewAddSkill()" >Aggiungi Skill</button></a>
             </div>
             <br>
-            <a href="/AgencyFormation/static/Error.jsp">
+            <a href="/AgencyFormation/static/Error.jsp?descrizione=">
                 <button> Modifica Dati Personali</button>
             </a>
         </div>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.autenticazione.control</a> &gt; <span class="el_source">LoginControl.java</span></div><h1>LoginControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.autenticazione.control;
+
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.sql.SQLException;
+
+@WebServlet(&quot;/LoginControl&quot;)
+<span class="fc" id="L21">public class LoginControl extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla i valori presi dalle view per effettuare il login
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher;
+<span class="fc" id="L35">        HttpSession session = request.getSession();</span>
+<span class="fc" id="L36">        Utente user = (Utente) session.getAttribute(&quot;user&quot;);</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (user != null) {</span>
+<span class="pc bpc" id="L38" title="1 of 5 branches missed.">            switch (user.getRole()) {</span>
+                case CANDIDATO:
+<span class="fc" id="L40">                    Candidatura candidatura = null;</span>
+                    try {
+<span class="fc" id="L42">                        candidatura = getCandidaturafromManager(user.getId());</span>
+<span class="nc" id="L43">                    } catch (SQLException e) {</span>
+<span class="nc" id="L44">                        e.printStackTrace();</span>
+<span class="fc" id="L45">                    }</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                    if (candidatura != null) {</span>
+<span class="fc" id="L47">                        request.setAttribute(&quot;candidatura&quot;, candidatura);</span>
+                    }
+<span class="fc" id="L49">                    response.getWriter().write(&quot;6&quot;); //sono un candidato</span>
+<span class="fc" id="L50">                    dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeCandidato.jsp&quot;);</span>
+<span class="fc" id="L51">                    dispatcher.forward(request, response);</span>
+<span class="fc" id="L52">                    break;</span>
+                case DIPENDENTE:
+<span class="fc" id="L54">                    response.getWriter().write(&quot;7&quot;); //sono un dipendente</span>
+<span class="fc" id="L55">                    dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeDipendente.jsp&quot;);</span>
+<span class="fc" id="L56">                    dispatcher.forward(request, response);</span>
+<span class="fc" id="L57">                    break;</span>
+                case TM:
+<span class="fc" id="L59">                    response.getWriter().write(&quot;8&quot;); //sono un TM</span>
+<span class="fc" id="L60">                    dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeTM.jsp&quot;);</span>
+<span class="fc" id="L61">                    dispatcher.forward(request, response);</span>
+<span class="fc" id="L62">                    break;</span>
+                case HR:
+<span class="fc" id="L64">                    response.getWriter().write(&quot;9&quot;); //sono un HR</span>
+<span class="fc" id="L65">                    dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeHR.jsp&quot;);</span>
+<span class="fc" id="L66">                    dispatcher.forward(request, response);</span>
+<span class="fc" id="L67">                    break;</span>
+            }
+        } else {
+<span class="fc" id="L70">            String email = request.getParameter(&quot;email&quot;);</span>
+<span class="fc" id="L71">            String pwd = request.getParameter(&quot;password&quot;);</span>
+
+<span class="fc bfc" id="L73" title="All 4 branches covered.">            if (email != null &amp;&amp; pwd != null) {</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">                if (email.trim().length() == 0) {</span>
+<span class="fc" id="L75">                    response.getWriter().write(&quot;1&quot;); //email vuota</span>
+                }
+<span class="fc bfc" id="L77" title="All 2 branches covered.">                if (pwd.trim().length() == 0) {</span>
+<span class="fc" id="L78">                    response.getWriter().write(&quot;2&quot;); //password vuota</span>
+                }
+                try {
+<span class="fc" id="L81">                    user = loginFromManager(email, pwd);</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">                    if (user != null) {</span>
+<span class="fc" id="L83">                        session = request.getSession(true);</span>
+<span class="fc" id="L84">                        session.setAttribute(&quot;user&quot;, user);</span>
+<span class="fc" id="L85">                        response.getWriter().write(&quot;3&quot;); //utente loggato</span>
+<span class="pc bpc" id="L86" title="1 of 5 branches missed.">                        switch (user.getRole()) {</span>
+                            case CANDIDATO:
+<span class="fc" id="L88">                                Candidatura candidatura = getCandidaturafromManager(user.getId());</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">                                if (candidatura != null) {</span>
+<span class="fc" id="L90">                                    request.setAttribute(&quot;candidatura&quot;, candidatura);</span>
+                                }
+<span class="fc" id="L92">                                response.getWriter().write(&quot;-10&quot;); //utente CAND</span>
+<span class="fc" id="L93">                                dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeCandidato.jsp&quot;);</span>
+<span class="fc" id="L94">                                dispatcher.forward(request, response);</span>
+<span class="fc" id="L95">                                break;</span>
+                            case DIPENDENTE:
+<span class="fc" id="L97">                                response.getWriter().write(&quot;-11&quot;); //utente DIP</span>
+<span class="fc" id="L98">                                dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeDipendente.jsp&quot;);</span>
+<span class="fc" id="L99">                                dispatcher.forward(request, response);</span>
+<span class="fc" id="L100">                                break;</span>
+                            case TM:
+<span class="fc" id="L102">                                response.getWriter().write(&quot;-12&quot;); //utente TM</span>
+<span class="fc" id="L103">                                dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeTM.jsp&quot;);</span>
+<span class="fc" id="L104">                                dispatcher.forward(request, response);</span>
+<span class="fc" id="L105">                                break;</span>
+                            case HR:
+<span class="fc" id="L107">                                response.getWriter().write(&quot;-13&quot;); //utente HR</span>
+<span class="fc" id="L108">                                dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeHR.jsp&quot;);</span>
+<span class="fc" id="L109">                                dispatcher.forward(request, response);</span>
+<span class="fc" id="L110">                                break;</span>
+                        }
+                    } else {
+<span class="fc" id="L113">                        response.getWriter().write(&quot;4&quot;); //utente non valido</span>
+<span class="fc" id="L114">                        String error = &quot;Email o Password errata&quot;;</span>
+<span class="fc" id="L115">                        response.sendRedirect(&quot;./static/Login.jsp?error=&quot; + error);</span>
+                    }
+
+<span class="nc" id="L118">                } catch (SQLException e) {</span>
+<span class="nc" id="L119">                    e.printStackTrace();</span>
+<span class="pc" id="L120">                }</span>
+            } else {
+<span class="fc" id="L122">                response.getWriter().write(&quot;5&quot;); //email e password null</span>
+<span class="fc" id="L123">                response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+            }
+        }
+<span class="fc" id="L126">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L139">        doGet(req, resp);</span>
+<span class="fc" id="L140">    }</span>
+
+    /**
+     * Questo metodo permette di tornare la candidatura di uno specifico candidato utilizzando il manager
+     *
+     * @param idCandidato , id del candidato
+     * @return {@link Candidatura} la candidatura interessata
+     * @throws SQLException errore nella query
+     */
+    public static Candidatura getCandidaturafromManager(int idCandidato) throws SQLException {
+<span class="fc" id="L150">        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();</span>
+<span class="fc" id="L151">        return reclutamentoManager.getCandidaturaById(idCandidato);</span>
+    }
+
+    /**
+     * Questo metodo permette di effettuare il login di un utente utilizzando il manager
+     *
+     * @param email , email dell'utente
+     * @param pwd   , password dell'utente
+     * @return utente loggato
+     * @throws SQLException errore nella query
+     */
+    public static Utente loginFromManager(String email, String pwd) throws SQLException {
+<span class="fc" id="L163">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="fc" id="L164">        return autenticazioneManager.login(email, pwd);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

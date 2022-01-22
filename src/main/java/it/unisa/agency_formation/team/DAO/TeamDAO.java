@@ -46,7 +46,6 @@ public class TeamDAO {
                 save.setString(5, null);
                 save.setInt(6, idUtente);
                 int result = save.executeUpdate();
-                System.out.println(result);
                 return result != 0;
             } finally {
                 DatabaseManager.closeConnessione(connection);

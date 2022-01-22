@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AggiuntaDipendente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.team.control</a> &gt; <span class="el_source">AggiuntaDipendente.java</span></div><h1>AggiuntaDipendente.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.team.control;
+
+
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.formazione.domain.Skill;
+import it.unisa.agency_formation.formazione.manager.FormazioneManager;
+import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+@WebServlet(&quot;/AggiuntaDipendente&quot;)
+<span class="fc" id="L24">public class AggiuntaDipendente extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare l'aggiunta di un dipendente nel team
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L37">        Utente user = (Utente) req.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="fc bfc" id="L38" title="All 4 branches covered.">       if (user != null &amp;&amp; user.getRole() == RuoliUtenti.TM) {</span>
+           RequestDispatcher dispatcher;
+           /*visualizzo tutti i dipendenti Dispo*/
+<span class="fc" id="L41">           int idTeam = Integer.parseInt(req.getParameter(&quot;idTeam&quot;));</span>
+           try {
+<span class="fc" id="L43">               ArrayList&lt;Dipendente&gt; dipendenti = getTuttiDipendentiFromManager();</span>
+<span class="fc bfc" id="L44" title="All 4 branches covered.">               if (dipendenti != null &amp;&amp; dipendenti.size() &gt; 0) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">                   for (Dipendente dipendente : dipendenti) {</span>
+                       ArrayList&lt;Skill&gt; skills;
+<span class="fc bfc" id="L47" title="All 4 branches covered.">                       if (getSkillDipendenteFromManager(dipendente.getIdDipendente()) != null &amp;&amp; getSkillDipendenteFromManager(dipendente.getIdDipendente()).size() &gt; 0) {</span>
+<span class="fc" id="L48">                           skills = getSkillDipendenteFromManager(dipendente.getIdDipendente());</span>
+<span class="fc" id="L49">                           dipendente.setSkills(skills);</span>
+                       }
+<span class="fc" id="L51">                   }</span>
+               }
+<span class="fc" id="L53">               req.setAttribute(&quot;dipendenti&quot;, dipendenti);</span>
+<span class="fc" id="L54">               req.setAttribute(&quot;idTeam&quot;, idTeam);</span>
+<span class="fc" id="L55">               resp.getWriter().write(&quot;1&quot;);</span>
+<span class="fc" id="L56">               dispatcher = req.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/ListaDipendenti.jsp&quot;);</span>
+<span class="fc" id="L57">               dispatcher.forward(req, resp);</span>
+<span class="nc" id="L58">           } catch (SQLException e) {</span>
+<span class="nc" id="L59">               e.printStackTrace();</span>
+<span class="fc" id="L60">           }</span>
+<span class="fc" id="L61">       } else {</span>
+<span class="fc" id="L62">           resp.getWriter().write(&quot;2&quot;);</span>
+<span class="fc" id="L63">           req.getSession().invalidate();</span>
+<span class="fc" id="L64">           resp.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+       }
+<span class="fc" id="L66">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L79">        doGet(req, resp);</span>
+<span class="fc" id="L80">    }</span>
+
+    /**
+     * Questo metodo permette di ottenere le skill possedute da un dipendente utilizzando il manager
+     *
+     * @param idDip id del dipendnete interessato
+     * @return {@literal ArrayList&lt;@link Skill&gt;} lista delle skill
+     * @throws SQLException errore nella query
+     */
+
+    public static ArrayList&lt;Skill&gt; getSkillDipendenteFromManager(int idDip) throws SQLException {
+<span class="fc" id="L91">        FormazioneManager formazioneManager = new FormazioneManagerImpl();</span>
+<span class="fc" id="L92">        return formazioneManager.recuperoSkillConIdDipendente(idDip);</span>
+    }
+
+    /**
+     * Questo metodo permette di ottenere tutti i dipendenti utilizzando il manager
+     *
+     * @return {@literal ArrayList&lt;@link Dipendente&gt;} lista di tutti i dipendenti
+     * @throws SQLException errore nella query
+     */
+
+    public static ArrayList&lt;Dipendente&gt; getTuttiDipendentiFromManager() throws SQLException {
+<span class="fc" id="L103">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="fc" id="L104">        return autenticazioneManager.getTuttiDipendenti();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

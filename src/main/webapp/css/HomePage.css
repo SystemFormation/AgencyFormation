@@ -62,11 +62,10 @@
 }
 
 .back {
-    position: absolute;
     font-size: 30px;
     font-weight: bold;
     width: 80%;
-    margin: 10%;
+    margin: 30px 10% 10% 10%;
     text-align: center;
     border-bottom: solid 2px;
 }
@@ -87,7 +86,6 @@ a {
     font-family: -webkit-pictograph;
     text-align: center;
     width: 500px;
-    height: 580px;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -151,7 +149,7 @@ input:focus {
     width: 100%;
     text-align: center;
     margin-bottom: 20px;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .components-button input {
@@ -239,7 +237,7 @@ input:focus {
     font-family: -webkit-pictograph;
     color: black;
     background-color: white;
-    margin-top: 80px;
+    margin-top: 20px;
     border-radius: 10px;
 }
 

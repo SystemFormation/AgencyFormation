@@ -43,7 +43,7 @@ public class ListaColloqui  extends HttpServlet {
         } else {
             response.getWriter().write("2"); //non è un HR
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
     }
 

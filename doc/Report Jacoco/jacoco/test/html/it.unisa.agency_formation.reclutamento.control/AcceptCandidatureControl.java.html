@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AcceptCandidatureControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.reclutamento.control</a> &gt; <span class="el_source">AcceptCandidatureControl.java</span></div><h1>AcceptCandidatureControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.reclutamento.control;
+
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@WebServlet(&quot;/AcceptCandidatureControl&quot;)
+<span class="fc" id="L22">public class AcceptCandidatureControl extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare l'accettazione di una candidatura
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L35">        Utente user = (Utente) request.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="pc bpc" id="L36" title="1 of 4 branches missed.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.HR) {</span>
+<span class="fc" id="L37">            int idCandidato = Integer.parseInt(request.getParameter(&quot;idCandidato&quot;));</span>
+<span class="fc" id="L38">            String data = request.getParameter(&quot;data1&quot;);</span>
+<span class="fc" id="L39">            String tempo = request.getParameter(&quot;time&quot;);</span>
+<span class="fc" id="L40">            String dataOra = data + &quot; &quot; + tempo;</span>
+            try {
+<span class="fc" id="L42">                Date data1 = new SimpleDateFormat(&quot;yyyy-MM-dd hh:mm&quot;).parse(dataOra);</span>
+<span class="fc" id="L43">                Timestamp timestamp = new Timestamp(data1.getTime());</span>
+                try {
+<span class="fc" id="L45">                    Candidatura candidatura = getCandidaturaFromManager(idCandidato);</span>
+<span class="fc bfc" id="L46" title="All 4 branches covered.">                    if (candidatura != null &amp;&amp; acceptCandidatureFromManager(candidatura.getIdCandidatura(), user.getId(), timestamp)) {</span>
+<span class="fc" id="L47">                        response.getWriter().write(&quot;1&quot;); //accettazione avvenuta</span>
+                    } else {
+<span class="fc" id="L49">                        response.getWriter().write(&quot;2&quot;); //accettazione non avvenuta</span>
+<span class="fc" id="L50">                        String descrizione = &quot;Errore nell'accettazione della candidatura.&quot;;</span>
+<span class="fc" id="L51">                        response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+                    }
+<span class="nc" id="L53">                } catch (SQLException e) {</span>
+<span class="nc" id="L54">                    e.printStackTrace();</span>
+<span class="fc" id="L55">                }</span>
+<span class="nc" id="L56">            } catch (ParseException e) {</span>
+<span class="nc" id="L57">                e.printStackTrace();</span>
+<span class="fc" id="L58">            }</span>
+<span class="fc" id="L59">        } else {</span>
+<span class="fc" id="L60">            response.getWriter().write(&quot;3&quot;); // user null o ruolo non adeguato</span>
+<span class="fc" id="L61">            request.getSession().invalidate();</span>
+<span class="fc" id="L62">            response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+<span class="fc" id="L64">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L77">        doGet(req, resp);</span>
+<span class="fc" id="L78">    }</span>
+
+    /**
+     * Questo metodo permette di ottenere una candidatura attraverso l'id del candidato utilizzando il manager
+     *
+     * @param idCandidato interessato
+     * @return la candidatura interessata
+     * @throws SQLException errore nella query
+     */
+
+    public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
+<span class="fc" id="L89">        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();</span>
+<span class="fc" id="L90">        return reclutamentoManager.getCandidaturaById(idCandidato);</span>
+    }
+
+    /**
+     * Questo metodo permette di accettare la candidatura di un candidato utilizzando il manager
+     *
+     * @param idCandidatura id della candiatura da accettare
+     * @param idHR          id dell'HR che accetta la candidatura
+     * @param timestamp     data del colloquio
+     * @return boolean (true = accettazione effettuata correttamente, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean acceptCandidatureFromManager(int idCandidatura, int idHR, Timestamp timestamp) throws SQLException {
+<span class="fc" id="L104">        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();</span>
+<span class="fc" id="L105">        return reclutamentoManager.accettaCandidatura(idCandidatura, idHR, timestamp);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

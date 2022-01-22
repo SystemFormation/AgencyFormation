@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class AggiuntaDipendente extends HttpServlet {
 
     /**
-     * Questo metodo controlla le operazioni per effettuare l'aggiunta di un dipendente nel team
+     * Questo metodo controlla le operazioni per effettuare la visualizzazione dei dipendenti disponibili
      *
      * @param req  , request
      * @param resp , response
@@ -61,7 +61,7 @@ public class AggiuntaDipendente extends HttpServlet {
        } else {
            resp.getWriter().write("2");
            req.getSession().invalidate();
-           resp.sendRedirect("./static/Login.html");
+           resp.sendRedirect("./static/Login.jsp");
        }
     }
 

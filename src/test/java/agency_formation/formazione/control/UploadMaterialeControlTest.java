@@ -94,7 +94,7 @@ public class UploadMaterialeControlTest {
         servlet.doPost(request, response);
         assertTrue(stringWriter.toString().contains("3"));
     }
-    @Test //mi aspetto 4, quindi la servlet funziona come mi aspetto
+    @Test //mi aspetto 5, quindi la servlet funziona come mi aspetto
     public void documentoSalvato() throws ServletException, IOException {
         Part part = mock(Part.class);
         Utente user = new Utente();
@@ -124,11 +124,11 @@ public class UploadMaterialeControlTest {
             Mockito.when(response.getWriter()).thenReturn(writer);
             servlet.init(config);
             servlet.doPost(request, response);
-            assertTrue(stringWriter.toString().contains("4"));
+            assertTrue(stringWriter.toString().contains("5"));
         }
     }
 
-    @Test //mi aspetto 5
+    @Test //mi aspetto 6
     public void documentoNonSalvato() throws IOException, ServletException {
         Part part = mock(Part.class);
         Utente user = new Utente();
@@ -158,7 +158,7 @@ public class UploadMaterialeControlTest {
             Mockito.when(response.getWriter()).thenReturn(writer);
             servlet.init(config);
             servlet.doPost(request, response);
-            assertTrue(stringWriter.toString().contains("5"));
+            assertTrue(stringWriter.toString().contains("6"));
         }
     }
 }

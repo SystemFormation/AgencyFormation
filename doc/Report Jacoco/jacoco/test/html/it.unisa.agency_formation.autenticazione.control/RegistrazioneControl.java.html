@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RegistrazioneControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.autenticazione.control</a> &gt; <span class="el_source">RegistrazioneControl.java</span></div><h1>RegistrazioneControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.autenticazione.control;
+
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.utils.Check;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+@WebServlet(&quot;/RegistrazioneControl&quot;)
+<span class="fc" id="L18">public class RegistrazioneControl extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare una registrazione
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L31">        Utente user = new Utente();</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">            if (Check.checkName(request.getParameter(&quot;nome&quot;))</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">                    &amp;&amp; Check.checkSurname(request.getParameter(&quot;cognome&quot;))</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">                    &amp;&amp; Check.checkEmail(request.getParameter(&quot;email&quot;))) {</span>
+<span class="fc" id="L35">                user.setName(request.getParameter(&quot;nome&quot;));</span>
+<span class="fc" id="L36">                user.setSurname(request.getParameter(&quot;cognome&quot;));</span>
+<span class="fc" id="L37">                user.setEmail(request.getParameter(&quot;email&quot;));</span>
+<span class="fc" id="L38">                user.setPwd(request.getParameter(&quot;pwd&quot;));</span>
+<span class="fc" id="L39">                user.setRole(RuoliUtenti.CANDIDATO); //il ruolo = 1 perchÃ¨ il candidato Ã¨ l'unico che si registra</span>
+                try {
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">                    if (registrazioneFromManager(user)) {</span>
+<span class="fc" id="L42">                        Utente result = loginFromManager(user.getEmail(), user.getPwd());</span>
+<span class="fc" id="L43">                        request.getSession().setAttribute(&quot;user&quot;, result);</span>
+<span class="fc" id="L44">                        response.getWriter().write(&quot;5&quot;); //registrazione avvenuta con successo</span>
+<span class="fc" id="L45">                        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeCandidato.jsp&quot;);</span>
+<span class="fc" id="L46">                        dispatcher.forward(request, response);</span>
+<span class="fc" id="L47">                        return;</span>
+                    } else {
+<span class="nc" id="L49">                        response.getWriter().write(&quot;4&quot;); // errore nella registrazione</span>
+<span class="nc" id="L50">                        String error = &quot;Esiste giÃ  un utente con questa e-mail&quot;;</span>
+<span class="nc" id="L51">                        response.sendRedirect(&quot;./static/Registrazione.jsp?error=&quot; + error);</span>
+                    }
+<span class="nc" id="L53">                } catch (SQLException e) {</span>
+<span class="nc" id="L54">                    e.printStackTrace();</span>
+<span class="nc" id="L55">                }</span>
+            } else {
+<span class="fc bfc" id="L57" title="All 2 branches covered.">                if (!Check.checkName(request.getParameter(&quot;nome&quot;))) {</span>
+<span class="fc" id="L58">                    response.getWriter().write(&quot;1&quot;); //nome non corretto</span>
+                }
+<span class="fc bfc" id="L60" title="All 2 branches covered.">                if (!Check.checkSurname(request.getParameter(&quot;cognome&quot;))) {</span>
+<span class="fc" id="L61">                    response.getWriter().write(&quot;2&quot;); //cognome non corretto</span>
+                }
+<span class="fc bfc" id="L63" title="All 2 branches covered.">                if (!Check.checkEmail(request.getParameter(&quot;email&quot;))) {</span>
+<span class="fc" id="L64">                    response.getWriter().write(&quot;3&quot;); //email non corretto</span>
+                }
+
+<span class="fc" id="L67">                String descrizione = &quot;Siamo spiacenti si Ã¨ verificato un errore con la registrazione.Riprova&quot;;</span>
+<span class="fc" id="L68">                response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+            }
+<span class="fc" id="L70">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L83">        doGet(req, resp);</span>
+<span class="fc" id="L84">    }</span>
+
+    /**
+     * Questo metodo permette di registrare un utente utilizzando il manager
+     *
+     * @param user utente da registrare
+     * @return boolean (true = utente registrato correttamente , false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean registrazioneFromManager(Utente user) throws SQLException {
+<span class="fc" id="L95">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="fc" id="L96">        return autenticazioneManager.registrazione(user);</span>
+    }
+
+    /**
+     * Questo metodo permette di effettuare il login di un utente utilizzando il manager
+     *
+     * @param email , email dell'utente
+     * @param pwd   , password dell'utente
+     * @return utente loggato
+     * @throws SQLException errore nella query
+     */
+
+    public static Utente loginFromManager(String email, String pwd) throws SQLException {
+<span class="fc" id="L109">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="fc" id="L110">        return autenticazioneManager.login(email, pwd);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

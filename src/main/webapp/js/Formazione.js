@@ -112,11 +112,17 @@ function viewSkill(i) {
 function scioglimentoTeam(i) {
     var index = i;
     var x = document.getElementsByName("conferma-scioglimento")[index];
-    var setting = x.style.display;
-    if (setting == "none") {
+    var y = document.getElementsByName("flexButton")[index];
+    var setSciogli = x.style.display;
+    var setButton = y.style.display;
+    if (setSciogli == "none" && setButton == "inline-flex") {
         x.style.display = "inline";
-    } else
+        y.style.display = "none";
+    }if (setSciogli == "inline" && setButton == "none"){
         x.style.display = "none";
+        y.style.display = "inline-flex";
+    }
+
 }
 
 function checkAggiungiSkill(){
@@ -159,7 +165,7 @@ function checkAggiungiSkill(){
 function checkSpecify(i) {
     var index = i;
     var specify = document.getElementsByName("specCompetenze")[index];
-    var button = document.getElementById("specifica");
+    var button = document.getElementsByName("specifica")[index];
     var check =  /^[\w\s,.;:+#/-]{1,512}$/;
     if (!specify.value.match(check)) {
         $('#specifyCompetence').css("display", "inline");

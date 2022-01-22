@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SkillDipendente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.formazione.domain</a> &gt; <span class="el_source">SkillDipendente.java</span></div><h1>SkillDipendente.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.formazione.domain;
+
+public class SkillDipendente {
+    private int idDipendente;
+    private int idSkill;
+    private int livello;
+
+<span class="nc" id="L8">    public SkillDipendente(int idDip, int idSkil, int level) {</span>
+<span class="nc" id="L9">        this.idDipendente = idDip;</span>
+<span class="nc" id="L10">        this.idSkill = idSkil;</span>
+<span class="nc" id="L11">        this.livello = level;</span>
+<span class="nc" id="L12">    }</span>
+
+    /**
+     * Questo metodo permette di creare una SkillDipendente senza specificare i parametri
+     */
+<span class="nc" id="L17">    public SkillDipendente() {</span>
+<span class="nc" id="L18">    }</span>
+
+    /**
+     * Questo metodo permette di tornare l'id del dipendente che possiede tale skill
+     *
+     * @return l'id del dipendente
+     */
+
+    public int getIdDipendente() {
+<span class="nc" id="L27">        return idDipendente;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare l'id del dipendente che possiede tale skill
+     *
+     * @param idDip , l'id del dipendente
+     */
+
+    public void setIdDipendente(int idDip) {
+<span class="nc" id="L37">        this.idDipendente = idDip;</span>
+<span class="nc" id="L38">    }</span>
+
+    /**
+     * Questo metodo permette di tornare l'id della skill
+     *
+     * @return id della skill
+     */
+
+    public int getIdSkill() {
+<span class="nc" id="L47">        return idSkill;</span>
+    }
+
+    /**
+     * uesto metodo permette di settare l'id della skill
+     *
+     * @param id della skill
+     */
+
+    public void setIdSkill(int id) {
+<span class="nc" id="L57">        this.idSkill = id;</span>
+<span class="nc" id="L58">    }</span>
+
+    /**
+     * Questo metodo permette di tornare il livello della skill
+     *
+     * @return il livello della skill
+     */
+
+    public int getLivello() {
+<span class="nc" id="L67">        return livello;</span>
+    }
+
+    /**
+     * uesto metodo permette di settare il livello della skill
+     *
+     * @param level ,  livello della skill
+     */
+
+    public void setLivello(int level) {
+<span class="nc" id="L77">        this.livello = level;</span>
+<span class="nc" id="L78">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

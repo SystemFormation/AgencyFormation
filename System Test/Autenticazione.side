@@ -107,9 +107,16 @@
       "id": "18a404cf-ad1f-434d-a603-109a96e89996",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=.error",
-      "targets": [],
-      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+      "target": "id=rsNome",
+      "targets": [
+        ["id=rsNome", "id"],
+        ["css=#rsNome", "css:finder"],
+        ["xpath=//span[@id='rsNome']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/span[3]", "xpath:idRelative"],
+        ["xpath=//span[3]", "xpath:position"],
+        ["xpath=//span[contains(.,'Nome non valido')]", "xpath:innerText"]
+      ],
+      "value": "Nome non valido\\n"
     }]
   }, {
     "id": "c4e4c303-3335-4096-877f-f180c142239f",
@@ -215,9 +222,16 @@
       "id": "1455bcea-2b15-4166-ab1d-7a9bd54cc84a",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=.error",
-      "targets": [],
-      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+      "target": "id=rsNome",
+      "targets": [
+        ["id=rsNome", "id"],
+        ["css=#rsNome", "css:finder"],
+        ["xpath=//span[@id='rsNome']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/span[3]", "xpath:idRelative"],
+        ["xpath=//span[3]", "xpath:position"],
+        ["xpath=//span[contains(.,'Nome non valido')]", "xpath:innerText"]
+      ],
+      "value": "Nome non valido\\n"
     }]
   }, {
     "id": "b9f9fa15-d393-406a-9a08-7874505485ab",
@@ -323,9 +337,12 @@
       "id": "496d019c-c62f-4132-8e4e-aaea0d34e861",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=.error",
-      "targets": [],
-      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+      "target": "id=rsCognome",
+      "targets": [
+        ["css=html", "css:finder"],
+        ["xpath=//html", "xpath:position"]
+      ],
+      "value": "Cognome non valido\\n"
     }]
   }, {
     "id": "8b7401ad-091c-4a86-b0bb-f72a4d621d23",
@@ -431,9 +448,16 @@
       "id": "613eda98-842f-4529-91c6-49dac33b585c",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=.error",
-      "targets": [],
-      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+      "target": "id=rsCognome",
+      "targets": [
+        ["id=rsCognome", "id"],
+        ["css=#rsCognome", "css:finder"],
+        ["xpath=//span[@id='rsCognome']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/span[4]", "xpath:idRelative"],
+        ["xpath=//span[4]", "xpath:position"],
+        ["xpath=//span[contains(.,'Cognome non valido')]", "xpath:innerText"]
+      ],
+      "value": "Cognome non valido\\n"
     }]
   }, {
     "id": "5b4d5b2f-7e05-4a1c-9236-526d68442a97",
@@ -539,7 +563,7 @@
       "id": "ee35378b-1ccd-4ce0-aaad-afeb51f31678",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=.error",
+      "target": "id=rsEmail",
       "targets": [],
       "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
     }]
@@ -647,7 +671,7 @@
       "id": "054de094-a0da-4014-bf6d-c0cc383a968c",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=.error",
+      "target": "id=rsEmail",
       "targets": [],
       "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
     }]
@@ -695,7 +719,7 @@
         ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
         ["xpath=//input[4]", "xpath:position"]
       ],
-      "value": "Mario"
+      "value": "Luigi"
     }, {
       "id": "c91fa84e-80a3-4107-b065-06ae368e65e1",
       "comment": "",
@@ -709,7 +733,7 @@
         ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
         ["xpath=//input[4]", "xpath:position"]
       ],
-      "value": "Rossi"
+      "value": "Giacchetti"
     }, {
       "id": "9a944119-ddcb-4f8d-a3de-97110e890dd4",
       "comment": "",
@@ -723,7 +747,7 @@
         ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
         ["xpath=//input", "xpath:position"]
       ],
-      "value": "MarioRossi@libero.it "
+      "value": "l.giacchetti@studenti.unisa.it"
     }, {
       "id": "696962d7-9959-40a7-8d88-53f725645a94",
       "comment": "",
@@ -737,7 +761,7 @@
         ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
         ["xpath=//input[2]", "xpath:position"]
       ],
-      "value": "MarioRossiSessanta9 "
+      "value": "lol"
     }, {
       "id": "527e1325-50f4-4b7b-8704-8de0132e98b4",
       "comment": "",
@@ -755,9 +779,14 @@
       "id": "f573a12f-fdf6-45e7-a6d9-c9e1a83c209d",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=.error",
-      "targets": [],
-      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
+      "target": "css=span:nth-child(15)",
+      "targets": [
+        ["css=span:nth-child(15)", "css:finder"],
+        ["xpath=//form[@id='Registrazione']/div/span[4]", "xpath:idRelative"],
+        ["xpath=//span[4]", "xpath:position"],
+        ["xpath=//span[contains(.,'Esiste già un utente con questa e-mail')]", "xpath:innerText"]
+      ],
+      "value": "Esiste già un utente con questa e-mail\\n"
     }]
   }, {
     "id": "a54cb78d-8d1c-4a3c-9fb5-6e6b66e066b6",
@@ -803,7 +832,7 @@
         ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
         ["xpath=//input[4]", "xpath:position"]
       ],
-      "value": "M"
+      "value": "Mario"
     }, {
       "id": "7b7ad837-2a8a-49a1-8750-7e41ebaf47ce",
       "comment": "",
@@ -845,7 +874,7 @@
         ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
         ["xpath=//input[2]", "xpath:position"]
       ],
-      "value": "MarioR[]ssiç°£& "
+      "value": ""
     }, {
       "id": "d51b4169-bc7a-4d71-967f-8bd86538c3b3",
       "comment": "",
@@ -863,7 +892,7 @@
       "id": "97f8195e-d007-46ef-9007-1d1a7e619441",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=.error",
+      "target": "id=rsPassword",
       "targets": [],
       "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
     }]
@@ -925,7 +954,7 @@
         ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
         ["xpath=//input[2]", "xpath:position"]
       ],
-      "value": "MarioRossi69"
+      "value": "M@rioRossi69"
     }, {
       "id": "c3633d08-9227-4673-8b63-686fe64a1200",
       "comment": "",
@@ -961,19 +990,12 @@
       ],
       "value": ""
     }, {
-      "id": "f211172e-167b-4e72-95d2-c0cada1cebcb",
+      "id": "6c367df2-369e-49b4-bb40-3c5a18817f4b",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "css=h1",
+      "target": "id=rsPassword",
       "targets": [],
-      "value": "Bentornato Mario"
-    }, {
-      "id": "020a6f65-8995-42b8-b121-13480706b57c",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Logout",
-      "targets": [],
-      "value": ""
+      "value": "Siamo spiacenti si è verificato un errore con la registrazione.Riprova"
     }]
   }, {
     "id": "ed2e9a6c-e54b-4b24-82ca-2d285c7804ff",
@@ -1341,6 +1363,114 @@
       "value": "Bentornato Mario"
     }, {
       "id": "17a4b2ec-2eb2-4388-a12d-8329c1cebdc5",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Logout",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "cfb666f5-e529-4acb-acec-6d55dc2d8a93",
+    "name": "TC_4.1_10",
+    "commands": [{
+      "id": "ee201ec2-57de-4709-9212-5a26e1b03ce5",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2b1dc250-2c33-4d6c-b819-8c27cd87928a",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x1005",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2477e777-9747-498b-bd09-a06600fabaf3",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Registrati",
+      "targets": [
+        ["linkText=Registrati", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Registrati')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Registrazione.html')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Registrati')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "038b9d97-5cea-4da9-ba6f-61b9142f1316",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "MarioRossi@libero.it "
+    }, {
+      "id": "c4ca3d62-032b-4f4e-8c3c-e37a0f9ce739",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwd",
+      "targets": [
+        ["id=pwd", "id"],
+        ["name=pwd", "name"],
+        ["css=#pwd", "css:finder"],
+        ["xpath=//input[@id='pwd']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "MarioRossi69"
+    }, {
+      "id": "a94cf7f9-5352-4c58-b89e-aea01a55fe1e",
+      "comment": "",
+      "command": "type",
+      "target": "id=name",
+      "targets": [],
+      "value": "Mario"
+    }, {
+      "id": "ed13b267-912f-4763-9f29-7cd2894e6703",
+      "comment": "",
+      "command": "type",
+      "target": "id=surname",
+      "targets": [
+        ["id=surname", "id"],
+        ["name=cognome", "name"],
+        ["css=#surname", "css:finder"],
+        ["xpath=//input[@id='surname']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "Rossi"
+    }, {
+      "id": "7a205e2a-339e-4269-9a06-a8666deb3953",
+      "comment": "",
+      "command": "click",
+      "target": "id=Registrati",
+      "targets": [
+        ["id=Registrati", "id"],
+        ["css=#Registrati", "css:finder"],
+        ["xpath=//input[@id='Registrati']", "xpath:attributes"],
+        ["xpath=//form[@id='Registrazione']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "97b8a810-9132-4b17-b7b7-e16bee41c5c9",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=h1",
+      "targets": [],
+      "value": "Bentornato Mario"
+    }, {
+      "id": "cc147409-81ff-48c0-8c70-0985e1efb728",
       "comment": "",
       "command": "click",
       "target": "linkText=Logout",

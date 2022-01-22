@@ -5,6 +5,7 @@ import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManager;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
+import it.unisa.agency_formation.utils.Check;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,19 +34,18 @@ public class CreateTeamControl extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             Team team = new Team();
             RequestDispatcher dispatcher;
-            String action = req.getParameter("action");
             int idTM = user.getId();
             try {
-                if (action.equalsIgnoreCase("crea")) {
-                    String nomeProgetto = req.getParameter("lname");
-                    int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
-                    if (numeroDipendenti > 8) {
-                        resp.getWriter().write("1");
-                        String descrizione = "Si è verificato un errore. Numero dei dipendenti maggiore di 8";
-                        resp.sendRedirect("/static/Error.jsp?descrizione=" + descrizione);
-                    } else {
-                        String nomeTeam = req.getParameter("fname");
-                        String descrizione = req.getParameter("teamDescr");
+                String nomeProgetto = req.getParameter("lname");
+                int numeroDipendenti = Integer.parseInt(req.getParameter("quantity"));
+                if (numeroDipendenti > 20) {
+                    resp.getWriter().write("1");
+                    String descrizione = "Si è verificato un errore. Numero dei dipendenti maggiore di 20";
+                    resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+                } else {
+                    String nomeTeam = req.getParameter("fname");
+                    String descrizione = req.getParameter("teamDescr");
+                    if (Check.checkProjectName(nomeProgetto) && Check.checkTeamName(nomeTeam) && Check.checkDescription(descrizione)) {
                         team.setNomeProgetto(nomeProgetto);
                         team.setDescrizione(descrizione);
                         team.setNomeTeam(nomeTeam);
@@ -62,19 +62,20 @@ public class CreateTeamControl extends HttpServlet {
                             dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
                             dispatcher.forward(req, resp);
                         }
+                    } else {
+                        resp.getWriter().write("4"); //errori nella compilazione dei campi
+                        resp.sendRedirect("./static/Error.jsp?descrizione=Errore nella compilazione dei campi");
                     }
-                } else {
-                    resp.getWriter().write("4");
-                    resp.sendRedirect("/static/CreaTeam.jsp");
                 }
+
+
             } catch (SQLException e) {
-                String errore = "creazione team non avvenuta";
-                resp.sendRedirect("./static/Error.jsp?descrizione=" + errore);
+                e.printStackTrace();
             }
         } else {
             resp.getWriter().write("5"); //non sei TM
             req.getSession().invalidate();
-            resp.sendRedirect("./static/Login.html");
+            resp.sendRedirect("./static/Login.jsp");
         }
     }
 

@@ -20,7 +20,9 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
 
 public class ScioglimentoTeamControlTest {
@@ -93,7 +95,7 @@ public class ScioglimentoTeamControlTest {
         servlet.init(config);
         servlet.doGet(request, response);
         writer.flush();
-        assertTrue(stringWriter.toString().contains("4"));
+        assertTrue(stringWriter.toString().contains("5"));
     }
 
     @Test
@@ -178,13 +180,15 @@ public class ScioglimentoTeamControlTest {
 
         try (MockedStatic mockedStatic = mockStatic(ScioglimentoTeamControl.class)) {
             mockedStatic.when(() -> ScioglimentoTeamControl.recuperaIdDipendentiFromManager(idTeam)).thenReturn(listaIdDips);
+            mockedStatic.when(() -> ScioglimentoTeamControl.updateStatoDipendenteFromManager(anyInt())).thenReturn(true);
+            mockedStatic.when(() -> ScioglimentoTeamControl.eliminaTeamFromManager(anyInt())).thenReturn(false);
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);
             servlet.init(config);
             servlet.doGet(request, response);
             writer.flush();
-            assertTrue(stringWriter.toString().contains("1"));
+            assertTrue(stringWriter.toString().contains("2"));
         }
     }
     @Test
@@ -208,9 +212,10 @@ public class ScioglimentoTeamControlTest {
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
         Mockito.when(request.getParameter("idTeam")).thenReturn(String.valueOf(idTeam));
-
         try (MockedStatic mockedStatic = mockStatic(ScioglimentoTeamControl.class)) {
             mockedStatic.when(() -> ScioglimentoTeamControl.recuperaIdDipendentiFromManager(idTeam)).thenReturn(listaIdDips);
+            mockedStatic.when(() -> ScioglimentoTeamControl.updateStatoDipendenteFromManager(anyInt())).thenReturn(true);
+            mockedStatic.when(() -> ScioglimentoTeamControl.eliminaTeamFromManager(anyInt())).thenReturn(false);
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);
             Mockito.when(response.getWriter()).thenReturn(writer);
@@ -237,6 +242,8 @@ public class ScioglimentoTeamControlTest {
         session = Mockito.mock(HttpSession.class);
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
+        Mockito.when(request.getServletContext()).thenReturn(context);
+        Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         ScioglimentoTeamControl servlet = Mockito.spy(ScioglimentoTeamControl.class);
         Mockito.when(request.getSession()).thenReturn(session);
         Mockito.when(session.getAttribute("user")).thenReturn(user);
@@ -245,7 +252,8 @@ public class ScioglimentoTeamControlTest {
         try (MockedStatic<ScioglimentoTeamControl> mockedStatic = mockStatic(ScioglimentoTeamControl.class)) {
             mockedStatic.when(() -> ScioglimentoTeamControl.recuperaIdDipendentiFromManager(idTeam)).thenReturn(listaIdDips);
             mockedStatic.when(() -> ScioglimentoTeamControl.eliminaTeamFromManager(idTeam)).thenReturn(true);
-        StringWriter stringWriter = new StringWriter();
+            mockedStatic.when(() -> ScioglimentoTeamControl.updateStatoDipendenteFromManager(anyInt())).thenReturn(true);
+            StringWriter stringWriter = new StringWriter();
         PrintWriter writer = new PrintWriter(stringWriter);
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);

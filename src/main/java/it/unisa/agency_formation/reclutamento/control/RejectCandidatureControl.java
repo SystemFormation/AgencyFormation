@@ -41,6 +41,7 @@ public class RejectCandidatureControl extends HttpServlet {
             try {
                 Candidatura candidatura = getCandidatura(idCandidato);
                 File toDelete = new File(pathAbsolute + "IdUtente-" + candidatura.getIdCandidato());
+
                 delete(toDelete);
                 if (rejectCandidatura(candidatura.getIdCandidatura(), user.getId())) {
                     response.getWriter().write("1"); //rifiuto ok
@@ -55,7 +56,7 @@ public class RejectCandidatureControl extends HttpServlet {
         } else {
             response.getWriter().write("3"); //rifiuto ok
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
 
     }
@@ -102,12 +103,12 @@ public class RejectCandidatureControl extends HttpServlet {
     }
 
     /**
-     * Questo metodo permette di eliminare un file utilizzando il manager
+     * Questo metodo permette di eliminare un file
      * @param file file da eliminare
      */
 
     private void delete(File file) {
-        if(file == null){
+        if (file == null || !file.exists()) {
             return;
         }
         for (File subFile : requireNonNull(file.listFiles())) {

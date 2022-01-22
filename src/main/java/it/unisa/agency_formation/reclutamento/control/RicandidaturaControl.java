@@ -31,7 +31,7 @@ public class RicandidaturaControl extends HttpServlet {
         if (user == null || user.getRole() != RuoliUtenti.CANDIDATO) {
             response.getWriter().write("1"); //utente null o ruolo diverso da Candidato
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         } else {
             try {
                 if (!eliminaCandidaturaFromManager(user.getId())) {

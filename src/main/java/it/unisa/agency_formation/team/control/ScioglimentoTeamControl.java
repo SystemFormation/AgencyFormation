@@ -64,7 +64,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
                     e.printStackTrace();
                 }
             } else {
-                resp.getWriter().write("4");
+                resp.getWriter().write("5");
                 String descrizione = "Errore. IdTeam Non Valido";
                 resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                 return;
@@ -72,7 +72,7 @@ public class ScioglimentoTeamControl extends HttpServlet {
         } else {
             resp.getWriter().write("5");
             req.getSession().invalidate();
-            resp.sendRedirect("./static/Login.html");
+            resp.sendRedirect("./static/Login.jsp");
         }
 
     }

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UploadCandidatureControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.reclutamento.control</a> &gt; <span class="el_source">UploadCandidatureControl.java</span></div><h1>UploadCandidatureControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.reclutamento.control;
+
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Date;
+
+@WebServlet(&quot;/UploadCandidatureControl&quot;)
+@MultipartConfig
+<span class="fc" id="L25">public class UploadCandidatureControl extends HttpServlet {</span>
+
+    private static final String pathRelative = &quot;\\AgencyFormationFile\\Candidature\\&quot;;
+<span class="fc" id="L28">    private static final String pathAbsolute = System.getProperty(&quot;user.home&quot;) + pathRelative;</span>
+    private static final int MAXDIM = 10485760; //10MB
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare l'upload del curriculum e possibili documenti aggiuntivi
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L42">        Utente user = (Utente) request.getSession().getAttribute(&quot;user&quot;);</span>
+
+<span class="fc bfc" id="L44" title="All 4 branches covered.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.CANDIDATO) {</span>
+
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            if (request.getParameter(&quot;sceltaUpload&quot;) == null) {</span>
+                try {
+<span class="fc" id="L48">                    Candidatura cand = getCandidaturaByIdFromManager(user.getId());</span>
+<span class="fc" id="L49">                    request.setAttribute(&quot;candidatura&quot;, cand);</span>
+<span class="fc" id="L50">                    response.getWriter().write(&quot;9&quot;);</span>
+<span class="fc" id="L51">                    RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(&quot;/static/Upload.jsp&quot;);</span>
+<span class="fc" id="L52">                    dispatcher.forward(request, response);</span>
+<span class="fc" id="L53">                    return;</span>
+<span class="nc" id="L54">                } catch (SQLException e) {</span>
+<span class="nc" id="L55">                    e.printStackTrace();</span>
+                }
+            }
+            //se scelta = 1 curriculum caricato
+            //se scelta = 2 documenti aggiuntivi caricati
+<span class="fc" id="L60">            int scelta = Integer.parseInt(request.getParameter(&quot;sceltaUpload&quot;));</span>
+<span class="fc" id="L61">            File file = new File(pathAbsolute + &quot;\\&quot; + &quot;IdUtente-&quot; + user.getId());</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">            if (scelta == 1) {</span>
+<span class="fc" id="L63">                Part curriculum = request.getPart(&quot;curriculum&quot;);</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">                if (curriculum.getSize() &gt; MAXDIM) {</span>
+<span class="nc" id="L65">                    response.getWriter().write(&quot;1&quot;); //file troppo grande</span>
+<span class="nc" id="L66">                    String descrizione = &quot;dimensioni file elevate&quot;;</span>
+<span class="nc" id="L67">                    response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="nc" id="L68">                    return;</span>
+                } else {
+<span class="fc" id="L70">                    Candidatura cand = new Candidatura();</span>
+<span class="fc" id="L71">                    file.mkdirs();</span>
+<span class="fc" id="L72">                    curriculum.write(file.getAbsolutePath() + &quot;\\&quot; + curriculum.getSubmittedFileName());</span>
+<span class="fc" id="L73">                    String cv = pathRelative + &quot;\\&quot; + &quot;IdUtente-&quot; + user.getId() + &quot;\\&quot; + curriculum.getSubmittedFileName();</span>
+<span class="fc" id="L74">                    Date date = new Date();</span>
+<span class="fc" id="L75">                    java.sql.Date data = new java.sql.Date(date.getTime());</span>
+<span class="fc" id="L76">                    cand.setCurriculum(cv);</span>
+<span class="fc" id="L77">                    cand.setStato(StatiCandidatura.NonRevisionato);</span>
+<span class="fc" id="L78">                    cand.setDataCandidatura(data);</span>
+<span class="fc" id="L79">                    cand.setIdCandidato(user.getId());</span>
+                    try {
+<span class="fc bfc" id="L81" title="All 2 branches covered.">                        if (uploadCandidatureFromManager(cand)) {</span>
+<span class="fc" id="L82">                            response.getWriter().write(&quot;4&quot;); // curriculum caricato</span>
+<span class="fc" id="L83">                            request.setAttribute(&quot;candidatura&quot;, cand);</span>
+                        } else {
+<span class="fc" id="L85">                            response.getWriter().write(&quot;5&quot;); // curriculum non caricato</span>
+<span class="fc" id="L86">                            String descrizione = &quot;caricamento file non andato a buon fine&quot;;</span>
+<span class="fc" id="L87">                            response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+                        }
+<span class="nc" id="L89">                    } catch (SQLException e) {</span>
+<span class="nc" id="L90">                        e.printStackTrace();</span>
+<span class="fc" id="L91">                    }</span>
+                }
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">            } else if (scelta == 2) {</span>
+<span class="fc" id="L94">                Part documenti = request.getPart(&quot;documenti&quot;);</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">                if (documenti.getSize() &gt; MAXDIM) {</span>
+<span class="nc" id="L96">                    response.getWriter().write(&quot;2&quot;); //file troppo grande</span>
+<span class="nc" id="L97">                    String descrizione = &quot;dimensioni file elevate&quot;;</span>
+<span class="nc" id="L98">                    response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="nc" id="L99">                    return;</span>
+                } else {
+<span class="fc" id="L101">                    Candidatura cand = new Candidatura();</span>
+<span class="fc" id="L102">                    documenti.write(file.getAbsolutePath() + &quot;\\&quot; + documenti.getSubmittedFileName());</span>
+<span class="fc" id="L103">                    String documentiAggiuntivi = pathRelative + &quot;\\&quot; + &quot;IdUtente-&quot; + user.getId() + &quot;\\&quot; + documenti.getSubmittedFileName();</span>
+<span class="fc" id="L104">                    cand.setIdCandidato(user.getId());</span>
+<span class="fc" id="L105">                    cand.setDocumentiAggiuntivi(documentiAggiuntivi);</span>
+                    try {
+<span class="fc bfc" id="L107" title="All 2 branches covered.">                        if (uploadCandidatureFromManager(cand)) {</span>
+<span class="fc" id="L108">                            response.getWriter().write(&quot;6&quot;); //documenti aggiuntivi caricati</span>
+<span class="fc" id="L109">                            request.setAttribute(&quot;candidatura&quot;, cand);</span>
+                        } else {
+<span class="fc" id="L111">                            response.getWriter().write(&quot;7&quot;); //documenti aggiuntivi non caricati</span>
+<span class="fc" id="L112">                            String descrizione = &quot;caricamento file non andato a buon fine&quot;;</span>
+<span class="fc" id="L113">                            response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+                        }
+<span class="nc" id="L115">                    } catch (SQLException e) {</span>
+<span class="nc" id="L116">                        e.printStackTrace();</span>
+<span class="fc" id="L117">                    }</span>
+                }
+<span class="pc bnc" id="L119" title="All 2 branches missed.">            } else if (scelta == 3) {</span>
+<span class="nc" id="L120">                response.getWriter().write(&quot;3&quot;); //ricandidatura</span>
+<span class="nc" id="L121">                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(&quot;/static/Upload.jsp&quot;);</span>
+<span class="nc" id="L122">                dispatcher.forward(request, response);</span>
+            }
+            try {
+<span class="fc" id="L125">                Candidatura candidatura = getCandidaturaFromManager(user.getId());</span>
+<span class="fc" id="L126">                request.setAttribute(&quot;candidatura&quot;, candidatura);</span>
+<span class="fc" id="L127">                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeCandidato.jsp&quot;);</span>
+<span class="fc" id="L128">                dispatcher.forward(request, response);</span>
+<span class="nc" id="L129">            } catch (SQLException e) {</span>
+<span class="nc" id="L130">                e.printStackTrace();</span>
+<span class="fc" id="L131">            }</span>
+<span class="fc" id="L132">        } else {</span>
+<span class="fc" id="L133">            response.getWriter().write(&quot;8&quot;);</span>
+<span class="fc" id="L134">            request.getSession().invalidate();</span>
+<span class="fc" id="L135">            response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+
+<span class="fc" id="L138">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L151">        doGet(req, resp);</span>
+<span class="fc" id="L152">    }</span>
+
+    /**
+     * Questo metodo permette di ottenere la candidatura di un candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato
+     * @return la candidatura interessata
+     * @throws SQLException errore nella query
+     */
+
+    public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
+<span class="nc" id="L163">        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();</span>
+<span class="nc" id="L164">        return reclutamentoManager.getCandidaturaById(idCandidato);</span>
+    }
+
+    /**
+     * Questo metodo permette di caricare la candidatura utilizzando il manager
+     *
+     * @param candidatura la candidatura interessata
+     * @return boolean (true = caricamento effettuato con successo, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean uploadCandidatureFromManager(Candidatura candidatura) throws SQLException {
+<span class="nc" id="L176">        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();</span>
+<span class="nc" id="L177">        return reclutamentoManager.caricaCandidatura(candidatura);</span>
+    }
+
+    public static Candidatura getCandidaturaByIdFromManager(int idCandidato) throws SQLException {
+<span class="fc" id="L181">        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();</span>
+<span class="fc" id="L182">        return reclutamentoManager.getCandidaturaById(idCandidato);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

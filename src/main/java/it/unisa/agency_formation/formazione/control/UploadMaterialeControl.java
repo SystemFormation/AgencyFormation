@@ -35,7 +35,7 @@ public class UploadMaterialeControl extends HttpServlet {
      */
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Utente user = (Utente) request.getSession().getAttribute("user");
         if (user != null && user.getRole() == RuoliUtenti.HR) {
             if (request.getParameter("idTeam") == null) {
@@ -81,7 +81,7 @@ public class UploadMaterialeControl extends HttpServlet {
         } else {
             response.getWriter().write("1"); //user null oppure non dipendente
             request.getSession().invalidate();
-            response.sendRedirect("./static/Login.html");
+            response.sendRedirect("./static/Login.jsp");
         }
     }
 

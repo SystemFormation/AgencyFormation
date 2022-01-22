@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.TimeZone;
 
-public class DatabaseManager {
+public final class DatabaseManager {
     private String name = Const.name;
     private String pwd = Const.pwd;
     private String url;
@@ -14,7 +14,7 @@ public class DatabaseManager {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage() + " problema class not found");
+            System.err.println(e.getMessage() + " problem class not found");
         }
     }
     public static DatabaseManager getInstance() throws SQLException {

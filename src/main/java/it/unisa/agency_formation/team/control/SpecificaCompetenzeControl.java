@@ -4,6 +4,7 @@ import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 import it.unisa.agency_formation.team.manager.TeamManager;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
+import it.unisa.agency_formation.utils.Check;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,17 +35,22 @@ public class SpecificaCompetenzeControl extends HttpServlet {
             if (action.equalsIgnoreCase("competenze")) { //update competenze
                 int idTeam = Integer.parseInt(req.getParameter("idTeam"));
                 String competence = req.getParameter("specCompetenze");
-                try {
-                    if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {
-                        String descrizione = "Errore nella specifica delle competenze";
-                        resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
-                    } else {
-                        resp.getWriter().write("1");
-                        dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
-                        dispatcher.forward(req, resp);
+                if (Check.checkCompetence(competence)) {
+                    try {
+                        if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {
+                            String descrizione = "Errore nella specifica delle competenze";
+                            resp.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
+                        } else {
+                            resp.getWriter().write("1");
+                            dispatcher = req.getServletContext().getRequestDispatcher("/ListaTeam");
+                            dispatcher.forward(req, resp);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                } else {
+                    resp.getWriter().write("4"); //errore competenza
+                    resp.sendRedirect("./static/Error.jsp?descrizione=Competenze invalide");
                 }
             } else {
                 resp.getWriter().write("2");
@@ -54,7 +60,7 @@ public class SpecificaCompetenzeControl extends HttpServlet {
         } else {
             resp.getWriter().write("3");
             req.getSession().invalidate();
-            resp.sendRedirect("./static/Login.html");
+            resp.sendRedirect("./static/Login.jsp");
         }
     }
 
