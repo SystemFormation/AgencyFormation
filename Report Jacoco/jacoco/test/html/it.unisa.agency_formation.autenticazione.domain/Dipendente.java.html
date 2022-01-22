@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Dipendente.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.autenticazione.domain</a> &gt; <span class="el_source">Dipendente.java</span></div><h1>Dipendente.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.autenticazione.domain;
+
+import it.unisa.agency_formation.formazione.domain.Skill;
+import it.unisa.agency_formation.team.domain.Team;
+
+import java.util.ArrayList;
+
+public class Dipendente extends Utente {
+    private int idDipendente;
+    private int annoNascita;
+    private String residenza;
+    private String telefono;
+    private StatiDipendenti stato;
+    private Team team;
+    private ArrayList&lt;Skill&gt; skills;
+
+    /**
+     * Questo metodo permette di creare un dipendente inserendo tutti i dati necessari
+     *
+     * @param name        , nome del dipendente
+     * @param surname     , cognome del dipendente
+     * @param mail        , mail del dipendente
+     * @param password    , password del dipendente
+     * @param role        , ruolo del dipendente
+     * @param idDip       , identificatore del dipendente
+     * @param yearNascita , anno nascita del dipendente
+     * @param residence   , residenza del dipendente
+     * @param tel         , numero di telefono del dipendente
+     * @param state       , stato del dipendente
+     */
+    public Dipendente(String name, String surname, String mail, String password, RuoliUtenti role, int idDip, int yearNascita, String residence, String tel, StatiDipendenti state) {
+<span class="fc" id="L32">        super(name, surname, mail, password, role);</span>
+<span class="fc" id="L33">        this.idDipendente = idDip;</span>
+<span class="fc" id="L34">        this.annoNascita = yearNascita;</span>
+<span class="fc" id="L35">        this.residenza = residence;</span>
+<span class="fc" id="L36">        this.telefono = tel;</span>
+<span class="fc" id="L37">        this.stato = state;</span>
+<span class="fc" id="L38">    }</span>
+
+    /**
+     * Questo metodo permette di creare un dipendente senza specificare i parametri
+     */
+
+<span class="fc" id="L44">    public Dipendente() {</span>
+<span class="fc" id="L45">    }</span>
+
+    /**
+     * Questo metodo permette di tornare l'id del dipendente
+     *
+     * @return l' identificatore del dipendente
+     */
+
+    public int getIdDipendente() {
+<span class="fc" id="L54">        return idDipendente;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare l'id del dipendente
+     *
+     * @param idUtente , identificatore del dipendente
+     */
+
+    public void setIdDipendente(int idUtente) {
+<span class="fc" id="L64">        this.idDipendente = idUtente;</span>
+<span class="fc" id="L65">    }</span>
+
+    /**
+     * Questo metodo permette di tornare l'anno di nascita del dipendente
+     *
+     * @return l' anno di nascita del dipendente
+     */
+
+    public int getAnnoNascita() {
+<span class="fc" id="L74">        return annoNascita;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare l'anno di nascita del dipendente
+     *
+     * @param yearNascita , anno di nascita del dipendente
+     */
+
+    public void setAnnoNascita(int yearNascita) {
+<span class="fc" id="L84">        this.annoNascita = yearNascita;</span>
+<span class="fc" id="L85">    }</span>
+
+    /**
+     * Questo metodo permette di tornare la residenza del dipendente
+     *
+     * @return la residenza interessata
+     */
+
+    public String getResidenza() {
+<span class="fc" id="L94">        return residenza;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare la residenza del dipendente
+     *
+     * @param residenz , la residenza interessata
+     */
+
+    public void setResidenza(String residenz) {
+<span class="fc" id="L104">        this.residenza = residenz;</span>
+<span class="fc" id="L105">    }</span>
+
+    /**
+     * Questo metodo permette di tornare il numero di telefono del dipendente
+     *
+     * @return il numero del dipendente
+     */
+
+    public String getTelefono() {
+<span class="fc" id="L114">        return telefono;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare il numero di telefono del dipendente
+     *
+     * @param tel , il telefono del dipendente
+     */
+
+    public void setTelefono(String tel) {
+<span class="fc" id="L124">        this.telefono = tel;</span>
+<span class="fc" id="L125">    }</span>
+
+    /**
+     * Questo metodo permette di tornare lo stato del dipendente
+     *
+     * @return lo stato del dipendente
+     */
+
+    public StatiDipendenti getStato() {
+<span class="nc" id="L134">        return stato;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare lo stato del dipendente
+     *
+     * @param state , lo stato del dipendente
+     */
+
+    public void setStato(StatiDipendenti state) {
+<span class="fc" id="L144">        this.stato = state;</span>
+<span class="fc" id="L145">    }</span>
+
+    /**
+     * Questo metodo permette di settare il team il quale il dipendente Ã¨ membro
+     *
+     * @param Team , il team interessato
+     */
+
+    public void setTeam(Team Team) {
+<span class="fc" id="L154">        this.team = Team;</span>
+<span class="fc" id="L155">    }</span>
+
+    /**
+     * Questo metodo permette di tornare il team il quale il dipendente Ã¨ membro
+     *
+     * @return il team interessato
+     */
+
+    public Team getTeam() {
+<span class="fc" id="L164">        return team;</span>
+    }
+
+    /**
+     * Questo metodo permette di tornare tutte le skill del dipendente
+     *
+     * @return {@literal ArrayList&lt;@link Skill&gt;} , lista delle skill
+     */
+
+    public ArrayList&lt;Skill&gt; getSkills() {
+<span class="nc" id="L174">        return skills;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare tutte le skill del dipendente
+     *
+     * @param skill , lista delle skill
+     */
+
+    public void setSkills(ArrayList&lt;Skill&gt; skill) {
+<span class="fc" id="L184">        this.skills = skill;</span>
+<span class="fc" id="L185">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

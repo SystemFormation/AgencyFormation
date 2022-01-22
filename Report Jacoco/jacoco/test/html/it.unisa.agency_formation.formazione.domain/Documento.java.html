@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Documento.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.formazione.domain</a> &gt; <span class="el_source">Documento.java</span></div><h1>Documento.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.formazione.domain;
+
+public class Documento {
+    private String materialeDiFormazione;
+    private int idHR;
+    private int idTeam;
+    private int idDocumento;
+
+    /**
+     * Questo metodo permette di creare un documento senza specificare i parametri
+     */
+
+<span class="fc" id="L13">    public Documento() {</span>
+<span class="fc" id="L14">    }</span>
+
+    /**
+     * Questo metodo permette di creare un documento inserendo tutti i dati necessari
+     *
+     * @param IdDocumento           , identificatore del documento
+     * @param MaterialeDiFormazione , materiale di formazione
+     * @param IdHR                  , identificatore HR
+     * @param IdTeam                , identificatore team
+     */
+
+<span class="fc" id="L25">    public Documento(int IdDocumento, String MaterialeDiFormazione, int IdHR, int IdTeam) {</span>
+<span class="fc" id="L26">        this.idDocumento = IdDocumento;</span>
+<span class="fc" id="L27">        this.materialeDiFormazione = MaterialeDiFormazione;</span>
+<span class="fc" id="L28">        this.idHR = IdHR;</span>
+<span class="fc" id="L29">        this.idTeam = IdTeam;</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Questo metodo permette di tornare il materiale di formazione
+     *
+     * @return materiale di formazione
+     */
+
+    public String getMaterialeDiFormazione() {
+<span class="fc" id="L39">        return materialeDiFormazione;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare il materiale di formazione
+     *
+     * @param materialeFormazione , il materiale di formazione
+     */
+
+    public void setMaterialeDiFormazione(String materialeFormazione) {
+<span class="fc" id="L49">        this.materialeDiFormazione = materialeFormazione;</span>
+<span class="fc" id="L50">    }</span>
+
+    /**
+     * Questo metodo permette di tornare l'id dell'HR
+     *
+     * @return identificatore HR
+     */
+
+    public int getIdHR() {
+<span class="fc" id="L59">        return idHR;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare l'id dell'HR
+     *
+     * @param idUtente identificatore dell'HR
+     */
+
+    public void setIdHR(int idUtente) {
+<span class="fc" id="L69">        this.idHR = idUtente;</span>
+<span class="fc" id="L70">    }</span>
+
+    /**
+     * Questo metodo permette di tornare l'id del team
+     *
+     * @return identificatore team
+     */
+
+    public int getIdTeam() {
+<span class="fc" id="L79">        return idTeam;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare l'id del team
+     *
+     * @param id del team
+     */
+
+    public void setIdTeam(int id) {
+<span class="fc" id="L89">        this.idTeam = id;</span>
+<span class="fc" id="L90">    }</span>
+
+    /**
+     * Questo metodo permette di tornare l'id del documento
+     *
+     * @return identificatore del documento
+     */
+
+    public int getIdDocumento() {
+<span class="nc" id="L99">        return idDocumento;</span>
+    }
+
+    /**
+     * Questo metodo permette di settare l'id del documento
+     *
+     * @param idDoc , id del documento
+     */
+
+    public void setIdDocumento(int idDoc) {
+<span class="fc" id="L109">        this.idDocumento = idDoc;</span>
+<span class="fc" id="L110">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

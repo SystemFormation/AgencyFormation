@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RemoveTeamControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.team.control</a> &gt; <span class="el_source">RemoveTeamControl.java</span></div><h1>RemoveTeamControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.team.control;
+
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.team.manager.TeamManager;
+import it.unisa.agency_formation.team.manager.TeamManagerImpl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+
+@WebServlet(&quot;/RemoveTeamControl&quot;)
+<span class="fc" id="L18">public class RemoveTeamControl extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare la rimozione di un dipendente dal team
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L31">        Utente user = (Utente) req.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="fc bfc" id="L32" title="All 4 branches covered.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.TM) {</span>
+            RequestDispatcher dispatcher;
+<span class="fc" id="L34">            int idDip = Integer.parseInt(req.getParameter(&quot;idDip&quot;));</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">            if (idDip != 0) {</span>
+                try {
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">                    if (!rimuoviDipendenteFromManager(idDip)) {</span>
+<span class="nc" id="L38">                        resp.getWriter().write(&quot;4&quot;); //dipendente non rimosso</span>
+<span class="nc" id="L39">                        String descrizione = &quot;rimozione dipendente non effettuata&quot;;</span>
+<span class="nc" id="L40">                        resp.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="nc" id="L41">                        return;</span>
+                    }
+<span class="fc" id="L43">                    resp.getWriter().write(&quot;1&quot;);</span>
+<span class="fc" id="L44">                    dispatcher = req.getServletContext().getRequestDispatcher(&quot;/ListaTeam&quot;);</span>
+<span class="fc" id="L45">                    dispatcher.forward(req, resp);</span>
+<span class="nc" id="L46">                } catch (SQLException e) {</span>
+<span class="nc" id="L47">                    e.printStackTrace();</span>
+<span class="pc" id="L48">                }</span>
+            } else {
+<span class="fc" id="L50">                resp.getWriter().write(&quot;2&quot;);</span>
+<span class="fc" id="L51">                dispatcher = req.getServletContext().getRequestDispatcher(&quot;/ListaTeam&quot;);</span>
+<span class="fc" id="L52">                dispatcher.forward(req, resp);</span>
+            }
+<span class="fc" id="L54">        } else {</span>
+<span class="fc" id="L55">            resp.getWriter().write(&quot;3&quot;);</span>
+<span class="fc" id="L56">            req.getSession().invalidate();</span>
+<span class="fc" id="L57">            resp.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+<span class="fc" id="L59">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L72">        doGet(req, resp);</span>
+<span class="fc" id="L73">    }</span>
+
+    /**
+     * Questo metodo permette di rimuovere un dipendente utilizzando il manager
+     *
+     * @param idDip id del dipendente da rimuovere
+     * @return boolean (true  =il dipendente Ã¨ stato rimosso con successo, false altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean rimuoviDipendenteFromManager(int idDip) throws SQLException {
+<span class="fc" id="L84">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="fc" id="L85">        return teamManager.rimuoviDipendente(idDip);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

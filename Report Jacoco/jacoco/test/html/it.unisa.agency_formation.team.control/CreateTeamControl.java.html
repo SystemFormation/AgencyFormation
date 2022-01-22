@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CreateTeamControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.team.control</a> &gt; <span class="el_source">CreateTeamControl.java</span></div><h1>CreateTeamControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.team.control;
+
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.team.domain.Team;
+import it.unisa.agency_formation.team.manager.TeamManager;
+import it.unisa.agency_formation.team.manager.TeamManagerImpl;
+import it.unisa.agency_formation.utils.Check;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+
+@WebServlet(&quot;/CreateTeamControl&quot;)
+<span class="fc" id="L20">public class CreateTeamControl extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare la creazione del team
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L33">        Utente user = (Utente) req.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="fc bfc" id="L34" title="All 4 branches covered.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.TM) {</span>
+<span class="fc" id="L35">            Team team = new Team();</span>
+            RequestDispatcher dispatcher;
+<span class="fc" id="L37">            int idTM = user.getId();</span>
+            try {
+<span class="fc" id="L39">                String nomeProgetto = req.getParameter(&quot;lname&quot;);</span>
+<span class="fc" id="L40">                int numeroDipendenti = Integer.parseInt(req.getParameter(&quot;quantity&quot;));</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">                if (numeroDipendenti &gt; 20) {</span>
+<span class="fc" id="L42">                    resp.getWriter().write(&quot;1&quot;);</span>
+<span class="fc" id="L43">                    String descrizione = &quot;Si Ã¨ verificato un errore. Numero dei dipendenti maggiore di 20&quot;;</span>
+<span class="fc" id="L44">                    resp.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="fc" id="L45">                } else {</span>
+<span class="fc" id="L46">                    String nomeTeam = req.getParameter(&quot;fname&quot;);</span>
+<span class="fc" id="L47">                    String descrizione = req.getParameter(&quot;teamDescr&quot;);</span>
+<span class="pc bpc" id="L48" title="3 of 6 branches missed.">                    if (Check.checkProjectName(nomeProgetto) &amp;&amp; Check.checkTeamName(nomeTeam) &amp;&amp; Check.checkDescription(descrizione)) {</span>
+<span class="fc" id="L49">                        team.setNomeProgetto(nomeProgetto);</span>
+<span class="fc" id="L50">                        team.setDescrizione(descrizione);</span>
+<span class="fc" id="L51">                        team.setNomeTeam(nomeTeam);</span>
+<span class="fc" id="L52">                        team.setNumeroDipendenti(numeroDipendenti);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                        if (!creaTeamFromManager(team, idTM)) {</span>
+<span class="fc" id="L54">                            resp.getWriter().write(&quot;2&quot;); //errore creazione team</span>
+<span class="fc" id="L55">                            String errore = &quot;creazione team non avvenuta&quot;;</span>
+<span class="fc" id="L56">                            resp.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + errore);</span>
+<span class="fc" id="L57">                            return;</span>
+                        } else {
+<span class="fc" id="L59">                            int idTeam = getIdUltimoTeamCreatoFromManager();</span>
+<span class="fc" id="L60">                            req.setAttribute(&quot;idTeam&quot;, idTeam);</span>
+<span class="fc" id="L61">                            resp.getWriter().write(&quot;3&quot;);</span>
+<span class="fc" id="L62">                            dispatcher = req.getServletContext().getRequestDispatcher(&quot;/ListaTeam&quot;);</span>
+<span class="fc" id="L63">                            dispatcher.forward(req, resp);</span>
+<span class="fc" id="L64">                        }</span>
+                    } else {
+<span class="nc" id="L66">                        resp.getWriter().write(&quot;4&quot;);//errori nella compilazione dei campi</span>
+<span class="nc" id="L67">                        resp.sendRedirect(&quot;./static/Error.jsp?descrizione=Errore nella compilazione dei campi&quot;);</span>
+                    }
+                }
+
+
+<span class="nc" id="L72">            } catch (SQLException e) {</span>
+<span class="nc" id="L73">                e.printStackTrace();</span>
+<span class="fc" id="L74">            }</span>
+<span class="fc" id="L75">        } else {</span>
+<span class="fc" id="L76">            resp.getWriter().write(&quot;5&quot;); //non sei TM</span>
+<span class="fc" id="L77">            req.getSession().invalidate();</span>
+<span class="fc" id="L78">            resp.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+<span class="fc" id="L80">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L93">        doGet(req, resp);</span>
+<span class="fc" id="L94">    }</span>
+
+    /**
+     * Questo metodo permette di creare un team utilizzando il manager
+     *
+     * @param team il team da creare
+     * @param idTM id del TM che crea il team
+     * @return boolean (true = creazione andata a buon fine, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean creaTeamFromManager(Team team, int idTM) throws SQLException {
+<span class="nc" id="L106">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="nc" id="L107">        return teamManager.creaTeam(team, idTM);</span>
+
+    }
+
+    /**
+     * Questo metodo permette di ottenere l'ultimo team creato utilizzando il manager
+     *
+     * @return l'id dell'ultimo team creato
+     * @throws SQLException errore nella query
+     */
+
+    public static int getIdUltimoTeamCreatoFromManager() throws SQLException {
+<span class="nc" id="L119">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="nc" id="L120">        return teamManager.viewLastIdTeam();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

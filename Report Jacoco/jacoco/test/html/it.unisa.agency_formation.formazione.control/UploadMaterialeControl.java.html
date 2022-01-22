@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UploadMaterialeControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.formazione.control</a> &gt; <span class="el_source">UploadMaterialeControl.java</span></div><h1>UploadMaterialeControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.formazione.control;
+
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.formazione.domain.Documento;
+import it.unisa.agency_formation.formazione.manager.FormazioneManager;
+import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+
+@WebServlet(&quot;/UploadMaterialeControl&quot;)
+@MultipartConfig
+<span class="fc" id="L23">public class UploadMaterialeControl extends HttpServlet {</span>
+    private static final String pathRelative = &quot;\\AgencyFormationFile\\MaterialeFormazione\\&quot;;
+<span class="fc" id="L25">    private static final String pathAbsolute = System.getProperty(&quot;user.home&quot;) + pathRelative;</span>
+    private static final int MAXDIM = 10485760; //10MB
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare l'upload del materiale di formazione
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L39">        Utente user = (Utente) request.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="pc bpc" id="L40" title="1 of 4 branches missed.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.HR) {</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">            if (request.getParameter(&quot;idTeam&quot;) == null) {</span>
+<span class="fc" id="L42">                response.getWriter().write(&quot;2&quot;); //idTeam non passato</span>
+<span class="fc" id="L43">                String errore1 = &quot;Id del Team non passato&quot;;</span>
+<span class="fc" id="L44">                response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + errore1);</span>
+<span class="fc" id="L45">            } else {</span>
+<span class="fc" id="L46">                int idTeam = Integer.parseInt(request.getParameter(&quot;idTeam&quot;));</span>
+<span class="fc" id="L47">                File file = new File(pathAbsolute + &quot;\\&quot; + &quot;IdTeam-&quot; + idTeam);</span>
+<span class="fc" id="L48">                Documento documento = new Documento();</span>
+<span class="fc" id="L49">                file.mkdirs();</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">                if (request.getPart(&quot;materiale&quot;) == null) {</span>
+<span class="fc" id="L51">                    response.getWriter().write(&quot;3&quot;); //materiale non passato</span>
+<span class="fc" id="L52">                    String errore2 = &quot;Errore. File non selezionato.Riprova&quot;;</span>
+<span class="fc" id="L53">                    response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + errore2);</span>
+<span class="fc" id="L54">                } else {</span>
+<span class="fc" id="L55">                    Part part = request.getPart(&quot;materiale&quot;);</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">                    if (part.getSize() &gt; MAXDIM) {</span>
+<span class="nc" id="L57">                        response.getWriter().write(&quot;4&quot;); //file troppo grande</span>
+<span class="nc" id="L58">                        String errore3 = &quot;Dimensioni file eccessive&quot;;</span>
+<span class="nc" id="L59">                        response.sendRedirect(&quot;./static/Error.html?descrizione=&quot; + errore3);</span>
+<span class="nc" id="L60">                        return;</span>
+                    }
+<span class="fc" id="L62">                    part.write(file.getAbsolutePath() + &quot;\\&quot; + part.getSubmittedFileName());</span>
+<span class="fc" id="L63">                    String pathMaterialeFormazione = pathRelative + &quot;\\&quot; + &quot;IdTeam-&quot; + idTeam + &quot;\\&quot; + part.getSubmittedFileName();</span>
+<span class="fc" id="L64">                    documento.setMaterialeDiFormazione(pathMaterialeFormazione);</span>
+<span class="fc" id="L65">                    documento.setIdTeam(idTeam);</span>
+<span class="fc" id="L66">                    documento.setIdHR(user.getId());</span>
+                    try {
+<span class="fc" id="L68">                        boolean esito = saveDocumentFromManager(documento);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">                        if (esito) {</span>
+<span class="fc" id="L70">                            response.getWriter().write(&quot;5&quot;); //documento salvato</span>
+<span class="fc" id="L71">                            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(&quot;/ListaTeam&quot;);</span>
+<span class="fc" id="L72">                            dispatcher.forward(request, response);</span>
+<span class="fc" id="L73">                        } else {</span>
+<span class="fc" id="L74">                            response.getWriter().write(&quot;6&quot;); //documento non salvato</span>
+                        }
+<span class="nc" id="L76">                    } catch (SQLException e) {</span>
+<span class="nc" id="L77">                        e.printStackTrace();</span>
+<span class="fc" id="L78">                    }</span>
+                }
+<span class="fc" id="L80">            }</span>
+        } else {
+<span class="fc" id="L82">            response.getWriter().write(&quot;1&quot;); //user null oppure non dipendente</span>
+<span class="fc" id="L83">            request.getSession().invalidate();</span>
+<span class="fc" id="L84">            response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+<span class="fc" id="L86">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L99">        doGet(req, resp);</span>
+<span class="fc" id="L100">    }</span>
+
+    /**
+     * Questo metodo permette di salvare un documento utilizzando il manager
+     *
+     * @param documento da salvare
+     * @return boolean ( true = il documento viene salvato correttamente, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean saveDocumentFromManager(Documento documento) throws SQLException {
+<span class="nc" id="L111">        FormazioneManager formazioneManager = new FormazioneManagerImpl();</span>
+<span class="nc" id="L112">        return formazioneManager.salvaDocumento(documento);</span>
+
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

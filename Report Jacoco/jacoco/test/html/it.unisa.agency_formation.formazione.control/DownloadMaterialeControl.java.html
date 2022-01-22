@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DownloadMaterialeControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.formazione.control</a> &gt; <span class="el_source">DownloadMaterialeControl.java</span></div><h1>DownloadMaterialeControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.formazione.control;
+
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.formazione.domain.Documento;
+import it.unisa.agency_formation.formazione.manager.FormazioneManager;
+import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.SQLException;
+
+@WebServlet(&quot;/DownloadMaterialeControl&quot;)
+<span class="fc" id="L25">public class DownloadMaterialeControl extends HttpServlet {</span>
+<span class="fc" id="L26">    private static final String directory = System.getProperty(&quot;user.home&quot;);</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare il download del materiale di formazione
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L39">        Utente user = (Utente) request.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="pc bpc" id="L40" title="1 of 4 branches missed.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.DIPENDENTE) {</span>
+<span class="fc" id="L41">            ServletContext context = request.getServletContext();</span>
+<span class="fc" id="L42">            Documento documento = null;</span>
+            try {
+<span class="fc" id="L44">                Dipendente dipendente = getDipendentefromManager(user.getId());</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">                if (dipendente == null) {</span>
+<span class="fc" id="L46">                    response.getWriter().write(&quot;1&quot;); //dipendente null</span>
+                } else {
+<span class="fc" id="L48">                    documento = getDocumentofromManager(dipendente.getTeam().getIdTeam());</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">                    if (documento == null) {</span>
+<span class="fc" id="L50">                        response.getWriter().write(&quot;2&quot;); //documento null</span>
+<span class="fc" id="L51">                        String descrizione = &quot;Documento inesistente&quot;;</span>
+<span class="fc" id="L52">                        response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+                    }
+                }
+<span class="nc" id="L55">            } catch (SQLException e) {</span>
+<span class="nc" id="L56">                e.printStackTrace();</span>
+<span class="fc" id="L57">            }</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">            if (documento != null) {</span>
+<span class="fc" id="L59">                String pathMateriale = directory + documento.getMaterialeDiFormazione();</span>
+<span class="fc" id="L60">                File file = new File(pathMateriale);</span>
+<span class="fc" id="L61">                FileInputStream fileIn = new FileInputStream(file);</span>
+<span class="fc" id="L62">                String mimeType = context.getMimeType(pathMateriale);</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">                if (mimeType == null) {</span>
+<span class="fc" id="L64">                    mimeType = &quot;application/octet-stream&quot;;</span>
+                }
+<span class="fc" id="L66">                response.setContentType(mimeType);</span>
+<span class="fc" id="L67">                response.setContentLength((int) file.length());</span>
+
+<span class="fc" id="L69">                String headerKey = &quot;Content-Disposition&quot;;</span>
+<span class="fc" id="L70">                String headerValue = String.format(&quot;attachment; filename=\&quot;%s\&quot;&quot;, file.getName());</span>
+<span class="fc" id="L71">                response.setHeader(headerKey, headerValue);</span>
+<span class="fc" id="L72">                OutputStream outStream = response.getOutputStream();</span>
+<span class="fc" id="L73">                byte[] buffer = new byte[4096];</span>
+                int bytesRead;
+<span class="fc bfc" id="L75" title="All 2 branches covered.">                while ((bytesRead = fileIn.read(buffer)) != -1) {</span>
+<span class="fc" id="L76">                    outStream.write(buffer, 0, bytesRead);</span>
+                }
+<span class="fc" id="L78">                fileIn.close();</span>
+<span class="fc" id="L79">                outStream.close();</span>
+<span class="fc" id="L80">                response.getWriter().write(&quot;3&quot;); //documento scaricato</span>
+<span class="fc" id="L81">            } else {</span>
+<span class="fc" id="L82">                response.getWriter().write(&quot;4&quot;); //documento non scaricato</span>
+            }
+<span class="fc" id="L84">        } else {</span>
+<span class="fc" id="L85">            response.getWriter().write(&quot;5&quot;);</span>
+<span class="fc" id="L86">            request.getSession().invalidate();</span>
+<span class="fc" id="L87">            response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+<span class="fc" id="L89">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L102">        doGet(request, response);</span>
+<span class="fc" id="L103">    }</span>
+
+    /**
+     * Questo metodo permette di ottenere un dipendente utilizzando il manager
+     *
+     * @param idUtente id del dipendente
+     * @return il dipendente interessato
+     * @throws SQLException errore nella query
+     */
+
+    public static Dipendente getDipendentefromManager(int idUtente) throws SQLException {
+<span class="nc" id="L114">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="nc" id="L115">        return autenticazioneManager.getDipendente(idUtente);</span>
+    }
+
+    /**
+     * Questo metodo permette di ottenere i documenti interessati utilizzando il manager
+     *
+     * @param idTeam id del team
+     * @return il documento interessato
+     * @throws SQLException errore nella query
+     */
+
+    public static Documento getDocumentofromManager(int idTeam) throws SQLException {
+<span class="nc" id="L127">        FormazioneManager formazioneManager = new FormazioneManagerImpl();</span>
+<span class="nc" id="L128">        return formazioneManager.getMaterialeByIdTeam(idTeam);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

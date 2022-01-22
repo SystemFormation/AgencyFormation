@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DipendenteDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.autenticazione.DAO</a> &gt; <span class="el_source">DipendenteDAO.java</span></div><h1>DipendenteDAO.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.autenticazione.DAO;
+
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
+import it.unisa.agency_formation.team.domain.Team;
+import it.unisa.agency_formation.utils.DatabaseManager;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+<span class="nc" id="L15">public class DipendenteDAO {</span>
+    private static final String TABLE_DIPENDENTE = &quot;dipendenti&quot;;
+
+    /**
+     * Questa funzionalitÃ  permette di salvare un dipendente
+     *
+     * @param dipendente , {@literal dipendente != null} Ã¨ il dipendente da registrare
+     * @return boolean true se il dipendente Ã¨Ã¬ stato salvato, false altrimenti
+     * @throws SQLException errore nella query errore nella query*/
+
+    public static boolean salvaDipendente(Dipendente dipendente) throws SQLException {
+<span class="pc bpc" id="L26" title="1 of 4 branches missed.">        if (dipendente == null || dipendente.getResidenza().length() &gt; 128</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">                || dipendente.getTelefono().length() &gt; 20) {</span>
+<span class="fc" id="L28">            return false;</span>
+        }
+<span class="fc" id="L30">        Connection connection = DatabaseManager.getInstance().getConnection();</span>
+<span class="fc" id="L31">        PreparedStatement save = null;</span>
+<span class="fc" id="L32">        String query = &quot;insert into &quot; + TABLE_DIPENDENTE + &quot; (IdDipendente,Residenza,Telefono,Stato,AnnoDiNascita)&quot;</span>
+                + &quot; values(?,?,?,?,?)&quot;;
+        try {
+<span class="fc" id="L35">            save = connection.prepareStatement(query);</span>
+<span class="fc" id="L36">            save.setInt(1, dipendente.getIdDipendente());</span>
+<span class="fc" id="L37">            save.setString(2, dipendente.getResidenza());</span>
+<span class="fc" id="L38">            save.setString(3, dipendente.getTelefono());</span>
+<span class="fc" id="L39">            save.setBoolean(4, true);</span>
+<span class="fc" id="L40">            save.setInt(5, dipendente.getAnnoNascita());</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">            return save.executeUpdate() != 0;</span>
+        } finally {
+<span class="fc" id="L43">            DatabaseManager.closeConnessione(connection);</span>
+        }
+    }
+
+    /**
+     * Questa funzionalitÃ  permette di settare a 2 il ruolo dell'utente quando Ã¨ assunto,
+     *
+     * @param id , {@literal id &gt; 0} Ã¨ l'id dell'utente candidato che diventerÃ  dipendente
+     * @return boolean true se il ruolo Ã¨ stato modificato, false altrimenti
+     * @throws SQLException errore nella query errore nella query
+     */
+    public static boolean modificaRuoloUtente(int id) throws SQLException {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (id &lt;= 0) {</span>
+<span class="fc" id="L56">            return false;</span>
+        }
+<span class="fc" id="L58">        Connection connection = DatabaseManager.getInstance().getConnection();</span>
+<span class="fc" id="L59">        PreparedStatement update = null;</span>
+<span class="fc" id="L60">        String query = &quot;Update Utenti Set Ruolo=2 Where IdUtente=?&quot;;</span>
+        try {
+<span class="fc" id="L62">            update = connection.prepareStatement(query);</span>
+<span class="fc" id="L63">            update.setInt(1, id);</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">            return update.executeUpdate() != 0;</span>
+        } finally {
+<span class="fc" id="L66">            DatabaseManager.closeConnessione(connection);</span>
+        }
+    }
+
+    /**
+     * Questa funzionalitÃ  permette di recuperare un dipendente attraverso il suo id,
+     *
+     * @param id , {@literal id &gt; 0} l'Id del dipendente che vogliamo recuperare
+     * @return Dipendente se Ã¨ presente, null altrimenti
+     * @throws SQLException errore nella query errore nella query
+     */
+    public static Dipendente recuperoDipendenteById(int id) throws SQLException {
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (id &lt;= 0) {</span>
+<span class="fc" id="L79">            return null;</span>
+        }
+        ResultSet result;
+<span class="fc" id="L82">        Connection connection = DatabaseManager.getInstance().getConnection();</span>
+<span class="fc" id="L83">        PreparedStatement retrieve = null;</span>
+<span class="fc" id="L84">        String query = &quot;Select * from &quot; + TABLE_DIPENDENTE + &quot; inner join utenti on utenti.IdUtente = dipendenti.IdDipendente where IdDipendente=?&quot;;</span>
+<span class="fc" id="L85">        Dipendente user = null;</span>
+        try {
+<span class="fc" id="L87">            retrieve = connection.prepareStatement(query);</span>
+<span class="fc" id="L88">            retrieve.setInt(1, id);</span>
+<span class="fc" id="L89">            result = retrieve.executeQuery();</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">            if (result.next()) {</span>
+<span class="fc" id="L91">                user = new Dipendente();</span>
+<span class="fc" id="L92">                Team team = new Team();</span>
+<span class="fc" id="L93">                user.setIdDipendente(result.getInt(&quot;IdDipendente&quot;));</span>
+<span class="fc" id="L94">                user.setResidenza(result.getString(&quot;Residenza&quot;));</span>
+<span class="fc" id="L95">                user.setTelefono(result.getString(&quot;Telefono&quot;));</span>
+<span class="fc" id="L96">                boolean stato = result.getBoolean(&quot;Stato&quot;);</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">                if (!(stato)) {</span>
+<span class="fc" id="L98">                    user.setStato(StatiDipendenti.OCCUPATO);</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">                } else if (stato) {</span>
+<span class="fc" id="L100">                    user.setStato(StatiDipendenti.DISPONIBILE);</span>
+                }
+<span class="fc" id="L102">                user.setAnnoNascita(result.getInt(&quot;AnnoDiNascita&quot;));</span>
+<span class="fc" id="L103">                team.setIdTeam(result.getInt(&quot;IdTeam&quot;));</span>
+<span class="fc" id="L104">                user.setTeam(team);</span>
+<span class="fc" id="L105">                user.setId(result.getInt(&quot;IdUtente&quot;));</span>
+<span class="fc" id="L106">                user.setName(result.getString(&quot;Nome&quot;));</span>
+<span class="fc" id="L107">                user.setSurname(result.getString(&quot;Cognome&quot;));</span>
+<span class="fc" id="L108">                user.setPwd(result.getString(&quot;Pwd&quot;));</span>
+<span class="fc" id="L109">                user.setEmail(result.getString(&quot;Mail&quot;));</span>
+<span class="fc" id="L110">                user.setRole(RuoliUtenti.DIPENDENTE);</span>
+            }
+<span class="fc" id="L112">            return user;</span>
+        } finally {
+<span class="fc" id="L114">            DatabaseManager.closeConnessione(connection);</span>
+        }
+    }
+
+    /**
+     * Questa funzionalitÃ  permette di recuperare tutti i dipendenti
+     *
+     * @return {@literal ArrayList&lt;@link Dipendente&gt;} lista di dipendenti se sono presenti, null altrimenti
+     * @throws SQLException errore nella query errore nella query
+     */
+    public static ArrayList&lt;Dipendente&gt; recuperaDipendenti() throws SQLException {
+<span class="fc" id="L125">        Connection connection = DatabaseManager.getInstance().getConnection();</span>
+<span class="fc" id="L126">        PreparedStatement stmt = null;</span>
+<span class="fc" id="L127">        String query = &quot;SELECT * FROM &quot; + TABLE_DIPENDENTE + &quot; inner join utenti on utenti.IdUtente = dipendenti.IdDipendente&quot;;</span>
+<span class="fc" id="L128">        ArrayList&lt;Dipendente&gt; dipendenti = new ArrayList&lt;Dipendente&gt;();</span>
+        ResultSet result;
+        try {
+<span class="fc" id="L131">            stmt = connection.prepareStatement(query);</span>
+<span class="fc" id="L132">            result = stmt.executeQuery();</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">            while (result.next()) {</span>
+<span class="fc" id="L134">                Team team = new Team();</span>
+<span class="fc" id="L135">                Dipendente dipUser = new Dipendente();</span>
+<span class="fc" id="L136">                dipUser.setIdDipendente(result.getInt(&quot;idDipendente&quot;));</span>
+<span class="fc" id="L137">                dipUser.setResidenza(result.getString(&quot;Residenza&quot;));</span>
+<span class="fc" id="L138">                dipUser.setTelefono(result.getString(&quot;Telefono&quot;));</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">                if (!result.getBoolean(&quot;Stato&quot;)) {</span>
+<span class="fc" id="L140">                    dipUser.setStato(StatiDipendenti.OCCUPATO);</span>
+                }
+<span class="fc bfc" id="L142" title="All 2 branches covered.">                if (result.getBoolean(&quot;Stato&quot;)) {</span>
+<span class="fc" id="L143">                    dipUser.setStato(StatiDipendenti.DISPONIBILE);</span>
+                }
+<span class="fc" id="L145">                dipUser.setAnnoNascita(result.getInt(&quot;AnnoDiNascita&quot;));</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">                if (result.getInt(&quot;IdTeam&quot;) != 0) {</span>
+<span class="fc" id="L147">                    team.setIdTeam(result.getInt(&quot;IdTeam&quot;));</span>
+<span class="fc" id="L148">                    dipUser.setTeam(team);</span>
+                }
+<span class="fc" id="L150">                dipUser.setId(result.getInt(&quot;IdUtente&quot;));</span>
+<span class="fc" id="L151">                dipUser.setName(result.getString(&quot;Nome&quot;));</span>
+<span class="fc" id="L152">                dipUser.setSurname(result.getString(&quot;Cognome&quot;));</span>
+<span class="fc" id="L153">                dipUser.setPwd(result.getString(&quot;Pwd&quot;));</span>
+<span class="fc" id="L154">                dipUser.setEmail(result.getString(&quot;Mail&quot;));</span>
+<span class="fc" id="L155">                dipUser.setRole(RuoliUtenti.DIPENDENTE);</span>
+<span class="fc" id="L156">                dipendenti.add(dipUser);</span>
+<span class="fc" id="L157">            }</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">            return dipendenti.size() &gt; 0 ? dipendenti : null;</span>
+        } finally {
+<span class="fc" id="L160">            DatabaseManager.closeConnessione(connection);</span>
+        }
+    }
+
+    /**
+     * Questa funzionalitÃ  permette di aggiornare idTeam quando un dipendente viene aggiunto,
+     *
+     * @param idDip , {@literal idDip &gt; 0} rappresenta l'id del dipendente
+     * @param idTeam , {@literal idTeam &gt; 0} rappresenta l'id del team
+     * @return boolean true se il set Ã¨ andato a buon fine, false altrimenti
+     * @throws SQLException errore nella query errore nella query
+     */
+    public static boolean setIdTeamDipendente(int idDip, int idTeam) throws SQLException {
+<span class="fc bfc" id="L173" title="All 4 branches covered.">        if (idDip &lt;= 0 || idTeam &lt;= 0) {</span>
+<span class="fc" id="L174">            return false;</span>
+        }
+<span class="fc" id="L176">        Connection connection = DatabaseManager.getInstance().getConnection();</span>
+<span class="fc" id="L177">        PreparedStatement stm = null;</span>
+<span class="fc" id="L178">        String query = &quot;update &quot; + TABLE_DIPENDENTE + &quot; set IdTeam = ?, Stato = ? where IdDipendente = ?&quot;;</span>
+        try {
+<span class="fc" id="L180">            stm = connection.prepareStatement(query);</span>
+<span class="fc" id="L181">            stm.setInt(1, idTeam);</span>
+<span class="fc" id="L182">            stm.setBoolean(2, false);</span>
+<span class="fc" id="L183">            stm.setInt(3, idDip);</span>
+<span class="fc" id="L184">            int result = stm.executeUpdate();</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">            if (result &lt; 1) {</span>
+<span class="fc" id="L186">                return false;</span>
+            }
+<span class="fc" id="L188">            return true;</span>
+        } finally {
+<span class="fc" id="L190">            DatabaseManager.closeConnessione(connection);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

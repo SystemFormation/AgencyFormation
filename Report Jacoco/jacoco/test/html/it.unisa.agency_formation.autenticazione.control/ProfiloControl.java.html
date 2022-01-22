@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfiloControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.autenticazione.control</a> &gt; <span class="el_source">ProfiloControl.java</span></div><h1>ProfiloControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.autenticazione.control;
+
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.formazione.domain.Skill;
+import it.unisa.agency_formation.formazione.manager.FormazioneManager;
+import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+
+@WebServlet(&quot;/ProfiloControl&quot;)
+<span class="fc" id="L24">public class ProfiloControl extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per visualizzare e modificare il profilo
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L37">        Utente user = (Utente) request.getSession().getAttribute(&quot;user&quot;);</span>
+        try {
+<span class="fc bfc" id="L39" title="All 4 branches covered.">            if (user != null &amp;&amp; user.getRole() == RuoliUtenti.DIPENDENTE) {</span>
+<span class="fc" id="L40">                Dipendente dip = getAllDataDipFromManager(user.getId());</span>
+                ArrayList&lt;Skill&gt; skills;
+<span class="fc" id="L42">                skills = getSkillDipendenteFromManager(dip.getIdDipendente());</span>
+<span class="pc bpc" id="L43" title="1 of 4 branches missed.">                if (skills != null &amp;&amp; skills.size() &gt;= 1) {</span>
+<span class="fc" id="L44">                    dip.setSkills(skills);</span>
+                }
+<span class="fc" id="L46">                response.getWriter().write(&quot;1&quot;); // retrieve data ok</span>
+<span class="fc" id="L47">                request.setAttribute(&quot;dip&quot;, dip);</span>
+<span class="fc" id="L48">                RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(&quot;/static/Profilo.jsp&quot;);</span>
+<span class="fc" id="L49">                dispatcher.forward(request, response);</span>
+<span class="fc" id="L50">            } else {</span>
+<span class="fc" id="L51">                response.getWriter().write(&quot;2&quot;); //errore</span>
+<span class="fc" id="L52">                request.getSession().invalidate();</span>
+<span class="fc" id="L53">                response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+            }
+<span class="nc" id="L55">        } catch (SQLException e) {</span>
+<span class="nc" id="L56">            e.printStackTrace();</span>
+<span class="fc" id="L57">        }</span>
+<span class="fc" id="L58">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L71">        doGet(req, resp);</span>
+<span class="fc" id="L72">    }</span>
+
+    /**
+     * Questo metodo permette di ottenere tutti i dati del dipendente utilizzando il manager
+     *
+     * @param id del dipendente
+     * @return il dipendente interessato
+     * @throws SQLException errore nella query
+     */
+
+    public static Dipendente getAllDataDipFromManager(int id) throws SQLException {
+<span class="fc" id="L83">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="fc" id="L84">        return autenticazioneManager.getDipendente(id);</span>
+    }
+
+    /**
+     * Questo metodo permette di ottenere tutte le skill di un dipendente utilizzando il manager
+     *
+     * @param idDip id del dipendente
+     * @return {@literal ArrayList&lt;@link Skill&gt;} le skills del dipendente
+     * @throws SQLException errore nella query
+     */
+
+    public static ArrayList&lt;Skill&gt; getSkillDipendenteFromManager(int idDip) throws SQLException {
+<span class="fc" id="L96">        FormazioneManager formazioneManager = new FormazioneManagerImpl();</span>
+<span class="fc" id="L97">        return formazioneManager.recuperoSkillConIdDipendente(idDip);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

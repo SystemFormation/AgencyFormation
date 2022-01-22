@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ViewCandidaturaControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.reclutamento.control</a> &gt; <span class="el_source">ViewCandidaturaControl.java</span></div><h1>ViewCandidaturaControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.reclutamento.control;
+
+import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+
+@WebServlet(&quot;/ViewCandidaturaControl&quot;)
+<span class="fc" id="L16">public class ViewCandidaturaControl extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare la visualizzazione dei dettagli di una candidatura
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L29">        int idCandidato = 0;</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        if (request.getParameter(&quot;idCandidato&quot;) == null) {</span>
+<span class="fc" id="L31">            response.getWriter().write(&quot;4&quot;); // idCandidato null</span>
+<span class="fc" id="L32">            String descrizione = &quot;Si Ã¨ verficato un problema con IdCandidato&quot;;</span>
+<span class="fc" id="L33">            response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="fc" id="L34">        } else {</span>
+<span class="fc" id="L35">            idCandidato = Integer.parseInt(request.getParameter(&quot;idCandidato&quot;));</span>
+        }
+<span class="fc" id="L37">        Candidatura candidatura = null;</span>
+        try {
+<span class="fc" id="L39">            candidatura = getCandidaturaByIdFromManager(idCandidato);</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">            if (candidatura == null) {</span>
+<span class="fc" id="L41">                response.getWriter().write(&quot;1&quot;); //candidatura null</span>
+<span class="fc" id="L42">                String descrizione = &quot;Si Ã¨ verficato un problema con il recupero della candidatura&quot;;</span>
+<span class="fc" id="L43">                response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="fc" id="L44">            } else {</span>
+<span class="fc" id="L45">                String cv = &quot;curriculum.&quot;;</span>
+<span class="fc" id="L46">                request.setAttribute(&quot;curriculum&quot;, cv);</span>
+<span class="fc" id="L47">                response.getWriter().write(cv);</span>
+<span class="fc" id="L48">                String documenti = candidatura.getDocumentiAggiuntivi();</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">                if (documenti != null) {</span>
+<span class="fc" id="L50">                    response.getWriter().write(&quot;2&quot;); //documenti non null</span>
+<span class="fc" id="L51">                    documenti = &quot;documenti&quot;;</span>
+<span class="fc" id="L52">                    response.getWriter().write(documenti);</span>
+<span class="fc" id="L53">                    response.getWriter().close();</span>
+                } else {
+<span class="fc" id="L55">                    response.getWriter().write(&quot;3&quot;); //documenti null</span>
+                }
+            }
+<span class="nc" id="L58">        } catch (SQLException e) {</span>
+<span class="nc" id="L59">            e.printStackTrace();</span>
+<span class="fc" id="L60">        }</span>
+<span class="fc" id="L61">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="nc" id="L74">        doGet(req, resp);</span>
+<span class="nc" id="L75">    }</span>
+
+    /**
+     * Questo metodo permette di ottenere la candidatura di un candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato
+     * @return la candidatura interessata
+     * @throws SQLException errore nella query
+     */
+
+    public static Candidatura getCandidaturaByIdFromManager(int idCandidato) throws SQLException {
+<span class="fc" id="L86">        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();</span>
+<span class="fc" id="L87">        return reclutamentoManager.getCandidaturaById(idCandidato);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

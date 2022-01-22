@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CandidatoAssuntoControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.reclutamento.control</a> &gt; <span class="el_source">CandidatoAssuntoControl.java</span></div><h1>CandidatoAssuntoControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.reclutamento.control;
+
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+@WebServlet(&quot;/CandidatoAssuntoControl&quot;)
+<span class="fc" id="L18">public class CandidatoAssuntoControl extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per completare l'assunzione del candidato rendendolo dipendente
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L31">        Utente user = (Utente) request.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="pc bpc" id="L32" title="1 of 4 branches missed.">        if (user == null || user.getRole() != RuoliUtenti.CANDIDATO) {</span>
+<span class="fc" id="L33">            response.getWriter().write(&quot;1&quot;); // user null o ruolo non adatto</span>
+<span class="fc" id="L34">            request.getSession().invalidate();</span>
+<span class="fc" id="L35">            response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        } else {
+            try {
+<span class="fc" id="L38">                int idDipendente = user.getId();</span>
+<span class="fc" id="L39">                    int annoNascita = Integer.parseInt(request.getParameter(&quot;annoDipendente&quot;));</span>
+<span class="fc" id="L40">                    String residenza = request.getParameter(&quot;residenzaDipendente&quot;);</span>
+<span class="fc" id="L41">                    String telefono = request.getParameter(&quot;telefonoDipendente&quot;);</span>
+<span class="pc bpc" id="L42" title="1 of 4 branches missed.">                    if(residenza!=null &amp;&amp; telefono!=null) {</span>
+<span class="fc" id="L43">                        Dipendente dipendente = new Dipendente();</span>
+<span class="fc" id="L44">                        dipendente.setIdDipendente(idDipendente);</span>
+<span class="fc" id="L45">                        dipendente.setAnnoNascita(annoNascita);</span>
+<span class="fc" id="L46">                        dipendente.setResidenza(residenza);</span>
+<span class="fc" id="L47">                        dipendente.setTelefono(telefono);</span>
+<span class="fc" id="L48">                        dipendente.setStato(StatiDipendenti.DISPONIBILE);</span>
+<span class="fc" id="L49">                        boolean esito = assumiCandidatoFromManager(dipendente);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">                        if (!esito) {</span>
+<span class="fc" id="L51">                            response.getWriter().write(&quot;2&quot;); //errore assunzione</span>
+<span class="fc" id="L52">                            String descrizione = &quot;Si Ã¨ verificato un errore nell'assunzione&quot;;</span>
+<span class="fc" id="L53">                            response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="fc" id="L54">                        } else {</span>
+<span class="fc" id="L55">                            request.getSession().invalidate();</span>
+<span class="fc" id="L56">                            response.getWriter().write(&quot;3&quot;); // assunzione</span>
+<span class="fc" id="L57">                            response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+                        }
+<span class="fc" id="L59">                    }else{</span>
+<span class="fc" id="L60">                        response.getWriter().write(&quot;4&quot;); // residenza o telefono o null</span>
+<span class="fc" id="L61">                        String descrizione = &quot;Residenza o Telefono null&quot;;</span>
+<span class="fc" id="L62">                        response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot;+descrizione);</span>
+                    }
+<span class="nc" id="L64">            } catch (SQLException e) {</span>
+<span class="nc" id="L65">                e.printStackTrace();</span>
+<span class="fc" id="L66">            }</span>
+        }
+<span class="fc" id="L68">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L81">        doGet(req, resp);</span>
+<span class="fc" id="L82">    }</span>
+
+    /**
+     * Questo metodo permette di assumere un candidato rendendolo dipendente utilizzando il manager
+     *
+     * @param dipendente nuovo dipendente
+     * @return boolean (true = dipendente creato correttamente, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean assumiCandidatoFromManager(Dipendente dipendente) throws SQLException {
+<span class="nc" id="L93">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="nc" id="L94">        return autenticazioneManager.assumiCandidato(dipendente);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

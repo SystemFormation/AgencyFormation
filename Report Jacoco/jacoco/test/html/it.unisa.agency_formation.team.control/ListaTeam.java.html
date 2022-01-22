@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ListaTeam.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.team.control</a> &gt; <span class="el_source">ListaTeam.java</span></div><h1>ListaTeam.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.team.control;
+
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.team.domain.Team;
+import it.unisa.agency_formation.team.manager.TeamManager;
+import it.unisa.agency_formation.team.manager.TeamManagerImpl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+@WebServlet(&quot;/ListaTeam&quot;)
+<span class="fc" id="L23">public class ListaTeam extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare la visualizzazione dei team
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher;
+<span class="fc" id="L37">        Utente user = (Utente) req.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="fc bfc" id="L38" title="All 4 branches covered.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.TM) { //sei tm</span>
+            try {
+<span class="fc" id="L40">                ArrayList&lt;Dipendente&gt; listaDipsUsers = recuperoDipendentiDiUnTeamFromManager();</span>
+<span class="fc" id="L41">                ArrayList&lt;Team&gt; teams = visualizzaTeamOfTMFromManager(user.getId());</span>
+<span class="fc" id="L42">                req.setAttribute(&quot;listDip&quot;, listaDipsUsers);</span>
+<span class="fc" id="L43">                req.setAttribute(&quot;listTeam&quot;, teams);</span>
+<span class="fc" id="L44">                resp.getWriter().write(&quot;1&quot;);</span>
+<span class="fc" id="L45">                dispatcher = req.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/ListaTeamTM.jsp&quot;);</span>
+<span class="fc" id="L46">                dispatcher.forward(req, resp);</span>
+<span class="nc" id="L47">            } catch (SQLException e) {</span>
+<span class="nc" id="L48">                e.printStackTrace();</span>
+<span class="pc" id="L49">            }</span>
+<span class="fc bfc" id="L50" title="All 4 branches covered.">        } else if (user != null &amp;&amp; user.getRole() == RuoliUtenti.HR) {</span>
+            try {
+<span class="fc" id="L52">                ArrayList&lt;Dipendente&gt; listaDip = getAllDipendentiFromManager();</span>
+<span class="fc" id="L53">                ArrayList&lt;Team&gt; team = visuallizzaTeamsForHRFromManager();</span>
+<span class="fc" id="L54">                req.setAttribute(&quot;listTeam&quot;, team);</span>
+<span class="fc" id="L55">                req.setAttribute(&quot;listDip&quot;, listaDip);</span>
+<span class="fc" id="L56">                resp.getWriter().write(&quot;2&quot;);</span>
+<span class="fc" id="L57">                dispatcher = req.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/ListaTeamHR.jsp&quot;);</span>
+<span class="fc" id="L58">                dispatcher.forward(req, resp);</span>
+<span class="nc" id="L59">            } catch (SQLException e) {</span>
+<span class="nc" id="L60">                e.printStackTrace();</span>
+<span class="pc" id="L61">            }</span>
+        } else {
+<span class="fc" id="L63">            resp.getWriter().write(&quot;3&quot;);</span>
+<span class="fc" id="L64">            req.getSession().invalidate();</span>
+<span class="fc" id="L65">            resp.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+<span class="fc" id="L67">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L80">        doGet(req, resp);</span>
+<span class="fc" id="L81">    }</span>
+
+    /**
+     * Questo metodo permette di ottenere i dipendenti membri di un team utilizzando il manager
+     *
+     * @return {@literal ArrayList&lt;@link Dipendente&gt;} lista di dipendenti di un team
+     * @throws SQLException errore nella query
+     */
+
+    public static ArrayList&lt;Dipendente&gt; recuperoDipendentiDiUnTeamFromManager() throws SQLException {
+<span class="fc" id="L91">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="fc" id="L92">        return teamManager.recuperaDipendentiDelTeam();</span>
+    }
+
+    /**
+     * Questo metodo permette di visualizzare i team creati da un TM utilizzando il manager
+     *
+     * @param idTM id del TM
+     * @return {@literal ArrayList&lt;@link Team&gt;} lista dei team creati da un TM
+     * @throws SQLException errore nella query
+     */
+
+    public static ArrayList&lt;Team&gt; visualizzaTeamOfTMFromManager(int idTM) throws SQLException {
+<span class="fc" id="L104">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="fc" id="L105">        return teamManager.visualizzaTeams(idTM);</span>
+    }
+
+    /**
+     * Questo metodo permette di ottenere tutti i dipendenti utilizzando il manager
+     *
+     * @return {@literal ArrayList&lt;@link Dipendente&gt;} lista di tutti i dipendenti
+     * @throws SQLException errore nella query
+     */
+
+    public static ArrayList&lt;Dipendente&gt; getAllDipendentiFromManager() throws SQLException {
+<span class="fc" id="L116">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="fc" id="L117">        return autenticazioneManager.getTuttiDipendenti();</span>
+    }
+
+    /**
+     * Questo metodo permette di visualizzare tutti i team utilizzando il manager
+     *
+     * @return {@literal ArrayList&lt;@link Team&gt;} lista di tutti i team
+     * @throws SQLException errore nella query
+     */
+
+    public static ArrayList&lt;Team&gt; visuallizzaTeamsForHRFromManager() throws SQLException {
+<span class="fc" id="L128">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="fc" id="L129">        return teamManager.visualizzaTuttiTeams();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

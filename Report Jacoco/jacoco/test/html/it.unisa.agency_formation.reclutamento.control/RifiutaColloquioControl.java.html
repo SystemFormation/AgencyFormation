@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RifiutaColloquioControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.reclutamento.control</a> &gt; <span class="el_source">RifiutaColloquioControl.java</span></div><h1>RifiutaColloquioControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.reclutamento.control;
+
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+
+import static java.util.Objects.requireNonNull;
+
+@WebServlet(&quot;/RifiutaColloquioControl&quot;)
+<span class="fc" id="L22">public class RifiutaColloquioControl extends HttpServlet {</span>
+    private static final String path = &quot;\\AgencyFormationFile\\Candidature\\&quot;;
+<span class="fc" id="L24">    private static final String pathAbsolute = System.getProperty(&quot;user.home&quot;) + path;</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare il rifiuto di un candidato
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L37">        Utente user = (Utente) request.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="fc bfc" id="L38" title="All 4 branches covered.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.HR) {</span>
+<span class="fc" id="L39">            int idCandidato = Integer.parseInt(request.getParameter(&quot;idCandidato&quot;));</span>
+            try {
+<span class="fc" id="L41">                Candidatura candidatura = getCandidaturaFromManager(idCandidato);</span>
+<span class="fc" id="L42">                File toDelete = new File(pathAbsolute + &quot;IdUtente-&quot; + candidatura.getIdCandidato());</span>
+<span class="fc" id="L43">                delete(toDelete);</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">                if (rejectCandidaturaFromManager(candidatura.getIdCandidatura(), user.getId())) {</span>
+<span class="fc" id="L45">                    response.getWriter().write(&quot;1&quot;); // rifiuto avvenuto</span>
+                } else {
+<span class="fc" id="L47">                    response.getWriter().write(&quot;2&quot;); //rifiuto non avvenuto</span>
+<span class="fc" id="L48">                    String descrizione = &quot;rifiuto del candidato non andato a buon fine&quot;;</span>
+<span class="fc" id="L49">                    response.sendRedirect(&quot;./static/Error.jsp?=&quot; + descrizione);</span>
+                }
+<span class="nc" id="L51">            } catch (SQLException e) {</span>
+<span class="nc" id="L52">                e.printStackTrace();</span>
+<span class="fc" id="L53">            }</span>
+<span class="fc" id="L54">            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(&quot;/WEB-INF/jsp/HomeHR.jsp&quot;);</span>
+<span class="fc" id="L55">            dispatcher.forward(request, response);</span>
+<span class="fc" id="L56">        } else {</span>
+<span class="fc" id="L57">            response.getWriter().write(&quot;3&quot;); //utente null o non Ã¨ un HR</span>
+<span class="fc" id="L58">            request.getSession().invalidate();</span>
+<span class="fc" id="L59">            response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+<span class="fc" id="L61">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L74">        doGet(req, resp);</span>
+<span class="fc" id="L75">    }</span>
+
+    /**
+     * Questo metodo permette di ottenere la candidatura di un candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato
+     * @return la candidatura interessata
+     * @throws SQLException errore nella query
+     */
+
+    public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
+<span class="nc" id="L86">        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();</span>
+<span class="nc" id="L87">        return reclutamentoManager.getCandidaturaById(idCandidato);</span>
+    }
+
+    /**
+     * Questo metodo permette di rifiutare una candidatura utilizzando il manager
+     *
+     * @param idCandidatura id della candidatura
+     * @param idHR          che rifiuta la candidatura
+     * @return boolean (true= la candidatura viene rifiutata correttamente, false=altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean rejectCandidaturaFromManager(int idCandidatura, int idHR) throws SQLException {
+<span class="nc" id="L100">        ReclutamentoManager reclutamentoManager = new ReclutamentoManagerImpl();</span>
+<span class="nc" id="L101">        return reclutamentoManager.rifiutaCandidatura(idCandidatura, idHR);</span>
+    }
+
+    /**
+     * Questo metodo permette di eliminare un file
+     *
+     * @param file file da eliminare
+     */
+
+    public static void delete(File file) {
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        for (File subFile : requireNonNull(file.listFiles())) {</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">            if (subFile.isDirectory()) {</span>
+<span class="nc" id="L113">                delete(subFile);</span>
+            } else {
+<span class="nc" id="L115">                subFile.delete();</span>
+            }
+        }
+<span class="nc" id="L118">        file.delete();</span>
+<span class="nc" id="L119">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
