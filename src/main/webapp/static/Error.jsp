@@ -18,7 +18,7 @@
             <%=descrizione%>
         </c:otherwise>
     </c:choose>
-    <div class="back"><a href="http://localhost:8080/AgencyFormation/">Torna alla Home</a></div>
+    <div class="back"><a href="../LoginControl">Torna alla Home</a></div>
 </div>
 </body>
 </html>
