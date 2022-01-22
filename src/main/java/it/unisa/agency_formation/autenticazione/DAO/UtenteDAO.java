@@ -195,7 +195,7 @@ public class UtenteDAO {
         int n = -1;
         try {
             retrieve = connection.prepareStatement(query);
-            retrieve.setString(1,email);
+            retrieve.setString(1, email);
             resultSet = retrieve.executeQuery();
             if (resultSet.next()) {
                 n = resultSet.getInt("num");

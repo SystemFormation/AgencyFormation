@@ -39,7 +39,7 @@ public class CandidatoAssuntoControl extends HttpServlet {
                     int annoNascita = Integer.parseInt(request.getParameter("annoDipendente"));
                     String residenza = request.getParameter("residenzaDipendente");
                     String telefono = request.getParameter("telefonoDipendente");
-                    if(residenza!=null && telefono!=null) {
+                    if (residenza != null && telefono != null) {
                         Dipendente dipendente = new Dipendente();
                         dipendente.setIdDipendente(idDipendente);
                         dipendente.setAnnoNascita(annoNascita);
@@ -56,10 +56,10 @@ public class CandidatoAssuntoControl extends HttpServlet {
                             response.getWriter().write("3"); // assunzione
                             response.sendRedirect("./static/Login.jsp");
                         }
-                    }else{
+                    } else {
                         response.getWriter().write("4"); // residenza o telefono o null
                         String descrizione = "Residenza o Telefono null";
-                        response.sendRedirect("./static/Error.jsp?descrizione="+descrizione);
+                        response.sendRedirect("./static/Error.jsp?descrizione=" + descrizione);
                     }
             } catch (SQLException e) {
                 e.printStackTrace();
