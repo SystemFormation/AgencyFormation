@@ -11,13 +11,14 @@
 <body>
 <div class="error">
     <c:choose>
-        <c:when test="${descrizione.length()==0}|| ${descrizione==null}">
+        <c:when test="${descrizione.length()==0} || ${descrizione==null}">
             Funzionalità in sviluppo
         </c:when>
         <c:otherwise>
             <%=descrizione%>
         </c:otherwise>
     </c:choose>
+    <div class="back"><a href="../LoginControl">Torna alla Home</a></div>
 </div>
 </body>
 </html>

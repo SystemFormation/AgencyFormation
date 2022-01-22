@@ -134,5 +134,94 @@ public class UploadCandidatureControlTest {
         }
     }
 
+    @Test
+    public void scelta1CandNonSalvata() throws IOException, ServletException {
+        int idUser = 10;
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "lol", RuoliUtenti.CANDIDATO);
+        user.setId(idUser);
+        request = mock(HttpServletRequest.class);
+        response = mock(HttpServletResponse.class);
+        session = mock(HttpSession.class);
+        dispatcher = mock(RequestDispatcher.class);
+        context = mock(ServletContext.class);
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(user);
+        when(request.getParameter("idTeam")).thenReturn("10");
+        when(request.getParameter("sceltaUpload")).thenReturn("1");
+        when(request.getSession(true)).thenReturn(session);
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        Part part = mock(Part.class);
+        when(request.getPart("curriculum")).thenReturn(part);
+        try (MockedStatic<UploadCandidatureControl> mockedStatic = mockStatic(UploadCandidatureControl.class)) {
+            mockedStatic.when(() -> UploadCandidatureControl.uploadCandidatureFromManager(any(Candidatura.class))).thenReturn(false);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            when(response.getWriter()).thenReturn(writer);
+            new UploadCandidatureControl().doPost(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("5"));
+        }
+    }
+    @Test
+    public void scelta2() throws IOException, ServletException {
+        int idUser = 10;
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "lol", RuoliUtenti.CANDIDATO);
+        user.setId(idUser);
+        request = mock(HttpServletRequest.class);
+        response = mock(HttpServletResponse.class);
+        session = mock(HttpSession.class);
+        dispatcher = mock(RequestDispatcher.class);
+        context = mock(ServletContext.class);
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(user);
+        when(request.getParameter("idTeam")).thenReturn("10");
+        when(request.getParameter("sceltaUpload")).thenReturn("2");
+        when(request.getSession(true)).thenReturn(session);
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        Part part = mock(Part.class);
+        when(request.getPart("documenti")).thenReturn(part);
+        try (MockedStatic<UploadCandidatureControl> mockedStatic = mockStatic(UploadCandidatureControl.class)) {
+            mockedStatic.when(() -> UploadCandidatureControl.uploadCandidatureFromManager(any(Candidatura.class))).thenReturn(true);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            when(response.getWriter()).thenReturn(writer);
+            new UploadCandidatureControl().doPost(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("6"));
+        }
+    }
+
+    @Test
+    public void scelta2DocumentoNonSalvato() throws IOException, ServletException {
+        int idUser = 10;
+        Utente user = new Utente("Mario", "Rossi", "mario.rossi@gmail.com", "lol", RuoliUtenti.CANDIDATO);
+        user.setId(idUser);
+        request = mock(HttpServletRequest.class);
+        response = mock(HttpServletResponse.class);
+        session = mock(HttpSession.class);
+        dispatcher = mock(RequestDispatcher.class);
+        context = mock(ServletContext.class);
+        when(request.getSession()).thenReturn(session);
+        when(session.getAttribute("user")).thenReturn(user);
+        when(request.getParameter("idTeam")).thenReturn("10");
+        when(request.getParameter("sceltaUpload")).thenReturn("2");
+        when(request.getSession(true)).thenReturn(session);
+        when(request.getServletContext()).thenReturn(context);
+        when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
+        Part part = mock(Part.class);
+        when(request.getPart("documenti")).thenReturn(part);
+        try (MockedStatic<UploadCandidatureControl> mockedStatic = mockStatic(UploadCandidatureControl.class)) {
+            mockedStatic.when(() -> UploadCandidatureControl.uploadCandidatureFromManager(any(Candidatura.class))).thenReturn(false);
+            StringWriter stringWriter = new StringWriter();
+            PrintWriter writer = new PrintWriter(stringWriter);
+            when(response.getWriter()).thenReturn(writer);
+            new UploadCandidatureControl().doPost(request, response);
+            writer.flush();
+            assertTrue(stringWriter.toString().contains("7"));
+        }
+    }
+
 
 }

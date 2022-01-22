@@ -775,7 +775,7 @@
         ["xpath=//form[@id='formTeam']/input[3]", "xpath:idRelative"],
         ["xpath=//input[3]", "xpath:position"]
       ],
-      "value": "NProgetto_65"
+      "value": "NProgetto.65"
     }, {
       "id": "b62eb071-a014-4edb-9c10-8e6bfa8a7d1f",
       "comment": "",
@@ -1225,7 +1225,7 @@
         ["xpath=//form[@id='formTeam']/textarea", "xpath:idRelative"],
         ["xpath=//textarea", "xpath:position"]
       ],
-      "value": "Descrizione#"
+      "value": "Descrizione@"
     }, {
       "id": "6c37fc97-33fc-4ad8-aac0-fe972990c931",
       "comment": "",
@@ -1760,6 +1760,215 @@
         ["css=li:nth-child(2) > a", "css:finder"],
         ["xpath=//a[contains(text(),'Logout')]", "xpath:link"],
         ["xpath=//a[contains(@href, './LogoutControl')]", "xpath:href"],
+        ["xpath=//li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Logout')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "62cca28a-4198-4a96-bd33-fef3d1ce8b91",
+    "name": "TC_2.1_8",
+    "commands": [{
+      "id": "2c8b78b8-0fea-4c7c-917b-37086d985f13",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/AgencyFormation/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "61f3f336-ca1f-4e03-b7e2-125857c25d87",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1407x951",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f3d97abd-d985-4292-9814-52eb2a26d921",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi",
+      "targets": [
+        ["linkText=Accedi", "linkText"],
+        ["css=ul:nth-child(1) > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Accedi')]", "xpath:link"],
+        ["xpath=//a[contains(@href, './static/Login.html')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Accedi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7aead55b-2bbe-4936-96cb-b1041e117d2a",
+      "comment": "",
+      "command": "click",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8b656bb2-e028-4c44-817a-42b38815e3f7",
+      "comment": "",
+      "command": "type",
+      "target": "id=email",
+      "targets": [
+        ["id=email", "id"],
+        ["name=email", "name"],
+        ["css=#email", "css:finder"],
+        ["xpath=//input[@id='email']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "m.nocerino@studenti.unisa.it"
+    }, {
+      "id": "b9e97e1b-cc25-4edf-8858-cb1978bd58a2",
+      "comment": "",
+      "command": "click",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "05f5badf-1e19-4cce-8581-6d10e1c64acf",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "lol"
+    }, {
+      "id": "1d95bc3e-596f-42c9-aa8a-d6964f804023",
+      "comment": "",
+      "command": "click",
+      "target": "id=Accedi",
+      "targets": [
+        ["id=Accedi", "id"],
+        ["css=#Accedi", "css:finder"],
+        ["xpath=//input[@id='Accedi']", "xpath:attributes"],
+        ["xpath=//form[@id='formLogin']/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cab662f7-8c18-4539-8a49-8a2115f88b96",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Accedi all'area",
+      "targets": [
+        ["linkText=Accedi all'area", "linkText"],
+        ["xpath=//div[@id='home']/button/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, './static/CreaTeam.jsp')]", "xpath:href"],
+        ["xpath=//button/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d2e6b28a-1658-40a1-bca4-f49a84bffda1",
+      "comment": "",
+      "command": "type",
+      "target": "id=fname",
+      "targets": [
+        ["id=lname", "id"],
+        ["name=lname", "name"],
+        ["css=#lname", "css:finder"],
+        ["xpath=//input[@id='lname']", "xpath:attributes"],
+        ["xpath=//form[@id='formTeam']/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "NTeam"
+    }, {
+      "id": "4c17b3cf-cb71-4c30-9578-a4c68c54e2d8",
+      "comment": "",
+      "command": "type",
+      "target": "id=lname",
+      "targets": [
+        ["id=lname", "id"],
+        ["name=lname", "name"],
+        ["css=#lname", "css:finder"],
+        ["xpath=//input[@id='lname']", "xpath:attributes"],
+        ["xpath=//form[@id='formTeam']/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "NProgetto"
+    }, {
+      "id": "3923ca84-da08-4f4e-97f0-221e7fccc80a",
+      "comment": "",
+      "command": "type",
+      "target": "id=quantity",
+      "targets": [
+        ["id=quantity", "id"],
+        ["name=quantity", "name"],
+        ["css=#quantity", "css:finder"],
+        ["xpath=//input[@id='quantity']", "xpath:attributes"],
+        ["xpath=//form[@id='formTeam']/input[4]", "xpath:idRelative"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": "5"
+    }, {
+      "id": "e5cfc605-f046-4ac1-83a8-7e6a4644da8d",
+      "comment": "",
+      "command": "type",
+      "target": "id=teamDescr",
+      "targets": [
+        ["id=teamDescr", "id"],
+        ["name=teamDescr", "name"],
+        ["css=#teamDescr", "css:finder"],
+        ["xpath=//textarea[@id='teamDescr']", "xpath:attributes"],
+        ["xpath=//form[@id='formTeam']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "DescrizioneTeam"
+    }, {
+      "id": "eb4fd6c9-750b-4efa-b523-667128a25d94",
+      "comment": "",
+      "command": "click",
+      "target": "id=crea",
+      "targets": [
+        ["id=crea", "id"],
+        ["name=crea", "name"],
+        ["css=#crea", "css:finder"],
+        ["xpath=//input[@id='crea']", "xpath:attributes"],
+        ["xpath=//form[@id='formTeam']/input[5]", "xpath:idRelative"],
+        ["xpath=//input[5]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e6670e8b-f042-40a6-a4a9-46baffb0ec99",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "xpath=(//div[@id='flex-team']/h2)[3]",
+      "targets": [
+        ["css=.team:nth-child(9) h2", "css:finder"],
+        ["xpath=(//div[@id='flex-team']/h2)[3]", "xpath:idRelative"],
+        ["xpath=//div[6]/div/div/h2", "xpath:position"],
+        ["xpath=//h2[contains(.,'Team: NTeam')]", "xpath:innerText"]
+      ],
+      "value": "NTeam"
+    }, {
+      "id": "f4251899-3d3c-4f5a-8df2-10176d75b194",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Logout",
+      "targets": [
+        ["linkText=Logout", "linkText"],
+        ["css=li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Logout')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '../LogoutControl')]", "xpath:href"],
         ["xpath=//li[2]/a", "xpath:position"],
         ["xpath=//a[contains(.,'Logout')]", "xpath:innerText"]
       ],

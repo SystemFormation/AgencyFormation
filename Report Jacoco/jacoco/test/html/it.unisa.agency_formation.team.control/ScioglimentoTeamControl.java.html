@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ScioglimentoTeamControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.team.control</a> &gt; <span class="el_source">ScioglimentoTeamControl.java</span></div><h1>ScioglimentoTeamControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.team.control;
+
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.team.manager.TeamManager;
+import it.unisa.agency_formation.team.manager.TeamManagerImpl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+@WebServlet(&quot;/ScioglimentoTeamControl&quot;)
+<span class="fc" id="L19">public class ScioglimentoTeamControl extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare lo scioglimento del team
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L32">        Utente user = (Utente) req.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="fc bfc" id="L33" title="All 4 branches covered.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.TM) {</span>
+<span class="fc" id="L34">            int idTeam = Integer.parseInt(req.getParameter(&quot;idTeam&quot;));</span>
+            RequestDispatcher dispatcher;
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (idTeam &gt; 0) {</span>
+                try {
+<span class="fc" id="L38">                    ArrayList&lt;Integer&gt; listaIdDip = recuperaIdDipendentiFromManager(idTeam);</span>
+<span class="fc bfc" id="L39" title="All 4 branches covered.">                    if (listaIdDip != null &amp;&amp; listaIdDip.size() &gt; 0) {</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">                        for (int idDip : listaIdDip) {</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">                            if (!updateStatoDipendenteFromManager(idDip)) {</span>
+<span class="nc" id="L42">                                resp.getWriter().write(&quot;1&quot;); // errore aggiornamento stato dip</span>
+<span class="nc" id="L43">                                String descrizione = &quot;aggiornamento stato non andato a buon fine&quot;;</span>
+<span class="nc" id="L44">                                resp.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="nc" id="L45">                                return;</span>
+                            }
+<span class="fc" id="L47">                        }</span>
+                    } else {
+<span class="fc" id="L49">                        resp.getWriter().write(&quot;4&quot;);</span>
+                        }
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                    if (!eliminaTeamFromManager(idTeam)) {</span>
+<span class="fc" id="L52">                        resp.getWriter().write(&quot;2&quot;);</span>
+<span class="fc" id="L53">                        String descrizione = &quot;Errore nello sciogliemnto del team&quot;;</span>
+<span class="fc" id="L54">                        resp.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="fc" id="L55">                        return;</span>
+                    } else {
+<span class="fc" id="L57">                        resp.getWriter().write(&quot;3&quot;);</span>
+<span class="fc" id="L58">                        dispatcher = req.getServletContext().getRequestDispatcher(&quot;/ListaTeam&quot;);</span>
+<span class="fc" id="L59">                        dispatcher.forward(req, resp);</span>
+<span class="fc" id="L60">                        return;</span>
+                    }
+
+<span class="nc" id="L63">                } catch (SQLException e) {</span>
+<span class="nc" id="L64">                    e.printStackTrace();</span>
+<span class="nc" id="L65">                }</span>
+            } else {
+<span class="fc" id="L67">                resp.getWriter().write(&quot;5&quot;);</span>
+<span class="fc" id="L68">                String descrizione = &quot;Errore. IdTeam Non Valido&quot;;</span>
+<span class="fc" id="L69">                resp.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="fc" id="L70">                return;</span>
+            }
+<span class="nc" id="L72">        } else {</span>
+<span class="fc" id="L73">            resp.getWriter().write(&quot;5&quot;);</span>
+<span class="fc" id="L74">            req.getSession().invalidate();</span>
+<span class="fc" id="L75">            resp.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+
+<span class="fc" id="L78">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L91">        doGet(req, resp);</span>
+<span class="fc" id="L92">    }</span>
+
+    /**
+     * Questo metodo permette di ottenere tutti gli id dei dipendenti membri di un team utilizzando il manager
+     *
+     * @param idTeam id del team
+     * @return {@literal ArrayList&lt;@link Integer&gt;} lista degli id del dipendente
+     * @throws SQLException errore nella query
+     */
+
+    public static ArrayList&lt;Integer&gt; recuperaIdDipendentiFromManager(int idTeam) throws SQLException {
+<span class="nc" id="L103">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="nc" id="L104">        return teamManager.recuperaIdDipendentiDelTeam(idTeam);</span>
+    }
+
+    /**
+     * Questo metodo permette di modificare lo stato del dipendente membro di un team utilizzando il manager
+     *
+     * @param idDipendente id del dipendente a cui settare lo stato
+     * @return boolean (true = modifica effettuata con successo , false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean updateStatoDipendenteFromManager(int idDipendente) throws SQLException {
+<span class="nc" id="L116">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="nc" id="L117">        return teamManager.updateDipsDisso(idDipendente);</span>
+    }
+
+    /**
+     * Questo metodo permette di eliminare un team utilizzando il manager
+     *
+     * @param idTeam id del team da eliminare
+     * @return boolean (true = eliminazione andata a buon fine, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean eliminaTeamFromManager(int idTeam) throws SQLException {
+<span class="nc" id="L129">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="nc" id="L130">        return teamManager.sciogliTeam(idTeam);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DownloadControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.reclutamento.control</a> &gt; <span class="el_source">DownloadControl.java</span></div><h1>DownloadControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.reclutamento.control;
+
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.reclutamento.domain.Candidatura;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManager;
+import it.unisa.agency_formation.reclutamento.manager.ReclutamentoManagerImpl;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.SQLException;
+
+@WebServlet(&quot;/DownloadControl&quot;)
+<span class="fc" id="L22">public class DownloadControl extends HttpServlet {</span>
+
+<span class="fc" id="L24">    private final String directory = System.getProperty(&quot;user.home&quot;);</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare il download del curriculum e possibili documenti aggiuntivi
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L37">        Utente user = (Utente) request.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="pc bpc" id="L38" title="1 of 4 branches missed.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.HR) {</span>
+
+<span class="fc" id="L40">            String whatDownload = request.getParameter(&quot;toDownload&quot;);</span>
+<span class="fc" id="L41">            int idCandidato = Integer.parseInt(request.getParameter(&quot;idCandidato&quot;));</span>
+<span class="fc" id="L42">            Candidatura candidatura = null;</span>
+<span class="fc" id="L43">            ServletContext context = request.getServletContext();</span>
+            try {
+<span class="fc" id="L45">                candidatura = getCandidaturaFromManager(idCandidato);</span>
+<span class="nc" id="L46">            } catch (SQLException e) {</span>
+<span class="nc" id="L47">                e.printStackTrace();</span>
+<span class="fc" id="L48">            }</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">            if (candidatura != null) {</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">                if (whatDownload.equalsIgnoreCase(&quot;curriculum&quot;)) {</span>
+<span class="fc" id="L51">                    String pathCurriculum = directory + candidatura.getCurriculum();</span>
+<span class="fc" id="L52">                    File file = new File(pathCurriculum);</span>
+<span class="fc" id="L53">                    FileInputStream fileIn = new FileInputStream(file);</span>
+<span class="fc" id="L54">                    String mimeType = context.getMimeType(pathCurriculum);</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">                    if (mimeType == null) {</span>
+<span class="fc" id="L56">                        mimeType = &quot;application/octet-stream&quot;;</span>
+                    }
+<span class="fc" id="L58">                    response.setContentType(mimeType);</span>
+<span class="fc" id="L59">                    response.setContentLength((int) file.length());</span>
+<span class="fc" id="L60">                    String headerKey = &quot;Content-Disposition&quot;;</span>
+<span class="fc" id="L61">                    String headerValue = String.format(&quot;attachment; filename=\&quot;%s\&quot;&quot;, file.getName());</span>
+<span class="fc" id="L62">                    response.setHeader(headerKey, headerValue);</span>
+<span class="fc" id="L63">                    OutputStream outStream = response.getOutputStream();</span>
+<span class="fc" id="L64">                    byte[] buffer = new byte[4096];</span>
+                    int bytesRead;
+<span class="fc bfc" id="L66" title="All 2 branches covered.">                    while ((bytesRead = fileIn.read(buffer)) != -1) {</span>
+<span class="fc" id="L67">                        outStream.write(buffer, 0, bytesRead);</span>
+                    }
+<span class="fc" id="L69">                    fileIn.close();</span>
+<span class="fc" id="L70">                    outStream.close();</span>
+<span class="fc" id="L71">                    response.getWriter().write(&quot;3&quot;); // curriculum download</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">                } else if (whatDownload.equalsIgnoreCase(&quot;documenti&quot;)) {</span>
+<span class="fc" id="L73">                    String pathDocumenti = directory + candidatura.getDocumentiAggiuntivi();</span>
+<span class="fc" id="L74">                    File file = new File(pathDocumenti);</span>
+<span class="fc" id="L75">                    FileInputStream fileIn = new FileInputStream(file);</span>
+<span class="fc" id="L76">                    String mimeType = context.getMimeType(pathDocumenti);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">                    if (mimeType == null) {</span>
+<span class="fc" id="L78">                        mimeType = &quot;application/octet-stream&quot;;</span>
+                    }
+<span class="fc" id="L80">                    response.setContentType(mimeType);</span>
+<span class="fc" id="L81">                    response.setContentLength((int) file.length());</span>
+<span class="fc" id="L82">                    String headerKey = &quot;Content-Disposition&quot;;</span>
+<span class="fc" id="L83">                    String headerValue = String.format(&quot;attachment; filename=\&quot;%s\&quot;&quot;, file.getName());</span>
+<span class="fc" id="L84">                    response.setHeader(headerKey, headerValue);</span>
+<span class="fc" id="L85">                    OutputStream outStream = response.getOutputStream();</span>
+<span class="fc" id="L86">                    byte[] buffer = new byte[4096];</span>
+                    int bytesRead;
+<span class="fc bfc" id="L88" title="All 2 branches covered.">                    while ((bytesRead = fileIn.read(buffer)) != -1) {</span>
+<span class="fc" id="L89">                        outStream.write(buffer, 0, bytesRead);</span>
+                    }
+<span class="fc" id="L91">                    fileIn.close();</span>
+<span class="fc" id="L92">                    outStream.close();</span>
+<span class="fc" id="L93">                    response.getWriter().write(&quot;4&quot;); // materiale download</span>
+<span class="fc" id="L94">                }</span>
+            } else {
+<span class="fc" id="L96">                response.getWriter().write(&quot;1&quot;); //file non esistente</span>
+<span class="fc" id="L97">                String descrizione = &quot;file inesistente&quot;;</span>
+<span class="fc" id="L98">                response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+            }
+<span class="fc" id="L100">        } else {</span>
+<span class="fc" id="L101">            response.getWriter().write(&quot;2&quot;); // utente null o ruolo non adatto</span>
+<span class="fc" id="L102">            request.getSession().invalidate();</span>
+<span class="fc" id="L103">            response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+<span class="fc" id="L105">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param req  , request
+     * @param resp , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<span class="fc" id="L118">        doGet(req, resp);</span>
+<span class="fc" id="L119">    }</span>
+
+    /**
+     * Questo metodo permette di ottenere la candidatura attraverso l'id del candidato utilizzando il manager
+     *
+     * @param idCandidato id del candidato
+     * @return candidatura interessata
+     * @throws SQLException errore nella query
+     */
+
+    public static Candidatura getCandidaturaFromManager(int idCandidato) throws SQLException {
+<span class="nc" id="L130">        ReclutamentoManager reclutamento = new ReclutamentoManagerImpl();</span>
+<span class="nc" id="L131">        return reclutamento.getCandidaturaById(idCandidato);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

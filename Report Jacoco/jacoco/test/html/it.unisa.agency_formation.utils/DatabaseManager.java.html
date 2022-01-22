@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DatabaseManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.utils</a> &gt; <span class="el_source">DatabaseManager.java</span></div><h1>DatabaseManager.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.utils;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.TimeZone;
+
+public class DatabaseManager {
+<span class="fc" id="L9">    private String name = Const.name;</span>
+<span class="fc" id="L10">    private String pwd = Const.pwd;</span>
+    private String url;
+    private static DatabaseManager instance;
+<span class="fc" id="L13">    private DatabaseManager() {</span>
+        try {
+<span class="fc" id="L15">            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span>
+<span class="nc" id="L16">        } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L17">            System.err.println(e.getMessage() + &quot; problem class not found&quot;);</span>
+<span class="fc" id="L18">        }</span>
+<span class="fc" id="L19">    }</span>
+    public static DatabaseManager getInstance() throws SQLException {
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L22">            instance = new DatabaseManager();</span>
+        }
+<span class="fc" id="L24">            return instance;</span>
+    }
+    public Connection getConnection() throws SQLException {
+<span class="fc" id="L27">        url = &quot;jdbc:mysql://localhost:3306/&quot; + Const.nomeDB + &quot;?characterEncoding=UTF-8&amp;serverTimezone=&quot; + TimeZone.getDefault().getID();</span>
+<span class="fc" id="L28">        return DriverManager.getConnection(url, name, pwd);</span>
+    }
+    public static void closeConnessione(Connection connection) throws SQLException {
+<span class="pc bpc" id="L31" title="2 of 4 branches missed.">        if (connection != null &amp;&amp; !connection.isClosed()) {</span>
+<span class="fc" id="L32">            connection.close();</span>
+        }
+<span class="fc" id="L34">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

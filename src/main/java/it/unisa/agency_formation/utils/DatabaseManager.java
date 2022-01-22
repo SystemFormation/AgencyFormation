@@ -14,7 +14,7 @@ public class DatabaseManager {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage() + " problema class not found");
+            System.err.println(e.getMessage() + " problem class not found");
         }
     }
     public static DatabaseManager getInstance() throws SQLException {

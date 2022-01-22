@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TeamManagerImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.team.manager</a> &gt; <span class="el_source">TeamManagerImpl.java</span></div><h1>TeamManagerImpl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.team.manager;
+
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.team.DAO.TeamDAO;
+import it.unisa.agency_formation.team.domain.Team;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+<span class="fc" id="L10">public class TeamManagerImpl implements TeamManager {</span>
+
+    /**
+     * Questo metodo permette di creare un team
+     *
+     * @param team , specifica il team da salvare
+     * @param idUtente , identifica il TM che crea il team
+     * @return boolean (false = la funzionalitÃ  non va a buon fine,
+     * true = la funzionalitÃ  va a buon fine)
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public boolean creaTeam(Team team, int idUtente) throws SQLException {
+<span class="fc" id="L23">       return TeamDAO.salvaTeam(team, idUtente);</span>
+    }
+
+    /**
+     * Questo metodo permette di rimuovere un dipendente da un team
+     *
+     * @param idDip , identifica il dipendente da rimuovere
+     * @return boolean (false = la funzionalitÃ  non va a buon fine,
+     * true = la funzionalitÃ  va a buon fine)
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public boolean rimuoviDipendente(int idDip) throws SQLException {
+<span class="fc" id="L36">        return TeamDAO.rimuoviDipendente(idDip);</span>
+    }
+
+    /**
+     * Questo metodo permette di visualizzare tutti i team creati da uno specifico TM
+     *
+     * @param idUtente , identifica l'utente
+     * @return {@literal ArrayList&lt;@link Team&gt;} se i team esistono , null altrimenti
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public ArrayList&lt;Team&gt; visualizzaTeams(int idUtente) throws SQLException {
+<span class="fc" id="L48">        return TeamDAO.recuperaTeamDiUnTM(idUtente);</span>
+    }
+
+    /**
+     * Questo metodo permette di visualizzare tutti i team
+     *
+     * @return {@literal ArrayList&lt;@link Team&gt;} se ci sono team , null altrimenti
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public ArrayList&lt;Team&gt; visualizzaTuttiTeams() throws SQLException {
+<span class="fc" id="L59">        return TeamDAO.recuperaTuttiTeam();</span>
+    }
+
+    /**
+     * Questo metodo permette di recuperare l'ultimo team creato
+     *
+     * @return l'id dell'ultimo team creato, 0 altrimenti
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public int viewLastIdTeam() throws SQLException {
+<span class="fc" id="L70">        return TeamDAO.recuperaIdUltimoTeamCreato();</span>
+    }
+
+    /**
+     * Questo metodo permette di recuperare tutti i dipendenti di uno specifico team
+     *
+     * @param idTeam , identifica il team
+     * @return {@literal ArrayList&lt;@link Integer&gt;} se ci sono dipendenti nel team , null altrimenti
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public ArrayList&lt;Integer&gt; recuperaIdDipendentiDelTeam(int idTeam) throws SQLException {
+<span class="fc" id="L82">        return TeamDAO.recuperaIdTeamMemberFromTeam(idTeam);</span>
+    }
+
+    /**
+     * Questo metodo permette di modificare lo stato dei dipendenti di un team appena sciolto
+     *
+     * @param idDip , identifica il dipendente
+     * @return boolean (false = la funzionalitÃ  non va a buon fine,
+     *                  true = la funzionalitÃ  va a buon fine)
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public boolean updateDipsDisso(int idDip) throws SQLException {
+<span class="fc" id="L95">       return TeamDAO.updateDipStateDissolution(idDip);</span>
+
+    }
+
+    /**
+     * Questo metodo permette di sciogliere il team
+     *
+     * @param idTeam , identifica il team da sciogliere
+     * @return boolean (false = la funzionalitÃ  non va a buon fine,
+     *                  true = la funzionalitÃ  va a buon fine)
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public boolean sciogliTeam(int idTeam) throws SQLException {
+<span class="fc" id="L109">        return TeamDAO.rimuoviTeam(idTeam);</span>
+
+    }
+
+    /**
+     * Questo metodo permette di recuperare dipendenti di un team
+     *
+     * @return {@literal ArrayList&lt;@link Dipendente&gt;} se ci sono dipendenti nel team , null altrimenti
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public ArrayList&lt;Dipendente&gt; recuperaDipendentiDelTeam() throws SQLException {
+<span class="fc" id="L121">        return TeamDAO.recuperaDipendentiDelTeam();</span>
+
+    }
+
+    /**
+     * Questo metodo permette di ritornare un team attraverso il suo id
+     *
+     * @param idTeam , identifica il team
+     * @return Team se il team esiste , null altrimenti
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public Team getTeamById(int idTeam) throws SQLException {
+<span class="fc" id="L134">        return TeamDAO.recuperaTeamById(idTeam);</span>
+    }
+
+    /**
+     * Questo metodo permette di modificare le competenze
+     *
+     * @param competence , sperifica con quale competenza dev'essere aggiornato
+     * @param idTeam , identifica il team
+     * @return boolean (false = la funzionalitÃ  non va a buon fine,
+     *                  true = la funzionalitÃ  va a buon fine)
+     * @throws SQLException errore nella query errore nella query*/
+
+    @Override
+    public boolean specificaLeCompetenze(String competence, int idTeam) throws SQLException {
+<span class="fc" id="L148">        return TeamDAO.specificaCompetenze(competence, idTeam);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

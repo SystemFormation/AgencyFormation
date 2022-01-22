@@ -165,7 +165,7 @@ function checkAggiungiSkill(){
 function checkSpecify(i) {
     var index = i;
     var specify = document.getElementsByName("specCompetenze")[index];
-    var button = document.getElementById("specifica");
+    var button = document.getElementsByName("specifica")[index];
     var check =  /^[\w\s,.;:+#/-]{1,512}$/;
     if (!specify.value.match(check)) {
         $('#specifyCompetence').css("display", "inline");

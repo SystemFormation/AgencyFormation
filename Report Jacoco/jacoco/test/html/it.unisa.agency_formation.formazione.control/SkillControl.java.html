@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SkillControl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.formazione.control</a> &gt; <span class="el_source">SkillControl.java</span></div><h1>SkillControl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.formazione.control;
+
+
+import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
+import it.unisa.agency_formation.autenticazione.domain.Utente;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManager;
+import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImpl;
+import it.unisa.agency_formation.formazione.domain.Skill;
+import it.unisa.agency_formation.formazione.manager.FormazioneManager;
+import it.unisa.agency_formation.formazione.manager.FormazioneManagerImpl;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
+
+@WebServlet(&quot;/SkillControl&quot;)
+<span class="fc" id="L23">public class SkillControl extends HttpServlet {</span>
+
+    /**
+     * Questo metodo controlla le operazioni per effettuare l'aggiunta di una skill
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L36">        Utente user = (Utente) request.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="pc bpc" id="L37" title="1 of 4 branches missed.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.DIPENDENTE) {</span>
+<span class="fc" id="L38">            Skill skill = new Skill();</span>
+<span class="fc" id="L39">            String skillName = request.getParameter(&quot;skillName&quot;);</span>
+<span class="fc" id="L40">            String skillDescr = request.getParameter(&quot;skillDescription&quot;);</span>
+<span class="fc" id="L41">            int skillLivello = Integer.parseInt(request.getParameter(&quot;quantity&quot;));</span>
+<span class="pc bpc" id="L42" title="1 of 4 branches missed.">            if (skillName != null &amp;&amp; skillDescr != null) {</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">                if (skillName.trim().length() == 0) {</span>
+<span class="fc" id="L44">                    response.getWriter().write(&quot;1&quot;); // Skillnome vuoto</span>
+                } else {
+<span class="fc" id="L46">                    skill.setNomeSkill(skillName);</span>
+                }
+<span class="fc bfc" id="L48" title="All 2 branches covered.">                if (skillDescr.trim().length() == 0) {</span>
+<span class="fc" id="L49">                    response.getWriter().write(&quot;2&quot;); //Skilldesc vuoto</span>
+                } else {
+<span class="fc" id="L51">                    skill.setDescrizioneSkill(skillDescr);</span>
+                }
+                try {
+<span class="fc" id="L54">                    Dipendente dip = getDipendenteByIdFromManager(user.getId());</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">                    if (dip != null) {</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">                        if (!addSkillFromManager(skill)) {</span>
+<span class="fc" id="L57">                            response.getWriter().write(&quot;2&quot;); // aggiunta in skill non avvenuta con successo.</span>
+<span class="fc" id="L58">                            String descrizione = &quot;Si Ã¨ verificato un problema con l'aggiunta della skill. Riprova&quot;;</span>
+<span class="fc" id="L59">                            response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="fc" id="L60">                            return;</span>
+                        }
+<span class="fc" id="L62">                        int idSkill = getLastIdSkillCreatedFromManager();</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">                        if (!addSkillDipFromManager(idSkill, dip.getIdDipendente(), skillLivello)) {</span>
+<span class="fc" id="L64">                            response.getWriter().write(&quot;3&quot;); // aggiunta in skillDip non avvenuta con successo.</span>
+<span class="fc" id="L65">                            String descrizione = &quot;Si Ã¨ verificato un problema con l'aggiunta della skill. Riprova&quot;;</span>
+<span class="fc" id="L66">                            response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="fc" id="L67">                            return;</span>
+                        }
+<span class="fc" id="L69">                        response.getWriter().write(&quot;4&quot;); // aggiunta avvenuta con successo.</span>
+<span class="fc" id="L70">                        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher(&quot;/ProfiloControl&quot;);</span>
+<span class="fc" id="L71">                        dispatcher.forward(request, response);</span>
+<span class="fc" id="L72">                    } else {</span>
+<span class="fc" id="L73">                        response.getWriter().write(&quot;5&quot;); // aggiunta fallita.</span>
+<span class="fc" id="L74">                        response.sendRedirect(&quot;./static/Profilo.jsp&quot;);</span>
+                    }
+
+<span class="nc" id="L77">                } catch (SQLException e) {</span>
+<span class="nc" id="L78">                    e.printStackTrace();</span>
+<span class="pc" id="L79">                }</span>
+
+            } else {
+<span class="fc" id="L82">                response.getWriter().write(&quot;6&quot;); //skillNome e skillDescr null</span>
+<span class="fc" id="L83">                response.sendRedirect(&quot;./static/Profilo.jsp&quot;);</span>
+            }
+<span class="fc" id="L85">        } else {</span>
+<span class="fc" id="L86">            response.getWriter().write(&quot;7&quot;); //user null oppure non dipendente</span>
+<span class="fc" id="L87">            request.getSession().invalidate();</span>
+<span class="fc" id="L88">            response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
+        }
+
+<span class="fc" id="L91">    }</span>
+
+    /**
+     * Questo metodo richiama il doGet
+     *
+     * @param request  , request
+     * @param response , response
+     * @throws ServletException errore Servlet
+     * @throws IOException      errore input output
+     */
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="fc" id="L104">        doGet(request, response);</span>
+<span class="fc" id="L105">    }</span>
+
+    /**
+     * Questo metodo permette di aggiungere una nuova skill utilizzando il manager
+     *
+     * @param skill skill interessata
+     * @return boolean (true = la skill Ã¨ stata aggiunta correttamente , false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean addSkillFromManager(Skill skill) throws SQLException {
+<span class="fc" id="L116">        FormazioneManager formazioneManager = new FormazioneManagerImpl();</span>
+<span class="fc" id="L117">        return formazioneManager.aggiungiSkill(skill);</span>
+    }
+
+    /**
+     * Questo metodo permette di ottenere l'ultima skill creata utilizzando il manager
+     *
+     * @return l'id dell'ultima skill creata
+     * @throws SQLException errore nella query
+     */
+
+    public static int getLastIdSkillCreatedFromManager() throws SQLException {
+<span class="fc" id="L128">        FormazioneManager formazioneManager = new FormazioneManagerImpl();</span>
+<span class="fc" id="L129">        return formazioneManager.getUltimaSkill();</span>
+    }
+
+    /**
+     * Questo metodo permette di aggiungere una skill posseduta dal dipendente utilizzando il manager
+     *
+     * @param idSkill      id della skill
+     * @param idDipendente id del dipendente
+     * @param skillLivello livello di competenza e ocnoscenza della skill
+     * @return boolean (true = operazione andata a buon fine, false = altrimenti)
+     * @throws SQLException errore nella query
+     */
+
+    public static boolean addSkillDipFromManager(int idSkill, int idDipendente, int skillLivello) throws SQLException {
+<span class="fc" id="L143">        FormazioneManager formazioneManager = new FormazioneManagerImpl();</span>
+<span class="fc" id="L144">        return formazioneManager.addSkillDipendente(idSkill, idDipendente, skillLivello);</span>
+    }
+
+    /**
+     * Questo metodo permette di ottenere il dipendente attraverso il suo id utilizzando il manager
+     *
+     * @param idDip id del dipendente
+     * @return il dipendente interessato
+     * @throws SQLException errore nella query
+     */
+
+    public static Dipendente getDipendenteByIdFromManager(int idDip) throws SQLException {
+<span class="fc" id="L156">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="fc" id="L157">        return autenticazioneManager.getDipendente(idDip);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

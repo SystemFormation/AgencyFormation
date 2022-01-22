@@ -69,7 +69,7 @@ public class Check {
      * @return boolean (true = rispettato , false = altrimenti)*/
 
     public static boolean checkProjectName(String projectName) {
-        String regular = "^[A-Za-z0-9 ’]+$";
+        String regular = "^[\\w\\sA-Za-z]{1,32}$";
         return projectName.matches(regular);
     }
 
@@ -80,7 +80,7 @@ public class Check {
      * @return boolean (true = rispettato , false = altrimenti)*/
 
     public static boolean checkDescription(String desc) {
-        String regular = "^[A-Za-z ’]+$";
+        String regular = "^[\\w\\s,.;:+#/-]{1,128}$";
         return desc.matches(regular);
     }
 
@@ -91,7 +91,7 @@ public class Check {
      * @return boolean (true = rispettato , false = altrimenti)*/
 
     public static boolean checkTeamName(String teamName) {
-        String regular = "^[A-Za-z ’]+$";
+        String regular = "^[\\w\\sA-Za-z]{1,32}$";
         return teamName.matches(regular);
     }
 
@@ -102,7 +102,7 @@ public class Check {
      * @return boolean (true = rispettato , false = altrimenti)*/
 
     public static boolean checkCompetence(String competence) {
-        String regular = "^[A-Za-z]+^[#+.]+$";
+        String regular = "^[\\w\\s,.;:+#/-]{1,512}$";
         return competence.matches(regular);
     }
 }

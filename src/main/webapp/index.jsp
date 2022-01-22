@@ -14,7 +14,7 @@
             AF Consulting ricerca nuovo personale!
             L'azienda fornisce ai propri dipendenti una formazione ed un orientamento di qualità,
             rendendo più facile per il nuovo dipendente adattarsi all'esigenze dell'azienda.<br>
-            <button><a href="static/Registrazione.html">Lavora con noi</a></button>
+            <button><a href="static/Registrazione.jsp">Lavora con noi</a></button>
         </div>
         <div class="image"></div>
     </div>
