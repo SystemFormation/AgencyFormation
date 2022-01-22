@@ -39,10 +39,10 @@
                         </c:forEach>
                         <div name="drop-aggiungi">
                             <c:if test="${index < team.getNumeroDipendenti()}">
-                                <button><a
-                                        href="AggiuntaDipendente?idTeam=${team.getIdTeam()}">Aggiungi
-                                    Dipendenti</a>
-                                </button>
+                                <a href="AggiuntaDipendente?idTeam=${team.getIdTeam()}">
+                                    <button> Aggiungi Dipendenti
+                                    </button>
+                                </a>
                                 <br>
                             </c:if>
                         </div>
@@ -102,7 +102,7 @@
                                 <div class="stato">
                                     <p>Hai specificato le competenze necessarie</p>
                                     <br>
-                                        <b>${team.getCompetenza()}<b>
+                                    <b>${team.getCompetenza()}</b>
                                 </div>
                             </c:when>
                             <c:when test="${team.getCompetenza() != null && team.getDocumento().getMaterialeDiFormazione() != null}">

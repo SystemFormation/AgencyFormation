@@ -63,9 +63,10 @@
                             </c:choose>
                         </div>
                         <div id="flex">
-                            <button>
-                                <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}&idTeam=${idTeam}">Aggiungi</a>
-                            </button>
+                                <a href="AddTeamControl?action=aggiungi&id=${dip.getIdDipendente()}&idTeam=${idTeam}">
+                                    <button>Aggiungi</button>
+                                </a>
+
                         </div>
                         <div id="flex">
                             <div id="stato-dipendente">Disponibile</div>
