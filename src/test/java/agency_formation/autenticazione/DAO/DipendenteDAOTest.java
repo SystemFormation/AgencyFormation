@@ -130,19 +130,7 @@ public class DipendenteDAOTest {
     public void doRetrieveAll1() throws SQLException {
         assertNotNull(DipendenteDAO.recuperaDipendenti());
     }
-    /*
-    @Test // pass
-    @Order(11)
-    public void doRetrieveAll3() throws SQLException {
-        assertNotNull(DipendenteDAO.recuperaDipendenti());
-    }
 
-    @Test // pass
-    @Order(12)
-    public void doRetrieveAll4() throws SQLException {
-        assertNotNull(DipendenteDAO.recuperaDipendenti());
-    }
-*/
     @Test //not pass because idDip<1
     @Order(11)
     public void setTeamDipendente1() throws SQLException {
