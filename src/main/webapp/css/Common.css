@@ -136,7 +136,7 @@ input[type=file]::file-selector-button:hover {
     align-items: center;
 }
 
-.form-button button {
+.form-button button{
     padding: 15px;
     text-decoration: none;
     margin-bottom: 20px;
@@ -145,7 +145,17 @@ input[type=file]::file-selector-button:hover {
     border-radius: 1rem;
 }
 
-.form-button a:hover {
+.back button{
+    padding: 15px;
+    text-decoration: none;
+    margin-top: 50px;
+    font-size: 30px;
+    font-family: -webkit-pictograph;
+    border-radius: 1rem;
+    background-color: #c5e4fa;
+}
+
+.form-button a:hover , .back button  {
     font-weight: bold;
 }
 
@@ -154,14 +164,6 @@ input[type=file]::file-selector-button:hover {
     margin: auto 15%;
 }
 
-/*
-.content-competenze {
-    width: 60%;
-    margin: auto;
-    border-color: #59A5D8;
-    border-style: groove;
-}
-*/
 .content hr {
     background-color: #101d42;
     border: solid 2px #101d42;

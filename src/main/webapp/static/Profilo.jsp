@@ -24,10 +24,12 @@
         </div>
         <div class="form-button">
             <div class="dropdown">
-                <a href="#formLogin"><button id="gestioneSkill" onclick="viewAddSkill()" >Aggiungi Skill</button></a>
+                <a href="#formLogin">
+                    <button id="gestioneSkill" onclick="viewAddSkill()">Aggiungi Skill</button>
+                </a>
             </div>
             <br>
-            <a href="/AgencyFormation/static/Error.jsp?descrizione=">
+            <a href="/AgencyFormation/static/Error.jsp">
                 <button> Modifica Dati Personali</button>
             </a>
         </div>
