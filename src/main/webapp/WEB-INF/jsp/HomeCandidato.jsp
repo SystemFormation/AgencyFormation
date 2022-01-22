@@ -30,7 +30,7 @@
                         <h2> Caricamento Documenti </h2>
                         <p> Carica il tuo curriculum e in seguito anche i documenti, per proporre la tua
                             candidatura </p>
-                        <button><a href="UploadCandidatureControl">Accedi all'area</a></button>
+                        <a href="UploadCandidatureControl"><button>Accedi all'area</button></a>
                     </div>
                 </c:if>
             </c:when>
@@ -56,7 +56,7 @@
                         <div id="home">
                             <h2> Ricandidatura </h2>
                             <p>Ricandidati caricando il tuo curriculum e in seguito anche i documenti</p>
-                            <button><a href="RicandidaturaControl">Accedi all'area</a></button>
+                            <a href="RicandidaturaControl"><button>Accedi all'area</button></a>
                         </div>
                     </c:when>
                     <c:when test="${candidatura.getStato() == StatiCandidatura.NonRevisionato}">

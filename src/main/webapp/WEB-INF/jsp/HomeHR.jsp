@@ -21,17 +21,17 @@
             <h2> Lista Candidati </h2>
             <span id="noCandidati"></span>
             <p>Visualizza tutti i candidati che hanno proposto una candidatura.</p>
-            <button><a href="ListaCandidati">Accedi all'area</a></button>
+           <a href="ListaCandidati"> <button>Accedi all'area</button></a>
         </div>
         <div id="home">
             <h2> Lista Teams </h2>
             <p>Visualizza tutti i team presenti nell'azienda.</p>
-            <button><a href="ListaTeam">Accedi all'area</a></button>
+            <a href="ListaTeam"><button>Accedi all'area</button></a>
         </div>
         <div id="home">
             <h2> Lista Colloqui </h2>
             <p>Visualizza tutti i candidati che hanno svolto il colloquio.</p>
-            <button><a href="ListaColloqui">Accedi all'area</a></button>
+            <a href="ListaColloqui"><button>Accedi all'area</button></a>
         </div>
     </div>
 </div>

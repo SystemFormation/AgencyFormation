@@ -20,7 +20,7 @@
         <div id="home">
             <h2> Profilo </h2>
             <p>Accedi al tuo profilo personale.</p>
-            <button><a href="ProfiloControl">Accedi all'area</a></button>
+            <a href="ProfiloControl"><button>Accedi all'area</button></a>
         </div>
         <div name="materialeDaNascondere" id="home">
             <h2> Materiale </h2>
