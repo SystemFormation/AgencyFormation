@@ -81,7 +81,7 @@ public class SkillControlIT {
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);
         servlet.doGet(request, response);
-        assertTrue(stringWriter.toString().equals("4"));
+        assertTrue(stringWriter.toString().contains("4"));
     }
     @Test // livello più alto di 5
     public void addSkillLivelloAlto() throws IOException, ServletException {
@@ -114,6 +114,6 @@ public class SkillControlIT {
         Mockito.when(response.getWriter()).thenReturn(writer);
         servlet.init(config);
         servlet.doGet(request, response);
-        assertTrue(stringWriter.toString().equals("3"));
+        assertTrue(stringWriter.toString().contains("3"));
     }
 }

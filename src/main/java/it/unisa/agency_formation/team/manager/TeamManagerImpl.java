@@ -2,13 +2,14 @@ package it.unisa.agency_formation.team.manager;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.team.DAO.TeamDAO;
+import it.unisa.agency_formation.team.DAO.TeamDAOImpl;
 import it.unisa.agency_formation.team.domain.Team;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TeamManagerImpl implements TeamManager {
-
+    public static TeamDAO daoTeam = new TeamDAOImpl();
     /**
      * Questo metodo permette di creare un team
      *
@@ -20,7 +21,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public boolean creaTeam(Team team, int idUtente) throws SQLException {
-       return TeamDAO.salvaTeam(team, idUtente);
+       return daoTeam.salvaTeam(team, idUtente);
     }
 
     /**
@@ -33,7 +34,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public boolean rimuoviDipendente(int idDip) throws SQLException {
-        return TeamDAO.rimuoviDipendente(idDip);
+        return daoTeam.rimuoviDipendente(idDip);
     }
 
     /**
@@ -45,7 +46,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public ArrayList<Team> visualizzaTeams(int idUtente) throws SQLException {
-        return TeamDAO.recuperaTeamDiUnTM(idUtente);
+        return daoTeam.recuperaTeamDiUnTM(idUtente);
     }
 
     /**
@@ -56,7 +57,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public ArrayList<Team> visualizzaTuttiTeams() throws SQLException {
-        return TeamDAO.recuperaTuttiTeam();
+        return daoTeam.recuperaTuttiTeam();
     }
 
     /**
@@ -67,7 +68,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public int viewLastIdTeam() throws SQLException {
-        return TeamDAO.recuperaIdUltimoTeamCreato();
+        return daoTeam.recuperaIdUltimoTeamCreato();
     }
 
     /**
@@ -79,7 +80,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public ArrayList<Integer> recuperaIdDipendentiDelTeam(int idTeam) throws SQLException {
-        return TeamDAO.recuperaIdTeamMemberFromTeam(idTeam);
+        return daoTeam.recuperaIdTeamMemberFromTeam(idTeam);
     }
 
     /**
@@ -92,7 +93,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public boolean updateDipsDisso(int idDip) throws SQLException {
-       return TeamDAO.updateDipStateDissolution(idDip);
+       return daoTeam.updateDipStateDissolution(idDip);
 
     }
 
@@ -106,7 +107,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public boolean sciogliTeam(int idTeam) throws SQLException {
-        return TeamDAO.rimuoviTeam(idTeam);
+        return daoTeam.rimuoviTeam(idTeam);
 
     }
 
@@ -118,7 +119,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public ArrayList<Dipendente> recuperaDipendentiDelTeam() throws SQLException {
-        return TeamDAO.recuperaDipendentiDelTeam();
+        return daoTeam.recuperaDipendentiDelTeam();
 
     }
 
@@ -131,7 +132,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public Team getTeamById(int idTeam) throws SQLException {
-        return TeamDAO.recuperaTeamById(idTeam);
+        return daoTeam.recuperaTeamById(idTeam);
     }
 
     /**
@@ -145,7 +146,7 @@ public class TeamManagerImpl implements TeamManager {
 
     @Override
     public boolean specificaLeCompetenze(String competence, int idTeam) throws SQLException {
-        return TeamDAO.specificaCompetenze(competence, idTeam);
+        return daoTeam.specificaCompetenze(competence, idTeam);
     }
 
 }

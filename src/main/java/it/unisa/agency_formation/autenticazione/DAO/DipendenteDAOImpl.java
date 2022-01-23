@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DipendenteDAO {
+public class DipendenteDAOImpl implements DipendenteDao{
     private static final String TABLE_DIPENDENTE = "dipendenti";
 
     /**
@@ -22,7 +22,7 @@ public class DipendenteDAO {
      * @return boolean true se il dipendente èì stato salvato, false altrimenti
      * @throws SQLException errore nella query errore nella query*/
 
-    public static boolean salvaDipendente(Dipendente dipendente) throws SQLException {
+    public boolean salvaDipendente(Dipendente dipendente) throws SQLException {
         if (dipendente == null || dipendente.getResidenza().length() > 128
                 || dipendente.getTelefono().length() > 20) {
             return false;
@@ -51,7 +51,7 @@ public class DipendenteDAO {
      * @return boolean true se il ruolo è stato modificato, false altrimenti
      * @throws SQLException errore nella query errore nella query
      */
-    public static boolean modificaRuoloUtente(int id) throws SQLException {
+    public boolean modificaRuoloUtente(int id) throws SQLException {
         if (id <= 0) {
             return false;
         }
@@ -74,7 +74,7 @@ public class DipendenteDAO {
      * @return Dipendente se è presente, null altrimenti
      * @throws SQLException errore nella query errore nella query
      */
-    public static Dipendente recuperoDipendenteById(int id) throws SQLException {
+    public Dipendente recuperoDipendenteById(int id) throws SQLException {
         if (id <= 0) {
             return null;
         }
@@ -121,7 +121,7 @@ public class DipendenteDAO {
      * @return {@literal ArrayList<@link Dipendente>} lista di dipendenti se sono presenti, null altrimenti
      * @throws SQLException errore nella query errore nella query
      */
-    public static ArrayList<Dipendente> recuperaDipendenti() throws SQLException {
+    public ArrayList<Dipendente> recuperaDipendenti() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement stmt = null;
         String query = "SELECT * FROM " + TABLE_DIPENDENTE + " inner join utenti on utenti.IdUtente = dipendenti.IdDipendente";
@@ -169,7 +169,7 @@ public class DipendenteDAO {
      * @return boolean true se il set è andato a buon fine, false altrimenti
      * @throws SQLException errore nella query errore nella query
      */
-    public static boolean setIdTeamDipendente(int idDip, int idTeam) throws SQLException {
+    public boolean setIdTeamDipendente(int idDip, int idTeam) throws SQLException {
         if (idDip <= 0 || idTeam <= 0) {
             return false;
         }

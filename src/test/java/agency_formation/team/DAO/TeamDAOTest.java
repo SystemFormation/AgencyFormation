@@ -1,6 +1,7 @@
 package agency_formation.team.DAO;
 
 import it.unisa.agency_formation.team.DAO.TeamDAO;
+import it.unisa.agency_formation.team.DAO.TeamDAOImpl;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.utils.Const;
 import it.unisa.agency_formation.utils.DatabaseManager;
@@ -14,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class TeamDAOTest {
+
+    private TeamDAO dao = new TeamDAOImpl();
 
     @BeforeAll
     public static void init() throws SQLException {
@@ -67,7 +70,7 @@ public class TeamDAOTest {
     public void saveTeamFail() throws SQLException {
         Team team = null;
         int idUtente = 2;
-        assertFalse(TeamDAO.salvaTeam(team, idUtente));
+        assertFalse(dao.salvaTeam(team, idUtente));
     }
 
     @Test
@@ -75,7 +78,7 @@ public class TeamDAOTest {
     public void saveTeamFail2() throws SQLException {
         Team team = new Team("TestNomeProgetto", 8, "TestNomeTeam", "Esempio di una descrizione", null, 3);
         int idUtente = -1;
-        assertFalse(TeamDAO.salvaTeam(team, idUtente));
+        assertFalse(dao.salvaTeam(team, idUtente));
     }
 
     @Test
@@ -83,20 +86,20 @@ public class TeamDAOTest {
     public void saveTeamOk1() throws SQLException {
         Team team = new Team("TestNomeProgetto", 8, "TestNomeTeam", "Esempio di una descrizione", null, 3);
         int idUtente = 3;
-        assertTrue(TeamDAO.salvaTeam(team, idUtente));
+        assertTrue(dao.salvaTeam(team, idUtente));
     }
 
     @Test
     @Order(4)
     public void retrieveLastIdTeamPass() throws SQLException {
-        assertNotNull(TeamDAO.recuperaIdUltimoTeamCreato());
+        assertNotNull(dao.recuperaIdUltimoTeamCreato());
     }
 
     @Test
     @Order(5) //rimossione fallita
     public void removeTeamFail() throws SQLException {
         int idTeam = -1;
-        assertFalse(TeamDAO.rimuoviTeam(idTeam));
+        assertFalse(dao.rimuoviTeam(idTeam));
 
     }
 
@@ -104,35 +107,35 @@ public class TeamDAOTest {
     @Order(6) //rimosso team 2
     public void removeTeamOk() throws SQLException {
         int idTeam = 2;
-        assertTrue(TeamDAO.rimuoviTeam(idTeam));
+        assertTrue(dao.rimuoviTeam(idTeam));
     }
 
     @Test
     @Order(7)
     public void doRetrieveTeamByIdFail1() throws SQLException {
         int idTeam = -1;
-        assertNull(TeamDAO.recuperaTeamById(idTeam));
+        assertNull(dao.recuperaTeamById(idTeam));
     }
 
     @Test
     @Order(8)
     public void doRetrieveTeamByIdOk2() throws SQLException {
         int idTeam = 2;
-        assertNotNull(TeamDAO.recuperaTeamById(idTeam));
+        assertNotNull(dao.recuperaTeamById(idTeam));
     }
 
     @Test
     @Order(9)
     public void doRetrieveTeamByIdOk() throws SQLException {
         int idTeam = 1;
-        assertNotNull(TeamDAO.recuperaTeamById(idTeam));
+        assertNotNull(dao.recuperaTeamById(idTeam));
     }
 
     @Test
     @Order(10)
     public void removeEmployeeFail() throws SQLException {
         int idDipendente = -1;
-        assertFalse(TeamDAO.rimuoviDipendente(idDipendente));
+        assertFalse(dao.rimuoviDipendente(idDipendente));
     }
 
     @Test
@@ -146,7 +149,7 @@ public class TeamDAOTest {
         PreparedStatement statement2 = connection.prepareStatement(insertDipendente);
         statement2.executeUpdate(insertDipendente);
         int idDipendente = 2;
-        assertTrue(TeamDAO.rimuoviDipendente(idDipendente));
+        assertTrue(dao.rimuoviDipendente(idDipendente));
         String deleteDipendente2 = "delete from dipendenti where IdDipendente=2";
         PreparedStatement statement3 = connection.prepareStatement(deleteDipendente2);
         statement3.executeUpdate(deleteDipendente2);
@@ -155,7 +158,7 @@ public class TeamDAOTest {
     @Test
     @Order(12)
     public void retrieveAllTeamOk() throws SQLException {
-        assertNotNull(TeamDAO.recuperaTuttiTeam());
+        assertNotNull(dao.recuperaTuttiTeam());
 
     }
 
@@ -166,7 +169,7 @@ public class TeamDAOTest {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement1 = connection.prepareStatement(query);
         statement1.executeUpdate(query);
-        assertNull(TeamDAO.recuperaTuttiTeam());
+        assertNull(dao.recuperaTuttiTeam());
         String insertTeamDefault = "insert into team (idTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,IdTM) values(1, 'TechAll', '8', 'Ricerchiamo nuove tecnologie', 'Basi di Ingegneria Meccanica', 'HTML', 3)";
         PreparedStatement statement2 = connection.prepareStatement(insertTeamDefault);
         statement2.executeUpdate(insertTeamDefault);
@@ -176,7 +179,7 @@ public class TeamDAOTest {
     @Order(14)
     public void retrieveTMTeamFail() throws SQLException {
         int idUtente = -1;
-        assertNull(TeamDAO.recuperaTeamDiUnTM(idUtente));
+        assertNull(dao.recuperaTeamDiUnTM(idUtente));
     }
 
     @Test
@@ -187,7 +190,7 @@ public class TeamDAOTest {
         PreparedStatement statement = connection.prepareStatement(query_team_order14);
         statement.executeUpdate(query_team_order14);
         int idUtente = 3;
-        assertNotNull(TeamDAO.recuperaTeamDiUnTM(idUtente));
+        assertNotNull(dao.recuperaTeamDiUnTM(idUtente));
         String query_delete = "delete from team where idTeam = 4";
         PreparedStatement statement2 = connection.prepareStatement(query_delete);
         statement2.executeUpdate(query_delete);
@@ -201,7 +204,7 @@ public class TeamDAOTest {
         PreparedStatement statement = connection.prepareStatement(query_team_order14);
         statement.executeUpdate(query_team_order14);
         int idUtente = 3;
-        assertNotNull(TeamDAO.recuperaTeamDiUnTM(idUtente));
+        assertNotNull(dao.recuperaTeamDiUnTM(idUtente));
         String query_delete = "delete from team where idTeam = 4";
         PreparedStatement statement2 = connection.prepareStatement(query_delete);
         statement2.executeUpdate(query_delete);
@@ -216,7 +219,7 @@ public class TeamDAOTest {
         statement.executeUpdate(query_team_order);
         String competence = null;
         int idTeam = 0;
-        assertFalse(TeamDAO.specificaCompetenze(competence, idTeam));
+        assertFalse(dao.specificaCompetenze(competence, idTeam));
         String query_delete = "delete from team where idTeam = 5";
         PreparedStatement statement2 = connection.prepareStatement(query_delete);
         statement2.executeUpdate(query_delete);
@@ -227,7 +230,7 @@ public class TeamDAOTest {
     public void updateCompetenceFail2() throws SQLException {
         String competence = null;
         int idTeam = -1;
-        assertFalse(TeamDAO.specificaCompetenze(competence, idTeam));
+        assertFalse(dao.specificaCompetenze(competence, idTeam));
     }
 
     @Test
@@ -239,7 +242,7 @@ public class TeamDAOTest {
         statement.executeUpdate(query_team_order);
         String competence = "HTML";
         int idTeam = 5;
-        assertTrue(TeamDAO.specificaCompetenze(competence, idTeam));
+        assertTrue(dao.specificaCompetenze(competence, idTeam));
         String query_delete = "delete from team where idTeam = 5";
         PreparedStatement statement2 = connection.prepareStatement(query_delete);
         statement2.executeUpdate(query_delete);
@@ -249,7 +252,7 @@ public class TeamDAOTest {
     @Order(20)
     public void retrieveAllIdEmployeesfromTeamFail() throws SQLException {
         int idTeam = -1;
-        assertNull(TeamDAO.recuperaIdTeamMemberFromTeam(idTeam));
+        assertNull(dao.recuperaIdTeamMemberFromTeam(idTeam));
     }
 
     @Test
@@ -269,7 +272,7 @@ public class TeamDAOTest {
         statement2.executeUpdate(query_set_dipendente_team);
         statement3.executeUpdate(query_safe1);
         int idTeam = 5;
-        assertNotNull(TeamDAO.recuperaIdTeamMemberFromTeam(idTeam));
+        assertNotNull(dao.recuperaIdTeamMemberFromTeam(idTeam));
         String query_delete = "delete from team where idTeam = 5";
         PreparedStatement statement4 = connection.prepareStatement(query_delete);
         statement4.executeUpdate(query_delete);
@@ -288,14 +291,14 @@ public class TeamDAOTest {
         statement1.executeUpdate(deleteTeam);
         statement2.executeUpdate(insertTeamDefault);
         statement3.executeUpdate(insertDipendenteDefault);
-        assertNotNull(TeamDAO.recuperaDipendentiDelTeam());
+        assertNotNull(dao.recuperaDipendentiDelTeam());
     }
 
     @Test
     @Order(23)
     public void updateEmployeesStateWhenTeamDissolutionFail() throws SQLException {
         int idDip = -1;
-        assertFalse(TeamDAO.updateDipStateDissolution(idDip));
+        assertFalse(dao.updateDipStateDissolution(idDip));
     }
 
     @Test
@@ -306,7 +309,7 @@ public class TeamDAOTest {
         PreparedStatement statement = connection.prepareStatement(query_team_order);
         statement.executeUpdate(query_team_order);
         int idDip = 2;
-        assertTrue(TeamDAO.updateDipStateDissolution(idDip));
+        assertTrue(dao.updateDipStateDissolution(idDip));
         String query_delete = "delete from team where idTeam = 100";
         PreparedStatement statement2 = connection.prepareStatement(query_delete);
         statement2.executeUpdate(query_delete);
@@ -319,7 +322,7 @@ public class TeamDAOTest {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate(query);
-        assertNotNull(TeamDAO.recuperaDipendentiDelTeam());
+        assertNotNull(dao.recuperaDipendentiDelTeam());
     }
 
     @Test
@@ -329,7 +332,7 @@ public class TeamDAOTest {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate(query);
-        assertNotNull(TeamDAO.recuperaDipendentiDelTeam());
+        assertNotNull(dao.recuperaDipendentiDelTeam());
     }
 
     @Test
@@ -339,6 +342,6 @@ public class TeamDAOTest {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(deleteDipendente);
         statement.executeUpdate(deleteDipendente);
-        assertNull(TeamDAO.recuperaDipendentiDelTeam());
+        assertNull(dao.recuperaDipendentiDelTeam());
     }
 }

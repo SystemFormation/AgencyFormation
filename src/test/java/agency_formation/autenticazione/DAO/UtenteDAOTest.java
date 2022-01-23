@@ -1,5 +1,6 @@
 package agency_formation.autenticazione.DAO;
 
+import it.unisa.agency_formation.autenticazione.DAO.UtenteDAOImpl;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
@@ -19,6 +20,7 @@ import java.sql.SQLException;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UtenteDAOTest {
+    private UtenteDAO dao = new UtenteDAOImpl();
 
     @BeforeAll
     public static void init() throws SQLException {
@@ -28,6 +30,7 @@ public class UtenteDAOTest {
         PreparedStatement statement = connection.prepareStatement(candidatura);
         statement.executeUpdate(candidatura);
     }
+    
     @AfterAll
     public static void finish() throws SQLException {
         String query= "Insert into utenti (IdUtente,Nome,Cognome,Pwd,Mail,Ruolo) values(4,'Domenico','Pagliuca','lol','d.pagliuca@studenti.unisa.it',4)";
@@ -43,7 +46,7 @@ public class UtenteDAOTest {
     @Order(1)
     public void salvataggioFail() throws SQLException {
         Utente user = null;
-        assertFalse(UtenteDAO.salvaUtente(user));
+        assertFalse(dao.salvaUtente(user));
     }
 
 
@@ -51,28 +54,28 @@ public class UtenteDAOTest {
     @Order(2)
     public void salvataggioOK1() throws SQLException {
         Utente user = new Utente("Gennaro", "Cecco", "genny@libero.it", "lol", RuoliUtenti.CANDIDATO);
-        assertTrue(UtenteDAO.salvaUtente(user));
+        assertTrue(dao.salvaUtente(user));
     }
 
     @Test
     @Order(3)
     public void salvataggioOK2() throws SQLException {
         Utente user = new Utente("Mario", "Rossi", "mario@libero.it", "lol", RuoliUtenti.DIPENDENTE);
-        assertTrue(UtenteDAO.salvaUtente(user));
+        assertTrue(dao.salvaUtente(user));
     }
 
     @Test
     @Order(4)
     public void salvataggioOK3() throws SQLException {
         Utente user = new Utente("Paki", "Espo", "paki@libero.it", "lol", RuoliUtenti.HR);
-        assertTrue(UtenteDAO.salvaUtente(user));
+        assertTrue(dao.salvaUtente(user));
     }
 
     @Test
     @Order(5)
     public void salvataggioOK4() throws SQLException {
         Utente user = new Utente("Manu", "Sola", "manu@libero.it", "lol", RuoliUtenti.TM);
-        assertTrue(UtenteDAO.salvaUtente(user));
+        assertTrue(dao.salvaUtente(user));
     }
 
     @Test
@@ -80,7 +83,7 @@ public class UtenteDAOTest {
     public void loginEmailNull() throws SQLException {
         String email = null;
         String pwd = "lol";
-        assertNull(UtenteDAO.login(email, pwd));
+        assertNull(dao.login(email, pwd));
     }
 
     @Test
@@ -88,7 +91,7 @@ public class UtenteDAOTest {
     public void loginPwdNull() throws SQLException {
         String email = "genny@libero.it";
         String pwd = null;
-        assertNull(UtenteDAO.login(email, pwd));
+        assertNull(dao.login(email, pwd));
     }
 
     @Test
@@ -96,7 +99,7 @@ public class UtenteDAOTest {
     public void loginEmailPwdNull() throws SQLException {
         String email = null;
         String pwd = null;
-        assertNull(UtenteDAO.login(email, pwd));
+        assertNull(dao.login(email, pwd));
     }
 
     @Test
@@ -104,7 +107,7 @@ public class UtenteDAOTest {
     public void loginPassCand() throws SQLException {
         String email = "genny@libero.it";
         String pwd = "lol";
-        assertNotNull(UtenteDAO.login(email,pwd));
+        assertNotNull(dao.login(email,pwd));
     }
 
     @Test
@@ -112,7 +115,7 @@ public class UtenteDAOTest {
     public void loginPassDip() throws SQLException {
         String email = "p.severino@studenti.unisa.it";
         String pwd = "lol";
-        assertNotNull(UtenteDAO.login(email,pwd));
+        assertNotNull(dao.login(email,pwd));
     }
 
     @Test
@@ -120,7 +123,7 @@ public class UtenteDAOTest {
     public void loginPassTM() throws SQLException {
         String email = "m.nocerino@studenti.unisa.it";
         String pwd = "lol";
-        assertNotNull(UtenteDAO.login(email,pwd));
+        assertNotNull(dao.login(email,pwd));
     }
 
     @Test
@@ -128,7 +131,7 @@ public class UtenteDAOTest {
     public void loginPassHR() throws SQLException {
         String email = "d.pagliuca@studenti.unisa.it";
         String pwd = "lol";
-        assertNotNull(UtenteDAO.login(email,pwd));
+        assertNotNull(dao.login(email,pwd));
         String query= "Delete from utenti where IdUtente=4";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
@@ -140,13 +143,13 @@ public class UtenteDAOTest {
     public void loginFail() throws SQLException {
         String email = "genny158@gmail.it";
         String pwd = "lol";
-        assertNull(UtenteDAO.login(email, pwd));
+        assertNull(dao.login(email, pwd));
     }
 
     @Test
     @Order(14) //pass
     public void retrieveCandidatiConCandidatura1() throws SQLException {
-        assertNotNull(UtenteDAO.doRetrieveCandidatoConCandidatura());
+        assertNotNull(dao.doRetrieveCandidatoConCandidatura());
     }
 
 
@@ -157,7 +160,7 @@ public class UtenteDAOTest {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate();
-        assertNull(UtenteDAO.recuperoCandidatiColloquio());
+        assertNull(dao.recuperoCandidatiColloquio());
     }
 
     @Test
@@ -167,7 +170,7 @@ public class UtenteDAOTest {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate();
-        assertNotNull(UtenteDAO.recuperoCandidatiColloquio());
+        assertNotNull(dao.recuperoCandidatiColloquio());
     }
 
     @Test
@@ -177,7 +180,7 @@ public class UtenteDAOTest {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate();
-        assertNull(UtenteDAO.doRetrieveCandidatoConCandidatura());
+        assertNull(dao.doRetrieveCandidatoConCandidatura());
     }
 
 

@@ -1,23 +1,28 @@
 package agency_formation.autenticazione.DAO;
 
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAOImpl;
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDao;
+import it.unisa.agency_formation.autenticazione.DAO.UtenteDAOImpl;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
+
 import it.unisa.agency_formation.utils.Const;
 import it.unisa.agency_formation.utils.DatabaseManager;
 import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DipendenteDAOTest {
-
+    private DipendenteDao daoDipendente = new DipendenteDAOImpl();
+    private UtenteDAO daoUtente = new UtenteDAOImpl();
     @BeforeAll
     public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;
@@ -60,19 +65,19 @@ public class DipendenteDAOTest {
     @Test //not pass id<1
     @Order(1)
     public void modificaRuoloUtente1() throws SQLException{
-        assertFalse(DipendenteDAO.modificaRuoloUtente(0));
+        assertFalse(daoDipendente.modificaRuoloUtente(0));
     }
 
     @Test //non passa id non presente nel db
     @Order(2)
     public void modificaRuoloUtente2() throws SQLException{
-        assertFalse(DipendenteDAO.modificaRuoloUtente(15));
+        assertFalse(daoDipendente.modificaRuoloUtente(15));
     }
 
     @Test //pass
     @Order(3)
     public void modificaRuoloUtente3() throws SQLException{
-        assertTrue(DipendenteDAO.modificaRuoloUtente(5));
+        assertTrue(daoDipendente.modificaRuoloUtente(5));
     }
 
 
@@ -80,76 +85,76 @@ public class DipendenteDAOTest {
     @Order(4)
     public void doSaveEmployeeFail() throws SQLException {
         Dipendente dip = null;
-        assertFalse(DipendenteDAO.salvaDipendente(dip));
+        assertFalse(daoDipendente.salvaDipendente(dip));
     }
 
 
     @Test
     @Order(5)
     public void doSaveEmployeeOk() throws SQLException {
-       Utente user = UtenteDAO.login("test@gmail.com","lol");
+       Utente user = daoUtente.login("test@gmail.com","lol");
         Dipendente dip = new Dipendente();
         dip.setIdDipendente(user.getId());
         dip.setStato(StatiDipendenti.DISPONIBILE);
         dip.setResidenza("Boscoreale");
         dip.setTelefono("333456214");
         dip.setAnnoNascita(2000);
-        assertTrue(DipendenteDAO.salvaDipendente(dip));
+        assertTrue(daoDipendente.salvaDipendente(dip));
     }
 
     @Test // id < 1
     @Order(6)
     public void doRetrieveDipendenteById1() throws SQLException {
         int id = -1;
-        assertNull(DipendenteDAO.recuperoDipendenteById(id));
+        assertNull(daoDipendente.recuperoDipendenteById(id));
     }
 
     @Test //id non presente nel db
     @Order(7)
     public void doRetrieveDipendeteById2() throws SQLException {
         int id = 484; //queso id non esiste
-        assertNull(DipendenteDAO.recuperoDipendenteById(id));
+        assertNull(daoDipendente.recuperoDipendenteById(id));
     }
 
     @Test //pass
     @Order(8)
     public void doRetrieveById3() throws SQLException {
         int id = 7;
-        assertNotNull(DipendenteDAO.recuperoDipendenteById(id));
+        assertNotNull(daoDipendente.recuperoDipendenteById(id));
     }
     @Test //pass
     @Order(9)
     public void doRetrieveById4() throws SQLException {
         int id = 5;
-        assertNotNull(DipendenteDAO.recuperoDipendenteById(id));
+        assertNotNull(daoDipendente.recuperoDipendenteById(id));
     }
 
 
     @Test // pass
     @Order(10)
     public void doRetrieveAll1() throws SQLException {
-        assertNotNull(DipendenteDAO.recuperaDipendenti());
+        assertNotNull(daoDipendente.recuperaDipendenti());
     }
 
     @Test //not pass because idDip<1
     @Order(11)
     public void setTeamDipendente1() throws SQLException {
-        assertFalse(DipendenteDAO.setIdTeamDipendente(0,1));
+        assertFalse(daoDipendente.setIdTeamDipendente(0,1));
     }
     @Test //not pass because idTeam<1
     @Order(12)
     public void setTeamDipendente2() throws SQLException {
-        assertFalse(DipendenteDAO.setIdTeamDipendente(2,0));
+        assertFalse(daoDipendente.setIdTeamDipendente(2,0));
     }
     @Test //not pass because idDip doesn't exists
     @Order(13)
     public void setTeamDipendente3() throws SQLException {
-        assertFalse(DipendenteDAO.setIdTeamDipendente(200,1));
+        assertFalse(daoDipendente.setIdTeamDipendente(200,1));
     }
     @Test //pass
     @Order(14)
     public void setTeamDipendente4() throws SQLException {
-        assertTrue(DipendenteDAO.setIdTeamDipendente(5,2));
+        assertTrue(daoDipendente.setIdTeamDipendente(5,2));
     }
 
     @Test //non ci sono dipendenti
@@ -159,6 +164,6 @@ public class DipendenteDAOTest {
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement = connection.prepareStatement(query);
         statement.executeUpdate();
-        assertNull(DipendenteDAO.recuperaDipendenti());
+        assertNull(daoDipendente.recuperaDipendenti());
     }
 }
