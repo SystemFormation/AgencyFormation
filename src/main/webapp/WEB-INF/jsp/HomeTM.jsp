@@ -22,25 +22,36 @@
 <jsp:include page="/static/Header.jsp">
     <jsp:param value="false" name="sameLocation"/>
 </jsp:include>
-<h1>Bentornato ${user.getName()}</h1>
-<div class="content-home">
-    <div class="flex">
-        <div id="home">
-            <h2> Creazione Team </h2>
-            <p>Crea un nuovo team per il progetto da svolgere.</p>
-            <button><a href="./static/CreaTeam.jsp">Accedi all'area</a></button>
-        </div>
-        <div id="home">
-            <h2> Lista Dipendenti </h2>
-            <p>Visualizza tutti i dipendenti presenti nell'azienda.</p>
-            <button><a href="ListaDipendentiControl">Accedi all'area</a></button>
-        </div>
-        <div id="home">
-            <h2> Lista Teams </h2>
-            <p>Visualizza tutti i team che hai creato.</p>
-            <button><a href="ListaTeam">Accedi all'area</a></button>
+<div class="footer-wrap">
+    <h1>Bentornato ${user.getName()}</h1>
+    <div class="content-home">
+        <div class="flex">
+            <div id="home">
+                <h2> Creazione Team </h2>
+                <p>Crea un nuovo team per il progetto da svolgere.</p>
+                <a href="./static/CreaTeam.jsp">
+                    <button>Accedi all'area</button>
+                </a>
+            </div>
+            <div id="home">
+                <h2> Lista Dipendenti </h2>
+                <p>Visualizza tutti i dipendenti presenti nell'azienda.</p>
+                <a href="ListaDipendentiControl">
+                    <button>Accedi all'area</button>
+                </a>
+            </div>
+            <div id="home">
+                <h2> Lista Teams </h2>
+                <p>Visualizza tutti i team che hai creato.</p>
+                <a href="ListaTeam">
+                    <button>Accedi all'area</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
+<jsp:include page="/static/Footer.jsp">
+    <jsp:param value="false" name="sameLocation"/>
+</jsp:include>
 </body>
 </html>

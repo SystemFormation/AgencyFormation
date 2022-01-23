@@ -1,7 +1,10 @@
 @charset "ISO-8859-1";
 
-.body {
+
+body {
     margin: 0;
+    position: relative;
+    min-height: 100vh;
     font-family: -webkit-pictograph;
 }
 
@@ -12,6 +15,7 @@
 
 .content-home {
     text-align: center;
+    padding-bottom: 205px;
 }
 
 .content-home h1 {
@@ -33,10 +37,11 @@
 }
 
 .text-block button {
-    padding: 10px 10px 10px 10px;
-    margin-top: 30px;
-    border-radius: 1rem;
+    padding: 5px;
+    margin-top: 15px;
+    border-radius: 0.5rem;
     font-family: -webkit-pictograph;
+    font-size: 20px;
 }
 .text-block a {
     text-decoration: none;

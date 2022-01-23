@@ -1,6 +1,8 @@
 /*OVUNQUE*/
 body {
     margin: 0;
+    position: relative;
+    min-height: 100vh;
     font-family: -webkit-pictograph;
 }
 
@@ -73,6 +75,10 @@ input[type=file]::file-selector-button:hover {
     margin-top: 40px;
 }
 
+.footer-wrap {
+    padding-bottom: 205px;
+}
+
 .content {
     box-shadow: 25px 30px 110px rgb(200 200 200);
     border-radius: 1rem;
@@ -136,7 +142,7 @@ input[type=file]::file-selector-button:hover {
     align-items: center;
 }
 
-.form-button button {
+.form-button button{
     padding: 15px;
     text-decoration: none;
     margin-bottom: 20px;
@@ -145,7 +151,17 @@ input[type=file]::file-selector-button:hover {
     border-radius: 1rem;
 }
 
-.form-button a:hover {
+.back button{
+    padding: 15px;
+    text-decoration: none;
+    margin-top: 50px;
+    font-size: 30px;
+    font-family: -webkit-pictograph;
+    border-radius: 1rem;
+    background-color: #c5e4fa;
+}
+
+.form-button a:hover , .back button  {
     font-weight: bold;
 }
 
@@ -154,14 +170,6 @@ input[type=file]::file-selector-button:hover {
     margin: auto 15%;
 }
 
-/*
-.content-competenze {
-    width: 60%;
-    margin: auto;
-    border-color: #59A5D8;
-    border-style: groove;
-}
-*/
 .content hr {
     background-color: #101d42;
     border: solid 2px #101d42;
@@ -195,6 +203,10 @@ input[type=file]::file-selector-button:hover {
     left: 50%;
     bottom: 50%;
     transform: translate(-50%, 50%);
+    padding: 15px;
+    background-color: #9CC9E8;
+    border: 2px solid;
+    border-radius: 1rem;
 }
 
 .team {
@@ -253,13 +265,24 @@ input[type=file]::file-selector-button:hover {
     border-bottom: 2px solid #1E1E24;
 }
 
-.content-upload input[type=button], .team-button input[type=button] {
+.content-upload input[type=button], .team-button input[type=button]  {
     border: 2px solid #1E1E24;
     padding: .5em 1em;
     border-radius: 1rem;
     background-color: white;
     font-family: -webkit-pictograph;
     font-size: 15px;
+}
+
+.form input[type=button] {
+    border: 2px solid #1E1E24;
+    padding: 10px;
+    border-radius: 1rem;
+    background-color: white;
+    font-family: -webkit-pictograph;
+    font-size: 22px;
+    height: auto;
+    width: 100px;
 }
 
 .content-upload input[type=button]:hover, .team-button input[type=button]:hover {

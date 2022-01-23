@@ -172,52 +172,7 @@ public class RegistrazioneControlTest extends Mockito {
         servlet.doPost(request, response);
         assertTrue(stringWriter.toString().contains("3"));
     }
-    /*
-    @Test //password=null
-    public void regTestPass1() throws IOException, ServletException {
-        request = Mockito.mock(HttpServletRequest.class);
-        response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
-        Mockito.when(request.getParameter("nome")).thenReturn("Manuel");
-        Mockito.when(request.getParameter("cognome")).thenReturn("Nocerino");
-        Mockito.when(request.getParameter("email")).thenReturn("manuel@gmail.com");
-        Mockito.when(request.getParameter("pwd")).thenReturn(null);
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
-        Mockito.when(response.getWriter()).thenReturn(writer);
-        servlet.doPost(request, response);
-        assertTrue(stringWriter.toString().contains("4"));
-    }
-    @Test //password=empty
-    public void regTestPass2() throws IOException, ServletException {
-        request = Mockito.mock(HttpServletRequest.class);
-        response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
-        Mockito.when(request.getParameter("nome")).thenReturn("Manuel");
-        Mockito.when(request.getParameter("cognome")).thenReturn("Nocerino");
-        Mockito.when(request.getParameter("email")).thenReturn("manuel@gmail.com");
-        Mockito.when(request.getParameter("pwd")).thenReturn("");
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
-        Mockito.when(response.getWriter()).thenReturn(writer);
-        servlet.doPost(request, response);
-        assertTrue(stringWriter.toString().contains("4"));
-    }
-    @Test //password=wrong
-    public void regTestPass3() throws IOException, ServletException {
-        request = Mockito.mock(HttpServletRequest.class);
-        response = Mockito.mock(HttpServletResponse.class);
-        RegistrazioneControl servlet = new RegistrazioneControl();
-        Mockito.when(request.getParameter("nome")).thenReturn("Manuel");
-        Mockito.when(request.getParameter("cognome")).thenReturn("Nocerino");
-        Mockito.when(request.getParameter("email")).thenReturn("manuel@gmail.com");
-        Mockito.when(request.getParameter("pwd")).thenReturn("L@l");
-        StringWriter stringWriter = new StringWriter();
-        PrintWriter writer = new PrintWriter(stringWriter);
-        Mockito.when(response.getWriter()).thenReturn(writer);
-        servlet.doPost(request, response);
-        assertTrue(stringWriter.toString().contains("4"));
-    }*/
+
 
     @Test //da controllare
     public void regPass() throws IOException, ServletException {

@@ -21,6 +21,7 @@
 </head>
 <body>
 <c:import url="/static/Header.jsp"/>
+<div class="footer-wrap">
 <h1>Team</h1>
 <c:choose>
     <c:when test="${listTeam!=null}">
@@ -99,7 +100,8 @@
             <h1>Non ci sono Team</h1>
         </div>
     </c:otherwise>
-</c:choose>
+    </c:choose>
+</div>
+<c:import url="/static/Footer.jsp"/>
 </body>
-
 </html>
