@@ -128,7 +128,6 @@ public class CandidaturaDAOImpl implements CandidaturaDAO {
         }
     }
 
-
     /**
      * Questa funzionalità permette di recuperare tutte le candidature
      * @return  {@literal ArrayList<@link Candidatura>} , una lista di candidature
@@ -201,8 +200,6 @@ public class CandidaturaDAOImpl implements CandidaturaDAO {
             DatabaseManager.closeConnessione(connection);
         }
     }
-
-
 
     /**
      * Questa funzionalità permette di rimuovere una candidatura

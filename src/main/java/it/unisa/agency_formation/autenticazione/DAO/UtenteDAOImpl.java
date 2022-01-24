@@ -114,7 +114,6 @@ public class UtenteDAOImpl implements UtenteDAO {
      * @throws SQLException errore nella query errore nella query
      */
 
-
     public ArrayList<Utente> doRetrieveCandidatoConCandidatura() throws SQLException {
         Connection connection = DatabaseManager.getInstance().getConnection();
         ResultSet result;
@@ -179,9 +178,10 @@ public class UtenteDAOImpl implements UtenteDAO {
     }
 
     /**
+     * Questa funzionalità permette di controllare se una mail è già esistente
      *
-     * @param email
-     * @return
+     * @param email , email da controllare
+     * @return boolean (true = non esiste altra mail identica, false = altrimenti)
      * @throws SQLException
      */
 
