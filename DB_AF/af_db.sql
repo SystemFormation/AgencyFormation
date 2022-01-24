@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `team` (
 -- Dumping data for table af_db.team: ~2 rows (approximately)
 DELETE FROM `team`;
 INSERT INTO `team` (`IdTeam`, `NomeProgetto`, `NumeroDipendenti`, `NomeTeam`, `Descrizione`, `Competenza`, `IdTM`) VALUES
-	(1, 'TechAll', 8, 'NuoveTecnologie', 'Ricerchiamo nuove tecnologie', 'HTML e CSS', 3),
+	(1, 'TechAll', 8, 'NuoveTecnologie', 'Ricerchiamo nuove tecnologie', NULL, 3),
 	(2, 'NewTech', 1, 'Arte', 'Nuove tecnologie biomeccaniche', 'Basi di Ingegneria Meccanica', 3);
 
 -- Dumping structure for table af_db.utenti
@@ -142,9 +142,9 @@ DELETE FROM `utenti`;
 INSERT INTO `utenti` (`IdUtente`, `Nome`, `Cognome`, `Pwd`, `Mail`, `Ruolo`) VALUES
 	(1, 'Luigi', 'Giacchetti', 'lol', 'l.giacchetti@studenti.unisa.it', 1),
 	(2, 'Pasquale', 'Severino', 'lol', 'p.severino@studenti.unisa.it', 2),
-	(3, 'Mario', 'Rossi', 'lol', 'MarioDraghi@libero.it', 2),
-	(4, 'Manuel', 'Nocerino', 'lol', 'm.nocerino@studenti.unisa.it', 3),
-	(5, 'Domenico', 'Pagliuca', 'lol', 'd.pagliuca@studenti.unisa.it', 4);
+	(3, 'Manuel', 'Nocerino', 'lol', 'm.nocerino@studenti.unisa.it', 3),
+	(4, 'Domenico', 'Pagliuca', 'lol', 'd.pagliuca@studenti.unisa.it', 4),
+	(5, 'Mario', 'Rossi', 'lol', 'MarioDraghi@libero.it', 2);
 
 
 -- Dumping database structure for af_db_test
@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `candidature` (
   KEY `IdHR` (`IdHR`),
   CONSTRAINT `candidature_ibfk_1` FOREIGN KEY (`IdCandidato`) REFERENCES `utenti` (`IdUtente`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `candidature_ibfk_2` FOREIGN KEY (`IdHR`) REFERENCES `utenti` (`IdUtente`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table af_db_test.candidature: ~0 rows (approximately)
 DELETE FROM `candidature`;
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `dipendenti` (
   CONSTRAINT `dipendenti_ibfk_2` FOREIGN KEY (`IdDipendente`) REFERENCES `utenti` (`IdUtente`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table af_db_test.dipendenti: ~4 rows (approximately)
+-- Dumping data for table af_db_test.dipendenti: ~1 rows (approximately)
 DELETE FROM `dipendenti`;
 INSERT INTO `dipendenti` (`IdDipendente`, `Residenza`, `Telefono`, `Stato`, `AnnoDiNascita`, `IdTeam`) VALUES
 	(2, 'Fisciano', '118', 0, 2000, 1);
@@ -201,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `documenti` (
   KEY `IdTeam` (`IdTeam`),
   CONSTRAINT `documenti_ibfk_1` FOREIGN KEY (`IdHR`) REFERENCES `utenti` (`IdUtente`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `documenti_ibfk_2` FOREIGN KEY (`IdTeam`) REFERENCES `team` (`IdTeam`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=304 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table af_db_test.documenti: ~0 rows (approximately)
 DELETE FROM `documenti`;
@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `skill` (
   `NomeSkill` varchar(64) NOT NULL,
   `DescrizioneSkill` varchar(512) NOT NULL,
   PRIMARY KEY (`IdSkill`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table af_db_test.skill: ~2 rows (approximately)
 DELETE FROM `skill`;
@@ -249,9 +249,9 @@ CREATE TABLE IF NOT EXISTS `team` (
   PRIMARY KEY (`IdTeam`),
   KEY `IdTM` (`IdTM`),
   CONSTRAINT `team_ibfk_1` FOREIGN KEY (`IdTM`) REFERENCES `utenti` (`IdUtente`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=505 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table af_db_test.team: ~2 rows (approximately)
+-- Dumping data for table af_db_test.team: ~1 rows (approximately)
 DELETE FROM `team`;
 INSERT INTO `team` (`IdTeam`, `NomeProgetto`, `NumeroDipendenti`, `NomeTeam`, `Descrizione`, `Competenza`, `IdTM`) VALUES
 	(1, 'TechAll', 8, 'NuoveTecnologie', 'Ricerchiamo nuove tecnologie', 'Basi di Ingegneria Meccanica', 3);
@@ -265,9 +265,9 @@ CREATE TABLE IF NOT EXISTS `utenti` (
   `Mail` varchar(32) NOT NULL,
   `Ruolo` int(11) NOT NULL,
   PRIMARY KEY (`IdUtente`)
-) ENGINE=InnoDB AUTO_INCREMENT=607 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table af_db_test.utenti: ~7 rows (approximately)
+-- Dumping data for table af_db_test.utenti: ~4 rows (approximately)
 DELETE FROM `utenti`;
 INSERT INTO `utenti` (`IdUtente`, `Nome`, `Cognome`, `Pwd`, `Mail`, `Ruolo`) VALUES
 	(1, 'Luigi', 'Giacchetti', 'lol', 'l.giacchetti@studenti.unisa.it', 1),
