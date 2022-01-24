@@ -19,17 +19,46 @@ public interface ReclutamentoManager {
     boolean caricaCandidatura(Candidatura candidatura) throws SQLException;
 
     /**
-     * Questa funzionalità è l'interfaccia del metodo che permette di restituire tutte le candidature caricate
+     * Questa funzionalità è l'interfaccia del metodo che permette di ritornare la candidatura in base all'id del candidato
      *
-     * @return {@literal ArrayList<@link Candidatura>} , una lista con tutte le candidature
+     * @param idCandidato , identifica il candidato
+     * @return Candidatura , la candidatura interessata
      * @throws SQLException errore nella query errore nella query
      */
 
     Candidatura getCandidaturaById(int idCandidato) throws SQLException;
 
+    /**
+     * Questa funzionalità è l'interfaccia del metodo che permette di accettare una candidatura e fissare un colloquio
+     *
+     * @param idCandidatura , identifica la candidatura
+     * @param idHR          , identifica l'HR
+     * @param data          ,specifica la data del colloquio
+     * @return boolean (false = la funzionalità non va a buon fine,
+     * true = la funzionalità va a buon fine)
+     * @throws SQLException errore nella query errore nella query
+     */
+
     boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException;
 
+    /**
+     * Questa funzionalità è l'interfaccia del metodo che permette di rifiutare la candidatura
+     *
+     * @param idCandidatura , identifica la candidatura
+     * @param idHR          , identifica l' HR
+     * @return boolean (false = la funzionalità non va a buon fine,
+     * true = la funzionalità va a buon fine)
+     * @throws SQLException errore nella query errore nella query
+     */
+
     boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException;
+
+    /**
+     * Questa funzionalità è l'interfaccia del metodo che permette di restituire tutte le candidature caricate
+     *
+     * @return {@literal ArrayList<@link Candidatura>} , una lista con tutte le candidature
+     * @throws SQLException errore nella query errore nella query
+     */
 
     ArrayList<Candidatura> getTutteCandidature() throws SQLException;
 

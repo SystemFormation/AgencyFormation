@@ -182,7 +182,7 @@ public class UtenteDAOImpl implements UtenteDAO {
      *
      * @param email , email da controllare
      * @return boolean (true = non esiste altra mail identica, false = altrimenti)
-     * @throws SQLException
+     * @throws SQLException errore nella query errore nella query
      */
 
     public boolean checkEmail(String email) throws SQLException {

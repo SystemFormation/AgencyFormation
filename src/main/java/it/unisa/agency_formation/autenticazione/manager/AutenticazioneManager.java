@@ -55,7 +55,7 @@ public interface AutenticazioneManager {
 
     /**
      * Questa funzionalità è l'interfaccia del metodo che permette di assumere un candidato
-     *
+     * @param dipendente , il dipendente da assumere
      * @return boolean (true = l'assunzione va a buon fine, false = altrimenti
      * @throws SQLException errore nella query errore nella query
      */
