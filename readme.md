@@ -30,7 +30,7 @@ You can follow these steps or installation manual.
 4. Deploy .war file on your java server(ex. Tomcat).
 5. Open your browser on `localhost:8080\AgencyFormation`
 6. Import database and populate it with the script that you can find in **folder AF_DB**.
-6. Login with ["d.pagliuca@studenti.unisa.it"](mailto:d.pagliuca@studenti.unisa.it) password: **"lol"**  for Human Resource or with ["m.nocerino@studenti.unisa.it"](mailto:m.nocerino5@studenti.unisa.it) password: **"lol"** for Team Manager.
+7. Login with ["d.pagliuca@studenti.unisa.it"](mailto:d.pagliuca@studenti.unisa.it) password: **"lol"**  for Human Resource or with ["m.nocerino@studenti.unisa.it"](mailto:m.nocerino5@studenti.unisa.it) password: **"lol"** for Team Manager, with ["l.giacchetti@studenti.unisa.it"](mailto:l.giacchetti1@studenti.unisa.it) password: **"lol"** for Candidate and ["p.severino@studenti.unisa.it"](mailto:p.severino1@studenti.unisa.it) password: **"lol"** for Employee.
 
 ## Working with the project
 * Master branch contains release-ready only features.
