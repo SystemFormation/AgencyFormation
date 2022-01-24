@@ -35,23 +35,23 @@ import java.sql.SQLException;
 <span class="fc bfc" id="L35" title="All 2 branches covered.">            if (action.equalsIgnoreCase(&quot;competenze&quot;)) { //update competenze</span>
 <span class="fc" id="L36">                int idTeam = Integer.parseInt(req.getParameter(&quot;idTeam&quot;));</span>
 <span class="fc" id="L37">                String competence = req.getParameter(&quot;specCompetenze&quot;);</span>
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">                if(Check.checkCompetence(competence)) {</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">                if (Check.checkCompetence(competence)) {</span>
                     try {
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">                        if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {</span>
-<span class="nc" id="L41">                            String descrizione = &quot;Errore nella specifica delle competenze&quot;;</span>
-<span class="nc" id="L42">                            resp.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
-<span class="nc" id="L43">                        } else {</span>
-<span class="fc" id="L44">                            resp.getWriter().write(&quot;1&quot;);</span>
-<span class="fc" id="L45">                            dispatcher = req.getServletContext().getRequestDispatcher(&quot;/ListaTeam&quot;);</span>
-<span class="fc" id="L46">                            dispatcher.forward(req, resp);</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">                        if (!inserimentoCompetenzeNelTeam(competence, idTeam)) {</span>
+<span class="fc" id="L41">                            resp.getWriter().write(&quot;5&quot;);</span>
+<span class="fc" id="L42">                            String descrizione = &quot;Errore nella specifica delle competenze&quot;;</span>
+<span class="fc" id="L43">                            resp.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
+<span class="fc" id="L44">                        } else {</span>
+<span class="fc" id="L45">                            resp.getWriter().write(&quot;1&quot;);</span>
+<span class="fc" id="L46">                            dispatcher = req.getServletContext().getRequestDispatcher(&quot;/ListaTeam&quot;);</span>
+<span class="fc" id="L47">                            dispatcher.forward(req, resp);</span>
                         }
-<span class="nc" id="L48">                    } catch (SQLException e) {</span>
-<span class="nc" id="L49">                        e.printStackTrace();</span>
-<span class="pc" id="L50">                    }</span>
-                }
-                else{
-<span class="nc" id="L53">                    resp.getWriter().write(&quot;4&quot;);//errore competenza</span>
-<span class="nc" id="L54">                    resp.sendRedirect(&quot;./static/Error.jsp?descrizione=Competenze invalide&quot;);</span>
+<span class="nc" id="L49">                    } catch (SQLException e) {</span>
+<span class="nc" id="L50">                        e.printStackTrace();</span>
+<span class="pc" id="L51">                    }</span>
+                } else {
+<span class="fc" id="L53">                    resp.getWriter().write(&quot;4&quot;); //errore competenza</span>
+<span class="fc" id="L54">                    resp.sendRedirect(&quot;./static/Error.jsp?descrizione=Competenze invalide&quot;);</span>
                 }
 <span class="fc" id="L56">            } else {</span>
 <span class="fc" id="L57">                resp.getWriter().write(&quot;2&quot;);</span>

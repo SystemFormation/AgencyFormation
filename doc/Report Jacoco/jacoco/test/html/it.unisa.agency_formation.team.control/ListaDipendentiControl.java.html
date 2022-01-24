@@ -45,8 +45,8 @@ import java.util.ArrayList;
 <span class="pc bpc" id="L45" title="1 of 4 branches missed.">                if (dipendenti != null &amp;&amp; dipendenti.size() &gt; 0) {</span>
 <span class="fc bfc" id="L46" title="All 2 branches covered.">                    for (Dipendente dipendente : dipendenti) {</span>
                         ArrayList&lt;Skill&gt; skills;
-<span class="pc bpc" id="L48" title="1 of 4 branches missed.">                        if (dipendente.getTeam() != null &amp;&amp; dipendente.getTeam().getIdTeam() &gt; 0) {</span>
-<span class="fc" id="L49">                            dipendente.setTeam(getTeamIdFromManager(dipendente.getTeam().getIdTeam()));</span>
+<span class="pc bpc" id="L48" title="3 of 4 branches missed.">                        if (dipendente.getTeam() != null &amp;&amp; dipendente.getTeam().getIdTeam() &gt; 0) {</span>
+<span class="nc" id="L49">                            dipendente.setTeam(getTeamIdFromManager(dipendente.getTeam().getIdTeam()));</span>
                         }
 <span class="pc bpc" id="L51" title="1 of 4 branches missed.">                        if (getSkillDipendenteFromManager(dipendente.getIdDipendente()) != null &amp;&amp; getSkillDipendenteFromManager(dipendente.getIdDipendente()).size() &gt; 0) {</span>
 <span class="fc" id="L52">                            skills = getSkillDipendenteFromManager(dipendente.getIdDipendente());</span>
@@ -94,8 +94,8 @@ import java.util.ArrayList;
      */
 
     public static Team getTeamIdFromManager(int idTeam) throws SQLException {
-<span class="fc" id="L97">        TeamManager teamManager = new TeamManagerImpl();</span>
-<span class="fc" id="L98">        return teamManager.getTeamById(idTeam);</span>
+<span class="nc" id="L97">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="nc" id="L98">        return teamManager.getTeamById(idTeam);</span>
     }
 
     /**

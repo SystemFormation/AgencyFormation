@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AutenticazioneManagerImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.autenticazione.manager</a> &gt; <span class="el_source">AutenticazioneManagerImpl.java</span></div><h1>AutenticazioneManagerImpl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.autenticazione.manager;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAOImpl;
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAOImpl;
+import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-<span class="fc" id="L11">public class AutenticazioneManagerImpl implements AutenticazioneManager {</span>
-
+<span class="fc" id="L13">public class AutenticazioneManagerImpl implements AutenticazioneManager {</span>
+<span class="fc" id="L14">        public static UtenteDAO daoUtente = new UtenteDAOImpl();</span>
+<span class="fc" id="L15">        public static DipendenteDAO daoDipendente = new DipendenteDAOImpl();</span>
     /**
      * Questa funzionalitÃ  permette di far registrare un utente,l'utente non deve essere giÃ  registrato
      *
@@ -19,10 +22,10 @@ import java.util.ArrayList;
      */
     @Override
     public boolean registrazione(Utente user) throws SQLException {
-<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (!alreadyRegisteredUser(user)) {</span>
-<span class="fc" id="L23">            return UtenteDAO.salvaUtente(user);</span>
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (!alreadyRegisteredUser(user)) {</span>
+<span class="fc" id="L26">            return daoUtente.salvaUtente(user);</span>
         } else {
-<span class="fc" id="L25">            return false;</span>
+<span class="fc" id="L28">            return false;</span>
         }
     }
 
@@ -36,7 +39,7 @@ import java.util.ArrayList;
      */
     @Override
     public Utente login(String email, String password) throws SQLException {
-<span class="fc" id="L39">        return UtenteDAO.login(email, password);</span>
+<span class="fc" id="L42">        return daoUtente.login(email, password);</span>
     }
 
     /**
@@ -48,7 +51,7 @@ import java.util.ArrayList;
      */
     @Override
     public Dipendente getDipendente(int idDip) throws SQLException {
-<span class="fc" id="L51">        return DipendenteDAO.recuperoDipendenteById(idDip);</span>
+<span class="fc" id="L54">        return daoDipendente.recuperoDipendenteById(idDip);</span>
     }
 
     /**
@@ -58,7 +61,7 @@ import java.util.ArrayList;
      */
     @Override
     public ArrayList&lt;Utente&gt; getCandidatiConCandidatura() throws SQLException {
-<span class="fc" id="L61">        return UtenteDAO.doRetrieveCandidatoConCandidatura();</span>
+<span class="fc" id="L64">        return daoUtente.doRetrieveCandidatoConCandidatura();</span>
     }
 
     /**
@@ -68,7 +71,7 @@ import java.util.ArrayList;
 
     @Override
     public ArrayList&lt;Dipendente&gt; getTuttiDipendenti() throws SQLException {
-<span class="fc" id="L71">        return DipendenteDAO.recuperaDipendenti();</span>
+<span class="fc" id="L74">        return daoDipendente.recuperaDipendenti();</span>
     }
 
     /**
@@ -79,8 +82,8 @@ import java.util.ArrayList;
 
     @Override
     public boolean assumiCandidato(Dipendente dipendente) throws SQLException {
-<span class="fc" id="L82">        DipendenteDAO.modificaRuoloUtente(dipendente.getIdDipendente());</span>
-<span class="fc" id="L83">        return (DipendenteDAO.salvaDipendente(dipendente));</span>
+<span class="fc" id="L85">        daoDipendente.modificaRuoloUtente(dipendente.getIdDipendente());</span>
+<span class="fc" id="L86">        return (daoDipendente.salvaDipendente(dipendente));</span>
     }
 
     /**
@@ -90,7 +93,7 @@ import java.util.ArrayList;
 
     @Override
     public ArrayList&lt;Utente&gt; getCandidatiColloquio() throws SQLException {
-<span class="fc" id="L93">        return UtenteDAO.recuperoCandidatiColloquio();</span>
+<span class="fc" id="L96">        return daoUtente.recuperoCandidatiColloquio();</span>
     }
 
     /**
@@ -103,7 +106,7 @@ import java.util.ArrayList;
      */
     @Override
     public boolean setTeamDipendente(int idDip, int idTeam) throws SQLException {
-<span class="fc" id="L106">        return DipendenteDAO.setIdTeamDipendente(idDip, idTeam);</span>
+<span class="fc" id="L109">        return daoDipendente.setIdTeamDipendente(idDip, idTeam);</span>
     }
 
     /**
@@ -114,7 +117,7 @@ import java.util.ArrayList;
      *                  true = l'utente Ã¨ registrato)
      * @throws SQLException errore nella query*/
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {
-<span class="fc" id="L117">      return UtenteDAO.checkEmail(user.getEmail());</span>
+<span class="fc" id="L120">      return daoUtente.checkEmail(user.getEmail());</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TeamManagerImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.team.manager</a> &gt; <span class="el_source">TeamManagerImpl.java</span></div><h1>TeamManagerImpl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.team.manager;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
+import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.DAO.TeamDAOImpl;
 import it.unisa.agency_formation.team.domain.Team;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-<span class="fc" id="L10">public class TeamManagerImpl implements TeamManager {</span>
-
+<span class="fc" id="L11">public class TeamManagerImpl implements TeamManager {</span>
+<span class="fc" id="L12">    public static TeamDAO daoTeam = new TeamDAOImpl();</span>
     /**
      * Questo metodo permette di creare un team
      *
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 
     @Override
     public boolean creaTeam(Team team, int idUtente) throws SQLException {
-<span class="fc" id="L23">       return TeamDAO.salvaTeam(team, idUtente);</span>
+<span class="fc" id="L24">       return daoTeam.salvaTeam(team, idUtente);</span>
     }
 
     /**
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 
     @Override
     public boolean rimuoviDipendente(int idDip) throws SQLException {
-<span class="fc" id="L36">        return TeamDAO.rimuoviDipendente(idDip);</span>
+<span class="fc" id="L37">        return daoTeam.rimuoviDipendente(idDip);</span>
     }
 
     /**
@@ -45,7 +46,7 @@ import java.util.ArrayList;
 
     @Override
     public ArrayList&lt;Team&gt; visualizzaTeams(int idUtente) throws SQLException {
-<span class="fc" id="L48">        return TeamDAO.recuperaTeamDiUnTM(idUtente);</span>
+<span class="fc" id="L49">        return daoTeam.recuperaTeamDiUnTM(idUtente);</span>
     }
 
     /**
@@ -56,7 +57,7 @@ import java.util.ArrayList;
 
     @Override
     public ArrayList&lt;Team&gt; visualizzaTuttiTeams() throws SQLException {
-<span class="fc" id="L59">        return TeamDAO.recuperaTuttiTeam();</span>
+<span class="fc" id="L60">        return daoTeam.recuperaTuttiTeam();</span>
     }
 
     /**
@@ -67,7 +68,7 @@ import java.util.ArrayList;
 
     @Override
     public int viewLastIdTeam() throws SQLException {
-<span class="fc" id="L70">        return TeamDAO.recuperaIdUltimoTeamCreato();</span>
+<span class="fc" id="L71">        return daoTeam.recuperaIdUltimoTeamCreato();</span>
     }
 
     /**
@@ -79,7 +80,7 @@ import java.util.ArrayList;
 
     @Override
     public ArrayList&lt;Integer&gt; recuperaIdDipendentiDelTeam(int idTeam) throws SQLException {
-<span class="fc" id="L82">        return TeamDAO.recuperaIdTeamMemberFromTeam(idTeam);</span>
+<span class="fc" id="L83">        return daoTeam.recuperaIdTeamMemberFromTeam(idTeam);</span>
     }
 
     /**
@@ -92,7 +93,7 @@ import java.util.ArrayList;
 
     @Override
     public boolean updateDipsDisso(int idDip) throws SQLException {
-<span class="fc" id="L95">       return TeamDAO.updateDipStateDissolution(idDip);</span>
+<span class="fc" id="L96">       return daoTeam.updateDipStateDissolution(idDip);</span>
 
     }
 
@@ -106,7 +107,7 @@ import java.util.ArrayList;
 
     @Override
     public boolean sciogliTeam(int idTeam) throws SQLException {
-<span class="fc" id="L109">        return TeamDAO.rimuoviTeam(idTeam);</span>
+<span class="fc" id="L110">        return daoTeam.rimuoviTeam(idTeam);</span>
 
     }
 
@@ -118,7 +119,7 @@ import java.util.ArrayList;
 
     @Override
     public ArrayList&lt;Dipendente&gt; recuperaDipendentiDelTeam() throws SQLException {
-<span class="fc" id="L121">        return TeamDAO.recuperaDipendentiDelTeam();</span>
+<span class="fc" id="L122">        return daoTeam.recuperaDipendentiDelTeam();</span>
 
     }
 
@@ -131,7 +132,7 @@ import java.util.ArrayList;
 
     @Override
     public Team getTeamById(int idTeam) throws SQLException {
-<span class="fc" id="L134">        return TeamDAO.recuperaTeamById(idTeam);</span>
+<span class="fc" id="L135">        return daoTeam.recuperaTeamById(idTeam);</span>
     }
 
     /**
@@ -145,7 +146,7 @@ import java.util.ArrayList;
 
     @Override
     public boolean specificaLeCompetenze(String competence, int idTeam) throws SQLException {
-<span class="fc" id="L148">        return TeamDAO.specificaCompetenze(competence, idTeam);</span>
+<span class="fc" id="L149">        return daoTeam.specificaCompetenze(competence, idTeam);</span>
     }
 
 }

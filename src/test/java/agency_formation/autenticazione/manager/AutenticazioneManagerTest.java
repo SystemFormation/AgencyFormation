@@ -1,7 +1,7 @@
 package agency_formation.autenticazione.manager;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAOImpl;
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDao;
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAOImpl;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
@@ -13,7 +13,6 @@ import it.unisa.agency_formation.autenticazione.manager.AutenticazioneManagerImp
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 public class AutenticazioneManagerTest {
     private AutenticazioneManagerImpl aut = new AutenticazioneManagerImpl();
     private UtenteDAO daoUtente = mock(UtenteDAOImpl.class);
-    private DipendenteDao daoDipendente = mock(DipendenteDAOImpl.class);
+    private DipendenteDAO daoDipendente = mock(DipendenteDAOImpl.class);
 
     public void init(){
         AutenticazioneManagerImpl.daoUtente = daoUtente;

@@ -1,7 +1,7 @@
 package it.unisa.agency_formation.autenticazione.manager;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAOImpl;
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDao;
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAOImpl;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class AutenticazioneManagerImpl implements AutenticazioneManager {
         public static UtenteDAO daoUtente = new UtenteDAOImpl();
-        public static DipendenteDao daoDipendente = new DipendenteDAOImpl();
+        public static DipendenteDAO daoDipendente = new DipendenteDAOImpl();
     /**
      * Questa funzionalità permette di far registrare un utente,l'utente non deve essere già registrato
      *

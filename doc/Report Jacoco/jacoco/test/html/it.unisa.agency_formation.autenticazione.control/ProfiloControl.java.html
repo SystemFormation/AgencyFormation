@@ -40,7 +40,7 @@ import java.util.ArrayList;
 <span class="fc" id="L40">                Dipendente dip = getAllDataDipFromManager(user.getId());</span>
                 ArrayList&lt;Skill&gt; skills;
 <span class="fc" id="L42">                skills = getSkillDipendenteFromManager(dip.getIdDipendente());</span>
-<span class="pc bpc" id="L43" title="1 of 4 branches missed.">                if (skills != null &amp;&amp; skills.size() &gt;= 1) {</span>
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">                if (skills != null &amp;&amp; skills.size() &gt;= 1) {</span>
 <span class="fc" id="L44">                    dip.setSkills(skills);</span>
                 }
 <span class="fc" id="L46">                response.getWriter().write(&quot;1&quot;); // retrieve data ok</span>

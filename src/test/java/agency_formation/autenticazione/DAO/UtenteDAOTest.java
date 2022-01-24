@@ -154,7 +154,7 @@ public class UtenteDAOTest {
 
 
     @Test
-    @Order(15)//not pass
+    @Order(15)
     public void recuperoCandidatiColloquio1() throws SQLException {
         String query = "update candidature set Stato='Rifiutata' where idCandidatura>=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -164,7 +164,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(16)//pass
+    @Order(16)
     public void recuperoCandidatiColloquio2() throws SQLException {
         String query = "update candidature set Stato='Accettata' where idCandidatura=1";
         Connection connection = DatabaseManager.getInstance().getConnection();
@@ -174,7 +174,7 @@ public class UtenteDAOTest {
     }
 
     @Test
-    @Order(17) //fail
+    @Order(17)
     public void retrieveCandidatiConCandidatura2() throws SQLException{
         String query = "Delete from candidature where IdCandidatura>=1";
         Connection connection = DatabaseManager.getInstance().getConnection();

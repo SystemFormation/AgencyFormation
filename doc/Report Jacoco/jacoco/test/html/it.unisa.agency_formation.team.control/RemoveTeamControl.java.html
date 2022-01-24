@@ -32,7 +32,7 @@ import java.sql.SQLException;
 <span class="fc bfc" id="L32" title="All 4 branches covered.">        if (user != null &amp;&amp; user.getRole() == RuoliUtenti.TM) {</span>
             RequestDispatcher dispatcher;
 <span class="fc" id="L34">            int idDip = Integer.parseInt(req.getParameter(&quot;idDip&quot;));</span>
-<span class="fc bfc" id="L35" title="All 2 branches covered.">            if (idDip != 0) {</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">            if (idDip &gt; 0) {</span>
                 try {
 <span class="pc bpc" id="L37" title="1 of 2 branches missed.">                    if (!rimuoviDipendenteFromManager(idDip)) {</span>
 <span class="nc" id="L38">                        resp.getWriter().write(&quot;4&quot;); //dipendente non rimosso</span>

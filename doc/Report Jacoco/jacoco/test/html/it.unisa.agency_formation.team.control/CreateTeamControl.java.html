@@ -63,7 +63,7 @@ import java.sql.SQLException;
 <span class="fc" id="L63">                            dispatcher.forward(req, resp);</span>
 <span class="fc" id="L64">                        }</span>
                     } else {
-<span class="nc" id="L66">                        resp.getWriter().write(&quot;4&quot;);//errori nella compilazione dei campi</span>
+<span class="nc" id="L66">                        resp.getWriter().write(&quot;4&quot;); //errori nella compilazione dei campi</span>
 <span class="nc" id="L67">                        resp.sendRedirect(&quot;./static/Error.jsp?descrizione=Errore nella compilazione dei campi&quot;);</span>
                     }
                 }

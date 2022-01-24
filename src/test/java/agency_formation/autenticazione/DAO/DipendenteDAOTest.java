@@ -1,11 +1,10 @@
 package agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAOImpl;
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDao;
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAOImpl;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
-import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
 
@@ -21,7 +20,7 @@ import java.sql.SQLException;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DipendenteDAOTest {
-    private DipendenteDao daoDipendente = new DipendenteDAOImpl();
+    private DipendenteDAO daoDipendente = new DipendenteDAOImpl();
     private UtenteDAO daoUtente = new UtenteDAOImpl();
     @BeforeAll
     public static void init() throws SQLException {

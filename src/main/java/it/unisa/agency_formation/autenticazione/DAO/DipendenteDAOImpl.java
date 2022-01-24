@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class DipendenteDAOImpl implements DipendenteDao{
+public class DipendenteDAOImpl implements DipendenteDAO {
     private static final String TABLE_DIPENDENTE = "dipendenti";
 
     /**

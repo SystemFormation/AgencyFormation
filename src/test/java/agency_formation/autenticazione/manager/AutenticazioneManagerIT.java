@@ -1,7 +1,7 @@
 package agency_formation.autenticazione.manager;
 
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAOImpl;
-import it.unisa.agency_formation.autenticazione.DAO.DipendenteDao;
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
 import it.unisa.agency_formation.autenticazione.domain.StatiDipendenti;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AutenticazioneManagerIT {
     private AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();
-    private DipendenteDao daoDipendente = new DipendenteDAOImpl();
+    private DipendenteDAO daoDipendente = new DipendenteDAOImpl();
     @BeforeAll
     public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;

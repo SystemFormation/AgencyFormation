@@ -5,7 +5,7 @@ import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface DipendenteDao {
+public interface DipendenteDAO {
     boolean salvaDipendente(Dipendente dipendente) throws SQLException;
 
     boolean modificaRuoloUtente(int id) throws SQLException;

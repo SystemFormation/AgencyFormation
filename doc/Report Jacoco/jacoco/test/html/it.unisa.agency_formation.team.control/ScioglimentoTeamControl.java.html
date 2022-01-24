@@ -100,8 +100,8 @@ import java.util.ArrayList;
      */
 
     public static ArrayList&lt;Integer&gt; recuperaIdDipendentiFromManager(int idTeam) throws SQLException {
-<span class="nc" id="L103">        TeamManager teamManager = new TeamManagerImpl();</span>
-<span class="nc" id="L104">        return teamManager.recuperaIdDipendentiDelTeam(idTeam);</span>
+<span class="fc" id="L103">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="fc" id="L104">        return teamManager.recuperaIdDipendentiDelTeam(idTeam);</span>
     }
 
     /**
@@ -113,8 +113,8 @@ import java.util.ArrayList;
      */
 
     public static boolean updateStatoDipendenteFromManager(int idDipendente) throws SQLException {
-<span class="nc" id="L116">        TeamManager teamManager = new TeamManagerImpl();</span>
-<span class="nc" id="L117">        return teamManager.updateDipsDisso(idDipendente);</span>
+<span class="fc" id="L116">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="fc" id="L117">        return teamManager.updateDipsDisso(idDipendente);</span>
     }
 
     /**
@@ -126,8 +126,8 @@ import java.util.ArrayList;
      */
 
     public static boolean eliminaTeamFromManager(int idTeam) throws SQLException {
-<span class="nc" id="L129">        TeamManager teamManager = new TeamManagerImpl();</span>
-<span class="nc" id="L130">        return teamManager.sciogliTeam(idTeam);</span>
+<span class="fc" id="L129">        TeamManager teamManager = new TeamManagerImpl();</span>
+<span class="fc" id="L130">        return teamManager.sciogliTeam(idTeam);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
