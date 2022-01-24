@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TeamDAOImpl implements TeamDAO{
+public class TeamDAOImpl implements TeamDAO {
     private static final String TABLE_DIPENDENTE = "dipendenti";
     private static final String TABLE_UTENTE = "utenti";
     private static final String TABLE_TEAM = "team";

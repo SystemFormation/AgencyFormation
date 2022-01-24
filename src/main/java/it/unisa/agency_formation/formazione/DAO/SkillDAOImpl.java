@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SkillDAOImpl implements SkillDAO{
+public class SkillDAOImpl implements SkillDAO {
     private static final String TABLE_SKILL = "skill";
     private static final String TABLE_SKILLDIPENDENTE = "skillsdipendenti";
 

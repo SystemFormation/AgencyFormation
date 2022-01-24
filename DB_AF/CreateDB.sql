@@ -10,6 +10,7 @@ Pwd varchar(16) not null,
 Mail varchar(32) not null,
 Ruolo int not null
 );
+
 use af_db;
 create table Team(
 IdTeam int primary key not null auto_increment,

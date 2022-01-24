@@ -4,10 +4,15 @@ import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 import it.unisa.agency_formation.utils.DatabaseManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class CandidaturaDAOImpl implements CandidaturaDAO{
+public class CandidaturaDAOImpl implements CandidaturaDAO {
     private  static final String TABLE_CANDIDATURA = "Candidature";
 
     /**
@@ -221,7 +226,6 @@ public class CandidaturaDAOImpl implements CandidaturaDAO{
             return result != 0;
         } finally {
             DatabaseManager.closeConnessione(connection);
-
         }
     }
 
