@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    String error =  request.getParameter("error");
+    String error = request.getParameter("error");
 %>
 <c:set var="error" value="<%=error%>"/>
 <!DOCTYPE html>
@@ -26,11 +26,13 @@
             <span id="rsEmail"></span><br>
             <input type="password" id="password" name="password" placeholder="Password" onkeyup="checkPassword()"><br>
             <span id="rsPassword"></span>
-        </div><br>
+        </div>
+        <br>
         <c:if test="${error != null}">
             <span style="color: red">${error}</span>
         </c:if>
-        <br><div class="components-button">
+        <br>
+        <div class="components-button">
             <input type="submit" value="Accedi" id="Accedi" onclick="checkEmail();checkPassword()">
         </div>
     </form>

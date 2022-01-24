@@ -142,7 +142,7 @@ input[type=file]::file-selector-button:hover {
     align-items: center;
 }
 
-.form-button button{
+.form-button button {
     padding: 15px;
     text-decoration: none;
     margin-bottom: 20px;
@@ -151,7 +151,7 @@ input[type=file]::file-selector-button:hover {
     border-radius: 1rem;
 }
 
-.back button{
+.back button {
     padding: 15px;
     text-decoration: none;
     margin-top: 50px;
@@ -161,7 +161,7 @@ input[type=file]::file-selector-button:hover {
     background-color: #c5e4fa;
 }
 
-.form-button a:hover , .back button  {
+.form-button a:hover, .back button {
     font-weight: bold;
 }
 
@@ -223,7 +223,7 @@ input[type=file]::file-selector-button:hover {
     border-color: #9CC9E8;
 }
 
-.team-inf, .team-descr, .team-dip, .team-button{
+.team-inf, .team-descr, .team-dip, .team-button {
     font-size: 23px;
     width: 25%;
 }
@@ -265,7 +265,7 @@ input[type=file]::file-selector-button:hover {
     border-bottom: 2px solid #1E1E24;
 }
 
-.content-upload input[type=button], .team-button input[type=button]  {
+.content-upload input[type=button], .team-button input[type=button] {
     border: 2px solid #1E1E24;
     padding: .5em 1em;
     border-radius: 1rem;
@@ -484,7 +484,7 @@ input[type=file]::file-selector-button:hover {
     top: 2px;
 }
 
-#flex-team-button button, input[type=submit], #flex-team-competenze button, .confermaScioglimento button{
+#flex-team-button button, input[type=submit], #flex-team-competenze button, .confermaScioglimento button {
     font-size: 18px;
     border-radius: 1rem;
     background-color: white;
@@ -503,7 +503,7 @@ input[type=file]::file-selector-button:hover {
     margin-top: 20px;
 }
 
-.nega{
+.nega {
     margin-right: 30px;
 }
 

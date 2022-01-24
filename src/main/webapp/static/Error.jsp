@@ -25,12 +25,16 @@
     <c:choose>
         <c:when test="${user!=null}">
             <div class="back">
-               <a href="../LoginControl"> <button>Torna alla Home</button></a>
+                <a href="../LoginControl">
+                    <button>Torna alla Home</button>
+                </a>
             </div>
         </c:when>
         <c:otherwise>
             <div class="back">
-                <a href="http://localhost:8080/AgencyFormation/"><button>Torna alla Home</button></a>
+                <a href="http://localhost:8080/AgencyFormation/">
+                    <button>Torna alla Home</button>
+                </a>
             </div>
         </c:otherwise>
     </c:choose>

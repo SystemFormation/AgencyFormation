@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    String error =  request.getParameter("error");
+    String error = request.getParameter("error");
 %>
 <c:set var="error" value="<%=error%>"/>
 <!DOCTYPE html>
@@ -41,7 +41,9 @@
         <div class="form-button">
             <input type="button" value="Registrati" id="Registrati" onclick="checkRegistrationSubmit()">
         </div>
-            <a href="http://localhost:8080/AgencyFormation/"><div class="back">Torna alla Home</div></a>
+        <a href="http://localhost:8080/AgencyFormation/">
+            <div class="back">Torna alla Home</div>
+        </a>
     </form>
 </div>
 </body>
