@@ -1570,11 +1570,10 @@
       "id": "babf6d65-1866-4098-a606-1b3815ad4da1",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//div[@id='home']/button/a)[3]",
+      "target": "xpath=//div[3]/a/button",
       "targets": [
-        ["xpath=(//div[@id='home']/button/a)[3]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'ListaTeam')]", "xpath:href"],
-        ["xpath=//div[3]/button/a", "xpath:position"]
+        ["xpath=(//div[@id='home']/a/button)[3]", "xpath:idRelative"],
+        ["xpath=//div[3]/a/button", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -1693,7 +1692,7 @@
       "id": "b17fb87b-3a0f-468b-ae9c-de33331c34fe",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//div[@id='home']/button/a)[3]",
+      "target": "xpath=//div[3]/a/button",
       "targets": [
         ["xpath=(//div[@id='home']/button/a)[3]", "xpath:idRelative"],
         ["xpath=//a[contains(@href, 'ListaTeam')]", "xpath:href"],
@@ -1704,50 +1703,46 @@
       "id": "5e7ed81e-886e-47a7-a209-8567d3ceace9",
       "comment": "",
       "command": "click",
-      "target": "css=.team:nth-child(6) img",
+      "target": "xpath=//div[2]/div[3]/div/div/a/img",
       "targets": [
-        ["css=.team:nth-child(6) img", "css:finder"],
+        ["css=.team:nth-child(3) img", "css:finder"],
         ["xpath=(//div[@id='flex-team']/a/img)[2]", "xpath:idRelative"],
-        ["xpath=//div[3]/div[3]/div/div/a/img", "xpath:position"]
+        ["xpath=//div[2]/div[3]/div/div/a/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ad058919-d302-43eb-8175-d42a88883435",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//div[@id='flex-team-button']/div/a/button)[2]",
+      "targets": [
+        ["css=.team:nth-child(3) #flex-team-button a > button", "css:finder"],
+        ["xpath=(//div[@id='flex-team-button']/div/a/button)[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[4]/div/a/button", "xpath:position"]
       ],
       "value": ""
     }, {
       "id": "e69011b6-1339-4503-91fc-c1e062ff416f",
       "comment": "",
       "command": "click",
-      "target": "css=.team:nth-child(6) button > a",
+      "target": "xpath=//div[@id='flex']/a/button",
       "targets": [
-        ["css=.team:nth-child(6) button > a", "css:finder"],
-        ["xpath=(//a[contains(text(),'Aggiungi\n                                    Dipendenti')])[2]", "xpath:link"],
-        ["xpath=(//div[@id='flex-team-button']/div/button/a)[2]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'AggiuntaDipendente?idTeam=2')]", "xpath:href"],
-        ["xpath=//div[3]/div/div[4]/div/button/a", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "e54374c8-8936-4ec9-8583-d1d31ed16ad2",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Aggiungi",
-      "targets": [
-        ["linkText=Aggiungi", "linkText"],
-        ["xpath=//a[contains(text(),'Aggiungi')]", "xpath:link"],
-        ["xpath=//div[@id='flex']/a", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'AddTeamControl?action=aggiungi&id=5&idTeam=2')]", "xpath:href"],
-        ["xpath=//div[7]/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Aggiungi')]", "xpath:innerText"]
+        ["css=button", "css:finder"],
+        ["xpath=//div[@id='flex']/a/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
       "id": "35a6d595-2f17-4185-98d2-2a03e087d30d",
       "comment": "",
       "command": "assertElementPresent",
-      "target": "xpath=(//div[@id='flex-team'])[10]",
+      "target": "xpath=(//div[@id='flex-team-dip']/div)[2]",
       "targets": [
-        ["css=.team:nth-child(8) #flex-team-dip > #flex-team", "css:finder"],
+        ["css=.team:nth-child(3) #flex-team-dip > #flex-team", "css:finder"],
         ["xpath=(//div[@id='flex-team'])[10]", "xpath:attributes"],
         ["xpath=(//div[@id='flex-team-dip']/div)[2]", "xpath:idRelative"],
-        ["xpath=//div[5]/div[3]/div/div", "xpath:position"]
+        ["xpath=//div[2]/div[3]/div/div", "xpath:position"]
       ],
       "value": ""
     }, {

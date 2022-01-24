@@ -39,7 +39,7 @@ import java.sql.SQLException;
 <span class="fc" id="L39">                    int annoNascita = Integer.parseInt(request.getParameter(&quot;annoDipendente&quot;));</span>
 <span class="fc" id="L40">                    String residenza = request.getParameter(&quot;residenzaDipendente&quot;);</span>
 <span class="fc" id="L41">                    String telefono = request.getParameter(&quot;telefonoDipendente&quot;);</span>
-<span class="pc bpc" id="L42" title="1 of 4 branches missed.">                    if(residenza!=null &amp;&amp; telefono!=null) {</span>
+<span class="pc bpc" id="L42" title="1 of 4 branches missed.">                    if (residenza != null &amp;&amp; telefono != null) {</span>
 <span class="fc" id="L43">                        Dipendente dipendente = new Dipendente();</span>
 <span class="fc" id="L44">                        dipendente.setIdDipendente(idDipendente);</span>
 <span class="fc" id="L45">                        dipendente.setAnnoNascita(annoNascita);</span>
@@ -56,10 +56,10 @@ import java.sql.SQLException;
 <span class="fc" id="L56">                            response.getWriter().write(&quot;3&quot;); // assunzione</span>
 <span class="fc" id="L57">                            response.sendRedirect(&quot;./static/Login.jsp&quot;);</span>
                         }
-<span class="fc" id="L59">                    }else{</span>
+<span class="fc" id="L59">                    } else {</span>
 <span class="fc" id="L60">                        response.getWriter().write(&quot;4&quot;); // residenza o telefono o null</span>
 <span class="fc" id="L61">                        String descrizione = &quot;Residenza o Telefono null&quot;;</span>
-<span class="fc" id="L62">                        response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot;+descrizione);</span>
+<span class="fc" id="L62">                        response.sendRedirect(&quot;./static/Error.jsp?descrizione=&quot; + descrizione);</span>
                     }
 <span class="nc" id="L64">            } catch (SQLException e) {</span>
 <span class="nc" id="L65">                e.printStackTrace();</span>

@@ -1,6 +1,7 @@
 package it.unisa.agency_formation.reclutamento.manager;
 
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
+import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAOImpl;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 
@@ -9,7 +10,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class ReclutamentoManagerImpl implements ReclutamentoManager {
-
+    public static CandidaturaDAO daoCandidatura = new CandidaturaDAOImpl();
     /**
      * Questo metodo permette di caricare la cadidatura
      *
@@ -24,12 +25,12 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
         } else {
             if (candidatura.getCurriculum() != null && candidatura.getDocumentiAggiuntivi() == null) {
                 if (!alreadyLoaded(candidatura.getIdCandidato())) {
-                    return CandidaturaDAO.salvaCandidaturaSenzaDocumenti(candidatura);
+                    return daoCandidatura.salvaCandidaturaSenzaDocumenti(candidatura);
                 } else {
                     return false;
                 }
             } else {
-                return CandidaturaDAO.aggiungiDocumentiAggiuntivi(candidatura.getDocumentiAggiuntivi(), candidatura.getIdCandidato());
+                return daoCandidatura.aggiungiDocumentiAggiuntivi(candidatura.getDocumentiAggiuntivi(), candidatura.getIdCandidato());
             }
         }
     }
@@ -41,7 +42,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public ArrayList<Candidatura> getTutteCandidature() throws SQLException {
-        return CandidaturaDAO.recuperaCandidature();
+        return daoCandidatura.recuperaCandidature();
     }
 
     /**
@@ -54,7 +55,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public boolean ricandidatura(int idCandidato) throws SQLException {
-        return CandidaturaDAO.rimuoviCandidatura(idCandidato);
+        return daoCandidatura.rimuoviCandidatura(idCandidato);
     }
 
     /**
@@ -68,7 +69,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public boolean modificaStatoCandidatura(int idCandidatura, StatiCandidatura stato) throws SQLException {
-        return CandidaturaDAO.modificaStatoCandidatura(idCandidatura, stato);
+        return daoCandidatura.modificaStatoCandidatura(idCandidatura, stato);
     }
 
     /**
@@ -79,7 +80,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public Candidatura getCandidaturaById(int idCandidato) throws SQLException {
-        return CandidaturaDAO.doRetrieveCandidaturaById(idCandidato);
+        return daoCandidatura.doRetrieveCandidaturaById(idCandidato);
     }
 
     /**
@@ -93,7 +94,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
-        return CandidaturaDAO.accettaCandidatura(idCandidatura, idHR, data);
+        return daoCandidatura.accettaCandidatura(idCandidatura, idHR, data);
     }
 
     /**
@@ -106,7 +107,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
 
     @Override
     public boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
-        return CandidaturaDAO.rifiutaCandidatura(idCandidatura, idHR);
+        return daoCandidatura.rifiutaCandidatura(idCandidatura, idHR);
     }
 
     /**
@@ -117,7 +118,7 @@ public class ReclutamentoManagerImpl implements ReclutamentoManager {
      * @throws SQLException errore nella query errore nella query*/
 
     private boolean alreadyLoaded(int idUtente) throws SQLException {
-        if (CandidaturaDAO.doRetrieveCandidaturaById(idUtente) == null) {
+        if (daoCandidatura.doRetrieveCandidaturaById(idUtente) == null) {
             return false;
         }
         return true;

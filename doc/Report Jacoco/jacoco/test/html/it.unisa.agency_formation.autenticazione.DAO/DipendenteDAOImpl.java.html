@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DipendenteDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.autenticazione.DAO</a> &gt; <span class="el_source">DipendenteDAO.java</span></div><h1>DipendenteDAO.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.autenticazione.DAO;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DipendenteDAOImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.autenticazione.DAO</a> &gt; <span class="el_source">DipendenteDAOImpl.java</span></div><h1>DipendenteDAOImpl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.autenticazione.DAO;
 
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.RuoliUtenti;
@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-<span class="nc" id="L15">public class DipendenteDAO {</span>
+<span class="fc" id="L15">public class DipendenteDAOImpl implements DipendenteDAO {</span>
     private static final String TABLE_DIPENDENTE = &quot;dipendenti&quot;;
 
     /**
@@ -22,7 +22,7 @@ import java.util.ArrayList;
      * @return boolean true se il dipendente Ã¨Ã¬ stato salvato, false altrimenti
      * @throws SQLException errore nella query errore nella query*/
 
-    public static boolean salvaDipendente(Dipendente dipendente) throws SQLException {
+    public boolean salvaDipendente(Dipendente dipendente) throws SQLException {
 <span class="pc bpc" id="L26" title="1 of 4 branches missed.">        if (dipendente == null || dipendente.getResidenza().length() &gt; 128</span>
 <span class="pc bpc" id="L27" title="1 of 2 branches missed.">                || dipendente.getTelefono().length() &gt; 20) {</span>
 <span class="fc" id="L28">            return false;</span>
@@ -51,7 +51,7 @@ import java.util.ArrayList;
      * @return boolean true se il ruolo Ã¨ stato modificato, false altrimenti
      * @throws SQLException errore nella query errore nella query
      */
-    public static boolean modificaRuoloUtente(int id) throws SQLException {
+    public boolean modificaRuoloUtente(int id) throws SQLException {
 <span class="fc bfc" id="L55" title="All 2 branches covered.">        if (id &lt;= 0) {</span>
 <span class="fc" id="L56">            return false;</span>
         }
@@ -74,7 +74,7 @@ import java.util.ArrayList;
      * @return Dipendente se Ã¨ presente, null altrimenti
      * @throws SQLException errore nella query errore nella query
      */
-    public static Dipendente recuperoDipendenteById(int id) throws SQLException {
+    public Dipendente recuperoDipendenteById(int id) throws SQLException {
 <span class="fc bfc" id="L78" title="All 2 branches covered.">        if (id &lt;= 0) {</span>
 <span class="fc" id="L79">            return null;</span>
         }
@@ -121,7 +121,7 @@ import java.util.ArrayList;
      * @return {@literal ArrayList&lt;@link Dipendente&gt;} lista di dipendenti se sono presenti, null altrimenti
      * @throws SQLException errore nella query errore nella query
      */
-    public static ArrayList&lt;Dipendente&gt; recuperaDipendenti() throws SQLException {
+    public ArrayList&lt;Dipendente&gt; recuperaDipendenti() throws SQLException {
 <span class="fc" id="L125">        Connection connection = DatabaseManager.getInstance().getConnection();</span>
 <span class="fc" id="L126">        PreparedStatement stmt = null;</span>
 <span class="fc" id="L127">        String query = &quot;SELECT * FROM &quot; + TABLE_DIPENDENTE + &quot; inner join utenti on utenti.IdUtente = dipendenti.IdDipendente&quot;;</span>
@@ -169,7 +169,7 @@ import java.util.ArrayList;
      * @return boolean true se il set Ã¨ andato a buon fine, false altrimenti
      * @throws SQLException errore nella query errore nella query
      */
-    public static boolean setIdTeamDipendente(int idDip, int idTeam) throws SQLException {
+    public boolean setIdTeamDipendente(int idDip, int idTeam) throws SQLException {
 <span class="fc bfc" id="L173" title="All 4 branches covered.">        if (idDip &lt;= 0 || idTeam &lt;= 0) {</span>
 <span class="fc" id="L174">            return false;</span>
         }

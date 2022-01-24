@@ -1,6 +1,8 @@
 package it.unisa.agency_formation.autenticazione.manager;
 
+import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAOImpl;
 import it.unisa.agency_formation.autenticazione.DAO.DipendenteDAO;
+import it.unisa.agency_formation.autenticazione.DAO.UtenteDAOImpl;
 import it.unisa.agency_formation.autenticazione.DAO.UtenteDAO;
 import it.unisa.agency_formation.autenticazione.domain.Dipendente;
 import it.unisa.agency_formation.autenticazione.domain.Utente;
@@ -9,7 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AutenticazioneManagerImpl implements AutenticazioneManager {
-
+        public static UtenteDAO daoUtente = new UtenteDAOImpl();
+        public static DipendenteDAO daoDipendente = new DipendenteDAOImpl();
     /**
      * Questa funzionalità permette di far registrare un utente,l'utente non deve essere già registrato
      *
@@ -20,7 +23,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
     @Override
     public boolean registrazione(Utente user) throws SQLException {
         if (!alreadyRegisteredUser(user)) {
-            return UtenteDAO.salvaUtente(user);
+            return daoUtente.salvaUtente(user);
         } else {
             return false;
         }
@@ -36,7 +39,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      */
     @Override
     public Utente login(String email, String password) throws SQLException {
-        return UtenteDAO.login(email, password);
+        return daoUtente.login(email, password);
     }
 
     /**
@@ -48,7 +51,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      */
     @Override
     public Dipendente getDipendente(int idDip) throws SQLException {
-        return DipendenteDAO.recuperoDipendenteById(idDip);
+        return daoDipendente.recuperoDipendenteById(idDip);
     }
 
     /**
@@ -58,7 +61,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      */
     @Override
     public ArrayList<Utente> getCandidatiConCandidatura() throws SQLException {
-        return UtenteDAO.doRetrieveCandidatoConCandidatura();
+        return daoUtente.doRetrieveCandidatoConCandidatura();
     }
 
     /**
@@ -68,7 +71,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
 
     @Override
     public ArrayList<Dipendente> getTuttiDipendenti() throws SQLException {
-        return DipendenteDAO.recuperaDipendenti();
+        return daoDipendente.recuperaDipendenti();
     }
 
     /**
@@ -79,8 +82,8 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
 
     @Override
     public boolean assumiCandidato(Dipendente dipendente) throws SQLException {
-        DipendenteDAO.modificaRuoloUtente(dipendente.getIdDipendente());
-        return (DipendenteDAO.salvaDipendente(dipendente));
+        daoDipendente.modificaRuoloUtente(dipendente.getIdDipendente());
+        return (daoDipendente.salvaDipendente(dipendente));
     }
 
     /**
@@ -90,7 +93,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
 
     @Override
     public ArrayList<Utente> getCandidatiColloquio() throws SQLException {
-        return UtenteDAO.recuperoCandidatiColloquio();
+        return daoUtente.recuperoCandidatiColloquio();
     }
 
     /**
@@ -103,7 +106,7 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      */
     @Override
     public boolean setTeamDipendente(int idDip, int idTeam) throws SQLException {
-        return DipendenteDAO.setIdTeamDipendente(idDip, idTeam);
+        return daoDipendente.setIdTeamDipendente(idDip, idTeam);
     }
 
     /**
@@ -114,6 +117,6 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      *                  true = l'utente è registrato)
      * @throws SQLException errore nella query*/
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {
-      return UtenteDAO.checkEmail(user.getEmail());
+      return daoUtente.checkEmail(user.getEmail());
     }
 }

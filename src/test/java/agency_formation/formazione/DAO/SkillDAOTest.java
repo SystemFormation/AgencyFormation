@@ -1,24 +1,19 @@
 package agency_formation.formazione.DAO;
 
-
 import it.unisa.agency_formation.formazione.DAO.SkillDAO;
+import it.unisa.agency_formation.formazione.DAO.SkillDAOImpl;
 import it.unisa.agency_formation.formazione.domain.Skill;
 import it.unisa.agency_formation.utils.Const;
 import it.unisa.agency_formation.utils.DatabaseManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-
 public class SkillDAOTest {
-
+    private SkillDAO dao = new SkillDAOImpl();
     @BeforeAll
     public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;
@@ -55,77 +50,79 @@ public class SkillDAOTest {
     @Order(1)
     public void saveSkillFail() throws SQLException {
         Skill skill = null;
-        assertFalse(SkillDAO.salvaSkill(skill));
+        assertFalse(dao.salvaSkill(skill));
     }
 
     @Test
     @Order(2)
     public void saveSkillOK() throws SQLException {
         Skill skill = new Skill("C","Conoscenze base");
-        assertTrue(SkillDAO.salvaSkill(skill));
+        assertTrue(dao.salvaSkill(skill));
     }
 
     @Test //pass
     @Order(3)
     public void doRetrieveByNamePass() throws SQLException {
         String nomeSkill = "HTML";
-        assertNotNull(SkillDAO.recuperaSkillByNome(nomeSkill));
+        assertNotNull(dao.recuperaSkillByNome(nomeSkill));
     }
 
     @Test
     @Order(4)
     public void doRetrieveByNameNull() throws SQLException {
         String nomeSkill = null;
-        assertNull(SkillDAO.recuperaSkillByNome(nomeSkill));
+        assertNull(dao.recuperaSkillByNome(nomeSkill));
     }
 
     @Test //not pass idSkill<1
     @Order(5)
     public void saveSkillDipIdSkillFail() throws SQLException {
-        assertFalse(SkillDAO.salvaSkillDipendente(0, 1, 4));
+        assertFalse(dao.salvaSkillDipendente(0, 1, 4));
     }
 
     @Test //not pass idDip < 1
     @Order(6)
     public void saveSkillDipIdDipNull() throws SQLException {
-        assertFalse(SkillDAO.salvaSkillDipendente(1, 0, 4));
+        assertFalse(dao.salvaSkillDipendente(1, 0, 4));
     }
 
     @Test //not pass idDip < 1 && idSkill < 1
     @Order(7)
     public void saveSkillDipNullAndFail() throws SQLException {
-        assertFalse(SkillDAO.salvaSkillDipendente(0, 0, 4));
+        assertFalse(dao.salvaSkillDipendente(0, 0, 4));
     }
 
     @Test //pass
     @Order(8)
     public void saveSkillDipPass() throws SQLException {
-        assertTrue(SkillDAO.salvaSkillDipendente(1, 100, 4));
+        assertTrue(dao.salvaSkillDipendente(1, 100, 4));
     }
 
     @Test
     @Order(9)
     public void retrieveLastIdPass() throws SQLException {
-        assertNotNull(SkillDAO.recuperaUltimaSkill());
+        assertNotNull(dao.recuperaUltimaSkill());
     }
 
 
     @Test
     @Order(10)//dip non ha skill
     public void doRetrieveSkillByIdDipendenteFail() throws SQLException {
-    assertNull(SkillDAO.recuperoSkillsByIdDipendente(101));
+    assertNull(dao.recuperoSkillsByIdDipendente(101));
 
     }
 
     @Test // idDip<1
     @Order(11)
      public void doRetrieveSkillByIdDipendenteFail1() throws SQLException {
-        assertNull(SkillDAO.recuperoSkillsByIdDipendente(0));
+        assertNull(dao.recuperoSkillsByIdDipendente(0));
     }
 
     @Test
     @Order(12)
     public void doRetrieveSkillByIdDipendentePass() throws SQLException {
-        assertNotNull(SkillDAO.recuperoSkillsByIdDipendente(2));
+        assertNotNull(dao.recuperoSkillsByIdDipendente(2));
     }
+
+
 }

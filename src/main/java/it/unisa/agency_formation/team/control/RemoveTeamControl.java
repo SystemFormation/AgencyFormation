@@ -32,7 +32,7 @@ public class RemoveTeamControl extends HttpServlet {
         if (user != null && user.getRole() == RuoliUtenti.TM) {
             RequestDispatcher dispatcher;
             int idDip = Integer.parseInt(req.getParameter("idDip"));
-            if (idDip != 0) {
+            if (idDip > 0) {
                 try {
                     if (!rimuoviDipendenteFromManager(idDip)) {
                         resp.getWriter().write("4"); //dipendente non rimosso

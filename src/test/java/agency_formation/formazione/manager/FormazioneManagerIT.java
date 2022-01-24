@@ -51,8 +51,8 @@ public class FormazioneManagerIT {
         statement.executeUpdate(delete1);
         statement.executeUpdate(delete2);
         statement.executeUpdate(deleteSkill);
-        statement.executeUpdate(deleteDip);
         statement.executeUpdate(deleteUtente);
+        statement.executeUpdate(deleteDip);
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 

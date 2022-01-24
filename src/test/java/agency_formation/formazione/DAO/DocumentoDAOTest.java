@@ -1,6 +1,7 @@
 package agency_formation.formazione.DAO;
 
 import it.unisa.agency_formation.formazione.DAO.DocumentoDAO;
+import it.unisa.agency_formation.formazione.DAO.DocumentoDAOImpl;
 import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.utils.Const;
 import it.unisa.agency_formation.utils.DatabaseManager;
@@ -14,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class DocumentoDAOTest {
-
+    private DocumentoDAO dao = new DocumentoDAOImpl();
     @BeforeAll
     public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;
@@ -54,33 +55,33 @@ public class DocumentoDAOTest {
     @Order(1)
     public void salvaDocumentoFail1() throws SQLException {
         Documento doc = null;
-        assertFalse(DocumentoDAO.salvaDocumento(doc));
+        assertFalse(dao.salvaDocumento(doc));
     }
 
     @Test //salva il documento
     @Order(2)
     public void salvaDocumentoOk() throws SQLException {
         Documento doc = new Documento(2,"/",4,4);
-        assertTrue(DocumentoDAO.salvaDocumento(doc));
+        assertTrue(dao.salvaDocumento(doc));
     }
 
     @Test //Il team non esiste
     @Order(3)
     public void recuperaDocumentoByTeamFail1() throws SQLException {
         int idTeam=-1;
-        assertNull(DocumentoDAO.recuperaDocumentoByTeam(idTeam));
+        assertNull(dao.recuperaDocumentoByTeam(idTeam));
     }
 
     @Test //Documento esiste
     @Order(4)
     public void recuperaDocumentoByTeamOk() throws SQLException {
-        assertNotNull(DocumentoDAO.recuperaDocumentoByTeam(4));
+        assertNotNull(dao.recuperaDocumentoByTeam(4));
     }
 
     @Test//Documento non esiste
     @Order(5)
     public void recuperaDocumentoByTeamFail() throws SQLException {
-        assertNull(DocumentoDAO.recuperaDocumentoByTeam(5));
+        assertNull(dao.recuperaDocumentoByTeam(5));
     }
 
 }

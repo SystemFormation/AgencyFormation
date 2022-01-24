@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReclutamentoManagerImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.reclutamento.manager</a> &gt; <span class="el_source">ReclutamentoManagerImpl.java</span></div><h1>ReclutamentoManagerImpl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.reclutamento.manager;
 
 import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAO;
+import it.unisa.agency_formation.reclutamento.DAO.CandidaturaDAOImpl;
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
 
@@ -8,8 +9,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-<span class="fc" id="L11">public class ReclutamentoManagerImpl implements ReclutamentoManager {</span>
-
+<span class="fc" id="L12">public class ReclutamentoManagerImpl implements ReclutamentoManager {</span>
+<span class="fc" id="L13">    public static CandidaturaDAO daoCandidatura = new CandidaturaDAOImpl();</span>
     /**
      * Questo metodo permette di caricare la cadidatura
      *
@@ -19,17 +20,17 @@ import java.util.ArrayList;
      * @throws SQLException errore nella query errore nella query*/
     @Override
     public boolean caricaCandidatura(Candidatura candidatura) throws SQLException {
-<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (candidatura == null) {</span>
-<span class="fc" id="L23">            return false;</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (candidatura == null) {</span>
+<span class="fc" id="L24">            return false;</span>
         } else {
-<span class="fc bfc" id="L25" title="All 4 branches covered.">            if (candidatura.getCurriculum() != null &amp;&amp; candidatura.getDocumentiAggiuntivi() == null) {</span>
-<span class="fc bfc" id="L26" title="All 2 branches covered.">                if (!alreadyLoaded(candidatura.getIdCandidato())) {</span>
-<span class="fc" id="L27">                    return CandidaturaDAO.salvaCandidaturaSenzaDocumenti(candidatura);</span>
+<span class="fc bfc" id="L26" title="All 4 branches covered.">            if (candidatura.getCurriculum() != null &amp;&amp; candidatura.getDocumentiAggiuntivi() == null) {</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">                if (!alreadyLoaded(candidatura.getIdCandidato())) {</span>
+<span class="fc" id="L28">                    return daoCandidatura.salvaCandidaturaSenzaDocumenti(candidatura);</span>
                 } else {
-<span class="fc" id="L29">                    return false;</span>
+<span class="fc" id="L30">                    return false;</span>
                 }
             } else {
-<span class="fc" id="L32">                return CandidaturaDAO.aggiungiDocumentiAggiuntivi(candidatura.getDocumentiAggiuntivi(), candidatura.getIdCandidato());</span>
+<span class="fc" id="L33">                return daoCandidatura.aggiungiDocumentiAggiuntivi(candidatura.getDocumentiAggiuntivi(), candidatura.getIdCandidato());</span>
             }
         }
     }
@@ -41,7 +42,7 @@ import java.util.ArrayList;
 
     @Override
     public ArrayList&lt;Candidatura&gt; getTutteCandidature() throws SQLException {
-<span class="fc" id="L44">        return CandidaturaDAO.recuperaCandidature();</span>
+<span class="fc" id="L45">        return daoCandidatura.recuperaCandidature();</span>
     }
 
     /**
@@ -54,7 +55,7 @@ import java.util.ArrayList;
 
     @Override
     public boolean ricandidatura(int idCandidato) throws SQLException {
-<span class="fc" id="L57">        return CandidaturaDAO.rimuoviCandidatura(idCandidato);</span>
+<span class="fc" id="L58">        return daoCandidatura.rimuoviCandidatura(idCandidato);</span>
     }
 
     /**
@@ -68,7 +69,7 @@ import java.util.ArrayList;
 
     @Override
     public boolean modificaStatoCandidatura(int idCandidatura, StatiCandidatura stato) throws SQLException {
-<span class="fc" id="L71">        return CandidaturaDAO.modificaStatoCandidatura(idCandidatura, stato);</span>
+<span class="fc" id="L72">        return daoCandidatura.modificaStatoCandidatura(idCandidatura, stato);</span>
     }
 
     /**
@@ -79,7 +80,7 @@ import java.util.ArrayList;
 
     @Override
     public Candidatura getCandidaturaById(int idCandidato) throws SQLException {
-<span class="fc" id="L82">        return CandidaturaDAO.doRetrieveCandidaturaById(idCandidato);</span>
+<span class="fc" id="L83">        return daoCandidatura.doRetrieveCandidaturaById(idCandidato);</span>
     }
 
     /**
@@ -93,7 +94,7 @@ import java.util.ArrayList;
 
     @Override
     public boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
-<span class="fc" id="L96">        return CandidaturaDAO.accettaCandidatura(idCandidatura, idHR, data);</span>
+<span class="fc" id="L97">        return daoCandidatura.accettaCandidatura(idCandidatura, idHR, data);</span>
     }
 
     /**
@@ -106,7 +107,7 @@ import java.util.ArrayList;
 
     @Override
     public boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
-<span class="fc" id="L109">        return CandidaturaDAO.rifiutaCandidatura(idCandidatura, idHR);</span>
+<span class="fc" id="L110">        return daoCandidatura.rifiutaCandidatura(idCandidatura, idHR);</span>
     }
 
     /**
@@ -117,10 +118,10 @@ import java.util.ArrayList;
      * @throws SQLException errore nella query errore nella query*/
 
     private boolean alreadyLoaded(int idUtente) throws SQLException {
-<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (CandidaturaDAO.doRetrieveCandidaturaById(idUtente) == null) {</span>
-<span class="fc" id="L121">            return false;</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (daoCandidatura.doRetrieveCandidaturaById(idUtente) == null) {</span>
+<span class="fc" id="L122">            return false;</span>
         }
-<span class="fc" id="L123">        return true;</span>
+<span class="fc" id="L124">        return true;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

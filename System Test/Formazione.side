@@ -93,7 +93,7 @@
       "id": "43d17524-43fb-4fe6-b717-79ec70d01ecd",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//div[@id='home']/button/a)[3]",
+      "target": "xpath=//div[3]/a/button",
       "targets": [
         ["xpath=(//div[@id='home']/button/a)[3]", "xpath:idRelative"],
         ["xpath=//a[contains(@href, 'ListaTeam')]", "xpath:href"],
@@ -273,11 +273,10 @@
       "id": "806d1481-a129-4374-b76f-7365524937be",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//div[@id='home']/button/a)[2]",
+      "target": "xpath=//div[2]/a/button",
       "targets": [
-        ["xpath=(//div[@id='home']/button/a)[2]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'ListaTeam')]", "xpath:href"],
-        ["xpath=//div[2]/button/a", "xpath:position"]
+        ["xpath=(//div[@id='home']/a/button)[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/a/button", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -424,7 +423,7 @@
       "id": "320a6b5f-3648-447c-95d3-cdab1560ec3a",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//div[@id='home']/button/a)[2]",
+      "target": "xpath=//div[2]/a/button",
       "targets": [
         ["xpath=(//div[@id='home']/button/a)[2]", "xpath:idRelative"],
         ["xpath=//a[contains(@href, 'ListaTeam')]", "xpath:href"],
@@ -618,11 +617,10 @@
       "id": "b9f4b84e-162b-4958-abf1-4037cbf57ad2",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//div[@id='home']/button/a)[3]",
+      "target": "xpath=//div[3]/a/button",
       "targets": [
-        ["xpath=(//div[@id='home']/button/a)[3]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'ListaTeam')]", "xpath:href"],
-        ["xpath=//div[3]/button/a", "xpath:position"]
+        ["xpath=(//div[@id='home']/a/button)[3]", "xpath:idRelative"],
+        ["xpath=//div[3]/a/button", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -786,7 +784,7 @@
       "id": "3f766f19-7f99-4828-9943-fc21b23ddd21",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//div[@id='home']/button/a)[3]",
+      "target": "xpath=//div[3]/a/button",
       "targets": [
         ["xpath=(//div[@id='home']/button/a)[3]", "xpath:idRelative"],
         ["xpath=//a[contains(@href, 'ListaTeam')]", "xpath:href"],
@@ -2461,7 +2459,7 @@
       "id": "bd4e04b1-78b2-4daf-a71b-d5207608a12b",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//div[@id='home']/button/a)[2]",
+      "target": "xpath=//div[2]/a/button",
       "targets": [
         ["xpath=(//div[@id='home']/button/a)[2]", "xpath:idRelative"],
         ["xpath=//a[contains(@href, 'ListaTeam')]", "xpath:href"],
@@ -2640,7 +2638,7 @@
       "id": "a957e848-f02f-4e5c-a70b-ac2fae7c42f7",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//div[@id='home']/button/a)[2]",
+      "target": "xpath=//div[2]/a/button",
       "targets": [
         ["xpath=(//div[@id='home']/button/a)[2]", "xpath:idRelative"],
         ["xpath=//a[contains(@href, 'ListaTeam')]", "xpath:href"],

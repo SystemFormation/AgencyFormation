@@ -111,7 +111,7 @@ public class ProfiloControlTest {
         Mockito.when(request.getServletContext()).thenReturn(context);
         Mockito.when(context.getRequestDispatcher(anyString())).thenReturn(dispatcher);
         ProfiloControl servlet = Mockito.spy(ProfiloControl.class);
-        MockedStatic<ProfiloControl> mockedStatic = mockStatic(ProfiloControl.class);
+        try(MockedStatic<ProfiloControl> mockedStatic = mockStatic(ProfiloControl.class)) {
             mockedStatic.when(() -> ProfiloControl.getAllDataDipFromManager(1)).thenReturn(dipendente);
             mockedStatic.when(() -> ProfiloControl.getSkillDipendenteFromManager(1)).thenReturn(skills);
             StringWriter stringWriter = new StringWriter();
@@ -120,7 +120,7 @@ public class ProfiloControlTest {
             servlet.init(config);
             servlet.doPost(request, response);
             assertTrue(stringWriter.toString().contains("1"));
-
+        }
 
     }
 

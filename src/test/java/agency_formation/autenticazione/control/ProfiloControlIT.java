@@ -40,26 +40,26 @@ public class ProfiloControlIT {
     @BeforeAll
     public static void init() throws SQLException {
         Const.nomeDB = Const.NOME_DB_TEST;
-        String query1 = "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(4,'TestTeam',5,'Test','test descr','Java EE',3)";
+       /* String query1 = "Insert into team (IdTeam,NomeProgetto,NumeroDipendenti,NomeTeam,Descrizione,Competenza,idTM) values(4,'TestTeam',5,'Test','test descr','Java EE',3)";
 
-        String query2 = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
-                "values (3,'TestResidenza','118',false,2000,1)";
+       // String query2 = "insert into dipendenti (IdDipendente, Residenza, Telefono, Stato, AnnoDiNascita,IdTeam) " +
+               // "values (3,'TestResidenza','118',false,2000,1)";
 
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement1 = connection.prepareStatement(query1);
-        PreparedStatement statement2 = connection.prepareStatement(query2);
+        //PreparedStatement statement2 = connection.prepareStatement(query2);
         statement1.executeUpdate();
-        statement2.executeUpdate();
+        //statement2.executeUpdate();*/
     }
     @AfterAll
     public static void finish() throws SQLException {
-        String delete1 = "Delete from dipendenti where IdDipendente>2";
+        /*String delete1 = "Delete from dipendenti where IdDipendente>2";
         String delete2 = "Delete from team where IdTeam>1";
         Connection connection = DatabaseManager.getInstance().getConnection();
         PreparedStatement statement1 = connection.prepareStatement(delete1);
         PreparedStatement statement2 = connection.prepareStatement(delete2);
         statement1.executeUpdate();
-        statement2.executeUpdate();
+        statement2.executeUpdate();*/
         Const.nomeDB = Const.NOME_DB_MANAGER;
     }
 
@@ -109,7 +109,7 @@ public class ProfiloControlIT {
         dispatcher = Mockito.mock(RequestDispatcher.class);
         context = Mockito.mock(ServletContext.class);
         Utente user = new Utente();
-        user.setId(3);
+        user.setId(2);
         user.setPwd("lol");
         user.setRole(RuoliUtenti.DIPENDENTE);
         user.setSurname("TestCognome");

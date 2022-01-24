@@ -18,7 +18,7 @@ import java.sql.SQLException;
 <span class="fc" id="L18">public class AddTeamControl extends HttpServlet {</span>
 
     /**
-     * Questo metodo controlla le operazioni per effettuare l'aggiunta di un team
+     * Questo metodo controlla le operazioni per effettuare l'aggiunta del dipendente nel team
      *
      * @param req  , request
      * @param resp , response
@@ -89,8 +89,8 @@ import java.sql.SQLException;
      */
 
     public static boolean setTeamDipendenteFromManager(int idDip, int idTeam) throws SQLException {
-<span class="fc" id="L92">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
-<span class="fc" id="L93">        return autenticazioneManager.setTeamDipendente(idDip, idTeam);</span>
+<span class="nc" id="L92">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="nc" id="L93">        return autenticazioneManager.setTeamDipendente(idDip, idTeam);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,6 +1,5 @@
 package agency_formation.team.manager;
 
-import it.unisa.agency_formation.team.DAO.TeamDAO;
 import it.unisa.agency_formation.team.domain.Team;
 import it.unisa.agency_formation.team.manager.TeamManagerImpl;
 import it.unisa.agency_formation.utils.Const;

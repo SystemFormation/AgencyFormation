@@ -1,7 +1,9 @@
 package it.unisa.agency_formation.formazione.manager;
 
 import it.unisa.agency_formation.formazione.DAO.DocumentoDAO;
+import it.unisa.agency_formation.formazione.DAO.DocumentoDAOImpl;
 import it.unisa.agency_formation.formazione.DAO.SkillDAO;
+import it.unisa.agency_formation.formazione.DAO.SkillDAOImpl;
 import it.unisa.agency_formation.formazione.domain.Documento;
 import it.unisa.agency_formation.formazione.domain.Skill;
 
@@ -9,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FormazioneManagerImpl implements FormazioneManager {
+    public static SkillDAO daoSkill = new SkillDAOImpl();
+    public static DocumentoDAO daoDocumento = new DocumentoDAOImpl();
 
     /**
      * Questa funzionalità permette di salvare un documento
@@ -19,7 +23,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
      */
     @Override
     public boolean salvaDocumento(Documento documento) throws SQLException {
-        return DocumentoDAO.salvaDocumento(documento);
+        return daoDocumento.salvaDocumento(documento);
     }
 
     /**
@@ -31,7 +35,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
      */
     @Override
     public boolean aggiungiSkill(Skill skill) throws SQLException {
-        return SkillDAO.salvaSkill(skill);
+        return daoSkill.salvaSkill(skill);
     }
 
     /**
@@ -41,7 +45,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     @Override
     public int getUltimaSkill() throws SQLException {
-        return SkillDAO.recuperaUltimaSkill();
+        return daoSkill.recuperaUltimaSkill();
     }
 
     /**
@@ -55,7 +59,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     @Override
     public boolean addSkillDipendente(int idSkill, int idDip, int skillLivello) throws SQLException {
-        return SkillDAO.salvaSkillDipendente(idSkill, idDip, skillLivello);
+        return daoSkill.salvaSkillDipendente(idSkill, idDip, skillLivello);
     }
 
     /**
@@ -67,7 +71,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     @Override
     public Documento getMaterialeByIdTeam(int idTeam) throws SQLException {
-        return DocumentoDAO.recuperaDocumentoByTeam(idTeam);
+        return daoDocumento.recuperaDocumentoByTeam(idTeam);
     }
 
     /**
@@ -79,7 +83,7 @@ public class FormazioneManagerImpl implements FormazioneManager {
 
     @Override
     public ArrayList<Skill> recuperoSkillConIdDipendente(int idDipendente) throws SQLException {
-        return SkillDAO.recuperoSkillsByIdDipendente(idDipendente);
+        return daoSkill.recuperoSkillsByIdDipendente(idDipendente);
     }
 
 }

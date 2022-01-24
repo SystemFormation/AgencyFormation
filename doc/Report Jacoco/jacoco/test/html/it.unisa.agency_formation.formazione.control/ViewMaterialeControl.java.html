@@ -80,8 +80,8 @@ import java.sql.SQLException;
      * @throws SQLException errore nella query
      */
     public static Dipendente getDipendenteFromManager(int idUtente) throws SQLException {
-<span class="fc" id="L83">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
-<span class="fc" id="L84">        return autenticazioneManager.getDipendente(idUtente);</span>
+<span class="nc" id="L83">        AutenticazioneManager autenticazioneManager = new AutenticazioneManagerImpl();</span>
+<span class="nc" id="L84">        return autenticazioneManager.getDipendente(idUtente);</span>
     }
 
     /**
@@ -92,8 +92,8 @@ import java.sql.SQLException;
      * @throws SQLException errore nella query
      */
     public static Documento getDocumentoFromManager(int idTeam) throws SQLException {
-<span class="fc" id="L95">        FormazioneManager formazioneManager = new FormazioneManagerImpl();</span>
-<span class="fc" id="L96">        return formazioneManager.getMaterialeByIdTeam(idTeam);</span>
+<span class="nc" id="L95">        FormazioneManager formazioneManager = new FormazioneManagerImpl();</span>
+<span class="nc" id="L96">        return formazioneManager.getMaterialeByIdTeam(idTeam);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

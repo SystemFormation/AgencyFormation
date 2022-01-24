@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CandidaturaDAO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.reclutamento.DAO</a> &gt; <span class="el_source">CandidaturaDAO.java</span></div><h1>CandidaturaDAO.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.reclutamento.DAO;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CandidaturaDAOImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">agencyFormation</a> &gt; <a href="index.source.html" class="el_package">it.unisa.agency_formation.reclutamento.DAO</a> &gt; <span class="el_source">CandidaturaDAOImpl.java</span></div><h1>CandidaturaDAOImpl.java</h1><pre class="source lang-java linenums">package it.unisa.agency_formation.reclutamento.DAO;
 
 import it.unisa.agency_formation.reclutamento.domain.Candidatura;
 import it.unisa.agency_formation.reclutamento.domain.StatiCandidatura;
@@ -7,7 +7,7 @@ import it.unisa.agency_formation.utils.DatabaseManager;
 import java.sql.*;
 import java.util.ArrayList;
 
-<span class="nc" id="L10">public class CandidaturaDAO {</span>
+<span class="fc" id="L10">public class CandidaturaDAOImpl implements CandidaturaDAO{</span>
     private  static final String TABLE_CANDIDATURA = &quot;Candidature&quot;;
 
     /**
@@ -18,7 +18,7 @@ import java.util.ArrayList;
      * true = la funzionalitÃ  va a buon fine)
      * @throws SQLException errore nella query errore nella query  errore nella query
      */
-    public static boolean salvaCandidaturaSenzaDocumenti(Candidatura candidatura) throws SQLException {
+    public boolean salvaCandidaturaSenzaDocumenti(Candidatura candidatura) throws SQLException {
 <span class="pc bpc" id="L22" title="1 of 4 branches missed.">        if (candidatura == null || candidatura.getCurriculum().length() &gt; 512) {</span>
 <span class="fc" id="L23">            return false;</span>
         }
@@ -51,7 +51,7 @@ import java.util.ArrayList;
      * @throws SQLException errore nella query errore nella query
      */
 
-    public static boolean aggiungiDocumentiAggiuntivi(String document, int idUtente) throws SQLException {
+    public boolean aggiungiDocumentiAggiuntivi(String document, int idUtente) throws SQLException {
 <span class="pc bpc" id="L55" title="1 of 6 branches missed.">        if (document == null || idUtente &lt; 1 || document.length() &gt; 512) {</span>
 <span class="fc" id="L56">            return false;</span>
         }
@@ -76,7 +76,7 @@ import java.util.ArrayList;
      * @return Candidatura interessata
      * @throws SQLException errore nella query errore nella query
      */
-    public static Candidatura doRetrieveCandidaturaById(int idCandidato) throws SQLException {
+    public Candidatura doRetrieveCandidaturaById(int idCandidato) throws SQLException {
 <span class="fc bfc" id="L80" title="All 2 branches covered.">        if (idCandidato &lt; 1) {</span>
 <span class="fc" id="L81">            return null;</span>
         }
@@ -129,7 +129,7 @@ import java.util.ArrayList;
      * @return  {@literal ArrayList&lt;@link Candidatura&gt;} , una lista di candidature
      * @throws SQLException errore nella query errore nella query
      */
-    public static ArrayList&lt;Candidatura&gt; recuperaCandidature() throws SQLException {
+    public ArrayList&lt;Candidatura&gt; recuperaCandidature() throws SQLException {
 <span class="fc" id="L133">        Connection connection = DatabaseManager.getInstance().getConnection();</span>
         ResultSet result;
 <span class="fc" id="L135">        PreparedStatement retrieve = null;</span>
@@ -166,7 +166,7 @@ import java.util.ArrayList;
      *                  true = la funzionalitÃ² va a buon fine)
      * @throws SQLException errore nella query errore nella query
      */
-    public static boolean modificaStatoCandidatura(int idCandidatura, StatiCandidatura stato) throws SQLException {
+    public boolean modificaStatoCandidatura(int idCandidatura, StatiCandidatura stato) throws SQLException {
 <span class="pc bpc" id="L170" title="1 of 4 branches missed.">        if (idCandidatura &lt; 1 || stato == null) {</span>
 <span class="fc" id="L171">            return false;</span>
         }
@@ -207,7 +207,7 @@ import java.util.ArrayList;
      *                  true = la funzionalitÃ² va a buon fine)
      * @throws SQLException errore nella query errore nella query
      */
-    public static boolean rimuoviCandidatura(int idCandidato) throws SQLException {
+    public boolean rimuoviCandidatura(int idCandidato) throws SQLException {
 <span class="fc bfc" id="L211" title="All 2 branches covered.">        if (idCandidato &lt; 1) {</span>
 <span class="fc" id="L212">            return false;</span>
         }
@@ -234,7 +234,7 @@ import java.util.ArrayList;
      *                  true = la funzionalitÃ  va a buon fine)
      * @throws SQLException errore nella query errore nella query
      */
-    public static boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
+    public boolean rifiutaCandidatura(int idCandidatura, int idHR) throws SQLException {
 <span class="fc bfc" id="L238" title="All 4 branches covered.">        if (idCandidatura &lt; 1 || idHR &lt; 1) {</span>
 <span class="fc" id="L239">            return false;</span>
         }
@@ -267,7 +267,7 @@ import java.util.ArrayList;
      *                  true = la funzionalitÃ  va a buon fine)
      * @throws SQLException errore nella query errore nella query
      */
-    public static boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
+    public boolean accettaCandidatura(int idCandidatura, int idHR, Timestamp data) throws SQLException {
 <span class="pc bpc" id="L271" title="1 of 6 branches missed.">        if (idCandidatura &lt; 1 || idHR &lt; 1 || data.before(new java.util.Date())) {</span>
 <span class="fc" id="L272">            return false;</span>
         }
