@@ -118,43 +118,44 @@ function scioglimentoTeam(i) {
     if (setSciogli == "none" && setButton == "inline-flex") {
         x.style.display = "inline";
         y.style.display = "none";
-    }if (setSciogli == "inline" && setButton == "none"){
+    }
+    if (setSciogli == "inline" && setButton == "none") {
         x.style.display = "none";
         y.style.display = "inline-flex";
     }
 
 }
 
-function checkAggiungiSkill(){
+function checkAggiungiSkill() {
     var name = document.getElementsByName("skillName")[0];
     var description = document.getElementsByName("skillDescription")[0];
     var level = document.getElementsByName("quantity")[0];
     var button = document.getElementById("Aggiungi");
     var checkName = /^[\w\s+#/-]{1,64}$/;
-    var checkDescription =  /^[\w\s,.;:+#/-]{1,512}$/;
+    var checkDescription = /^[\w\s,.;:+#/-]{1,512}$/;
     var checkLevel = /^[1-5]$/;
     if (!name.value.match(checkName)) {
         $('#nameSkill').css("display", "inline");
         $('#nameSkill').css("color", "red");
         $('#nameSkill').css("font-size", "14px").html("Formato non valido o lunghezza errata");
-    }else {
+    } else {
         $('#nameSkill').css("display", "none");
     }
     if (!description.value.match(checkDescription)) {
         $('#descriptionSkill').css("display", "inline");
         $('#descriptionSkill').css("color", "red");
         $('#descriptionSkill').css("font-size", "14px").html("Formato non valido o lunghezza errata");
-    }else {
+    } else {
         $('#descriptionSkill').css("display", "none");
     }
     if (!level.value.match(checkLevel)) {
         $('#levelSkill').css("display", "inline");
         $('#levelSkill').css("color", "red");
         $('#levelSkill').css("font-size", "14px").html("Livello non valido");
-    }else {
+    } else {
         $('#levelSkill').css("display", "none");
     }
-    if (name.value.match(checkName) && description.value.match(checkDescription) && level.value.match(checkLevel)){
+    if (name.value.match(checkName) && description.value.match(checkDescription) && level.value.match(checkLevel)) {
         $('#nameSkill').css("display", "none");
         $('#descriptionSkill').css("display", "none");
         $('#levelSkill').css("display", "none");
@@ -166,12 +167,12 @@ function checkSpecify(i) {
     var index = i;
     var specify = document.getElementsByName("specCompetenze")[index];
     var button = document.getElementsByName("specifica")[index];
-    var check =  /^[\w\s,.;:+#/-]{1,512}$/;
+    var check = /^[\w\s,.;:+#/-]{1,512}$/;
     if (!specify.value.match(check)) {
         $('#specifyCompetence').css("display", "inline");
         $('#specifyCompetence').css("color", "red");
         $('#specifyCompetence').css("font-size", "14px").html("Formato non valido o lunghezza errata");
-    }else {
+    } else {
         button.setAttribute('type', "submit");
     }
 }

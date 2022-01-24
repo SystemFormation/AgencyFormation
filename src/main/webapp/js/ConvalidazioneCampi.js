@@ -22,7 +22,7 @@ function checkEmail() {
 function checkPassword() {
     var input = document.getElementsByName("pwd")[0];
     var button = document.getElementById("Registrati");
-    var check = /^[A-Za-z0-9]{3,16}$/;
+    var check = /^[A-Za-z0-9.]{3,16}$/;
     var esito;
     if (!input.value.match(check)) {
         $('#pwd').css("border-bottom", "2px solid #BB0000");

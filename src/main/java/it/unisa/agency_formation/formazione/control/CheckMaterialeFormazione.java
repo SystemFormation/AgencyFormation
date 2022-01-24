@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class CheckMaterialeFormazione extends HttpServlet {
 
     /**
-     * Questo metodo controlla che i documenti soddisfa i requisiti
+     * Questo metodo controlla che i documenti soddisfino i requisiti
      *
      * @param request  , request
      * @param response , response
