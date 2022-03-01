@@ -37,7 +37,7 @@ public class ListaDipendentiControl extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utente user = (Utente) req.getSession().getAttribute("user");
-        if (user != null && user.getRole() == RuoliUtenti.TM) {
+        if (user != null && (user.getRole() == RuoliUtenti.TM || user.getRole() == RuoliUtenti.HR)) {
             RequestDispatcher dispatcher;
             /*visualizzo tutti i dipendenti*/
             try {
@@ -55,8 +55,13 @@ public class ListaDipendentiControl extends HttpServlet {
                     }
                     req.setAttribute("dipendenti", dipendenti);
                     resp.getWriter().write("2");
-                    dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/VisualizzaDipendenti.jsp");
-                    dispatcher.forward(req, resp);
+                    if(user.getRole()==RuoliUtenti.TM) {
+                        dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/VisualizzaDipendenti.jsp");
+                        dispatcher.forward(req, resp);
+                    }else if(user.getRole()==RuoliUtenti.HR){
+                        dispatcher = req.getServletContext().getRequestDispatcher("/WEB-INF/jsp/VisualizzaDipendentiHR.jsp");
+                        dispatcher.forward(req, resp);
+                    }
                 } else {
                     resp.getWriter().write("1");
                 }

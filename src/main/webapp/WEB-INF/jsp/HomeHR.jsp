@@ -40,6 +40,14 @@
                     <button>Accedi all'area</button>
                 </a>
             </div>
+
+            <div id="home">
+                <h2> Lista Dipendenti </h2>
+                <p>Visualizza tutti i dipendenti presenti nell'azienda.</p>
+                <a href="ListaDipendentiControl">
+                    <button>Accedi all'area</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>

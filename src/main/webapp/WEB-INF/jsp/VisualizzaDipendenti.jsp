@@ -80,6 +80,13 @@
                                 </div>
                             </c:when>
                         </c:choose>
+                        <div id="flex">
+                            <form action="./LicenziaDipendente" method="get">
+                                <input type="hidden" value="${dip.getIdDipendente()}" name="idDip">
+                                <input type="submit" value="Licenzia">
+                            </form>
+
+                        </div>
                         <c:set var="index" value="${index + 1}" scope="page"/>
                     </c:forEach>
                 </c:when>

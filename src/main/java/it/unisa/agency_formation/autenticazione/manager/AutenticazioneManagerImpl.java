@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class AutenticazioneManagerImpl implements AutenticazioneManager {
-        public static UtenteDAO daoUtente = new UtenteDAOImpl();
-        public static DipendenteDAO daoDipendente = new DipendenteDAOImpl();
+    public static UtenteDAO daoUtente = new UtenteDAOImpl();
+    public static DipendenteDAO daoDipendente = new DipendenteDAOImpl();
     /**
      * Questa funzionalità permette di far registrare un utente,l'utente non deve essere già registrato
      *
@@ -117,6 +117,13 @@ public class AutenticazioneManagerImpl implements AutenticazioneManager {
      *                  true = l'utente è registrato)
      * @throws SQLException errore nella query*/
     private boolean alreadyRegisteredUser(Utente user) throws SQLException {
-      return daoUtente.checkEmail(user.getEmail());
+        return daoUtente.checkEmail(user.getEmail());
     }
+
+    public boolean licenziaDipendente(int idDipendete) throws SQLException{
+        return daoUtente.licenziaDipendente(idDipendete);
+    }
+
+
+
 }

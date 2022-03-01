@@ -207,5 +207,19 @@ public class UtenteDAOImpl implements UtenteDAO {
         }
     }
 
+    public boolean licenziaDipendente(int idDipendete) throws SQLException{
+        if(idDipendete<1){return false;}
+        Connection connection = DatabaseManager.getInstance().getConnection();
+        String delete = "Delete from utenti where IdUtente=?";
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement(delete);
+            preparedStatement.setInt(1,idDipendete);
+            int esito = preparedStatement.executeUpdate();
+            return esito!=-1?true:false;
+        }finally {
+            DatabaseManager.closeConnessione(connection);
+        }
+    }
 
 }
