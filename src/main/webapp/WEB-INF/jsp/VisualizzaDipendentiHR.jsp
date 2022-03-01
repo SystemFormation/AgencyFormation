@@ -31,7 +31,7 @@
                     <div id="flex-head">Dipendente</div>
                     <div id="flex-head">Team</div>
                     <div id="flex-head">Competenze</div>
-                    <div id="flex-head">Stato</div>
+                    <div id="flex-head">Azione</div>
                     <c:set var="index" value="0"/>
                     <c:forEach var="dip" items="${dipendenti}">
                         <div id="flex">${dip.getName()} ${dip.getSurname()}</div>
@@ -66,20 +66,13 @@
                                 </c:otherwise>
                             </c:choose>
                         </div>
-                        <c:choose>
-                            <c:when test="${dip.getStato() == StatiDipendenti.OCCUPATO}">
-                                <div id="flex">
-                                    <div id="stato-dipendente">Occupato</div>
-                                    <div class="occupato">.</div>
-                                </div>
-                            </c:when>
-                            <c:when test="${dip.getStato() == StatiDipendenti.DISPONIBILE}">
-                                <div id="flex">
-                                    <div id="stato-dipendente">Disponibile</div>
-                                    <div class="disponibile">.</div>
-                                </div>
-                            </c:when>
-                        </c:choose>
+                        <div id="flex">
+                            <form action="./LicenziaDipendente" method="get">
+                                <input type="hidden" value="${dip.getIdDipendente()}" name="idDip">
+                                <input type="submit" value="Licenzia">
+                            </form>
+
+                        </div>
                         <c:set var="index" value="${index + 1}" scope="page"/>
                     </c:forEach>
                 </c:when>
